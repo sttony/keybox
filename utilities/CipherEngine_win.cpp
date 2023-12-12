@@ -73,8 +73,8 @@ uint32_t CCipherEngine::SHA256(const char *pPlanText, size_t cbPlanTextSize, std
 uint32_t
 CCipherEngine::AES256EnDecrypt(const char *pInputBuff,
                                size_t cbInputBuff,
-                               const std::vector<char> vKey,
-                               const std::vector<char> vIV,
+                               const std::vector<char>& vKey,
+                               const std::vector<char>& vIV,
                                uint32_t chain_mode,
                                uint32_t padding_mode,
                                bool bEncrypt,
