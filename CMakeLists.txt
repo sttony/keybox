@@ -9,4 +9,7 @@ include_directories(utilities)
 add_subdirectory(utilities)
 
 
+
 target_link_libraries(keybox utilities)
+
+add_subdirectory(boost_tests)
