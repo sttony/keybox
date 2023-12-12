@@ -34,8 +34,9 @@ BOOST_AUTO_TEST_SUITE(CipherTestSuit)
     BOOST_AUTO_TEST_CASE(AES256_Padding)
     {
         CCipherEngine encryptEngine;
-        char key[32] ={0};
-        char iv[16] = {1};
+        vector<char> key(32);
+        vector<char> iv(16);
+        iv[0] = '\1';
 
         const char  plaintext[16] = {0};
         std::vector<char> encrypted_buff;
@@ -71,8 +72,9 @@ BOOST_AUTO_TEST_SUITE(CipherTestSuit)
     BOOST_AUTO_TEST_CASE(AES256_No_Padding)
     {
         CCipherEngine encryptEngine;
-        char key[32] ={0};
-        char iv[16] = {1};
+        vector<char> key(32);
+        vector<char> iv(16);
+        iv[0] = '\1';
 
         const char  plaintext[16] = {0};
         std::vector<char> encrypted_buff;

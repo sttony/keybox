@@ -73,12 +73,15 @@ uint32_t CCipherEngine::SHA256(const char *pPlanText, size_t cbPlanTextSize, std
 uint32_t
 CCipherEngine::AES256EnDecrypt(const char *pInputBuff,
                                size_t cbInputBuff,
-                               const char *pKey,
-                               const char *pIV,
+                               const std::vector<char> vKey,
+                               const std::vector<char> vIV,
                                uint32_t chain_mode,
                                uint32_t padding_mode,
                                bool bEncrypt,
                                std::vector<char> &vOutputBuff) {
+    if(vKey.size() !=32 || vIV.size() != 16){
+        return ERROR_INVALID_PARAMETER;
+    }
     Win32Handler<BCRYPT_ALG_HANDLE> aesAlgHandle(NULL, [](BCRYPT_ALG_HANDLE _h) {
         BCryptCloseAlgorithmProvider(_h, 0);
     });
@@ -101,7 +104,7 @@ CCipherEngine::AES256EnDecrypt(const char *pInputBuff,
             aesKeyHandle.ptr(),
             NULL,
             0,
-            (PBYTE) pKey,
+            (PBYTE) &vKey[0],
             32,
             0);
     if (!NT_SUCCESS(status)) {
@@ -162,7 +165,7 @@ CCipherEngine::AES256EnDecrypt(const char *pInputBuff,
                 (PBYTE)pInputBuff,
                 cbInputBuff,
                 NULL,
-                (PBYTE)pIV,
+                (PBYTE)&vIV[0],
                 16,
                 NULL,
                 0,
@@ -173,14 +176,13 @@ CCipherEngine::AES256EnDecrypt(const char *pInputBuff,
         }
         vOutputBuff.resize(dwCipherTextLength);
 
-        std::vector<BYTE> tempIVBuff(16);
-        memcpy_s( &tempIVBuff[0], 16, pIV, 16);
+        std::vector<char> tempIVBuff  = vIV;
         status = BCryptEncrypt(
                 aesKeyHandle,
                 (PBYTE)pInputBuff,
                 cbInputBuff,
                 NULL,
-                &tempIVBuff[0],
+                reinterpret_cast<PBYTE>(&tempIVBuff[0]),
                 16,
                 reinterpret_cast<PBYTE>(&vOutputBuff[0]),
                 vOutputBuff.size(),
@@ -197,7 +199,7 @@ CCipherEngine::AES256EnDecrypt(const char *pInputBuff,
                 (PBYTE)pInputBuff,
                 cbInputBuff,
                 NULL,
-                (PBYTE)pIV,
+                (PBYTE)&vIV[0],
                 16,
                 NULL,
                 0,
@@ -208,14 +210,13 @@ CCipherEngine::AES256EnDecrypt(const char *pInputBuff,
         }
         vOutputBuff.resize(dwPlainTextLength);
 
-        std::vector<BYTE> tempIVBuff(16);
-        memcpy_s( &tempIVBuff[0], 16, pIV, 16);
+        std::vector<char> tempIVBuff = vIV;
         status = BCryptDecrypt(
                 aesKeyHandle,
                 (PBYTE)pInputBuff,
                 cbInputBuff,
                 NULL,
-                &tempIVBuff[0],
+                reinterpret_cast<PBYTE>(&tempIVBuff[0]),
                 16,
                 reinterpret_cast<PBYTE>(&vOutputBuff[0]),
                 vOutputBuff.size(),

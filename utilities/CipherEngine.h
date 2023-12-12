@@ -25,8 +25,8 @@ public:
 
     uint32_t AES256EnDecrypt(const char* pInputBuff,
                            size_t cbInputBuff,
-                           const char* pKey,
-                           const char* pIV,
+                           const std::vector<char> vKey,
+                           const std::vector<char> vIV,
                            uint32_t chain_mode,
                            uint32_t padding_mode,
                            bool bEncrypt,

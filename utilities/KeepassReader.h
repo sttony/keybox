@@ -11,7 +11,7 @@
 
 class CKdbxReader{
 public:
-    bool TransformKey(const std::string& key, const std::vector<char>& seed, std::vector<char>& iv, int around);
+    uint32_t TransformKey(const std::string& key, const std::vector<char>& seed, std::vector<char>& iv, int around);
 
 };
 
