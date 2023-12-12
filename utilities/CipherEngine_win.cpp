@@ -13,7 +13,7 @@
 #include <bcrypt.h>
 #include <winerror.h>
 
-uint32_t CCipherEngine::SHA256(const char *pPlanText, size_t cbPlanTextSize, std::vector<char> &Output) {
+uint32_t CCipherEngine::SHA256(const unsigned char *pPlanText, size_t cbPlanTextSize, std::vector<unsigned char> &Output) {
     Win32Handler<BCRYPT_ALG_HANDLE> sha256AlgHandle(NULL, [](BCRYPT_ALG_HANDLE _h) {
         BCryptCloseAlgorithmProvider(_h, 0);
     });
@@ -71,14 +71,14 @@ uint32_t CCipherEngine::SHA256(const char *pPlanText, size_t cbPlanTextSize, std
 }
 
 uint32_t
-CCipherEngine::AES256EnDecrypt(const char *pInputBuff,
+CCipherEngine::AES256EnDecrypt(const unsigned char *pInputBuff,
                                size_t cbInputBuff,
-                               const std::vector<char>& vKey,
-                               const std::vector<char>& vIV,
+                               const std::vector<unsigned char>& vKey,
+                               const std::vector<unsigned char>& vIV,
                                uint32_t chain_mode,
                                uint32_t padding_mode,
                                bool bEncrypt,
-                               std::vector<char> &vOutputBuff) {
+                               std::vector<unsigned char> &vOutputBuff) {
     if(vKey.size() !=32 || vIV.size() != 16){
         return ERROR_INVALID_PARAMETER;
     }
@@ -117,6 +117,9 @@ CCipherEngine::AES256EnDecrypt(const char *pInputBuff,
     }
     auto bcrypt_chaining_mode = BCRYPT_CHAIN_MODE_NA;
     size_t sz_bcrypt_chaining_mode = sizeof(BCRYPT_CHAIN_MODE_NA);
+    std::vector<unsigned char> tempIVBuff  = vIV;
+    PBYTE pIV = (PBYTE)&tempIVBuff[0];
+    DWORD cbIV = 16;
     switch (chain_mode) {
         case AES_CHAIN_MODE_CBC:
             bcrypt_chaining_mode = BCRYPT_CHAIN_MODE_CBC;
@@ -133,6 +136,8 @@ CCipherEngine::AES256EnDecrypt(const char *pInputBuff,
         case AES_CHAIN_MODE_ECB:
             bcrypt_chaining_mode = BCRYPT_CHAIN_MODE_ECB;
             sz_bcrypt_chaining_mode = sizeof(BCRYPT_CHAIN_MODE_ECB);
+            pIV = NULL;
+            cbIV = 0;
             break;
         case AES_CHAIN_MODE_GCM:
             bcrypt_chaining_mode = BCRYPT_CHAIN_MODE_GCM;
@@ -165,8 +170,8 @@ CCipherEngine::AES256EnDecrypt(const char *pInputBuff,
                 (PBYTE)pInputBuff,
                 cbInputBuff,
                 NULL,
-                (PBYTE)&vIV[0],
-                16,
+                pIV,
+                cbIV,
                 NULL,
                 0,
                 &dwCipherTextLength,
@@ -176,14 +181,14 @@ CCipherEngine::AES256EnDecrypt(const char *pInputBuff,
         }
         vOutputBuff.resize(dwCipherTextLength);
 
-        std::vector<char> tempIVBuff  = vIV;
+
         status = BCryptEncrypt(
                 aesKeyHandle,
                 (PBYTE)pInputBuff,
                 cbInputBuff,
                 NULL,
-                reinterpret_cast<PBYTE>(&tempIVBuff[0]),
-                16,
+                pIV,
+                cbIV,
                 reinterpret_cast<PBYTE>(&vOutputBuff[0]),
                 vOutputBuff.size(),
                 &dwCipherTextLength,
@@ -199,8 +204,8 @@ CCipherEngine::AES256EnDecrypt(const char *pInputBuff,
                 (PBYTE)pInputBuff,
                 cbInputBuff,
                 NULL,
-                (PBYTE)&vIV[0],
-                16,
+                pIV,
+                cbIV,
                 NULL,
                 0,
                 &dwPlainTextLength,
@@ -210,14 +215,14 @@ CCipherEngine::AES256EnDecrypt(const char *pInputBuff,
         }
         vOutputBuff.resize(dwPlainTextLength);
 
-        std::vector<char> tempIVBuff = vIV;
+        std::vector<unsigned char> tempIVBuff = vIV;
         status = BCryptDecrypt(
                 aesKeyHandle,
                 (PBYTE)pInputBuff,
                 cbInputBuff,
                 NULL,
-                reinterpret_cast<PBYTE>(&tempIVBuff[0]),
-                16,
+                pIV,
+                cbIV,
                 reinterpret_cast<PBYTE>(&vOutputBuff[0]),
                 vOutputBuff.size(),
                 &dwPlainTextLength,

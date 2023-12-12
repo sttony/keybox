@@ -6,7 +6,7 @@
 #include <iostream>
 using namespace std;
 
-std::string blobToHexString(const std::vector<char> &sha256_buff) {
+static std::string blobToHexString(const std::vector<unsigned char> &sha256_buff) {
     std::stringstream ss;
     ss << std::hex << std::setfill('0');
 
@@ -22,8 +22,8 @@ BOOST_AUTO_TEST_SUITE(CipherTestSuit)
     BOOST_AUTO_TEST_CASE(SHA256)
     {
         CCipherEngine encryptEngine;
-        std::vector<char>  sha256_buff;
-        char input[32] ="aaa";
+        std::vector<unsigned char>  sha256_buff;
+        unsigned char input[32] ="aaa";
         encryptEngine.SHA256(input, 3, sha256_buff);
 
         // 47 bc e5 c7 4f 58 9f 48 67 db d5 7e 9c a9 f8 08 7d 8a 8e f6 58 26 17 2b 6c 29 80 9d 92 71 a7 cf
@@ -34,13 +34,13 @@ BOOST_AUTO_TEST_SUITE(CipherTestSuit)
     BOOST_AUTO_TEST_CASE(AES256_Padding)
     {
         CCipherEngine encryptEngine;
-        vector<char> key(32);
-        vector<char> iv(16);
+        vector<unsigned char> key(32);
+        vector<unsigned char> iv(16);
         iv[0] = '\1';
 
         const char  plaintext[16] = {0};
-        std::vector<char> encrypted_buff;
-        encryptEngine.AES256EnDecrypt((char*)plaintext,
+        std::vector<unsigned char> encrypted_buff;
+        encryptEngine.AES256EnDecrypt((unsigned char*)plaintext,
                                     16,
                                     key,
                                     iv,
@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_SUITE(CipherTestSuit)
         string hexStr = blobToHexString(encrypted_buff);
         BOOST_CHECK_EQUAL(hexStr, "5275f3d86b4fb8684593133ebfa53cd3a32ee726721a38c529df5a9b0d3af07f");
 
-        std::vector<char> decrypted_buff;
+        std::vector<unsigned char> decrypted_buff;
         encryptEngine.AES256EnDecrypt(&encrypted_buff[0],
                                       encrypted_buff.size(),
                                       key,
@@ -72,13 +72,13 @@ BOOST_AUTO_TEST_SUITE(CipherTestSuit)
     BOOST_AUTO_TEST_CASE(AES256_No_Padding)
     {
         CCipherEngine encryptEngine;
-        vector<char> key(32);
-        vector<char> iv(16);
+        vector<unsigned char> key(32);
+        vector<unsigned char> iv(16);
         iv[0] = '\1';
 
-        const char  plaintext[16] = {0};
-        std::vector<char> encrypted_buff;
-        encryptEngine.AES256EnDecrypt((char*)plaintext,
+        const unsigned char  plaintext[16] = {0};
+        std::vector<unsigned char> encrypted_buff;
+        encryptEngine.AES256EnDecrypt((unsigned char*)plaintext,
                                       16,
                                       key,
                                       iv,
@@ -91,7 +91,7 @@ BOOST_AUTO_TEST_SUITE(CipherTestSuit)
         string hexStr = blobToHexString(encrypted_buff);
         BOOST_CHECK_EQUAL(hexStr, "5275f3d86b4fb8684593133ebfa53cd3");
 
-        std::vector<char> decrypted_buff;
+        std::vector<unsigned char> decrypted_buff;
         encryptEngine.AES256EnDecrypt(&encrypted_buff[0],
                                       encrypted_buff.size(),
                                       key,
