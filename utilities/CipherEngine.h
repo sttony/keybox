@@ -19,18 +19,18 @@ public:
     static const uint32_t AES_PADDING_MODE_NO    = 1;
     static const uint32_t AES_PADDING_MODE_PKCS7 = 2;
 
-    uint32_t SHA256(const uint8_t* pPlanText,
+    uint32_t SHA256(const char* pPlanText,
                     size_t cbPlanTextSize,
-                    std::vector<uint8_t>& Output);
+                    std::vector<char>& Output);
 
-    uint32_t AES256EnDecrypt(const uint8_t* pInputBuff,
+    uint32_t AES256EnDecrypt(const char* pInputBuff,
                            size_t cbInputBuff,
-                           const uint8_t* pKey,
-                           const uint8_t* pIV,
+                           const char* pKey,
+                           const char* pIV,
                            uint32_t chain_mode,
                            uint32_t padding_mode,
                            bool bEncrypt,
-                           std::vector<uint8_t>& vOutputBuff);
+                           std::vector<char>& vOutputBuff);
 
 };
 

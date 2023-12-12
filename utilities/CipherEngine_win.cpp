@@ -13,7 +13,7 @@
 #include <bcrypt.h>
 #include <winerror.h>
 
-uint32_t CCipherEngine::SHA256(const uint8_t *pPlanText, size_t cbPlanTextSize, std::vector<uint8_t> &Output) {
+uint32_t CCipherEngine::SHA256(const char *pPlanText, size_t cbPlanTextSize, std::vector<char> &Output) {
     Win32Handler<BCRYPT_ALG_HANDLE> sha256AlgHandle(NULL, [](BCRYPT_ALG_HANDLE _h) {
         BCryptCloseAlgorithmProvider(_h, 0);
     });
@@ -71,14 +71,14 @@ uint32_t CCipherEngine::SHA256(const uint8_t *pPlanText, size_t cbPlanTextSize, 
 }
 
 uint32_t
-CCipherEngine::AES256EnDecrypt(const uint8_t *pInputBuff,
+CCipherEngine::AES256EnDecrypt(const char *pInputBuff,
                                size_t cbInputBuff,
-                               const uint8_t *pKey,
-                               const uint8_t *pIV,
+                               const char *pKey,
+                               const char *pIV,
                                uint32_t chain_mode,
                                uint32_t padding_mode,
                                bool bEncrypt,
-                               std::vector<uint8_t> &vOutputBuff) {
+                               std::vector<char> &vOutputBuff) {
     Win32Handler<BCRYPT_ALG_HANDLE> aesAlgHandle(NULL, [](BCRYPT_ALG_HANDLE _h) {
         BCryptCloseAlgorithmProvider(_h, 0);
     });
@@ -182,7 +182,7 @@ CCipherEngine::AES256EnDecrypt(const uint8_t *pInputBuff,
                 NULL,
                 &tempIVBuff[0],
                 16,
-                static_cast<PBYTE>(&vOutputBuff[0]),
+                reinterpret_cast<PBYTE>(&vOutputBuff[0]),
                 vOutputBuff.size(),
                 &dwCipherTextLength,
                 dwPadding);
@@ -217,7 +217,7 @@ CCipherEngine::AES256EnDecrypt(const uint8_t *pInputBuff,
                 NULL,
                 &tempIVBuff[0],
                 16,
-                static_cast<PBYTE>(&vOutputBuff[0]),
+                reinterpret_cast<PBYTE>(&vOutputBuff[0]),
                 vOutputBuff.size(),
                 &dwPlainTextLength,
                 dwPadding);
