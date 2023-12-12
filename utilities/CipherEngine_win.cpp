@@ -69,3 +69,161 @@ uint32_t CCipherEngine::SHA256(const uint8_t *pPlanText, size_t cbPlanTextSize, 
 
     return status;
 }
+
+uint32_t
+CCipherEngine::AES256EnDecrypt(const uint8_t *pInputBuff,
+                               size_t cbInputBuff,
+                               const uint8_t *pKey,
+                               const uint8_t *pIV,
+                               uint32_t chain_mode,
+                               uint32_t padding_mode,
+                               bool bEncrypt,
+                               std::vector<uint8_t> &vOutputBuff) {
+    Win32Handler<BCRYPT_ALG_HANDLE> aesAlgHandle(NULL, [](BCRYPT_ALG_HANDLE _h) {
+        BCryptCloseAlgorithmProvider(_h, 0);
+    });
+    NTSTATUS status = BCryptOpenAlgorithmProvider(
+            aesAlgHandle.ptr(),
+            BCRYPT_AES_ALGORITHM,
+            NULL,
+            0
+    );
+
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+    Win32Handler<BCRYPT_KEY_HANDLE> aesKeyHandle(NULL, [](BCRYPT_KEY_HANDLE _h) {
+        BCryptDestroyKey(_h);
+    });
+
+    status = BCryptGenerateSymmetricKey(
+            aesAlgHandle,
+            aesKeyHandle.ptr(),
+            NULL,
+            0,
+            (PBYTE) pKey,
+            32,
+            0);
+    if (!NT_SUCCESS(status)) {
+        if(status == STATUS_BUFFER_TOO_SMALL){
+            return ERROR_BUFFER_TOO_SMALL;
+        }
+        else{
+            return status;
+        }
+    }
+    auto bcrypt_chaining_mode = BCRYPT_CHAIN_MODE_NA;
+    size_t sz_bcrypt_chaining_mode = sizeof(BCRYPT_CHAIN_MODE_NA);
+    switch (chain_mode) {
+        case AES_CHAIN_MODE_CBC:
+            bcrypt_chaining_mode = BCRYPT_CHAIN_MODE_CBC;
+            sz_bcrypt_chaining_mode = sizeof(BCRYPT_CHAIN_MODE_CBC);
+            break;
+        case AES_CHAIN_MODE_CCM:
+            bcrypt_chaining_mode = BCRYPT_CHAIN_MODE_CCM;
+            sz_bcrypt_chaining_mode = sizeof(BCRYPT_CHAIN_MODE_CCM);
+            break;
+        case AES_CHAIN_MODE_CFB:
+            bcrypt_chaining_mode = BCRYPT_CHAIN_MODE_CFB;
+            sz_bcrypt_chaining_mode = sizeof(BCRYPT_CHAIN_MODE_CFB);
+            break;
+        case AES_CHAIN_MODE_ECB:
+            bcrypt_chaining_mode = BCRYPT_CHAIN_MODE_ECB;
+            sz_bcrypt_chaining_mode = sizeof(BCRYPT_CHAIN_MODE_ECB);
+            break;
+        case AES_CHAIN_MODE_GCM:
+            bcrypt_chaining_mode = BCRYPT_CHAIN_MODE_GCM;
+            sz_bcrypt_chaining_mode = sizeof(BCRYPT_CHAIN_MODE_GCM);
+            break;
+        default:
+            return ERROR_INVALID_PARAMETER;
+    }
+
+    status = BCryptSetProperty(
+            aesKeyHandle,
+            BCRYPT_CHAINING_MODE,
+            (PBYTE) bcrypt_chaining_mode,
+            sz_bcrypt_chaining_mode,
+            0);
+
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    DWORD dwPadding  = BCRYPT_BLOCK_PADDING;
+    if(padding_mode == AES_PADDING_MODE_NO){
+        dwPadding = 0;
+    }
+
+    if(bEncrypt){
+        DWORD dwCipherTextLength = 0;
+        status = BCryptEncrypt(
+                aesKeyHandle,
+                (PBYTE)pInputBuff,
+                cbInputBuff,
+                NULL,
+                (PBYTE)pIV,
+                16,
+                NULL,
+                0,
+                &dwCipherTextLength,
+                dwPadding);
+        if (!NT_SUCCESS(status)) {
+            return status;
+        }
+        vOutputBuff.resize(dwCipherTextLength);
+
+        std::vector<BYTE> tempIVBuff(16);
+        memcpy_s( &tempIVBuff[0], 16, pIV, 16);
+        status = BCryptEncrypt(
+                aesKeyHandle,
+                (PBYTE)pInputBuff,
+                cbInputBuff,
+                NULL,
+                &tempIVBuff[0],
+                16,
+                static_cast<PBYTE>(&vOutputBuff[0]),
+                vOutputBuff.size(),
+                &dwCipherTextLength,
+                dwPadding);
+        if (!NT_SUCCESS(status)) {
+            return status;
+        }
+    }
+    else{
+        DWORD dwPlainTextLength = 0;
+        status = BCryptDecrypt(
+                aesKeyHandle,
+                (PBYTE)pInputBuff,
+                cbInputBuff,
+                NULL,
+                (PBYTE)pIV,
+                16,
+                NULL,
+                0,
+                &dwPlainTextLength,
+                dwPadding);
+        if (!NT_SUCCESS(status)) {
+            return status;
+        }
+        vOutputBuff.resize(dwPlainTextLength);
+
+        std::vector<BYTE> tempIVBuff(16);
+        memcpy_s( &tempIVBuff[0], 16, pIV, 16);
+        status = BCryptDecrypt(
+                aesKeyHandle,
+                (PBYTE)pInputBuff,
+                cbInputBuff,
+                NULL,
+                &tempIVBuff[0],
+                16,
+                static_cast<PBYTE>(&vOutputBuff[0]),
+                vOutputBuff.size(),
+                &dwPlainTextLength,
+                dwPadding);
+        if (!NT_SUCCESS(status)) {
+            return status;
+        }
+    }
+    return 0;
+}

@@ -30,5 +30,76 @@ BOOST_AUTO_TEST_SUITE(CipherTestSuit)
         string hexStr = blobToHexString(sha256_buff);
         BOOST_CHECK_EQUAL(hexStr, "9834876dcfb05cb167a5c24953eba58c4ac89b1adf57f28f2f9d09af107ee8f0");
     }
+
+    BOOST_AUTO_TEST_CASE(AES256_Padding)
+    {
+        CCipherEngine encryptEngine;
+        uint8_t key[32] ={0};
+        uint8_t iv[16] = {1};
+
+        const char  plaintext[16] = {0};
+        std::vector<uint8_t> encrypted_buff;
+        encryptEngine.AES256EnDecrypt((uint8_t*)plaintext,
+                                    16,
+                                    key,
+                                    iv,
+                                    CCipherEngine::AES_CHAIN_MODE_CBC,
+                                    CCipherEngine::AES_PADDING_MODE_PKCS7,
+                                    true,
+                                    encrypted_buff);
+
+
+        string hexStr = blobToHexString(encrypted_buff);
+        BOOST_CHECK_EQUAL(hexStr, "5275f3d86b4fb8684593133ebfa53cd3a32ee726721a38c529df5a9b0d3af07f");
+
+        std::vector<uint8_t> decrypted_buff;
+        encryptEngine.AES256EnDecrypt(&encrypted_buff[0],
+                                      encrypted_buff.size(),
+                                      key,
+                                      iv,
+                                      CCipherEngine::AES_CHAIN_MODE_CBC,
+                                      CCipherEngine::AES_PADDING_MODE_PKCS7,
+                                      false,
+                                      decrypted_buff);
+        hexStr = blobToHexString(decrypted_buff);
+        BOOST_CHECK_EQUAL(hexStr, "0000000000000000000000000000000000000000000000000000000000000000");
+
+
+
+    }
+
+    BOOST_AUTO_TEST_CASE(AES256_No_Padding)
+    {
+        CCipherEngine encryptEngine;
+        uint8_t key[32] ={0};
+        uint8_t iv[16] = {1};
+
+        const char  plaintext[16] = {0};
+        std::vector<uint8_t> encrypted_buff;
+        encryptEngine.AES256EnDecrypt((uint8_t*)plaintext,
+                                      16,
+                                      key,
+                                      iv,
+                                      CCipherEngine::AES_CHAIN_MODE_CBC,
+                                      CCipherEngine::AES_PADDING_MODE_NO,
+                                      true,
+                                      encrypted_buff);
+
+
+        string hexStr = blobToHexString(encrypted_buff);
+        BOOST_CHECK_EQUAL(hexStr, "5275f3d86b4fb8684593133ebfa53cd3");
+
+        std::vector<uint8_t> decrypted_buff;
+        encryptEngine.AES256EnDecrypt(&encrypted_buff[0],
+                                      encrypted_buff.size(),
+                                      key,
+                                      iv,
+                                      CCipherEngine::AES_CHAIN_MODE_CBC,
+                                      CCipherEngine::AES_PADDING_MODE_NO,
+                                      false,
+                                      decrypted_buff);
+        hexStr = blobToHexString(decrypted_buff);
+        BOOST_CHECK_EQUAL(hexStr, "00000000000000000000000000000000");
+    }
 BOOST_AUTO_TEST_SUITE_END()
 
