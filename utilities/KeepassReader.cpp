@@ -5,48 +5,89 @@
 #include "CipherEngine.h"
 #include "error_code.h"
 
-uint32_t
-CKdbxReader::TransformKey(const std::string &key,
-                          const std::vector<unsigned char> &seed,
-                          int uNumRounds,
-                          std::vector<unsigned char>& output) {
-    if(seed.size() != 32 ){
-        return ERROR_INVALID_PARAMETER;
+uint32_t CKdbxReader::LoadHeader(FILE * fp) {
+    size_t io_error = fread(& m_sig1, 4, 1, fp);
+    if(io_error != 1){
+        return ERROR_FILE_FORMAT;
     }
-    std::vector<unsigned char> sha256_key(32);
-    output.resize(32);
-    std::vector<unsigned char> sha256_key_2;
-    std::vector<unsigned char> keypart1;
-    std::vector<unsigned char> keypart2;
-    CCipherEngine cipherEngine;
-    cipherEngine.SHA256((unsigned char*)key.c_str(), key.size(), sha256_key);
-    cipherEngine.SHA256(&sha256_key[0], 32, output);
-
-    std::vector<unsigned char> tempIV(16);
-    for(int i= 0; i< uNumRounds; ++i){
-        cipherEngine.AES256EnDecrypt(
-                &output[0],
-                16,
-                seed,
-                tempIV,
-                CCipherEngine::AES_CHAIN_MODE_ECB,
-                CCipherEngine::AES_PADDING_MODE_NO,
-                true,
-                keypart1
-                );
-        cipherEngine.AES256EnDecrypt(
-                &output[16],
-                16,
-                seed,
-                tempIV,
-                CCipherEngine::AES_CHAIN_MODE_ECB,
-                CCipherEngine::AES_PADDING_MODE_NO,
-                true,
-                keypart2
-        );
-        memcpy_s(&output[0], 16, &keypart1[0], 16);
-        memcpy_s(&output[16], 16, &keypart2[0], 16);
+    io_error = fread(& m_sig2, 4, 1, fp);
+    if(io_error != 1){
+        return ERROR_FILE_FORMAT;
     }
-
+    io_error = fread(& m_nVer, 4, 1, fp);
+    if(io_error != 1){
+        return ERROR_FILE_FORMAT;
+    }
+    bool isNextAvailable = true;
+    uint32_t  error_no = 0;
+    while(isNextAvailable){
+        error_no = ReadNextField(fp, isNextAvailable);
+        if(error_no){
+            return error_no;
+        }
+    }
+    cbTotalHeaderSize = ftell(fp);
     return 0;
 }
+
+uint32_t CKdbxReader::ReadNextField(FILE *fp, bool& isNextAvailable) {
+    this->fields.emplace_back();
+    size_t io_error = fread(&this->fields.back().btFieldID, 1, 1, fp);
+    if(io_error!=1){
+        return ERROR_FILE_FORMAT;
+    }
+    io_error = fread(&this->fields.back().cbSize, 2, 1, fp);
+    if(io_error!=1){
+        return ERROR_FILE_FORMAT;
+    }
+    this->fields.back().data.resize(this->fields.back().cbSize);
+    io_error = fread(&this->fields.back().data[0], 1, this->fields.back().cbSize, fp);
+    if(io_error!=this->fields.back().cbSize){
+        return ERROR_FILE_FORMAT;
+    }
+    if(this->fields.back().btFieldID == KBDBXHeaderField::EndOfHeader){
+        isNextAvailable = false;
+    }
+    else{
+        isNextAvailable = true;
+    }
+    return 0;
+}
+
+std::vector<unsigned char> CKdbxReader::getTransformSeed() {
+    for(const auto& field : fields){
+        if(field.btFieldID == KBDBXHeaderField::TransformSeed){
+            return field.data;
+        }
+    }
+    return {};
+}
+
+uint32_t CKdbxReader::getTransformRounds() {
+    uint32_t  result = 0;
+    for(const auto& field : fields){
+        if(field.btFieldID == KBDBXHeaderField::TransformRounds){
+            memcpy_s(&result, 4, &field.data[0], 4);
+        }
+    }
+    return result;
+}
+
+std::vector<unsigned char> CKdbxReader::getEncryptionIV() {
+    for(const auto& field : fields){
+        if(field.btFieldID == KBDBXHeaderField::EncryptionIV){
+            return field.data;
+        }
+    }
+    return {};
+}
+
+std::vector<unsigned char> CKdbxReader::getMasterSeed() {
+    for(const auto& field : fields){
+        if(field.btFieldID == KBDBXHeaderField::MasterSeed){
+            return field.data;
+        }
+    }
+    return {};
+}
+

@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.26)
 project(keybox)
-set (Boost_USE_STATIC_LIBS ON)
+
 set(CMAKE_CXX_STANDARD 17)
 #set(Boost_DEBUG ON)
+set (Boost_USE_STATIC_LIBS ON)
 find_package (Boost REQUIRED unit_test_framework)
 
 

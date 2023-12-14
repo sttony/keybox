@@ -51,21 +51,28 @@ uint32_t CCipherEngine::SHA256(const unsigned char *pPlanText, size_t cbPlanText
             NULL,
             0,
             0);
-
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
 
     status = BCryptHashData(
             sha256HashHandle,
             (PBYTE) pPlanText,
             cbPlanTextSize,
             0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
 
     Output.resize(HashLength);
-
     status = BCryptFinishHash(
             sha256HashHandle,
             (PBYTE) &Output[0],
             HashLength,
             0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
 
     return status;
 }
@@ -231,5 +238,233 @@ CCipherEngine::AES256EnDecrypt(const unsigned char *pInputBuff,
             return status;
         }
     }
+    return 0;
+}
+
+uint32_t CCipherEngine::KeepassDerivateKey(const std::string &sKey,
+                                           const std::vector<unsigned char> &vTransformSeed,
+                                           uint32_t uNumRounds,
+                                           const std::vector<unsigned char> &vMasterSeed,
+                                           std::vector<unsigned char> &output) {
+    if( vTransformSeed.size() != 32 || vMasterSeed.size() !=32 ){
+        return ERROR_INVALID_PARAMETER;
+    }
+
+    Win32Handler<BCRYPT_ALG_HANDLE> aesAlgHandle(NULL, [](BCRYPT_ALG_HANDLE _h) {
+        BCryptCloseAlgorithmProvider(_h, 0);
+    });
+    NTSTATUS status = BCryptOpenAlgorithmProvider(
+            aesAlgHandle.ptr(),
+            BCRYPT_AES_ALGORITHM,
+            NULL,
+            0
+    );
+
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+    Win32Handler<BCRYPT_KEY_HANDLE> aesKeyHandle(NULL, [](BCRYPT_KEY_HANDLE _h) {
+        BCryptDestroyKey(_h);
+    });
+
+    status = BCryptGenerateSymmetricKey(
+            aesAlgHandle,
+            aesKeyHandle.ptr(),
+            NULL,
+            0,
+            (PBYTE) &vTransformSeed[0],
+            32,
+            0);
+
+    Win32Handler<BCRYPT_ALG_HANDLE> sha256AlgHandle(NULL, [](BCRYPT_ALG_HANDLE _h) {
+        BCryptCloseAlgorithmProvider(_h, 0);
+    });
+    Win32Handler<BCRYPT_HASH_HANDLE> sha256HashHandle(NULL, [](BCRYPT_HASH_HANDLE _h) {
+        BCryptDestroyHash(_h);
+    });
+    status = BCryptOpenAlgorithmProvider(
+            sha256AlgHandle.ptr(),
+            BCRYPT_SHA256_ALGORITHM,
+            NULL,
+            0
+    );
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    //  Sha256(password)
+    status = BCryptCreateHash(
+            sha256AlgHandle,
+            sha256HashHandle.ptr(),
+            NULL,
+            0,
+            NULL,
+            0,
+            0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    status = BCryptHashData(
+            sha256HashHandle,
+            (PBYTE) sKey.c_str(),
+            sKey.size(),
+            0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    std::vector<unsigned char> sha256_key(32);
+    status = BCryptFinishHash(
+            sha256HashHandle,
+            (PBYTE) &sha256_key[0],
+            32,
+            0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    // Sha256(sha256(password))
+    status = BCryptCreateHash(
+            sha256AlgHandle,
+            sha256HashHandle.ptr(),
+            NULL,
+            0,
+            NULL,
+            0,
+            0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    status = BCryptHashData(
+            sha256HashHandle,
+            (PBYTE)&sha256_key[0],
+            32,
+            0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    status = BCryptFinishHash(
+            sha256HashHandle,
+            (PBYTE) &sha256_key[0],
+            32,
+            0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    //
+    std::vector<unsigned char> tempIV(16);
+    status = BCryptSetProperty(
+            aesKeyHandle,
+            BCRYPT_CHAINING_MODE,
+            (PBYTE) BCRYPT_CHAIN_MODE_ECB,
+            sizeof(BCRYPT_CHAIN_MODE_ECB),
+            0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    DWORD dwCipherTextLength = 0;
+    for(int i= 0; i< uNumRounds; ++i){
+        status = BCryptEncrypt(
+                aesKeyHandle,
+                (PBYTE)&sha256_key[0],
+                16,
+                NULL,
+                NULL,
+                0,
+                (PBYTE)&sha256_key[0],
+                16,
+                &dwCipherTextLength,
+                0);
+        if (!NT_SUCCESS(status)) {
+            return status;
+        }
+        status = BCryptEncrypt(
+                aesKeyHandle,
+                (PBYTE)&sha256_key[16],
+                16,
+                NULL,
+                NULL,
+                0,
+                (PBYTE)&sha256_key[16],
+                16,
+                &dwCipherTextLength,
+                0);
+        if (!NT_SUCCESS(status)) {
+            return status;
+        }
+    }
+
+    // Sha256 again
+    status = BCryptCreateHash(
+            sha256AlgHandle,
+            sha256HashHandle.ptr(),
+            NULL,
+            0,
+            NULL,
+            0,
+            0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    status = BCryptHashData(
+            sha256HashHandle,
+            (PBYTE) &sha256_key[0],
+            32,
+            0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    status = BCryptFinishHash(
+            sha256HashHandle,
+            (PBYTE) &sha256_key[0],
+            32,
+            0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    std::vector<unsigned char> compositKey(64);
+    memcpy_s(&compositKey[0], 32, &vMasterSeed[0], 32);
+    memcpy_s(&compositKey[32], 32, &sha256_key[0], 32);
+
+    //Sha256 again
+    output.resize(32);
+    status = BCryptCreateHash(
+            sha256AlgHandle,
+            sha256HashHandle.ptr(),
+            NULL,
+            0,
+            NULL,
+            0,
+            0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    status = BCryptHashData(
+            sha256HashHandle,
+            (PBYTE) &compositKey[0],
+            compositKey.size(),
+            0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    status = BCryptFinishHash(
+            sha256HashHandle,
+            (PBYTE) &output[0],
+            32,
+            0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
     return 0;
 }

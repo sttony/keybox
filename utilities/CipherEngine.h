@@ -7,6 +7,7 @@
 
 #include <cstdint>
 #include <vector>
+#include <string>
 
 class CCipherEngine {
 public:
@@ -31,7 +32,11 @@ public:
                            uint32_t padding_mode,
                            bool bEncrypt,
                            std::vector<unsigned char>& vOutputBuff);
-
+    uint32_t  KeepassDerivateKey(const std::string &sKey,
+                                 const std::vector<unsigned char> &vTransformSeed,
+                                 uint32_t uNumRounds,
+                                 const std::vector<unsigned char>& vMasterSeed,
+                                 std::vector<unsigned char>& output);
 };
 
 

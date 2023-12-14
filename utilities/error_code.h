@@ -8,4 +8,5 @@
 
 const static uint32_t ERROR_INVALID_PARAMETER  = 0x00000001;
 const static uint32_t ERROR_BUFFER_TOO_SMALL  =  0x00000002;
+const static uint32_t ERROR_FILE_FORMAT       =  0x00000003;
 #endif //KEYBOX_ERROR_CODE_H
