@@ -13,6 +13,8 @@ set(HEADER_FILES
         Salsa20Cipher.h
         RandomGenerator.cpp
         RandomGenerator.h
+        Base64Coder.cpp
+        Base64Coder.h
 )
 
 IF(WIN32)
@@ -24,6 +26,8 @@ IF(WIN32)
             Salsa20Cipher.h
             RandomGenerator.cpp
             RandomGenerator.h
+            Base64Coder.cpp
+            Base64Coder.h
     )
 ENDIF (WIN32)
 add_library(utilities STATIC ${SOURCE_FILES} ${HEADER_FILES})

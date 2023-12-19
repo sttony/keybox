@@ -11,7 +11,8 @@ include_directories (${Boost_INCLUDE_DIRS})
 
 add_executable (Boost_Tests_run CipherTest.cpp
         ../utilities/win32_handler.h
-        KdbxReader.cpp)
+        KdbxReaderTest.cpp
+        Base64Test.cpp)
 target_link_libraries (Boost_Tests_run
         utilities
 )

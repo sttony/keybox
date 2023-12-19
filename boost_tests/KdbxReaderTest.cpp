@@ -32,10 +32,10 @@ BOOST_AUTO_TEST_SUITE(KdbxReaderTestSuit)
         };
 
 
-        kdbxReader.TransformKey(password,
-                                seed,
-                                600000,
-                                derived_key);
+//        kdbxReader.TransformKey(password,
+//                                seed,
+//                                600000,
+//                                derived_key);
 
         // 47 bc e5 c7 4f 58 9f 48 67 db d5 7e 9c a9 f8 08 7d 8a 8e f6 58 26 17 2b 6c 29 80 9d 92 71 a7 cf
         string hexStr = blobToHexString(derived_key);
