@@ -9,6 +9,10 @@ set(HEADER_FILES
         CipherEngine.h
         KeepassReader.h
         CGZcompressor.h
+        Salsa20Cipher.cpp
+        Salsa20Cipher.h
+        RandomGenerator.cpp
+        RandomGenerator.h
 )
 
 IF(WIN32)
@@ -16,6 +20,10 @@ IF(WIN32)
             CipherEngine_win.cpp
             KeepassReader.cpp
             CGZcompressor.cpp
+            Salsa20Cipher.cpp
+            Salsa20Cipher.h
+            RandomGenerator.cpp
+            RandomGenerator.h
     )
 ENDIF (WIN32)
 add_library(utilities STATIC ${SOURCE_FILES} ${HEADER_FILES})
