@@ -4,6 +4,9 @@ project(keybox)
 set(CMAKE_CXX_STANDARD 17)
 
 find_package(ZLIB REQUIRED)
+find_package(pugixml REQUIRED)
+
+include(${CMAKE_TOOLCHAIN_FILE})
 
 #set(Boost_DEBUG ON)
 set (Boost_USE_STATIC_LIBS ON)
@@ -20,6 +23,6 @@ target_include_directories(keybox PRIVATE ${ZLIB_INCLUDE_DIRS})
 
 
 target_link_libraries(keybox utilities)
-target_link_libraries (keybox  ${Boost_LIBRARIES}  ${ZLIB_LIBRARIES})
+target_link_libraries (keybox  ${Boost_LIBRARIES}  ${ZLIB_LIBRARIES}  pugixml)
 
 add_subdirectory(boost_tests)

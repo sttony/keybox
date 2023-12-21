@@ -50,6 +50,7 @@ public:
     uint32_t  getTransformRounds();
     std::vector<unsigned char> getEncryptionIV();
     std::vector<unsigned char> getMasterSeed();
+    std::vector<unsigned char> getInnerRandomStreamKey();
 
 };
 

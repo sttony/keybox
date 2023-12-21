@@ -19,7 +19,7 @@ private:
 public:
     const static uint32_t Salsa20 = 0x01;
     explicit RandomGenerator(uint32_t _type);
-    uint32_t init(std::array<unsigned char, 32> vKey32, std::array<unsigned char, 8> vIV8);
+    uint32_t init(std::vector<unsigned char> vKey32, std::array<unsigned char, 8> vIV8);
 
     uint32_t GetNextBytes(uint32_t num, std::vector<unsigned char>& output);
 };

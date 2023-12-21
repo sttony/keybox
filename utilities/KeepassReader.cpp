@@ -91,3 +91,12 @@ std::vector<unsigned char> CKdbxReader::getMasterSeed() {
     return {};
 }
 
+std::vector<unsigned char> CKdbxReader::getInnerRandomStreamKey() {
+    for(const auto& field : fields){
+        if(field.btFieldID == KBDBXHeaderField::InnerRandomStreamKey){
+            return field.data;
+        }
+    }
+    return {};
+}
+

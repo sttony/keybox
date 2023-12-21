@@ -39,7 +39,7 @@ static uint32_t RotateLeft32(uint32_t _v, int bits){
 
 std::array<unsigned char, 64> Salsa20Cipher::nextBlock() {
     assert(m_s.size() == m_x.size());
-    memcpy_s(&m_s[0],  sizeof(uint32_t)*m_s.size(), &m_x[0], sizeof(uint32_t)*m_s.size());
+    memcpy_s(&m_x[0],  sizeof(uint32_t)*m_s.size(), &m_s[0], sizeof(uint32_t)*m_s.size());
     for(int i = 0; i < 10; ++i){
         m_x[4] ^= RotateLeft32(m_x[0] + m_x[12], 7);
         m_x[8] ^= RotateLeft32(m_x[4] + m_x[0], 9);
@@ -97,5 +97,7 @@ std::array<unsigned char, 64> Salsa20Cipher::nextBlock() {
         result[i4 + 2] = (unsigned char)(xi >> 16);
         result[i4 + 3] = (unsigned char)(xi >> 24);
     }
+    ++m_s[8];
+    if(m_s[8] == 0) ++m_s[9];
     return result;
 }
