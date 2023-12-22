@@ -103,5 +103,37 @@ BOOST_AUTO_TEST_SUITE(CipherTestSuit)
         hexStr = blobToHexString(decrypted_buff);
         BOOST_CHECK_EQUAL(hexStr, "00000000000000000000000000000000");
     }
+
+    BOOST_AUTO_TEST_CASE(Kdbx_key_Derivation)
+    {
+        std::vector<unsigned char> derived_key;
+        CCipherEngine cipherEngine;
+
+        std::vector<unsigned char> derivation_seed = {
+                0x30, 0xe2, 0xe6, 0xf4, 0x20, 0x14, 0x2f, 0x8e,
+                0x71, 0xb7, 0xb5, 0xd3, 0x9d, 0x04, 0xeb, 0xa1,
+                0x29, 0xfc, 0x5e, 0x43, 0x9c, 0x80, 0x59, 0x9d,
+                0x97, 0x22, 0xbc, 0xc7, 0x57, 0x3b, 0x93, 0xc6
+        };
+
+        std::vector<unsigned char> masterSeed = {
+                0x89, 0xd7, 0x2e, 0x7b, 0x56, 0x2f, 0xef, 0xcc,
+                0xfa, 0x9e, 0x21, 0xd7, 0x6a, 0x87, 0x84, 0x8b,
+                0x4f, 0x10, 0x7b, 0x6e, 0xf2, 0x9e, 0x1b, 0x36,
+                0x89, 0x06, 0x7f, 0x21, 0x9e, 0x33, 0xd2, 0xaa
+        };
+        uint32_t  derivation_round = 600000;
+        cipherEngine.KeepassDerivateKey(
+                "aaa",
+                derivation_seed,
+                derivation_round,
+                masterSeed,
+                derived_key
+        );
+
+        auto hexStr = blobToHexString(derived_key);
+        BOOST_CHECK_EQUAL(hexStr, "f375027f3ca786d16c72bcb8c0d8a3754089983b465a4670c2669df4bcf4f1ba");
+    }
+
 BOOST_AUTO_TEST_SUITE_END()
 
