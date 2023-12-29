@@ -20,9 +20,13 @@ public:
     static const uint32_t AES_PADDING_MODE_NO    = 1;
     static const uint32_t AES_PADDING_MODE_PKCS7 = 2;
 
-    uint32_t SHA256(const unsigned char* pPlanText,
-                    size_t cbPlanTextSize,
+    uint32_t SHA256(const unsigned char* pInput,
+                    size_t cbInput,
                     std::vector<unsigned char>& Output);
+    uint32_t SHA256(const unsigned char* pInput,
+                   size_t cbInput,
+                   unsigned char* pOutput,
+                   size_t cbOutput);
 
     uint32_t AES256EnDecrypt(const unsigned char* pInputBuff,
                            size_t cbInputBuff,

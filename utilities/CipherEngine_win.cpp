@@ -13,7 +13,7 @@
 #include <bcrypt.h>
 #include <winerror.h>
 
-uint32_t CCipherEngine::SHA256(const unsigned char *pPlanText, size_t cbPlanTextSize, std::vector<unsigned char> &Output) {
+uint32_t CCipherEngine::SHA256(const unsigned char *pInput, size_t cbInput, std::vector<unsigned char> &Output) {
     Win32Handler<BCRYPT_ALG_HANDLE> sha256AlgHandle(NULL, [](BCRYPT_ALG_HANDLE _h) {
         BCryptCloseAlgorithmProvider(_h, 0);
     });
@@ -57,8 +57,8 @@ uint32_t CCipherEngine::SHA256(const unsigned char *pPlanText, size_t cbPlanText
 
     status = BCryptHashData(
             sha256HashHandle,
-            (PBYTE) pPlanText,
-            cbPlanTextSize,
+            (PBYTE) pInput,
+            cbInput,
             0);
     if (!NT_SUCCESS(status)) {
         return status;
@@ -74,6 +74,71 @@ uint32_t CCipherEngine::SHA256(const unsigned char *pPlanText, size_t cbPlanText
         return status;
     }
 
+    return status;
+}
+
+uint32_t CCipherEngine::SHA256(const unsigned char *pInput, size_t cbInput, unsigned char *pOutput, size_t cbOutput) {
+
+    Win32Handler<BCRYPT_ALG_HANDLE> sha256AlgHandle(NULL, [](BCRYPT_ALG_HANDLE _h) {
+        BCryptCloseAlgorithmProvider(_h, 0);
+    });
+    Win32Handler<BCRYPT_HASH_HANDLE> sha256HashHandle(NULL, [](BCRYPT_HASH_HANDLE _h) {
+        BCryptDestroyHash(_h);
+    });
+    NTSTATUS status = BCryptOpenAlgorithmProvider(
+            sha256AlgHandle.ptr(),
+            BCRYPT_SHA256_ALGORITHM,
+            NULL,
+            0
+    );
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    DWORD HashLength = 0;
+    DWORD ResultLength = 0;
+    status = BCryptGetProperty(
+            sha256AlgHandle,
+            BCRYPT_HASH_LENGTH,
+            (PBYTE) &HashLength,
+            sizeof(HashLength),
+            &ResultLength,
+            0);
+
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    if(cbOutput < HashLength) {
+        return ERROR_BUFFER_TOO_SMALL;
+    }
+    status = BCryptCreateHash(
+            sha256AlgHandle,
+            sha256HashHandle.ptr(),
+            NULL,
+            0,
+            NULL,
+            0,
+            0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    status = BCryptHashData(
+            sha256HashHandle,
+            (PBYTE) pInput,
+            cbInput,
+            0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+
+    status = BCryptFinishHash(
+            sha256HashHandle,
+            (PBYTE) pOutput,
+            HashLength,
+            0);
     return status;
 }
 
@@ -246,6 +311,7 @@ uint32_t CCipherEngine::KeepassDerivateKey(const std::string &sKey,
                                            uint32_t uNumRounds,
                                            const std::vector<unsigned char> &vMasterSeed,
                                            std::vector<unsigned char> &output) {
+    static_assert(sizeof(NTSTATUS) == 4);
     if( vTransformSeed.size() != 32 || vMasterSeed.size() !=32 ){
         return ERROR_INVALID_PARAMETER;
     }
@@ -292,68 +358,12 @@ uint32_t CCipherEngine::KeepassDerivateKey(const std::string &sKey,
         return status;
     }
 
-    //  Sha256(password)
-    status = BCryptCreateHash(
-            sha256AlgHandle,
-            sha256HashHandle.ptr(),
-            NULL,
-            0,
-            NULL,
-            0,
-            0);
-    if (!NT_SUCCESS(status)) {
-        return status;
-    }
-
-    status = BCryptHashData(
-            sha256HashHandle,
-            (PBYTE) sKey.c_str(),
-            sKey.size(),
-            0);
-    if (!NT_SUCCESS(status)) {
-        return status;
-    }
-
+    CCipherEngine cipherEngine;
     std::vector<unsigned char> sha256_key(32);
-    status = BCryptFinishHash(
-            sha256HashHandle,
-            (PBYTE) &sha256_key[0],
-            32,
-            0);
-    if (!NT_SUCCESS(status)) {
-        return status;
-    }
-
+    //  Sha256(password)
+    status = cipherEngine.SHA256((unsigned char*)sKey.c_str(), sKey.size(), &sha256_key[0], 32);
     // Sha256(sha256(password))
-    status = BCryptCreateHash(
-            sha256AlgHandle,
-            sha256HashHandle.ptr(),
-            NULL,
-            0,
-            NULL,
-            0,
-            0);
-    if (!NT_SUCCESS(status)) {
-        return status;
-    }
-
-    status = BCryptHashData(
-            sha256HashHandle,
-            (PBYTE)&sha256_key[0],
-            32,
-            0);
-    if (!NT_SUCCESS(status)) {
-        return status;
-    }
-
-    status = BCryptFinishHash(
-            sha256HashHandle,
-            (PBYTE) &sha256_key[0],
-            32,
-            0);
-    if (!NT_SUCCESS(status)) {
-        return status;
-    }
+    status = cipherEngine.SHA256(&sha256_key[0], 32, &sha256_key[0], 32);
 
     //
     std::vector<unsigned char> tempIV(16);
@@ -400,32 +410,7 @@ uint32_t CCipherEngine::KeepassDerivateKey(const std::string &sKey,
     }
 
     // Sha256 again
-    status = BCryptCreateHash(
-            sha256AlgHandle,
-            sha256HashHandle.ptr(),
-            NULL,
-            0,
-            NULL,
-            0,
-            0);
-    if (!NT_SUCCESS(status)) {
-        return status;
-    }
-
-    status = BCryptHashData(
-            sha256HashHandle,
-            (PBYTE) &sha256_key[0],
-            32,
-            0);
-    if (!NT_SUCCESS(status)) {
-        return status;
-    }
-
-    status = BCryptFinishHash(
-            sha256HashHandle,
-            (PBYTE) &sha256_key[0],
-            32,
-            0);
+    status = cipherEngine.SHA256( &sha256_key[0], 32, &sha256_key[0], 32);
     if (!NT_SUCCESS(status)) {
         return status;
     }
@@ -436,35 +421,8 @@ uint32_t CCipherEngine::KeepassDerivateKey(const std::string &sKey,
 
     //Sha256 again
     output.resize(32);
-    status = BCryptCreateHash(
-            sha256AlgHandle,
-            sha256HashHandle.ptr(),
-            NULL,
-            0,
-            NULL,
-            0,
-            0);
-    if (!NT_SUCCESS(status)) {
-        return status;
-    }
-
-    status = BCryptHashData(
-            sha256HashHandle,
-            (PBYTE) &compositKey[0],
-            compositKey.size(),
-            0);
-    if (!NT_SUCCESS(status)) {
-        return status;
-    }
-
-    status = BCryptFinishHash(
-            sha256HashHandle,
-            (PBYTE) &output[0],
-            32,
-            0);
-    if (!NT_SUCCESS(status)) {
-        return status;
-    }
-
-    return 0;
+    status = cipherEngine.SHA256(&compositKey[0], compositKey.size(),  &output[0], 32);
+    return status;
 }
+
+
