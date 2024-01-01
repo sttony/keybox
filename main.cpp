@@ -89,10 +89,6 @@ int main() {
     Block* block1 = (Block*)&decrypted[32];
 
 
-    FILE* fp2 = fopen("c:\\ttt\\block_aaa", "wb");
-    fwrite( &decrypted[sizeof(Block) +32], 1, block1->block_size, fp2);
-    fclose(fp2);
-
     CGZcompressor gzCompressor;
     if(gzCompressor.reset()){
         cout<<"Reset zlib failed"<<endl;
@@ -101,6 +97,10 @@ int main() {
     vector<unsigned char> uncompressed(1024*1024);
 
     gzCompressor.decompressData(&decrypted[sizeof(Block) +32], block1->block_size, &uncompressed[0], 1024*1024);
+
+    FILE* fp2 = fopen("c:\\ttt\\block_aaa", "wb");
+    fprintf(fp2, "%s",  &uncompressed[0]);
+    fclose(fp2);
 
     ///////////////////////////////////////////////////////////
     RandomGenerator randomGenerator(RandomGenerator::Salsa20);

@@ -16,7 +16,7 @@ include_directories (${Boost_INCLUDE_DIRS})
 
 add_executable(keybox main.cpp)
 
-include_directories(utilities)
+include_directories(${CMAKE_SOURCE_DIR})
 add_subdirectory(utilities)
 
 target_include_directories(keybox PRIVATE ${ZLIB_INCLUDE_DIRS})
@@ -26,3 +26,4 @@ target_link_libraries(keybox utilities)
 target_link_libraries (keybox  ${Boost_LIBRARIES}  ${ZLIB_LIBRARIES}  pugixml)
 
 add_subdirectory(boost_tests)
+add_subdirectory(keepassdump)
