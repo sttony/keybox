@@ -18,6 +18,18 @@ class MainWindow  : public QMainWindow {
 
 public:
     MainWindow();
+
+private slots:
+    void newFile();
+
+private:
+    void createActions();
+    void createMenus();
+
+    QAction *newAct;
+
+private:
+    QMenu *fileMenu;
 };
 
 

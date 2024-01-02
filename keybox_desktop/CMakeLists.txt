@@ -3,6 +3,10 @@ project(keybox)
 
 set(CMAKE_CXX_STANDARD 17)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
 qt5_wrap_cpp(MOC_SOURCES MainWindow.h)
 include_directories(${Qt5Widgets_INCLUDE_DIRS})
 
