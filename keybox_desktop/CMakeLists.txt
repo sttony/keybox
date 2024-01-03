@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.26)
 project(keybox)
 
 set(CMAKE_CXX_STANDARD 17)
+list(APPEND CMAKE_PREFIX_PATH "/opt/homebrew/opt/qt@5")
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)

@@ -29,7 +29,20 @@ IF(WIN32)
             Base64Coder.cpp
             Base64Coder.h
     )
+ELSEIF (APPLE)
+    set(SOURCE_FILES
+            CipherEngine_mac.cpp
+            KeepassReader.cpp
+            CGZcompressor.cpp
+            Salsa20Cipher.cpp
+            Salsa20Cipher.h
+            RandomGenerator.cpp
+            RandomGenerator.h
+            Base64Coder.cpp
+            Base64Coder.h
+    )
 ENDIF (WIN32)
+
 add_library(utilities STATIC ${SOURCE_FILES} ${HEADER_FILES})
 target_include_directories(utilities PRIVATE ${ZLIB_INCLUDE_DIRS})
 target_link_libraries(utilities PRIVATE ${ZLIB_LIBRARIES})

@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 find_package(ZLIB REQUIRED)
 find_package(pugixml REQUIRED)
 
-include(${CMAKE_TOOLCHAIN_FILE})
+#include(${CMAKE_TOOLCHAIN_FILE})
 
 #set(Boost_DEBUG ON)
 set (Boost_USE_STATIC_LIBS ON)

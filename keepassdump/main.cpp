@@ -35,13 +35,10 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "please specify your kdbx file name, like  \n"
                         "keepass your.kdbx");
     }
-    FILE *fp = nullptr;
-    auto error = fopen_s(&fp, argv[1], "rb+");
-    if (error != 0) {
-        char errorString[256 + 1] = {};
-        strerror_s(errorString, sizeof(errorString) - 1, error);
-        fprintf(stderr, "open file %s failed, \n", errorString);
-        return error;
+    FILE *fp = fopen(argv[1], "rb+");
+    if (fp == nullptr) {
+        fprintf(stderr, "open file %s failed, \n", strerror(errno));
+        return errno;
     }
 
     CKdbxReader header;

@@ -47,8 +47,7 @@ void EnumerateNodes(const pugi::xml_node& node, int depth = 0) {
 
 
 int main() {
-    FILE* fp = nullptr;
-    auto error  = fopen_s(&fp, "c:\\ttt\\sttony_copy.kdbx", "rb+");
+    FILE* fp = fopen("c:\\ttt\\sttony_copy.kdbx", "rb+");
     CKdbxReader header;
     header.LoadHeader(fp);
 

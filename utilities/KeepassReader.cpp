@@ -67,7 +67,7 @@ uint32_t CKdbxReader::getTransformRounds() {
     uint32_t  result = 0;
     for(const auto& field : fields){
         if(field.btFieldID == KBDBXHeaderField::TransformRounds){
-            memcpy_s(&result, 4, &field.data[0], 4);
+            memcpy(&result, &field.data[0], 4);
         }
     }
     return result;
