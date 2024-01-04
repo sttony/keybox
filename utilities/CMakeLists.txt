@@ -28,6 +28,8 @@ IF(WIN32)
             RandomGenerator.h
             Base64Coder.cpp
             Base64Coder.h
+            CKBFile.cpp
+            CKBFile.h
     )
 ELSEIF (APPLE)
     set(SOURCE_FILES

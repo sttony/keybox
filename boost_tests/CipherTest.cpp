@@ -123,7 +123,7 @@ BOOST_AUTO_TEST_SUITE(CipherTestSuit)
                 0x89, 0x06, 0x7f, 0x21, 0x9e, 0x33, 0xd2, 0xaa
         };
         uint32_t  derivation_round = 600000;
-        cipherEngine.KeepassDerivateKey(
+        cipherEngine.KeepassDerivativeKey(
                 "aaa",
                 derivation_seed,
                 derivation_round,

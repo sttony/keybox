@@ -9,6 +9,11 @@
 #include <vector>
 #include <string>
 
+struct PBKDF2_256_PARAMETERS{
+    unsigned char Salt[32];
+    uint32_t num_rounds;
+};
+
 class CCipherEngine {
 public:
     static const uint32_t AES_CHAIN_MODE_CBC = 1;
@@ -36,11 +41,13 @@ public:
                            uint32_t padding_mode,
                            bool bEncrypt,
                            std::vector<unsigned char>& vOutputBuff);
-    uint32_t  KeepassDerivateKey(const std::string &sKey,
-                                 const std::vector<unsigned char> &vTransformSeed,
-                                 uint32_t uNumRounds,
-                                 const std::vector<unsigned char>& vMasterSeed,
-                                 std::vector<unsigned char>& output);
+    uint32_t  KeepassDerivativeKey(const std::string &sKey,
+                                   const std::vector<unsigned char> &vTransformSeed,
+                                   uint32_t uNumRounds,
+                                   const std::vector<unsigned char>& vMasterSeed,
+                                   std::vector<unsigned char>& output);
+
+    //uint32_t PBKDF
 };
 
 

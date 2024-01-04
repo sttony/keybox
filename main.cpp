@@ -57,13 +57,13 @@ int main() {
     vector<unsigned char> masterSeed = header.getMasterSeed();
     vector<unsigned char> primay_key;
 
-    cipherEngine.KeepassDerivateKey(
+    cipherEngine.KeepassDerivativeKey(
             "TestPassword",
             derivation_seed,
             derivation_round,
             masterSeed,
             primay_key
-            );
+    );
 
     uint32_t pay_load_offset = ftell(fp);
 

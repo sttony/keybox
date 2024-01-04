@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
     CCipherEngine cipherEngine;
     cout << "Please enter password for kdbx file" << endl;
     string password = read_password_from_console();
-    uint32_t status = cipherEngine.KeepassDerivateKey(
+    uint32_t status = cipherEngine.KeepassDerivativeKey(
             password,
             derivation_seed,
             derivation_round,

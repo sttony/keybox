@@ -306,11 +306,11 @@ CCipherEngine::AES256EnDecrypt(const unsigned char *pInputBuff,
     return 0;
 }
 
-uint32_t CCipherEngine::KeepassDerivateKey(const std::string &sKey,
-                                           const std::vector<unsigned char> &vTransformSeed,
-                                           uint32_t uNumRounds,
-                                           const std::vector<unsigned char> &vMasterSeed,
-                                           std::vector<unsigned char> &output) {
+uint32_t CCipherEngine::KeepassDerivativeKey(const std::string &sKey,
+                                             const std::vector<unsigned char> &vTransformSeed,
+                                             uint32_t uNumRounds,
+                                             const std::vector<unsigned char> &vMasterSeed,
+                                             std::vector<unsigned char> &output) {
     static_assert(sizeof(NTSTATUS) == 4);
     if( vTransformSeed.size() != 32 || vMasterSeed.size() !=32 ){
         return ERROR_INVALID_PARAMETER;
