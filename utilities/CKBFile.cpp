@@ -45,6 +45,9 @@ uint32_t CKBFileHeader::Deserialize(const unsigned char *pBuffer, uint32_t cbBuf
 }
 
 uint32_t CKBFileHeader::Serialize(std::vector<unsigned char> &vOutput) {
+
+
+
     return 0;
 }
 
@@ -53,6 +56,13 @@ CKBFileHeader::CKBFileHeader() {
         if(read_field(p, offset + cbSize, offset, this->m_key_derivative_parameters)){
             return ERROR_BUFFER_TOO_SMALL;
         }
+        return 0u;
+    };
+
+    m_fields2handler[KEEPASS_EncryptionIV] = [this](const unsigned char* p, uint32_t& offset, uint16_t cbSize) {
+        m_encryption_iv.resize(cbSize);
+        m_encryption_iv = std::vector<unsigned char>( p+offset, p+offset+cbSize);
+        offset+= cbSize;
         return 0u;
     };
 }

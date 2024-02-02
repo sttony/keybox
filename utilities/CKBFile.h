@@ -31,11 +31,12 @@ public:
     static const uint8_t KEYBOX_PBKDF2_PARAM = 0x81;
 
 private:
-    uint64_t m_signature;
-    uint32_t m_version;
+    uint64_t m_signature = 0;
+    uint32_t m_version = 0;
     std::unordered_map<uint8_t, std::function<uint32_t(const unsigned char*, uint32_t&, uint16_t)>> m_fields2handler;
 
-    PBKDF2_256_PARAMETERS m_key_derivative_parameters;
+    PBKDF2_256_PARAMETERS m_key_derivative_parameters = {};
+    std::vector<unsigned char> m_encryption_iv = {};
 
 public:
     CKBFileHeader();
