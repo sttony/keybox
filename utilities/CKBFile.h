@@ -41,7 +41,11 @@ private:
 public:
     CKBFileHeader();
     uint32_t Deserialize(const unsigned char* pBuffer, uint32_t cbBufferSize);
-    uint32_t Serialize(std::vector<unsigned char>& vOutput);
+    uint32_t Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
+
+    PBKDF2_256_PARAMETERS& GetDerivativeParameters(){
+        return m_key_derivative_parameters;
+    }
 };
 
 class CKBFile {
