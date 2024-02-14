@@ -13,7 +13,8 @@ add_executable (Boost_Tests_run CipherTest.cpp
         ../utilities/win32_handler.h
         KdbxReaderTest.cpp
         Base64Test.cpp
-        CKBFileTest.cpp)
+        CKBFileTest.cpp
+        CMaskedPwdTest.cpp)
 target_link_libraries (Boost_Tests_run
         utilities
 )

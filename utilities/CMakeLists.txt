@@ -9,12 +9,13 @@ set(HEADER_FILES
         CipherEngine.h
         KeepassReader.h
         CGZcompressor.h
-        Salsa20Cipher.cpp
         Salsa20Cipher.h
-        RandomGenerator.cpp
         RandomGenerator.h
         Base64Coder.cpp
         Base64Coder.h
+        CKBFile.h
+        CPwdEntry.h
+        CMaskedPwd.h
 )
 
 IF(WIN32)
@@ -23,13 +24,11 @@ IF(WIN32)
             KeepassReader.cpp
             CGZcompressor.cpp
             Salsa20Cipher.cpp
-            Salsa20Cipher.h
             RandomGenerator.cpp
-            RandomGenerator.h
             Base64Coder.cpp
-            Base64Coder.h
             CKBFile.cpp
-            CKBFile.h
+            CPwdEntry.cpp
+            CMaskedPwd.cpp
     )
 ELSEIF (APPLE)
     set(SOURCE_FILES
@@ -37,11 +36,10 @@ ELSEIF (APPLE)
             KeepassReader.cpp
             CGZcompressor.cpp
             Salsa20Cipher.cpp
-            Salsa20Cipher.h
             RandomGenerator.cpp
-            RandomGenerator.h
             Base64Coder.cpp
-            Base64Coder.h
+            CPwdEntry.cpp
+            CMaskedPwd.cpp
     )
 ENDIF (WIN32)
 
