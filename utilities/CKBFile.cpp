@@ -125,3 +125,16 @@ CKBFileHeader::CKBFileHeader(): m_encryption_iv(32) {
     m_version = 1 << 16 | 0;
 
 }
+
+const std::vector<CPwdEntry> &CKBFile::GetEntries() {
+    return m_entries;
+}
+
+uint32_t CKBFile::Deserialize(const unsigned char *pBuffer, uint32_t cbBufferSize) {
+    return 0;
+}
+
+uint32_t CKBFile::Lock(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize) {
+
+    return 0;
+}

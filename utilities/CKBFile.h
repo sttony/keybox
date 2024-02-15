@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <functional>
 #include "CipherEngine.h"
+#include "CPwdEntry.h"
 
 class CKBFileHeader {
 public:
@@ -49,12 +50,15 @@ public:
 };
 
 class CKBFile {
+public:
+    const std::vector<CPwdEntry>& GetEntries();
+    uint32_t Deserialize(const unsigned char* pBuffer, uint32_t cbBufferSize);
+    uint32_t Lock(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
 
 private:
     CKBFileHeader m_header;
-
-
-
+    std::vector<CPwdEntry> m_entries;
+    CMaskedPwd m_master_key;
 };
 
 

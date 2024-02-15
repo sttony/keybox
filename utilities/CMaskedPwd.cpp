@@ -27,3 +27,16 @@ string CMaskedPwd::Show() {
     }
     return result;
 }
+
+boost::property_tree::ptree CMaskedPwd::toJsonObj() {
+    boost::property_tree::ptree root;
+    Base64Coder base64Coder;
+    string encoded_password;
+    base64Coder.Encode(&m_password[0], m_password.size(), encoded_password);
+    root.put("masked",  encoded_password);
+
+    string encoded_onepad;
+    base64Coder.Encode(&m_onepad[0], m_onepad.size(), encoded_onepad);
+    root.put("onepad",  encoded_onepad);
+    return root;
+}

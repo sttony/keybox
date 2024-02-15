@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include <boost/property_tree/ptree.hpp>
 #include "RandomGenerator.h"
 
 class CMaskedPwd {
@@ -14,6 +15,7 @@ public:
     size_t size() { return m_password.size(); };
     std::string Show();
     void Set(std::string& plainPassword, IRandomGenerator& randomGenerator);
+    boost::property_tree::ptree toJsonObj();
 
     CMaskedPwd(std::string& plainPassword, IRandomGenerator& randomGenerator){
         Set(plainPassword, randomGenerator);

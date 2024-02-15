@@ -4,6 +4,11 @@ project(keybox)
 set(CMAKE_CXX_STANDARD 17)
 
 find_package(ZLIB REQUIRED)
+set (Boost_USE_STATIC_LIBS ON)
+find_package (Boost )
+
+
+include_directories (${Boost_INCLUDE_DIRS})
 set(HEADER_FILES
         win32_handler.h
         CipherEngine.h
