@@ -13,6 +13,11 @@
 class CPwdEntry{
 public:
     boost::property_tree::ptree toJsonObj();
+    const std::string& GetTitle() { return m_title;};
+    void SetTitle(const std::string& _title) {
+        m_title = _title;
+    };
+
     const std::string& GetUserName() { return m_username;};
     void SetUserName(const std::string& _username) {
         m_username = _username;
@@ -24,8 +29,8 @@ public:
     };
 
 
-
 private:
+    std::string  m_title;
     std::string m_username;
     std::string m_url;
     CMaskedPwd m_note;
