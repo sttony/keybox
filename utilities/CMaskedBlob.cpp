@@ -64,3 +64,8 @@ std::vector<unsigned char> CMaskedBlob::ShowBin() {
     }
     return result;
 }
+
+CMaskedBlob::CMaskedBlob() {
+    m_password = {};
+    m_onepad ={};
+}

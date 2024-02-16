@@ -12,6 +12,7 @@
 
 class CMaskedBlob {
 public:
+    CMaskedBlob();
     size_t size() { return m_password.size(); };
     std::string Show();
     std::vector<unsigned char> ShowBin();

@@ -8,15 +8,18 @@
 #include <string>
 #include <vector>
 #include <boost/property_tree/ptree.hpp>
+#include <boost/uuid/uuid.hpp>
 #include "CMaskedBlob.h"
 
 class CPwdEntry{
 public:
+    CPwdEntry();
+    CPwdEntry(boost::uuids::uuid _uuid);
+
     boost::property_tree::ptree toJsonObj();
-    const std::string& GetTitle() { return m_title;};
-    void SetTitle(const std::string& _title) {
-        m_title = _title;
-    };
+
+    const std::string& GetTitle();
+    void SetTitle(const std::string& _title);
 
     const std::string& GetUserName() { return m_username;};
     void SetUserName(const std::string& _username) {
@@ -50,6 +53,7 @@ public:
     }
 
 private:
+    boost::uuids::uuid m_uuid;
     std::string  m_title;
     std::string m_username;
     std::string m_url;
