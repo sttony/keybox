@@ -4,11 +4,12 @@
 
 #include "CPwdEntry.h"
 #include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
 
 
 boost::property_tree::ptree CPwdEntry::toJsonObj() {
     boost::property_tree::ptree root;
-
+    root.put("uuid", boost::uuids::to_string(m_uuid));
     root.put("user_name", m_username);
     root.put("url", m_url);
     root.add_child("note", m_note.toJsonObj());
