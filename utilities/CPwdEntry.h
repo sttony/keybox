@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 #include <boost/property_tree/ptree.hpp>
-#include "CMaskedPwd.h"
+#include "CMaskedBlob.h"
 
 class CPwdEntry{
 public:
@@ -28,15 +28,35 @@ public:
       m_url = _url;
     };
 
+    std::string GetPassword(){
+        return m_password.Show();
+    }
+    uint32_t SetPassword(std::string& plain_pwd, IRandomGenerator& iRandomGenerator){
+        return m_password.Set(plain_pwd, iRandomGenerator);
+    }
+
+    std::string GetNote(){
+        return m_note.Show();
+    }
+    uint32_t SetNote(std::string& plain_note, IRandomGenerator& iRandomGenerator){
+        return m_note.Set(plain_note, iRandomGenerator);
+    }
+
+    std::vector<unsigned char> GetAttachment(){
+        return m_attachment.ShowBin();
+    }
+    uint32_t SetAttachment(std::vector<unsigned char>& blob, IRandomGenerator& iRandomGenerator){
+        return m_attachment.Set(blob, iRandomGenerator);
+    }
 
 private:
     std::string  m_title;
     std::string m_username;
     std::string m_url;
-    CMaskedPwd m_note;
-    CMaskedPwd m_password;
-    CMaskedPwd m_attachment;
-    std::vector<CMaskedPwd> m_password_history;
+    CMaskedBlob m_note;
+    CMaskedBlob m_password;
+    CMaskedBlob m_attachment;
+    std::vector<CMaskedBlob> m_password_history;
 };
 
 

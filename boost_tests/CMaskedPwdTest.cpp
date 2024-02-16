@@ -4,7 +4,7 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
-#include "../utilities/CMaskedPwd.h"
+#include "../utilities/CMaskedBlob.h"
 #include "../utilities/RandomGenerator.h"
 #include <iomanip>
 #include <iostream>
@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_SUITE(CMaskedPwdTestSuit)
 
         string plainword = "\x1\x2\x3\x4";
         TestRandomGenerator fakeRG;
-        CMaskedPwd spwd(plainword, fakeRG);
+        CMaskedBlob spwd(plainword, fakeRG);
         BOOST_CHECK_EQUAL(plainword, string(4, 0));
         BOOST_CHECK_EQUAL(spwd.Show(), "\x1\x2\x3\x4");
     }
@@ -37,7 +37,7 @@ BOOST_AUTO_TEST_SUITE(CMaskedPwdTestSuit)
 
         string plainword = "\x1\x2\x3\x4";
         TestRandomGenerator fakeRG;
-        CMaskedPwd spwd(plainword, fakeRG);
+        CMaskedBlob spwd(plainword, fakeRG);
         BOOST_CHECK_EQUAL(plainword, string(4, 0));
         std::ostringstream oss;
         boost::property_tree::write_json(oss, spwd.toJsonObj());

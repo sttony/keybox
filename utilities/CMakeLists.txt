@@ -20,7 +20,7 @@ set(HEADER_FILES
         Base64Coder.h
         CKBFile.h
         CPwdEntry.h
-        CMaskedPwd.h
+        CMaskedBlob.h
 )
 
 IF(WIN32)
@@ -33,7 +33,7 @@ IF(WIN32)
             Base64Coder.cpp
             CKBFile.cpp
             CPwdEntry.cpp
-            CMaskedPwd.cpp
+            CMaskedBlob.cpp
     )
 ELSEIF (APPLE)
     set(SOURCE_FILES
@@ -44,7 +44,7 @@ ELSEIF (APPLE)
             RandomGenerator.cpp
             Base64Coder.cpp
             CPwdEntry.cpp
-            CMaskedPwd.cpp
+            CMaskedBlob.cpp
     )
 ENDIF (WIN32)
 

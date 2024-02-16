@@ -58,7 +58,7 @@ public:
 private:
     CKBFileHeader m_header;
     std::vector<CPwdEntry> m_entries;
-    CMaskedPwd m_master_key;
+    CMaskedBlob m_master_key;
 };
 
 
