@@ -16,6 +16,8 @@ add_executable(keyboxd main.cpp
         MainWindow.cpp
         MainWindow.h
         ${MOC_SOURCES}
+        EntryView.cpp
+        EntryView.h
 )
 
 target_link_libraries(
