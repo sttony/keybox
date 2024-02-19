@@ -50,4 +50,8 @@ uint32_t CCipherEngine::KeepassDerivateKey(const std::string &sKey,
     return 0;
 }
 
+void CCipherEngine::CleanString(std::string& str){
+    memset(&str[0], 0, str.size());
+}
+
 

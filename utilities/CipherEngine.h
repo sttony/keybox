@@ -48,6 +48,8 @@ public:
                                    std::vector<unsigned char>& output);
 
     //uint32_t PBKDF
+
+    void CleanString(std::string& str);
 };
 
 

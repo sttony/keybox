@@ -426,3 +426,7 @@ uint32_t CCipherEngine::KeepassDerivativeKey(const std::string &sKey,
 }
 
 
+void CCipherEngine::CleanString(std::string& str){
+    memset(&str[0], 0, str.size());
+}
+
