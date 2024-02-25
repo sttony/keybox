@@ -47,7 +47,7 @@ public:
                                    const std::vector<unsigned char>& vMasterSeed,
                                    std::vector<unsigned char>& output);
 
-    //uint32_t PBKDF
+    uint32_t PBKDF2DerivativeKey(const std::string &sKey, const PBKDF2_256_PARAMETERS&, std::vector<unsigned char>& vOutput);
 
     void CleanString(std::string& str);
 };
