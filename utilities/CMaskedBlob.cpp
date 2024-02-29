@@ -80,9 +80,9 @@ uint32_t CMaskedBlob::fromJsonObj(const boost::property_tree::ptree &jsonObj) {
     std::string encoded_password = jsonObj.get<std::string>("masked", "");
     std::string encoded_onepad = jsonObj.get<std::string>("onepad", "");
 
-    if (!base64Coder.Decode(encoded_password, m_password) ||
-        !base64Coder.Decode(encoded_onepad, m_onepad)) {
-        return ERROR_INVALID_BASE64; // Some predefined error code.
+    if (base64Coder.Decode(encoded_password, m_password) ||
+        base64Coder.Decode(encoded_onepad, m_onepad)) {
+        return ERROR_INVALID_BASE64;
     }
     return 0;
 }

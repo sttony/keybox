@@ -23,7 +23,7 @@ public:
         return m_uuid;
     }
 
-    const std::string& GetTitle();
+    const std::string& GetTitle() const;
     void SetTitle(const std::string& _title);
 
     const std::string& GetUserName() { return m_username;};

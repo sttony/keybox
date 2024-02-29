@@ -4,6 +4,10 @@
 
 #include "CKBFile.h"
 #include "error_code.h"
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+
+using namespace std;
 
 template<typename T>
 uint32_t read_field(const unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &offset, T &output) {
@@ -26,7 +30,7 @@ uint32_t write_field(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &of
 }
 
 
-uint32_t CKBFileHeader::Deserialize(const unsigned char *pBuffer, uint32_t cbBufferSize) {
+uint32_t CKBFileHeader::Deserialize(const unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize) {
     uint32_t offset = 0;
     if (read_field(pBuffer, cbBufferSize, offset, m_signature)) {
         return ERROR_BUFFER_TOO_SMALL;
@@ -52,6 +56,7 @@ uint32_t CKBFileHeader::Deserialize(const unsigned char *pBuffer, uint32_t cbBuf
             break;
         }
     }
+    cbRealSize = offset;
     return 0;
 }
 
@@ -62,51 +67,55 @@ uint32_t CKBFileHeader::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize,
 
     cbRealSize += 1 + 2 + m_encryption_iv.size() * sizeof(uint8_t);
     cbRealSize += 1 + 2 + sizeof(m_key_derivative_parameters);
-    cbRealSize += 1;
+    cbRealSize += 1 + 2;
 
     if (cbRealSize > cbBufferSize) {
         return ERROR_BUFFER_TOO_SMALL;
     }
     uint32_t offset = 0;
-    if(write_field(pBuffer, cbBufferSize, offset, m_signature)){
+    if (write_field(pBuffer, cbBufferSize, offset, m_signature)) {
         return ERROR_BUFFER_TOO_SMALL;
     }
 
-    if(write_field(pBuffer, cbBufferSize, offset, m_version)){
+    if (write_field(pBuffer, cbBufferSize, offset, m_version)) {
         return ERROR_BUFFER_TOO_SMALL;
     }
 
     // write KEYBOX_PBKDF2_PARAM
-    if(write_field(pBuffer, cbBufferSize, offset, KEYBOX_PBKDF2_PARAM)){
+    if (write_field(pBuffer, cbBufferSize, offset, KEYBOX_PBKDF2_PARAM)) {
         return ERROR_BUFFER_TOO_SMALL;
     }
     uint16_t field_size = sizeof(m_key_derivative_parameters);
-    if(write_field(pBuffer, cbBufferSize, offset, field_size)){
+    if (write_field(pBuffer, cbBufferSize, offset, field_size)) {
         return ERROR_BUFFER_TOO_SMALL;
     }
-    if(write_field(pBuffer, cbBufferSize, offset, m_key_derivative_parameters)){
+    if (write_field(pBuffer, cbBufferSize, offset, m_key_derivative_parameters)) {
         return ERROR_BUFFER_TOO_SMALL;
     }
 
     // write KEEPASS_EncryptionIV
-    if(write_field(pBuffer, cbBufferSize, offset, KEEPASS_EncryptionIV)){
+    if (write_field(pBuffer, cbBufferSize, offset, KEEPASS_EncryptionIV)) {
         return ERROR_BUFFER_TOO_SMALL;
     }
     field_size = m_encryption_iv.size();
-    if(write_field(pBuffer, cbBufferSize, offset, field_size)){
+    if (write_field(pBuffer, cbBufferSize, offset, field_size)) {
         return ERROR_BUFFER_TOO_SMALL;
     }
-    memcpy(pBuffer+offset, &m_encryption_iv[0], m_encryption_iv.size());
+    memcpy(pBuffer + offset, &m_encryption_iv[0], m_encryption_iv.size());
 
 
     // write END_OF_HEADER
-    if(write_field(pBuffer, cbBufferSize, offset, END_OF_HEADER)){
+    if (write_field(pBuffer, cbBufferSize, offset, END_OF_HEADER)) {
+        field_size = 0;
+        if (write_field(pBuffer, cbBufferSize, offset, field_size)) {
+            return ERROR_BUFFER_TOO_SMALL;
+        }
         return ERROR_BUFFER_TOO_SMALL;
     }
     return 0;
 }
 
-CKBFileHeader::CKBFileHeader(): m_encryption_iv(32) {
+CKBFileHeader::CKBFileHeader() : m_encryption_iv(16) {
     m_fields2handler[KEYBOX_PBKDF2_PARAM] = [this](const unsigned char *p, uint32_t &offset, uint16_t cbSize) {
         if (read_field(p, offset + cbSize, offset, this->m_key_derivative_parameters)) {
             return ERROR_BUFFER_TOO_SMALL;
@@ -126,15 +135,131 @@ CKBFileHeader::CKBFileHeader(): m_encryption_iv(32) {
 
 }
 
-const std::vector<CPwdEntry> &CKBFile::GetEntries() {
+CPwdEntry CKBFile::QueryEntryByTitle(const string &_title) {
+    for (const auto &entry: m_entries) {
+        if (entry.GetTitle() == _title) {
+            return entry;
+        }
+    }
+    return {};
+}
+
+std::vector<CPwdEntry> &CKBFile::GetEntries() {
     return m_entries;
 }
 
-uint32_t CKBFile::Deserialize(const unsigned char *pBuffer, uint32_t cbBufferSize) {
+uint32_t CKBFile::Deserialize(const unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize) {
+    if(m_master_key.size()==0){
+        return ERROR_MASTER_KEY_INVALID;
+    }
+    m_header.Deserialize(pBuffer, cbBufferSize, cbRealSize);
+    CCipherEngine cipherEngine;
+    vector<unsigned char> decrypted_buff;
+    uint32_t uResult = 0;
+    uResult = cipherEngine.AES256EnDecrypt(
+            pBuffer + cbRealSize,
+            cbBufferSize - cbRealSize,
+            m_master_key.ShowBin(),
+            m_header.GetIV(),
+            CCipherEngine::AES_CHAIN_MODE_CBC,
+            CCipherEngine::AES_PADDING_MODE_PKCS7,
+            false,
+            decrypted_buff
+    );
+    if (uResult) {
+        return uResult;
+    }
+    // load json from decrypted_buff
+    decrypted_buff.push_back('\0'); // append a zero
+    boost::property_tree::ptree entries_tree;
+    std::istringstream iss( (char*)(&decrypted_buff[0]));
+    string temp = std::string(decrypted_buff.begin(), decrypted_buff.end());
+    try {
+        boost::property_tree::read_json(iss, entries_tree);
+    }
+    catch(exception &e){
+        return ERROR_INVALD_JSON;
+    }
+
+    // Clear existing entries
+    m_entries.clear();
+
+    for (const auto& kv : entries_tree.get_child("entries")) {
+        CPwdEntry entry;
+        entry.fromJsonObj(kv.second);
+        m_entries.push_back(std::move(entry));
+    }
     return 0;
 }
 
 uint32_t CKBFile::Lock(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize) {
+    cbRealSize = 0;
+    m_header.Serialize(pBuffer, 0, cbRealSize);
+    if (cbRealSize > cbBufferSize) {
+        return ERROR_BUFFER_TOO_SMALL;
 
+    }
+    uint32_t uResult = 0;
+    uResult = m_header.Serialize(pBuffer, cbBufferSize, cbRealSize);
+    if (uResult) {
+        return uResult;
+    }
+
+    boost::property_tree::ptree pay_load;
+    boost::property_tree::ptree  entries;
+    for (auto & entry : m_entries) {
+        entries.push_back({"", entry.toJsonObj()});
+    }
+    pay_load.add_child("entries", entries);
+
+    std::ostringstream oss;
+    boost::property_tree::write_json(oss, pay_load);
+    string pay_load_json = oss.str();
+
+    vector<unsigned char> encrypted_buff;
+
+    CCipherEngine cipherEngine;
+    uResult = cipherEngine.AES256EnDecrypt(
+            (unsigned char *) &pay_load_json[0],
+            pay_load_json.size(),
+            m_master_key.ShowBin(),
+            m_header.GetIV(),
+            CCipherEngine::AES_CHAIN_MODE_CBC,
+            CCipherEngine::AES_PADDING_MODE_PKCS7,
+            true,
+            encrypted_buff
+    );
+    if (uResult) {
+        return uResult;
+    }
+    if (cbBufferSize < cbRealSize + encrypted_buff.size()) {
+        return ERROR_BUFFER_TOO_SMALL;
+    }
+    memcpy(pBuffer + cbRealSize, &encrypted_buff[0], encrypted_buff.size());
+    cbRealSize += encrypted_buff.size();
+
+
+    // clean
+    cipherEngine.CleanString(pay_load_json);
+    m_entries.clear();
     return 0;
+}
+
+CKBFileHeader &CKBFile::GetHeader() {
+    return m_header;
+}
+
+uint32_t CKBFile::AddEntry(CPwdEntry _entry) {
+    for (const auto &entry: m_entries) {
+        if (entry.GetID() == _entry.GetID()) {
+            return ERROR_DUPLICATE_KEY;
+        }
+    }
+    m_entries.push_back(_entry);
+    return 0;
+}
+
+void CKBFile::SetMasterKey(std::vector<unsigned char> key, IRandomGenerator &irg) {
+    m_master_key.Set(key, irg);
+
 }

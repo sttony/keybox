@@ -11,6 +11,7 @@
 boost::property_tree::ptree CPwdEntry::toJsonObj() {
     boost::property_tree::ptree root;
     root.put("uuid", boost::uuids::to_string(m_uuid));
+    root.put("title", m_title);
     root.put("user_name", m_username);
     root.put("url", m_url);
     root.add_child("note", m_note.toJsonObj());
@@ -19,7 +20,7 @@ boost::property_tree::ptree CPwdEntry::toJsonObj() {
 
     return root;
 }
-const std::string& CPwdEntry::GetTitle() {
+const std::string& CPwdEntry::GetTitle() const {
     return m_title;
 };
 
@@ -39,6 +40,7 @@ CPwdEntry::CPwdEntry(boost::uuids::uuid _uuid) {
 uint32_t CPwdEntry::fromJsonObj(const boost::property_tree::ptree &jsonObj) {
     auto uuidStr = jsonObj.get<std::string>("uuid");
     m_uuid = boost::lexical_cast<boost::uuids::uuid>(uuidStr);
+    m_title = jsonObj.get<std::string>("title");
     m_username = jsonObj.get<std::string>("user_name");
     m_url = jsonObj.get<std::string>("url");
 

@@ -41,19 +41,29 @@ private:
 
 public:
     CKBFileHeader();
-    uint32_t Deserialize(const unsigned char* pBuffer, uint32_t cbBufferSize);
+    uint32_t Deserialize(const unsigned char* pBuffer, uint32_t cbBufferSize, uint32_t& cbRealSize);
     uint32_t Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
 
     PBKDF2_256_PARAMETERS& GetDerivativeParameters(){
         return m_key_derivative_parameters;
     }
+    const std::vector<unsigned char>& GetIV(){
+        return m_encryption_iv;
+    }
 };
 
 class CKBFile {
 public:
-    const std::vector<CPwdEntry>& GetEntries();
-    uint32_t Deserialize(const unsigned char* pBuffer, uint32_t cbBufferSize);
+
+    uint32_t Deserialize(const unsigned char* pBuffer, uint32_t cbBufferSize, uint32_t& cbRealSize);
     uint32_t Lock(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
+    uint32_t AddEntry(CPwdEntry _entry);
+
+    // TODO: for testing, expose them.
+    std::vector<CPwdEntry>& GetEntries();
+    CKBFileHeader& GetHeader();
+    void SetMasterKey(std::vector<unsigned char> key, IRandomGenerator& irg);
+    CPwdEntry QueryEntryByTitle(const std::string& _title);
 
 private:
     CKBFileHeader m_header;
