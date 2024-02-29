@@ -17,6 +17,11 @@ public:
     CPwdEntry(boost::uuids::uuid _uuid);
 
     boost::property_tree::ptree toJsonObj();
+    uint32_t fromJsonObj(const boost::property_tree::ptree&);
+
+    const boost::uuids::uuid& GetID() const{
+        return m_uuid;
+    }
 
     const std::string& GetTitle();
     void SetTitle(const std::string& _title);
