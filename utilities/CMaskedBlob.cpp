@@ -8,8 +8,10 @@
 using namespace std;
 
 CMaskedBlob::~CMaskedBlob(){
-    memset( &m_password[0], 0, m_password.size());
-    memset( &m_onepad[0], 0, m_onepad.size());
+    if( m_password.size()>0)
+        memset( &m_password[0], 0, m_password.size());
+    if(m_onepad.size()>0)
+        memset( &m_onepad[0], 0, m_onepad.size());
 }
 
 uint32_t CMaskedBlob::Set(std::string &plainPassword, IRandomGenerator& randomGenerator) {
@@ -48,12 +50,14 @@ boost::property_tree::ptree CMaskedBlob::toJsonObj() {
     boost::property_tree::ptree root;
     Base64Coder base64Coder;
     string encoded_password;
-    base64Coder.Encode(&m_password[0], m_password.size(), encoded_password);
-    root.put("masked",  encoded_password);
+    if( m_password.size()>0) {
+        base64Coder.Encode(&m_password[0], m_password.size(), encoded_password);
+        root.put("masked", encoded_password);
 
-    string encoded_onepad;
-    base64Coder.Encode(&m_onepad[0], m_onepad.size(), encoded_onepad);
-    root.put("onepad",  encoded_onepad);
+        string encoded_onepad;
+        base64Coder.Encode(&m_onepad[0], m_onepad.size(), encoded_onepad);
+        root.put("onepad", encoded_onepad);
+    }
     return root;
 }
 
@@ -68,4 +72,17 @@ std::vector<unsigned char> CMaskedBlob::ShowBin() {
 CMaskedBlob::CMaskedBlob() {
     m_password = {};
     m_onepad ={};
+}
+
+uint32_t CMaskedBlob::fromJsonObj(const boost::property_tree::ptree &jsonObj) {
+    Base64Coder base64Coder;
+    // Get password and onepad from json and decode them
+    std::string encoded_password = jsonObj.get<std::string>("masked", "");
+    std::string encoded_onepad = jsonObj.get<std::string>("onepad", "");
+
+    if (!base64Coder.Decode(encoded_password, m_password) ||
+        !base64Coder.Decode(encoded_onepad, m_onepad)) {
+        return ERROR_INVALID_BASE64; // Some predefined error code.
+    }
+    return 0;
 }
