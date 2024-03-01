@@ -2,5 +2,6 @@
   <qresource prefix="img">
     <file>img/eye.slash.svg</file>
     <file>img/eye.svg</file>
+    <file>img/lock.svg</file>
   </qresource>
 </RCC>

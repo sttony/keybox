@@ -12,6 +12,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QTreeWidgetItem>
+#include <QToolBar>
 #include "CKBModel.h"
 
 class MainWindow  : public QMainWindow {
@@ -22,15 +23,20 @@ public:
 
 private slots:
     void newFile();
+    void Lock();
 
 private:
     void createActions();
     void createMenus();
 
-    QAction *newAct;
+    QAction* m_newFileAction;
+    QAction* m_lockAction;
+
+    QMenu *fileMenu;
+    QToolBar* m_toolbar;
 
 private:
-    QMenu *fileMenu;
+
     CKBModel model;
 };
 

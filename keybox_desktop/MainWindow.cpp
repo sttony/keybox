@@ -6,11 +6,21 @@
 #include <QTextEdit>
 #include <QListView>
 #include <QTableView>
+#include <QToolButton>
 #include "MainWindow.h"
 #include "CKBModel.h"
 
 MainWindow::MainWindow():
         model({"item1", "item2"}){
+    // toolbar
+    m_toolbar = this->addToolBar("toolbar");
+    m_lockAction = new QAction(QIcon(":img/img/lock.svg"), "Lock", this);
+    QToolButton* toolButton = new QToolButton(this);
+//    toolButton->setText("Tool Button");
+    toolButton->setDefaultAction(m_lockAction);
+    connect(m_lockAction, &QAction::triggered, this, &MainWindow::Lock);
+    m_toolbar->addWidget(toolButton);
+
     QSplitter* splitter = new QSplitter(this);
 
     QTextEdit* leftTextEdit = new QTextEdit();
@@ -42,13 +52,17 @@ void MainWindow::newFile() {
 
 void MainWindow::createMenus() {
     fileMenu = menuBar()->addMenu(tr("&File"));
-    fileMenu->addAction(newAct);
+    fileMenu->addAction(m_newFileAction);
 
 }
 
 void MainWindow::createActions() {
-    newAct = new QAction(tr("&New"), this);
-    newAct->setShortcuts(QKeySequence::New);
-    newAct->setStatusTip(tr("Create a new file"));
-    connect(newAct, &QAction::triggered, this, &MainWindow::newFile);
+    m_newFileAction = new QAction(tr("&New"), this);
+    m_newFileAction->setShortcuts(QKeySequence::New);
+    m_newFileAction->setStatusTip(tr("Create a new file"));
+    connect(m_newFileAction, &QAction::triggered, this, &MainWindow::newFile);
+}
+
+void MainWindow::Lock() {
+
 }
