@@ -12,6 +12,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QTreeWidgetItem>
+#include "CKBModel.h"
 
 class MainWindow  : public QMainWindow {
     Q_OBJECT
@@ -30,6 +31,7 @@ private:
 
 private:
     QMenu *fileMenu;
+    CKBModel model;
 };
 
 

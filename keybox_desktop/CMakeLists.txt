@@ -24,6 +24,8 @@ add_executable(keyboxd main.cpp
         EntryView.h
         PasswordBox.cpp
         PasswordBox.h
+        CKBModel.cpp
+        CKBModel.h
 )
 
 target_link_libraries(
