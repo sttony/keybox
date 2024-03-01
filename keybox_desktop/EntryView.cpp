@@ -10,10 +10,21 @@
 #include "EntryView.h"
 
 #include "PasswordBox.h"
+using namespace std;
+RandomGenerator g_rg(RandomGenerator::Salsa20);
+
+QHBoxLayout* EntryView::createInputLine(const QString& label, QLineEdit* inputWidget) {
+    QHBoxLayout* inputLine = new QHBoxLayout;
+    inputLine->addWidget(new QLabel(label));
+    inputLine->addWidget(inputWidget);
+    inputLine->setStretch(0, 1);
+    inputLine->setStretch(1, 4);
+    return inputLine;
+}
+
 
 EntryView::EntryView(QWidget *parent) {
-    QGridLayout *gridLayout = new QGridLayout(this);
-    gridLayout->setSpacing(10);
+    QVBoxLayout* rootLayout = new QVBoxLayout (this);
 
     m_title_box = new QLineEdit;
     m_url_box = new QLineEdit;
@@ -26,30 +37,27 @@ EntryView::EntryView(QWidget *parent) {
     m_password_show_button = new QPushButton("P");
     m_note_show_button = new QPushButton("N");
 
-    PasswordBox* pass_buton = new PasswordBox(nullptr, "test");
-    gridLayout->addWidget(pass_buton);
 
-//    gridLayout->addWidget(new QLabel("Title"), 0, 0);
-//    gridLayout->addWidget(m_title_box, 0, 1, 1, 19);
-//
-//    gridLayout->addWidget(new QLabel("Url"), 1, 0);
-//    gridLayout->addWidget(m_url_box, 1, 1, 1, 19);
-//
-//    gridLayout->addWidget(new QLabel("UserName"), 2, 0);
-//    gridLayout->addWidget(m_user_name_box, 2, 1, 1, 19);
-//
-//    gridLayout->addWidget(new QLabel("Password"), 3, 0);
-//    gridLayout->addWidget(m_password_box, 3, 1, 1, 17);
-//    gridLayout->addWidget(m_password_show_button, 3, 18);
-//
-//    gridLayout->addWidget(new QLabel("Note"), 4, 0);
-//    gridLayout->addWidget(m_note_show_button, 4, 18);
-//    gridLayout->addWidget(m_note_box, 5, 0, 9, 19);
-//
+
+    std::array<unsigned char, 8> vIV = {0xe8, 0x30, 0x09, 0x4b, 0x97, 0x20, 0x5d, 0x2a};
+    std::vector<unsigned char> vKey = {0xe8, 0x30, 0x09, 0x4b, 0x97, 0x20, 0x5d, 0x2a,
+                                          0xe8, 0x30, 0x09, 0x4b, 0x97, 0x20, 0x5d, 0x2a,
+                                          0xe8, 0x30, 0x09, 0x4b, 0x97, 0x20, 0x5d, 0x2a,
+                                          0xe8, 0x30, 0x09, 0x4b, 0x97, 0x20, 0x5d, 0x2a};
+    g_rg.init(vKey, vIV);
+
+
+    rootLayout->addLayout(createInputLine("Title", m_title_box));
+    rootLayout->addLayout(createInputLine("Url", m_url_box));
+    rootLayout->addLayout(createInputLine("Username", m_user_name_box));
+
+    PasswordBox* pwd_box = new PasswordBox(nullptr, "Password", make_shared<CMaskedBlob>(b),
+                                               g_rg, false);
+    rootLayout->addWidget(pwd_box);
+    PasswordBox* note_box = new PasswordBox(nullptr, "Note", make_shared<CMaskedBlob>(n), g_rg, true);
+    rootLayout->addWidget(note_box);
+
 //    gridLayout->addWidget(m_ok_button, 15, 0);
 //    gridLayout->addWidget(m_cancel_button, 15, 1);
-
-
-    this->setLayout(gridLayout);
-
+    this->setLayout(rootLayout);
 }

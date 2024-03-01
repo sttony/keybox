@@ -9,6 +9,7 @@
 #include <QDialog>
 #include <QLineEdit>
 #include <QTextEdit>
+#include "PasswordBox.h"
 
 class EntryView : public QDialog {
 Q_OBJECT
@@ -29,6 +30,12 @@ private:
 
     QPushButton* m_ok_button;
     QPushButton* m_cancel_button;
+
+    CMaskedBlob b;
+    CMaskedBlob n;
+
+
+    QHBoxLayout*  createInputLine(const QString& label, QLineEdit* inputWidget);
 };
 
 

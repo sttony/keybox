@@ -10,6 +10,9 @@ set(CMAKE_AUTORCC ON)
 qt5_wrap_cpp(MOC_SOURCES MainWindow.h)
 include_directories(${Qt5Widgets_INCLUDE_DIRS})
 
+set (Boost_USE_STATIC_LIBS ON)
+find_package (Boost REQUIRED unit_test_framework)
+include_directories (${Boost_INCLUDE_DIRS})
 
 
 add_executable(keyboxd main.cpp
