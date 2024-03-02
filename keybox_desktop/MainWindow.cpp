@@ -13,29 +13,13 @@
 
 MainWindow::MainWindow():
         model({"item1", "item2"}){
-    // toolbar
-    m_toolbar = this->addToolBar("toolbar");
-    m_lockAction = new QAction(QIcon(":img/img/lock.svg"), "Lock", this);
-    QToolButton* toolButton = new QToolButton(this);
-    toolButton->setDefaultAction(m_lockAction);
-    connect(m_lockAction, &QAction::triggered, this, &MainWindow::Lock);
-    m_toolbar->addWidget(toolButton);
-    QLineEdit* searchBox = new QLineEdit(this);
-    searchBox->setPlaceholderText("Search...");
-    m_toolbar->addWidget(searchBox);
-
+    createToolbar();
     QSplitter* splitter = new QSplitter(this);
-
     QTextEdit* leftTextEdit = new QTextEdit();
     QTableView* view = new QTableView;
-
-
     QStringList list;
     list << "Item 1" << "Item 2" << "Item 3";
-
     view->setModel(&model);
-
-
 
     splitter->addWidget(leftTextEdit);
     splitter->addWidget(view);
@@ -46,6 +30,18 @@ MainWindow::MainWindow():
     createActions();
     createMenus();
     resize(800, 600);
+}
+
+void MainWindow::createToolbar() {// toolbar
+    m_toolbar = addToolBar("toolbar");
+    m_lockAction = new QAction(QIcon(":img/img/lock.svg"), "Lock", this);
+    QToolButton* toolButton = new QToolButton(this);
+    toolButton->setDefaultAction(m_lockAction);
+    connect(m_lockAction, &QAction::triggered, this, &MainWindow::Lock);
+    m_toolbar->addWidget(toolButton);
+    QLineEdit* searchBox = new QLineEdit(this);
+    searchBox->setPlaceholderText("Search...");
+    m_toolbar->addWidget(searchBox);
 }
 
 

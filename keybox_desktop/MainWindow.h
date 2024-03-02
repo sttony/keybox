@@ -38,6 +38,8 @@ private:
 private:
 
     CKBModel model;
+
+    void createToolbar();
 };
 
 

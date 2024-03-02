@@ -178,7 +178,7 @@ uint32_t CKBFile::Deserialize(const unsigned char *pBuffer, uint32_t cbBufferSiz
         boost::property_tree::read_json(iss, entries_tree);
     }
     catch(exception &e){
-        return ERROR_INVALD_JSON;
+        return ERROR_INVALID_JSON;
     }
 
     // Clear existing entries
@@ -261,5 +261,4 @@ uint32_t CKBFile::AddEntry(CPwdEntry _entry) {
 
 void CKBFile::SetMasterKey(std::vector<unsigned char> key, IRandomGenerator &irg) {
     m_master_key.Set(key, irg);
-
 }
