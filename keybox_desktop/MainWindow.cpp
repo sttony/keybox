@@ -8,18 +8,20 @@
 #include <QTableView>
 #include <QToolButton>
 #include <QLineEdit>
+#include <QFileDialog>
 #include "MainWindow.h"
 #include "CKBModel.h"
 
-MainWindow::MainWindow():
-        model({"item1", "item2"}){
+using namespace std;
+
+MainWindow::MainWindow(){
     createToolbar();
     QSplitter* splitter = new QSplitter(this);
     QTextEdit* leftTextEdit = new QTextEdit();
     QTableView* view = new QTableView;
     QStringList list;
     list << "Item 1" << "Item 2" << "Item 3";
-    view->setModel(&model);
+    //view->setModel(&model);
 
     splitter->addWidget(leftTextEdit);
     splitter->addWidget(view);
@@ -46,7 +48,7 @@ void MainWindow::createToolbar() {// toolbar
 
 
 void MainWindow::newFile() {
-
+    m_pModel = make_unique<CKBModel>(nullptr);
 }
 
 void MainWindow::createMenus() {

@@ -5,6 +5,7 @@
 #ifndef KEYBOX_MAINWINDOW_H
 #define KEYBOX_MAINWINDOW_H
 
+#include <memory>
 #include <QtGlobal>
 #include <QMainWindow>
 #include <QActionGroup>
@@ -28,6 +29,7 @@ private slots:
 private:
     void createActions();
     void createMenus();
+    void createToolbar();
 
     QAction* m_newFileAction;
     QAction* m_lockAction;
@@ -36,10 +38,7 @@ private:
     QToolBar* m_toolbar;
 
 private:
-
-    CKBModel model;
-
-    void createToolbar();
+    std::unique_ptr<CKBModel> m_pModel;
 };
 
 
