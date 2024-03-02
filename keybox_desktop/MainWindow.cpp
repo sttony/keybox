@@ -7,6 +7,7 @@
 #include <QListView>
 #include <QTableView>
 #include <QToolButton>
+#include <QLineEdit>
 #include "MainWindow.h"
 #include "CKBModel.h"
 
@@ -16,10 +17,12 @@ MainWindow::MainWindow():
     m_toolbar = this->addToolBar("toolbar");
     m_lockAction = new QAction(QIcon(":img/img/lock.svg"), "Lock", this);
     QToolButton* toolButton = new QToolButton(this);
-//    toolButton->setText("Tool Button");
     toolButton->setDefaultAction(m_lockAction);
     connect(m_lockAction, &QAction::triggered, this, &MainWindow::Lock);
     m_toolbar->addWidget(toolButton);
+    QLineEdit* searchBox = new QLineEdit(this);
+    searchBox->setPlaceholderText("Search...");
+    m_toolbar->addWidget(searchBox);
 
     QSplitter* splitter = new QSplitter(this);
 
