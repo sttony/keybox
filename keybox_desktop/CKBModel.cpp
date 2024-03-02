@@ -19,5 +19,6 @@ QVariant CKBModel::data(const QModelIndex &index, int role) const {
 
 int CKBModel::columnCount(const QModelIndex &parent) const {
     Q_UNUSED(parent);
+    // Title, Username,  Password (***), URL
     return 4;
 }
