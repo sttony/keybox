@@ -21,6 +21,7 @@ set(HEADER_FILES
         CKBFile.h
         CPwdEntry.h
         CMaskedBlob.h
+        InitGlobalRG.h
 )
 
 IF(WIN32)
@@ -34,6 +35,7 @@ IF(WIN32)
             CKBFile.cpp
             CPwdEntry.cpp
             CMaskedBlob.cpp
+            InitGlobalRG_win.cpp
     )
 ELSEIF (APPLE)
     set(SOURCE_FILES
