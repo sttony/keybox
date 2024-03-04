@@ -26,6 +26,8 @@ add_executable(keyboxd main.cpp
         PasswordBox.h
         CKBModel.cpp
         CKBModel.h
+        PrimaryPasswordDlg.cpp
+        PrimaryPasswordDlg.h
 )
 
 target_link_libraries(
