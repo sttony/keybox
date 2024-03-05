@@ -11,7 +11,7 @@ extern RandomGenerator g_RG;
 PrimaryPasswordDlg::PrimaryPasswordDlg(QWidget *parent) {
     QVBoxLayout* rootLayout = new QVBoxLayout (this);
 
-    m_pwdBox = new PasswordBox(nullptr, "password",  make_shared<CMaskedBlob>(m_pwd), g_RG, false);
+    m_pwdBox = new PasswordBox(nullptr, "password",  make_shared<CMaskedBlob>(m_pwd), g_RG, false, true);
 
 
     rootLayout->addWidget(m_pwdBox);

@@ -28,7 +28,12 @@ private:
     IRandomGenerator& m_randomGenerator;
 
 public:
-    PasswordBox(QWidget*, const std::string&&, std::shared_ptr<CMaskedBlob>, IRandomGenerator&, bool multipleLine);
+    PasswordBox(QWidget*,
+                const std::string&&,
+                std::shared_ptr<CMaskedBlob>,
+                        IRandomGenerator&,
+                        bool multipleLine,
+                        bool _doesShow);
 
 
 public slots:

@@ -52,9 +52,9 @@ EntryView::EntryView(QWidget *parent) {
     rootLayout->addLayout(createInputLine("Username", m_user_name_box));
 
     PasswordBox* pwd_box = new PasswordBox(nullptr, "Password", make_shared<CMaskedBlob>(b),
-                                               g_rg, false);
+                                               g_rg, false, false);
     rootLayout->addWidget(pwd_box);
-    PasswordBox* note_box = new PasswordBox(nullptr, "Note", make_shared<CMaskedBlob>(n), g_rg, true);
+    PasswordBox* note_box = new PasswordBox(nullptr, "Note", make_shared<CMaskedBlob>(n), g_rg, true, false);
     rootLayout->addWidget(note_box);
 
 //    gridLayout->addWidget(m_ok_button, 15, 0);

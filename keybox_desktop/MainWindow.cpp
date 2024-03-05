@@ -11,6 +11,7 @@
 #include <QFileDialog>
 #include "MainWindow.h"
 #include "CKBModel.h"
+#include "PrimaryPasswordDlg.h"
 
 using namespace std;
 
@@ -49,6 +50,8 @@ void MainWindow::createToolbar() {// toolbar
 
 void MainWindow::newFile() {
     m_pModel = make_unique<CKBModel>(nullptr);
+    PrimaryPasswordDlg ppdlg;
+    ppdlg.exec();
 }
 
 void MainWindow::createMenus() {

@@ -11,10 +11,11 @@ PasswordBox::PasswordBox(QWidget *parent,
                          const string&& _label,
                          shared_ptr<CMaskedBlob> _pMaskedBlob,
                          IRandomGenerator& _rg,
-                         bool multipleLine)
+                         bool multipleLine,
+                         bool _doesShow)
         : QWidget(parent),
         m_label(_label),
-        m_doesShow(false),
+        m_doesShow(_doesShow),
         m_pMaskedBlob(std::move(_pMaskedBlob)),
         m_randomGenerator(_rg){
     m_hideIcon = new QIcon(":img/img/eye.slash.svg");
@@ -23,15 +24,20 @@ PasswordBox::PasswordBox(QWidget *parent,
     QLabel *label = new QLabel(m_label.c_str());
     if(!multipleLine) {
         m_textInput_oneline = new QLineEdit;
-        m_textInput_oneline->setDisabled(true);
+        m_textInput_oneline->setDisabled(!m_doesShow);
     }
     else {
         m_textInput_multipleline = new QTextEdit;
-        m_textInput_multipleline->setDisabled(true);
+        m_textInput_multipleline->setDisabled(!m_doesShow);
         m_textInput_multipleline->setStyleSheet("border: 2px solid black;");
     }
     m_showButton = new QPushButton();
-    m_showButton->setIcon(*m_hideIcon);
+    if(m_doesShow){
+        m_showButton->setIcon(*m_showIcon);
+    }
+    else{
+        m_showButton->setIcon(*m_hideIcon);
+    }
     m_showButton->setIconSize(QSize(24, 24));
     m_showButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     m_showButton->setFixedSize(m_showButton->iconSize());
