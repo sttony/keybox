@@ -11,7 +11,7 @@
 
 struct PBKDF2_256_PARAMETERS{
     unsigned char Salt[32];
-    uint32_t num_rounds;
+    uint32_t num_rounds = 60000;
 };
 
 class CCipherEngine {

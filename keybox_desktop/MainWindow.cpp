@@ -15,6 +15,8 @@
 
 using namespace std;
 
+extern RandomGenerator g_RG;
+
 MainWindow::MainWindow(){
     createToolbar();
     QSplitter* splitter = new QSplitter(this);
@@ -50,13 +52,29 @@ void MainWindow::createToolbar() {// toolbar
 
 void MainWindow::newFile() {
     m_pModel = make_unique<CKBModel>(nullptr);
-    PrimaryPasswordDlg ppdlg;
+
+    PBKDF2_256_PARAMETERS pbkdf2256Parameters;
+    vector<unsigned char> randomv32;
+    g_RG.GetNextBytes(32, randomv32);
+
+
+    PrimaryPasswordDlg ppdlg(pbkdf2256Parameters);
     ppdlg.exec();
 }
 
 void MainWindow::createMenus() {
     fileMenu = menuBar()->addMenu(tr("&File"));
     fileMenu->addAction(m_newFileAction);
+
+    fileMenu = menuBar()->addMenu(tr("&Entry"));
+    fileMenu->addAction(m_newEntryAction);
+
+
+    fileMenu = menuBar()->addMenu(tr("&Tools"));
+
+    fileMenu = menuBar()->addMenu(tr("&Help"));
+
+
 
 }
 
@@ -65,6 +83,8 @@ void MainWindow::createActions() {
     m_newFileAction->setShortcuts(QKeySequence::New);
     m_newFileAction->setStatusTip(tr("Create a new file"));
     connect(m_newFileAction, &QAction::triggered, this, &MainWindow::newFile);
+
+    m_newEntryAction = new QAction(tr("&Add Entry"), this);
 }
 
 void MainWindow::Lock() {

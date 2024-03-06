@@ -32,6 +32,7 @@ private:
     void createToolbar();
 
     QAction* m_newFileAction;
+    QAction* m_newEntryAction;
     QAction* m_lockAction;
 
     QMenu *fileMenu;
