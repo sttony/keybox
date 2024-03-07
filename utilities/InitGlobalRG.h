@@ -6,8 +6,8 @@
 #define KEYBOX_INITGLOBALRG_H
 #include "RandomGenerator.h"
 
-RandomGenerator g_RG(RandomGenerator::Salsa20);
-void InitRG();
+extern RandomGenerator g_RG;
+void InitGlobalRG();
 
 
 #endif //KEYBOX_INITGLOBALRG_H

@@ -5,6 +5,7 @@
 #include "EntryView.h"
 #include "../utilities/RandomGenerator.h"
 #include "PrimaryPasswordDlg.h"
+#include "utilities/InitGlobalRG.h"
 
 using namespace std;
 
@@ -12,6 +13,7 @@ int main(int argc, char *argv[])
 {
     // Create a Qt application
     QApplication app(argc, argv);
+    InitGlobalRG();
 //    EntryView ev;
 //    int ret = ev.exec();
 //    PrimaryPasswordDlg masterpasswordView;
