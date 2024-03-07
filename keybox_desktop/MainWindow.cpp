@@ -52,13 +52,11 @@ void MainWindow::createToolbar() {// toolbar
 
 void MainWindow::newFile() {
     m_pModel = make_unique<CKBModel>(nullptr);
-
-    PBKDF2_256_PARAMETERS pbkdf2256Parameters;
     vector<unsigned char> randomv32;
     g_RG.GetNextBytes(32, randomv32);
+    m_pModel->SetKeyDerivateParameters(randomv32);
 
-
-    PrimaryPasswordDlg ppdlg(pbkdf2256Parameters);
+    PrimaryPasswordDlg ppdlg(m_pModel->GetKeyDerivateParameters());
     ppdlg.exec();
 }
 

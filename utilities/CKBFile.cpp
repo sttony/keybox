@@ -135,6 +135,15 @@ CKBFileHeader::CKBFileHeader() : m_encryption_iv(16) {
 
 }
 
+uint32_t CKBFileHeader::SetDerivativeParameters(const vector<unsigned char> &_salt, int num_round) {
+    m_key_derivative_parameters.num_rounds = num_round;
+    if( _salt.size() != 32){
+        return ERROR_INVALID_PARAMETER;
+    }
+    copy(_salt.begin(), _salt.end(), m_key_derivative_parameters.Salt);
+    return 0;
+}
+
 CPwdEntry CKBFile::QueryEntryByTitle(const string &_title) {
     for (const auto &entry: m_entries) {
         if (entry.GetTitle() == _title) {
@@ -261,4 +270,8 @@ uint32_t CKBFile::AddEntry(CPwdEntry _entry) {
 
 void CKBFile::SetMasterKey(std::vector<unsigned char> key, IRandomGenerator &irg) {
     m_master_key.Set(key, irg);
+}
+
+uint32_t CKBFile::SetDerivativeParameters(const vector<unsigned char> &_salt, int num_round) {
+    return m_header.SetDerivativeParameters(_salt, num_round);
 }

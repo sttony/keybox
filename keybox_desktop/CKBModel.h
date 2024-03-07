@@ -19,6 +19,9 @@ public:
 
 
     uint32_t LoadKB(const std::string& filepath);
+
+    void SetKeyDerivateParameters(const std::vector<unsigned char>& _salt, int num_round = 60000);
+    const PBKDF2_256_PARAMETERS& GetKeyDerivateParameters();
 private:
     CKBFile m_kbfile;
     std::vector<unsigned char> m_file_buff;

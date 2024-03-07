@@ -50,6 +50,8 @@ public:
     const std::vector<unsigned char>& GetIV(){
         return m_encryption_iv;
     }
+
+    uint32_t SetDerivativeParameters(const std::vector<unsigned char>& _salt, int num_round = 60000);
 };
 
 class CKBFile {
@@ -64,6 +66,11 @@ public:
     CKBFileHeader& GetHeader();
     void SetMasterKey(std::vector<unsigned char> key, IRandomGenerator& irg);
     CPwdEntry QueryEntryByTitle(const std::string& _title);
+
+    uint32_t SetDerivativeParameters(const std::vector<unsigned char>& _salt, int num_round = 60000);
+    const PBKDF2_256_PARAMETERS& GetDerivativeParameters(){
+        return m_header.GetDerivativeParameters();
+    }
 
 private:
     CKBFileHeader m_header;

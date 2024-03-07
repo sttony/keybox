@@ -46,3 +46,11 @@ uint32_t CKBModel::LoadKB(const std::string &filepath) {
 
     return 0;
 }
+
+void CKBModel::SetKeyDerivateParameters(const std::vector<unsigned char> &_salt, int num_round) {
+    m_kbfile.SetDerivativeParameters(_salt, num_round);
+}
+
+const PBKDF2_256_PARAMETERS& CKBModel::GetKeyDerivateParameters() {
+    return m_kbfile.GetDerivativeParameters();
+}
