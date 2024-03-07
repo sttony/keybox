@@ -58,6 +58,7 @@ void MainWindow::newFile() {
 
     PrimaryPasswordDlg ppdlg(m_pModel->GetKeyDerivateParameters());
     ppdlg.exec();
+    m_pModel->SetPrimaryKey(ppdlg.GetPassword());
 }
 
 void MainWindow::createMenus() {

@@ -54,3 +54,7 @@ void CKBModel::SetKeyDerivateParameters(const std::vector<unsigned char> &_salt,
 const PBKDF2_256_PARAMETERS& CKBModel::GetKeyDerivateParameters() {
     return m_kbfile.GetDerivativeParameters();
 }
+
+void CKBModel::SetPrimaryKey(CMaskedBlob p) {
+    m_kbfile.SetMasterKey(p);
+}

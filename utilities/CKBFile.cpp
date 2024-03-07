@@ -275,3 +275,7 @@ void CKBFile::SetMasterKey(std::vector<unsigned char> key, IRandomGenerator &irg
 uint32_t CKBFile::SetDerivativeParameters(const vector<unsigned char> &_salt, int num_round) {
     return m_header.SetDerivativeParameters(_salt, num_round);
 }
+
+void CKBFile::SetMasterKey(CMaskedBlob p) {
+    m_master_key = p;
+}

@@ -22,6 +22,8 @@ public:
 
     void SetKeyDerivateParameters(const std::vector<unsigned char>& _salt, int num_round = 60000);
     const PBKDF2_256_PARAMETERS& GetKeyDerivateParameters();
+
+    void SetPrimaryKey(CMaskedBlob p);
 private:
     CKBFile m_kbfile;
     std::vector<unsigned char> m_file_buff;

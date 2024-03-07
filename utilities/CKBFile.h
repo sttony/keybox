@@ -65,6 +65,7 @@ public:
     std::vector<CPwdEntry>& GetEntries();
     CKBFileHeader& GetHeader();
     void SetMasterKey(std::vector<unsigned char> key, IRandomGenerator& irg);
+    void SetMasterKey(CMaskedBlob p);
     CPwdEntry QueryEntryByTitle(const std::string& _title);
 
     uint32_t SetDerivativeParameters(const std::vector<unsigned char>& _salt, int num_round = 60000);
