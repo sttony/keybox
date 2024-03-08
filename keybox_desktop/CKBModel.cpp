@@ -65,5 +65,7 @@ void CKBModel::SetPrimaryKey(CMaskedBlob p) {
 }
 
 void CKBModel::AddEntry(const CPwdEntry &pe) {
+    beginResetModel();
     m_kbfile.AddEntry(pe);
+    endResetModel();
 }
