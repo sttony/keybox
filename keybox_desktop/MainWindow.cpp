@@ -71,6 +71,7 @@ void MainWindow::newFile() {
 void MainWindow::createMenus() {
     fileMenu = menuBar()->addMenu(tr("&File"));
     fileMenu->addAction(m_newFileAction);
+    fileMenu->addAction(m_saveFileAction);
 
     fileMenu = menuBar()->addMenu(tr("&Entry"));
     fileMenu->addAction(m_newEntryAction);
@@ -90,6 +91,11 @@ void MainWindow::createActions() {
     m_newFileAction->setStatusTip(tr("Create a new file"));
     connect(m_newFileAction, &QAction::triggered, this, &MainWindow::newFile);
 
+    m_saveFileAction = new QAction(tr("&Save"), this);
+    m_saveFileAction->setShortcut(QKeySequence::Save);
+    m_saveFileAction->setStatusTip(tr("Save the current file"));
+    connect(m_newFileAction, &QAction::triggered, this, &MainWindow::saveFile);
+
     m_newEntryAction = new QAction(tr("&Add Entry"), this);
     connect(m_newEntryAction, &QAction::triggered, this, &MainWindow::newEntry);
 }
@@ -102,7 +108,8 @@ void MainWindow::newEntry() {
     EntryDlg ev;
     int ret = ev.exec();
     m_pModel->AddEntry(ev.GetPwdEntry());
-//    this->repaint();
-//    //m_entry_table_view->reset();
-//    m_entry_table_view->repaint();
+}
+
+void MainWindow::saveFile() {
+
 }

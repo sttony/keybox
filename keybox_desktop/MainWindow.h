@@ -25,6 +25,7 @@ public:
 
 private slots:
     void newFile();
+    void saveFile();
     void newEntry();
     void Lock();
 
@@ -34,6 +35,7 @@ private:
     void createToolbar();
 
     QAction* m_newFileAction;
+    QAction* m_saveFileAction;
     QAction* m_newEntryAction;
     QAction* m_lockAction;
 
