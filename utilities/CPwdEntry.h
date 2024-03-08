@@ -43,7 +43,7 @@ public:
         return m_password.Set(plain_pwd, iRandomGenerator);
     }
 
-    CMaskedBlob& GetPwd(){
+    const CMaskedBlob& GetPwd() const {
         return m_password;
     }
 

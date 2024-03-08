@@ -16,10 +16,13 @@ QVariant CKBModel::data(const QModelIndex &index, int role) const {
     {
         if(m_kbfile.GetEntries().size() >0) {
             const CPwdEntry &pwdEntry = m_kbfile.GetEntries().at(index.row());
-            if (index.column() == 1) {
+            if (index.column() == 0) {
                 return QString(pwdEntry.GetTitle().c_str());
-            } else if (index.column() == 2) {
+            } else if (index.column() == 1) {
                 return QString(pwdEntry.GetUserName().c_str());
+            }
+            else if(index.column() == 2){
+                return QString( "****");
             }
         }
     }
