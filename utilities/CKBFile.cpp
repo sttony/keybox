@@ -153,7 +153,7 @@ CPwdEntry CKBFile::QueryEntryByTitle(const string &_title) {
     return {};
 }
 
-std::vector<CPwdEntry> &CKBFile::GetEntries() {
+const vector<CPwdEntry> & CKBFile::GetEntries() const {
     return m_entries;
 }
 

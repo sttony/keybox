@@ -5,13 +5,14 @@
 #include <QSplitter>
 #include <QTextEdit>
 #include <QListView>
-#include <QTableView>
+
 #include <QToolButton>
 #include <QLineEdit>
 #include <QFileDialog>
 #include "MainWindow.h"
 #include "CKBModel.h"
 #include "PrimaryPasswordDlg.h"
+#include "EntryDlg.h"
 
 using namespace std;
 
@@ -21,13 +22,11 @@ MainWindow::MainWindow(){
     createToolbar();
     QSplitter* splitter = new QSplitter(this);
     QTextEdit* leftTextEdit = new QTextEdit();
-    QTableView* view = new QTableView;
-    QStringList list;
-    list << "Item 1" << "Item 2" << "Item 3";
-    //view->setModel(&model);
+    m_entry_table_view = new QTableView;
+    //view->setModel(m_pModel.get());
 
     splitter->addWidget(leftTextEdit);
-    splitter->addWidget(view);
+    splitter->addWidget(m_entry_table_view);
     QList<int> sizes;
     sizes << 200 << 800;
     splitter->setSizes(sizes);
@@ -35,6 +34,9 @@ MainWindow::MainWindow(){
     createActions();
     createMenus();
     resize(800, 600);
+
+
+
 }
 
 void MainWindow::createToolbar() {// toolbar
@@ -51,14 +53,19 @@ void MainWindow::createToolbar() {// toolbar
 
 
 void MainWindow::newFile() {
-    m_pModel = make_unique<CKBModel>(nullptr);
+    auto newModel = new CKBModel;
     vector<unsigned char> randomv32;
     g_RG.GetNextBytes(32, randomv32);
-    m_pModel->SetKeyDerivateParameters(randomv32);
+    newModel->SetKeyDerivateParameters(randomv32);
 
-    PrimaryPasswordDlg ppdlg(m_pModel->GetKeyDerivateParameters());
+    PrimaryPasswordDlg ppdlg(newModel->GetKeyDerivateParameters());
+    // TODO: check return.
     ppdlg.exec();
-    m_pModel->SetPrimaryKey(ppdlg.GetPassword());
+    newModel->SetPrimaryKey(ppdlg.GetPassword());
+
+    m_entry_table_view->setModel(newModel);
+    delete m_pModel;
+    m_pModel = newModel;
 }
 
 void MainWindow::createMenus() {
@@ -84,8 +91,18 @@ void MainWindow::createActions() {
     connect(m_newFileAction, &QAction::triggered, this, &MainWindow::newFile);
 
     m_newEntryAction = new QAction(tr("&Add Entry"), this);
+    connect(m_newEntryAction, &QAction::triggered, this, &MainWindow::newEntry);
 }
 
 void MainWindow::Lock() {
 
+}
+
+void MainWindow::newEntry() {
+    EntryDlg ev;
+    int ret = ev.exec();
+    m_pModel->AddEntry(ev.GetPwdEntry());
+//    this->repaint();
+//    //m_entry_table_view->reset();
+//    m_entry_table_view->repaint();
 }

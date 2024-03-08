@@ -2,7 +2,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
 #include "MainWindow.h"
-#include "EntryView.h"
+#include "EntryDlg.h"
 #include "../utilities/RandomGenerator.h"
 #include "PrimaryPasswordDlg.h"
 #include "utilities/InitGlobalRG.h"
@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     // Create a Qt application
     QApplication app(argc, argv);
     InitGlobalRG();
-//    EntryView ev;
+//    EntryDlg ev;
 //    int ret = ev.exec();
 //    PrimaryPasswordDlg masterpasswordView;
 //    if( masterpasswordView.exec() == QDialog::Accepted){

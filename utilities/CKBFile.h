@@ -62,7 +62,7 @@ public:
     uint32_t AddEntry(CPwdEntry _entry);
 
     // TODO: for testing, expose them.
-    std::vector<CPwdEntry>& GetEntries();
+    const std::vector<CPwdEntry> & GetEntries() const;
     CKBFileHeader& GetHeader();
     void SetMasterKey(std::vector<unsigned char> key, IRandomGenerator& irg);
     void SetMasterKey(CMaskedBlob p);

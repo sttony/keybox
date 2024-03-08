@@ -26,7 +26,7 @@ public:
     const std::string& GetTitle() const;
     void SetTitle(const std::string& _title);
 
-    const std::string& GetUserName() { return m_username;};
+    const std::string& GetUserName() const { return m_username;};
     void SetUserName(const std::string& _username) {
         m_username = _username;
     };
@@ -43,11 +43,18 @@ public:
         return m_password.Set(plain_pwd, iRandomGenerator);
     }
 
+    CMaskedBlob& GetPwd(){
+        return m_password;
+    }
+
     std::string GetNote(){
         return m_note.Show();
     }
     uint32_t SetNote(std::string& plain_note, IRandomGenerator& iRandomGenerator){
         return m_note.Set(plain_note, iRandomGenerator);
+    }
+    CMaskedBlob& GetN(){
+        return m_note;
     }
 
     std::vector<unsigned char> GetAttachment(){

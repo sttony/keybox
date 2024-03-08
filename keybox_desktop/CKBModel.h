@@ -24,6 +24,7 @@ public:
     const PBKDF2_256_PARAMETERS& GetKeyDerivateParameters();
 
     void SetPrimaryKey(CMaskedBlob p);
+    void AddEntry(const CPwdEntry& pe);
 private:
     CKBFile m_kbfile;
     std::vector<unsigned char> m_file_buff;

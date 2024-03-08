@@ -14,6 +14,7 @@
 #include <QMenuBar>
 #include <QTreeWidgetItem>
 #include <QToolBar>
+#include <QTableView>
 #include "CKBModel.h"
 
 class MainWindow  : public QMainWindow {
@@ -24,6 +25,7 @@ public:
 
 private slots:
     void newFile();
+    void newEntry();
     void Lock();
 
 private:
@@ -38,8 +40,9 @@ private:
     QMenu *fileMenu;
     QToolBar* m_toolbar;
 
-private:
-    std::unique_ptr<CKBModel> m_pModel;
+    QTableView* m_entry_table_view;
+
+    CKBModel* m_pModel = nullptr;
 };
 
 

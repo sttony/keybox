@@ -20,8 +20,8 @@ add_executable(keyboxd main.cpp
         MainWindow.h
         ${MOC_SOURCES}
         resouces.qrc
-        EntryView.cpp
-        EntryView.h
+        EntryDlg.cpp
+        EntryDlg.h
         PasswordBox.cpp
         PasswordBox.h
         CKBModel.cpp

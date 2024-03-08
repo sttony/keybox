@@ -8,15 +8,20 @@
 
 int CKBModel::rowCount(const QModelIndex &parent) const {
     Q_UNUSED(parent);
-    return 4;
+    return m_kbfile.GetEntries().size();
 }
 
 QVariant CKBModel::data(const QModelIndex &index, int role) const {
     if (role == Qt::DisplayRole)
     {
-//        const CPwdEntry& pwdEntry = m_kbfile.GetEntries().at(index.row());
-
-        return QString("Row%1, Column%2").arg(index.row() + 1).arg(index.column() + 1);
+        if(m_kbfile.GetEntries().size() >0) {
+            const CPwdEntry &pwdEntry = m_kbfile.GetEntries().at(index.row());
+            if (index.column() == 1) {
+                return QString(pwdEntry.GetTitle().c_str());
+            } else if (index.column() == 2) {
+                return QString(pwdEntry.GetUserName().c_str());
+            }
+        }
     }
     return QVariant();
 }
@@ -57,4 +62,8 @@ const PBKDF2_256_PARAMETERS& CKBModel::GetKeyDerivateParameters() {
 
 void CKBModel::SetPrimaryKey(CMaskedBlob p) {
     m_kbfile.SetMasterKey(p);
+}
+
+void CKBModel::AddEntry(const CPwdEntry &pe) {
+    m_kbfile.AddEntry(pe);
 }
