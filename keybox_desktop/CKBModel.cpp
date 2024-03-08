@@ -24,6 +24,9 @@ QVariant CKBModel::data(const QModelIndex &index, int role) const {
             else if(index.column() == 2){
                 return QString( "****");
             }
+            else if(index.column() == 3) {
+                return QString(pwdEntry.GetUrl().c_str());
+            }
         }
     }
     return QVariant();
@@ -71,4 +74,23 @@ void CKBModel::AddEntry(const CPwdEntry &pe) {
     beginResetModel();
     m_kbfile.AddEntry(pe);
     endResetModel();
+}
+
+CKBModel::CKBModel(QObject *parent):QAbstractTableModel(parent){
+}
+
+QVariant CKBModel::headerData(int section, Qt::Orientation orientation, int role) const {
+    if (role == Qt::DisplayRole) {
+        if (orientation == Qt::Horizontal) {
+            switch (section) {
+                case 0: return QString("Title");
+                case 1: return QString("UserName");
+                case 2: return QString("Password");
+                case 3: return QString("Url");
+                default:
+                    assert(false);
+            }
+        }
+    }
+    return QVariant();
 }

@@ -31,7 +31,7 @@ public:
         m_username = _username;
     };
 
-    const std::string& GetUrl() { return m_url;};
+    const std::string& GetUrl() const { return m_url;};
     void SetUrl(const std::string& _url){
       m_url = _url;
     };
