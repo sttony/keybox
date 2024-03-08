@@ -94,7 +94,7 @@ void MainWindow::createActions() {
     m_saveFileAction = new QAction(tr("&Save"), this);
     m_saveFileAction->setShortcut(QKeySequence::Save);
     m_saveFileAction->setStatusTip(tr("Save the current file"));
-    connect(m_newFileAction, &QAction::triggered, this, &MainWindow::saveFile);
+    connect(m_saveFileAction, &QAction::triggered, this, &MainWindow::saveFile);
 
     m_newEntryAction = new QAction(tr("&Add Entry"), this);
     connect(m_newEntryAction, &QAction::triggered, this, &MainWindow::newEntry);
@@ -111,5 +111,20 @@ void MainWindow::newEntry() {
 }
 
 void MainWindow::saveFile() {
+    assert(m_pModel != nullptr);
+    if( m_pModel->GetFilePath().empty()){
+        QFileDialog dialog;
+        dialog.setFileMode(QFileDialog::AnyFile);
+        dialog.setWindowTitle("Select a file");
+
+        // Show the dialog
+        if (dialog.exec()) {
+            // Get the selected file path(s)
+            QStringList fileNames = dialog.selectedFiles();
+
+            // Print the selected file path(s)
+            //qDebug() << "Selected file(s):" << fileNames;
+        }
+    }
 
 }

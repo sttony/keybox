@@ -26,9 +26,12 @@ public:
 
     void SetPrimaryKey(CMaskedBlob p);
     void AddEntry(const CPwdEntry& pe);
+
+    const std::string& GetFilePath() const;
 private:
     CKBFile m_kbfile;
     std::vector<unsigned char> m_file_buff;
+    std::string m_kbfile_fullpath;
 
 };
 

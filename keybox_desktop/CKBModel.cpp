@@ -94,3 +94,7 @@ QVariant CKBModel::headerData(int section, Qt::Orientation orientation, int role
     }
     return QVariant();
 }
+
+const std::string &CKBModel::GetFilePath() const {
+    return m_kbfile_fullpath;
+}
