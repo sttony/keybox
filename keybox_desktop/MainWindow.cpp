@@ -72,9 +72,10 @@ void MainWindow::createMenus() {
     fileMenu = menuBar()->addMenu(tr("&File"));
     fileMenu->addAction(m_newFileAction);
     fileMenu->addAction(m_saveFileAction);
+    fileMenu->addAction(m_openFileAction);
 
-    fileMenu = menuBar()->addMenu(tr("&Entry"));
-    fileMenu->addAction(m_newEntryAction);
+    entryMenu = menuBar()->addMenu(tr("&Entry"));
+    entryMenu->addAction(m_newEntryAction);
 
 
     fileMenu = menuBar()->addMenu(tr("&Tools"));
@@ -95,6 +96,11 @@ void MainWindow::createActions() {
     m_saveFileAction->setShortcut(QKeySequence::Save);
     m_saveFileAction->setStatusTip(tr("Save the current file"));
     connect(m_saveFileAction, &QAction::triggered, this, &MainWindow::saveFile);
+
+    m_openFileAction = new QAction(tr("&Open"), this);
+    m_openFileAction->setShortcut(QKeySequence::Open);
+    m_openFileAction->setStatusTip(tr("Open a exiting kb file"));
+    connect(m_openFileAction, &QAction::triggered, this, &MainWindow::openFile);
 
     m_newEntryAction = new QAction(tr("&Add Entry"), this);
     connect(m_newEntryAction, &QAction::triggered, this, &MainWindow::newEntry);
@@ -126,5 +132,9 @@ void MainWindow::saveFile() {
             //qDebug() << "Selected file(s):" << fileNames;
         }
     }
+
+}
+
+void MainWindow::openFile() {
 
 }

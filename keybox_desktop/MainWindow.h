@@ -26,6 +26,7 @@ public:
 private slots:
     void newFile();
     void saveFile();
+    void openFile();
     void newEntry();
     void Lock();
 
@@ -36,10 +37,12 @@ private:
 
     QAction* m_newFileAction;
     QAction* m_saveFileAction;
+    QAction* m_openFileAction;
     QAction* m_newEntryAction;
     QAction* m_lockAction;
 
     QMenu *fileMenu;
+    QMenu *entryMenu;
     QToolBar* m_toolbar;
 
     QTableView* m_entry_table_view;
