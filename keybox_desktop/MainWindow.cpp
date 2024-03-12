@@ -9,6 +9,7 @@
 #include <QToolButton>
 #include <QLineEdit>
 #include <QFileDialog>
+#include <QMessageBox>
 #include "MainWindow.h"
 #include "CKBModel.h"
 #include "PrimaryPasswordDlg.h"
@@ -127,11 +128,13 @@ void MainWindow::saveFile() {
         if (dialog.exec()) {
             // Get the selected file path(s)
             QStringList fileNames = dialog.selectedFiles();
-
-            // Print the selected file path(s)
-            //qDebug() << "Selected file(s):" << fileNames;
         }
     }
+    if( m_pModel->GetFilePath().empty()){
+        QMessageBox::information(nullptr, "Alert", "Please select a save path");
+        return;
+    }
+
 
 }
 

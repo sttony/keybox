@@ -202,6 +202,41 @@ uint32_t CKBFile::Deserialize(const unsigned char *pBuffer, uint32_t cbBufferSiz
 }
 
 uint32_t CKBFile::Lock(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize) {
+    uint32_t result = this->Serialize(pBuffer, cbBufferSize, cbRealSize);
+    if(result != 0){
+        return result;
+    }
+    m_entries.clear();
+    return 0;
+}
+
+CKBFileHeader &CKBFile::GetHeader() {
+    return m_header;
+}
+
+uint32_t CKBFile::AddEntry(CPwdEntry _entry) {
+    for (const auto &entry: m_entries) {
+        if (entry.GetID() == _entry.GetID()) {
+            return ERROR_DUPLICATE_KEY;
+        }
+    }
+    m_entries.push_back(_entry);
+    return 0;
+}
+
+void CKBFile::SetMasterKey(std::vector<unsigned char> key, IRandomGenerator &irg) {
+    m_master_key.Set(key, irg);
+}
+
+uint32_t CKBFile::SetDerivativeParameters(const vector<unsigned char> &_salt, int num_round) {
+    return m_header.SetDerivativeParameters(_salt, num_round);
+}
+
+void CKBFile::SetMasterKey(CMaskedBlob p) {
+    m_master_key = p;
+}
+
+uint32_t CKBFile::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize) {
     cbRealSize = 0;
     m_header.Serialize(pBuffer, 0, cbRealSize);
     if (cbRealSize > cbBufferSize) {
@@ -246,36 +281,9 @@ uint32_t CKBFile::Lock(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &
     }
     memcpy(pBuffer + cbRealSize, &encrypted_buff[0], encrypted_buff.size());
     cbRealSize += encrypted_buff.size();
-
+    cipherEngine.CleanString(pay_load_json);
 
     // clean
-    cipherEngine.CleanString(pay_load_json);
     m_entries.clear();
     return 0;
-}
-
-CKBFileHeader &CKBFile::GetHeader() {
-    return m_header;
-}
-
-uint32_t CKBFile::AddEntry(CPwdEntry _entry) {
-    for (const auto &entry: m_entries) {
-        if (entry.GetID() == _entry.GetID()) {
-            return ERROR_DUPLICATE_KEY;
-        }
-    }
-    m_entries.push_back(_entry);
-    return 0;
-}
-
-void CKBFile::SetMasterKey(std::vector<unsigned char> key, IRandomGenerator &irg) {
-    m_master_key.Set(key, irg);
-}
-
-uint32_t CKBFile::SetDerivativeParameters(const vector<unsigned char> &_salt, int num_round) {
-    return m_header.SetDerivativeParameters(_salt, num_round);
-}
-
-void CKBFile::SetMasterKey(CMaskedBlob p) {
-    m_master_key = p;
 }
