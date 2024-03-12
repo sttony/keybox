@@ -27,7 +27,10 @@ public:
     void SetPrimaryKey(CMaskedBlob p);
     void AddEntry(const CPwdEntry& pe);
 
+    uint32_t Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
+
     const std::string& GetFilePath() const;
+    void SetFilePath(const std::string& filepath);
 private:
     CKBFile m_kbfile;
     std::vector<unsigned char> m_file_buff;

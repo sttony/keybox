@@ -98,3 +98,11 @@ QVariant CKBModel::headerData(int section, Qt::Orientation orientation, int role
 const std::string &CKBModel::GetFilePath() const {
     return m_kbfile_fullpath;
 }
+
+uint32_t CKBModel::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize) {
+    return m_kbfile.Serialize(pBuffer, cbBufferSize, cbRealSize);
+}
+
+void CKBModel::SetFilePath(const std::string &filepath) {
+    m_kbfile_fullpath = filepath;
+}

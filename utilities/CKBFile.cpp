@@ -238,15 +238,16 @@ void CKBFile::SetMasterKey(CMaskedBlob p) {
 
 uint32_t CKBFile::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize) {
     cbRealSize = 0;
-    m_header.Serialize(pBuffer, 0, cbRealSize);
-    if (cbRealSize > cbBufferSize) {
-        return ERROR_BUFFER_TOO_SMALL;
-
-    }
     uint32_t uResult = 0;
     uResult = m_header.Serialize(pBuffer, cbBufferSize, cbRealSize);
+
     if (uResult) {
-        return uResult;
+        if( pBuffer== nullptr && uResult == ERROR_BUFFER_TOO_SMALL){
+            // continue
+        }
+        else {
+            return uResult;
+        }
     }
 
     boost::property_tree::ptree pay_load;
@@ -277,13 +278,19 @@ uint32_t CKBFile::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint3
         return uResult;
     }
     if (cbBufferSize < cbRealSize + encrypted_buff.size()) {
-        return ERROR_BUFFER_TOO_SMALL;
+        if(pBuffer == nullptr){
+            cbRealSize += encrypted_buff.size();
+            cipherEngine.CleanString(pay_load_json);
+            return 0;
+        }
+        else{
+            return ERROR_BUFFER_TOO_SMALL;
+        }
     }
     memcpy(pBuffer + cbRealSize, &encrypted_buff[0], encrypted_buff.size());
     cbRealSize += encrypted_buff.size();
     cipherEngine.CleanString(pay_load_json);
 
     // clean
-    m_entries.clear();
     return 0;
 }

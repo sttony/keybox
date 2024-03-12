@@ -10,10 +10,12 @@
 #include <QLineEdit>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <fstream>
 #include "MainWindow.h"
 #include "CKBModel.h"
 #include "PrimaryPasswordDlg.h"
 #include "EntryDlg.h"
+#include "utilities/error_code.h"
 
 using namespace std;
 
@@ -128,13 +130,39 @@ void MainWindow::saveFile() {
         if (dialog.exec()) {
             // Get the selected file path(s)
             QStringList fileNames = dialog.selectedFiles();
+            if(fileNames.empty()){
+                return;
+            }
+
+            m_pModel->SetFilePath(fileNames.at(0).toStdString());
         }
     }
     if( m_pModel->GetFilePath().empty()){
         QMessageBox::information(nullptr, "Alert", "Please select a save path");
         return;
     }
+    vector<unsigned char> buff;
+    uint32_t cbRealsize = 0;
+    m_pModel->Serialize(nullptr, 0, cbRealsize);
+    buff.resize(cbRealsize);
 
+    m_pModel->Serialize(buff.data(), buff.size(), cbRealsize);
+
+    std::ofstream ofs(m_pModel->GetFilePath(), std::ios::binary); // Open file in binary mode
+
+    if (!ofs.is_open()) {
+        QMessageBox::information(nullptr, "Alert", "Failed to open file");
+        return;
+    }
+    ofs.write(reinterpret_cast<const char*>(buff.data()), buff.size());
+
+    // Check if writing was successful
+    if (!ofs.good()) {
+        QMessageBox::information(nullptr, "Alert", "Failed to write file");
+        return;
+    }
+
+    ofs.close();
 
 }
 
