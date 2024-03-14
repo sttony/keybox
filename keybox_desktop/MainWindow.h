@@ -29,6 +29,7 @@ private slots:
     void openFile();
     void newEntry();
     void Lock();
+    void openPasswordGenerator();
 
 private:
     void createActions();
@@ -40,9 +41,11 @@ private:
     QAction* m_openFileAction;
     QAction* m_newEntryAction;
     QAction* m_lockAction;
+    QAction* m_passwordGeneratorAction;
 
     QMenu *fileMenu;
     QMenu *entryMenu;
+    QMenu *toolMenu;
     QToolBar* m_toolbar;
 
     QTableView* m_entry_table_view;

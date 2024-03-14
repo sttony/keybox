@@ -64,7 +64,8 @@ void MainWindow::createMenus() {
     entryMenu->addAction(m_newEntryAction);
 
 
-    fileMenu = menuBar()->addMenu(tr("&Tools"));
+    toolMenu = menuBar()->addMenu(tr("&Tools"));
+    toolMenu->addAction(m_passwordGeneratorAction);
 
     fileMenu = menuBar()->addMenu(tr("&Help"));
 
@@ -90,6 +91,9 @@ void MainWindow::createActions() {
 
     m_newEntryAction = new QAction(tr("&Add Entry"), this);
     connect(m_newEntryAction, &QAction::triggered, this, &MainWindow::newEntry);
+
+    m_passwordGeneratorAction = new QAction(tr("Open Password &Generator"), this);
+    connect(m_newEntryAction, &QAction::triggered, this, &MainWindow::openPasswordGenerator);
 }
 
 void MainWindow::Lock() {
@@ -192,4 +196,8 @@ void MainWindow::openFile() {
         m_pModel = newModel;
         m_entry_table_view->repaint();
     }
+}
+
+void MainWindow::openPasswordGenerator() {
+
 }
