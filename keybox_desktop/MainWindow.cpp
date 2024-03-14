@@ -102,8 +102,9 @@ void MainWindow::Lock() {
 
 void MainWindow::newEntry() {
     EntryDlg ev;
-    int ret = ev.exec();
-    m_pModel->AddEntry(ev.GetPwdEntry());
+    if(ev.exec()) {
+        m_pModel->AddEntry(ev.GetPwdEntry());
+    }
 }
 
 void MainWindow::saveFile() {
