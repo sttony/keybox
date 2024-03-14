@@ -54,23 +54,6 @@ void MainWindow::createToolbar() {// toolbar
     m_toolbar->addWidget(searchBox);
 }
 
-
-void MainWindow::newFile() {
-    auto newModel = new CKBModel;
-    vector<unsigned char> randomv32;
-    g_RG.GetNextBytes(32, randomv32);
-    newModel->SetKeyDerivateParameters(randomv32);
-
-    PrimaryPasswordDlg ppdlg(newModel->GetKeyDerivateParameters());
-    // TODO: check return.
-    ppdlg.exec();
-    newModel->SetPrimaryKey(ppdlg.GetPassword());
-
-    m_entry_table_view->setModel(newModel);
-    delete m_pModel;
-    m_pModel = newModel;
-}
-
 void MainWindow::createMenus() {
     fileMenu = menuBar()->addMenu(tr("&File"));
     fileMenu->addAction(m_newFileAction);
@@ -126,7 +109,6 @@ void MainWindow::saveFile() {
         dialog.setFileMode(QFileDialog::AnyFile);
         dialog.setWindowTitle("Select a file");
 
-        // Show the dialog
         if (dialog.exec()) {
             // Get the selected file path(s)
             QStringList fileNames = dialog.selectedFiles();
@@ -166,6 +148,48 @@ void MainWindow::saveFile() {
 
 }
 
-void MainWindow::openFile() {
+void MainWindow::newFile() {
+    auto newModel = new CKBModel;
+    vector<unsigned char> randomv32;
+    g_RG.GetNextBytes(32, randomv32);
+    newModel->SetKeyDerivateParameters(randomv32);
 
+    PrimaryPasswordDlg ppdlg(newModel->GetKeyDerivateParameters());
+    // TODO: check return.
+    ppdlg.exec();
+    newModel->SetPrimaryKey(ppdlg.GetPassword());
+
+    m_entry_table_view->setModel(newModel);
+    delete m_pModel;
+    m_pModel = newModel;
+}
+
+void MainWindow::openFile() {
+    QFileDialog dialog;
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setWindowTitle("Select a file");
+
+    if (dialog.exec()) {
+        // Get the selected file path(s)
+        QStringList fileNames = dialog.selectedFiles();
+        if(fileNames.empty()){
+            return;
+        }
+        auto newModel = new CKBModel;
+        newModel->SetFilePath(fileNames.at(0).toStdString());
+        newModel->LoadKBHeader(fileNames.at(0).toStdString());
+
+        PrimaryPasswordDlg ppdlg(newModel->GetKeyDerivateParameters());
+        ppdlg.exec();
+        newModel->SetPrimaryKey(ppdlg.GetPassword());
+
+        newModel->LoadPayload();
+
+
+
+        m_entry_table_view->setModel(newModel);
+        delete m_pModel;
+        m_pModel = newModel;
+        m_entry_table_view->repaint();
+    }
 }

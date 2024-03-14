@@ -19,7 +19,9 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 
 
-    uint32_t LoadKB(const std::string& filepath);
+    // two step load, because payload needs header to decrypt
+    uint32_t LoadKBHeader(const std::string& filepath);
+    uint32_t LoadPayload();
 
     void SetKeyDerivateParameters(const std::vector<unsigned char>& _salt, int num_round = 60000);
     const PBKDF2_256_PARAMETERS& GetKeyDerivateParameters();
@@ -35,6 +37,7 @@ private:
     CKBFile m_kbfile;
     std::vector<unsigned char> m_file_buff;
     std::string m_kbfile_fullpath;
+    uint32_t m_header_size;
 
 };
 

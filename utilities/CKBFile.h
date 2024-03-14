@@ -58,6 +58,9 @@ class CKBFile {
 public:
 
     uint32_t Deserialize(const unsigned char* pBuffer, uint32_t cbBufferSize, uint32_t& cbRealSize);
+
+    uint32_t LoadHeader(const unsigned char* pBuffer, uint32_t cbBufferSize, uint32_t& cbRealSize);
+    uint32_t LoadPayload(const unsigned char* pBuffer, uint32_t cbBufferSize, uint32_t& cbRealSize);
     uint32_t Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
     uint32_t Lock(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
     uint32_t AddEntry(CPwdEntry _entry);

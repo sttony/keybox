@@ -38,7 +38,7 @@ int CKBModel::columnCount(const QModelIndex &parent) const {
     return 4;
 }
 
-uint32_t CKBModel::LoadKB(const std::string &filepath) {
+uint32_t CKBModel::LoadKBHeader(const std::string &filepath) {
     // load CKBFile from file at filepath
     std::ifstream fd(filepath, std::ios::binary | std::ios::ate);
     if (!fd){
@@ -51,11 +51,7 @@ uint32_t CKBModel::LoadKB(const std::string &filepath) {
     if (!fd.read((char*)m_file_buff.data(), size)) {
         return ERROR_FILE_IO;
     }
-    uint32_t  cbRealSize=0;
-    m_kbfile.Deserialize(m_file_buff.data(),m_file_buff.size(), cbRealSize);
-
-
-    return 0;
+    return m_kbfile.LoadHeader(m_file_buff.data(),m_file_buff.size(), m_header_size);
 }
 
 void CKBModel::SetKeyDerivateParameters(const std::vector<unsigned char> &_salt, int num_round) {
@@ -105,4 +101,9 @@ uint32_t CKBModel::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint
 
 void CKBModel::SetFilePath(const std::string &filepath) {
     m_kbfile_fullpath = filepath;
+}
+
+uint32_t CKBModel::LoadPayload() {
+    uint32_t cbRealSize = 0;
+    return m_kbfile.LoadPayload(m_file_buff.data() + m_header_size, m_file_buff.size() - m_header_size, cbRealSize);
 }
