@@ -26,6 +26,8 @@ MainWindow::MainWindow() {
     QSplitter *splitter = new QSplitter(this);
     QTextEdit *leftTextEdit = new QTextEdit();
     m_entry_table_view = new QTableView;
+    m_entry_table_view->setSelectionBehavior(QAbstractItemView::SelectRows);
+    m_entry_table_view->setSelectionMode(QAbstractItemView::SingleSelection);
     //view->setModel(m_pModel.get());
 
     splitter->addWidget(leftTextEdit);
