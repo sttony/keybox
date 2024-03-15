@@ -53,6 +53,7 @@ private:
     CKBModel* m_pModel = nullptr;
 
     void AddToolBarButton(QAction* p);
+    void RefreshActionEnabled();
 };
 
 

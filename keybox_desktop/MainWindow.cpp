@@ -21,10 +21,10 @@ using namespace std;
 
 extern RandomGenerator g_RG;
 
-MainWindow::MainWindow(){
+MainWindow::MainWindow() {
 
-    QSplitter* splitter = new QSplitter(this);
-    QTextEdit* leftTextEdit = new QTextEdit();
+    QSplitter *splitter = new QSplitter(this);
+    QTextEdit *leftTextEdit = new QTextEdit();
     m_entry_table_view = new QTableView;
     //view->setModel(m_pModel.get());
 
@@ -49,12 +49,12 @@ void MainWindow::createToolbar() {// toolbar
     AddToolBarButton(m_lockAction);
 
 
-    QLineEdit* searchBox = new QLineEdit(this);
+    QLineEdit *searchBox = new QLineEdit(this);
     searchBox->setPlaceholderText("Search...");
     m_toolbar->addWidget(searchBox);
 }
 
-void MainWindow::AddToolBarButton(QAction* action) {
+void MainWindow::AddToolBarButton(QAction *action) {
     assert(action);
     QToolButton *toolButton = new QToolButton(this);
     toolButton->setDefaultAction(action);
@@ -77,11 +77,10 @@ void MainWindow::createMenus() {
     fileMenu = menuBar()->addMenu(tr("&Help"));
 
 
-
 }
 
 void MainWindow::createActions() {
-    m_newFileAction = new QAction(QIcon(":img/img/doc.badge.plus.svg"),tr("&New"), this);
+    m_newFileAction = new QAction(QIcon(":img/img/doc.badge.plus.svg"), tr("&New"), this);
     m_newFileAction->setShortcuts(QKeySequence::New);
     m_newFileAction->setStatusTip(tr("Create a new file"));
     connect(m_newFileAction, &QAction::triggered, this, &MainWindow::newFile);
@@ -91,6 +90,7 @@ void MainWindow::createActions() {
     m_saveFileAction->setStatusTip(tr("Save the current file"));
     connect(m_saveFileAction, &QAction::triggered, this, &MainWindow::saveFile);
 
+
     m_openFileAction = new QAction(tr("&Open"), this);
     m_openFileAction->setShortcut(QKeySequence::Open);
     m_openFileAction->setStatusTip(tr("Open a exiting kb file"));
@@ -99,11 +99,15 @@ void MainWindow::createActions() {
     m_newEntryAction = new QAction(QIcon(":img/img/person.badge.key.svg"), tr("&Add Entry"), this);
     connect(m_newEntryAction, &QAction::triggered, this, &MainWindow::newEntry);
 
+
     m_passwordGeneratorAction = new QAction(tr("Open Password &Generator"), this);
     connect(m_newEntryAction, &QAction::triggered, this, &MainWindow::openPasswordGenerator);
 
     m_lockAction = new QAction(QIcon(":img/img/lock.svg"), "Lock", this);
     connect(m_lockAction, &QAction::triggered, this, &MainWindow::Lock);
+
+    this->RefreshActionEnabled();
+
 }
 
 void MainWindow::Lock() {
@@ -112,14 +116,14 @@ void MainWindow::Lock() {
 
 void MainWindow::newEntry() {
     EntryDlg ev;
-    if(ev.exec()) {
+    if (ev.exec()) {
         m_pModel->AddEntry(ev.GetPwdEntry());
     }
 }
 
 void MainWindow::saveFile() {
     assert(m_pModel != nullptr);
-    if( m_pModel->GetFilePath().empty()){
+    if (m_pModel->GetFilePath().empty()) {
         QFileDialog dialog;
         dialog.setFileMode(QFileDialog::AnyFile);
         dialog.setWindowTitle("Select a file");
@@ -127,14 +131,14 @@ void MainWindow::saveFile() {
         if (dialog.exec()) {
             // Get the selected file path(s)
             QStringList fileNames = dialog.selectedFiles();
-            if(fileNames.empty()){
+            if (fileNames.empty()) {
                 return;
             }
 
             m_pModel->SetFilePath(fileNames.at(0).toStdString());
         }
     }
-    if( m_pModel->GetFilePath().empty()){
+    if (m_pModel->GetFilePath().empty()) {
         QMessageBox::information(nullptr, "Alert", "Please select a save path");
         return;
     }
@@ -151,7 +155,7 @@ void MainWindow::saveFile() {
         QMessageBox::information(nullptr, "Alert", "Failed to open file");
         return;
     }
-    ofs.write(reinterpret_cast<const char*>(buff.data()), buff.size());
+    ofs.write(reinterpret_cast<const char *>(buff.data()), buff.size());
 
     // Check if writing was successful
     if (!ofs.good()) {
@@ -177,6 +181,7 @@ void MainWindow::newFile() {
     m_entry_table_view->setModel(newModel);
     delete m_pModel;
     m_pModel = newModel;
+    this->RefreshActionEnabled();
 }
 
 void MainWindow::openFile() {
@@ -187,7 +192,7 @@ void MainWindow::openFile() {
     if (dialog.exec()) {
         // Get the selected file path(s)
         QStringList fileNames = dialog.selectedFiles();
-        if(fileNames.empty()){
+        if (fileNames.empty()) {
             return;
         }
         auto newModel = new CKBModel;
@@ -201,14 +206,23 @@ void MainWindow::openFile() {
         newModel->LoadPayload();
 
 
-
         m_entry_table_view->setModel(newModel);
         delete m_pModel;
         m_pModel = newModel;
         m_entry_table_view->repaint();
+        this->RefreshActionEnabled();
     }
 }
 
 void MainWindow::openPasswordGenerator() {
 
+}
+
+void MainWindow::RefreshActionEnabled() {
+    if (m_saveFileAction)
+        m_saveFileAction->setEnabled(m_pModel != nullptr);
+    if (m_newEntryAction)
+        m_newEntryAction->setEnabled(m_pModel != nullptr);
+    if (m_lockAction)
+        m_lockAction->setEnabled(m_pModel != nullptr);
 }
