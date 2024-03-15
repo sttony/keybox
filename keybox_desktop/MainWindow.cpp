@@ -45,6 +45,7 @@ void MainWindow::createToolbar() {// toolbar
     m_toolbar = addToolBar("toolbar");
     AddToolBarButton(m_newFileAction);
     AddToolBarButton(m_newEntryAction);
+    AddToolBarButton(m_saveFileAction);
     AddToolBarButton(m_lockAction);
 
 
@@ -85,7 +86,7 @@ void MainWindow::createActions() {
     m_newFileAction->setStatusTip(tr("Create a new file"));
     connect(m_newFileAction, &QAction::triggered, this, &MainWindow::newFile);
 
-    m_saveFileAction = new QAction(tr("&Save"), this);
+    m_saveFileAction = new QAction(QIcon(":img/img/square.and.arrow.down.on.square.svg"), tr("&Save"), this);
     m_saveFileAction->setShortcut(QKeySequence::Save);
     m_saveFileAction->setStatusTip(tr("Save the current file"));
     connect(m_saveFileAction, &QAction::triggered, this, &MainWindow::saveFile);
