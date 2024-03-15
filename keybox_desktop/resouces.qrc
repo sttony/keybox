@@ -4,5 +4,6 @@
     <file>img/eye.svg</file>
     <file>img/lock.svg</file>
     <file>img/doc.badge.plus.svg</file>
+    <file>img/person.badge.key.svg</file>
   </qresource>
 </RCC>

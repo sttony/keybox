@@ -43,8 +43,8 @@ MainWindow::MainWindow(){
 
 void MainWindow::createToolbar() {// toolbar
     m_toolbar = addToolBar("toolbar");
-
     AddToolBarButton(m_newFileAction);
+    AddToolBarButton(m_newEntryAction);
     AddToolBarButton(m_lockAction);
 
 
@@ -54,6 +54,7 @@ void MainWindow::createToolbar() {// toolbar
 }
 
 void MainWindow::AddToolBarButton(QAction* action) {
+    assert(action);
     QToolButton *toolButton = new QToolButton(this);
     toolButton->setDefaultAction(action);
     m_toolbar->addWidget(toolButton);
@@ -94,7 +95,7 @@ void MainWindow::createActions() {
     m_openFileAction->setStatusTip(tr("Open a exiting kb file"));
     connect(m_openFileAction, &QAction::triggered, this, &MainWindow::openFile);
 
-    m_newEntryAction = new QAction(tr("&Add Entry"), this);
+    m_newEntryAction = new QAction(QIcon(":img/img/person.badge.key.svg"), tr("&Add Entry"), this);
     connect(m_newEntryAction, &QAction::triggered, this, &MainWindow::newEntry);
 
     m_passwordGeneratorAction = new QAction(tr("Open Password &Generator"), this);
