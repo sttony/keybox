@@ -108,3 +108,14 @@ uint32_t CKBModel::LoadPayload() {
     uint32_t cbRealSize = 0;
     return m_kbfile.LoadPayload(m_file_buff.data() + m_header_size, m_file_buff.size() - m_header_size, cbRealSize);
 }
+
+CPwdEntry CKBModel::GetEntry(int index) {
+    return m_kbfile.GetEntry(index);
+}
+
+uint32_t CKBModel::SetEntry(const CPwdEntry &pe, int idx) {
+    beginResetModel();
+    uint32_t result = m_kbfile.SetEntry(pe, idx);
+    endResetModel();
+    return result;
+}

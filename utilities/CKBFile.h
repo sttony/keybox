@@ -30,6 +30,7 @@ public:
     static const uint8_t KEEPASS_PublicCustomData = 12;
 
     static const uint8_t KEYBOX_PBKDF2_PARAM = 0x81;
+    static const uint8_t KEYBOX_HMAC_SIGNATURE = 0x82;
 
 private:
     uint64_t m_signature = 0;
@@ -71,6 +72,8 @@ public:
     uint32_t Lock(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
 
     uint32_t AddEntry(CPwdEntry _entry);
+    CPwdEntry GetEntry(int idx);
+    uint32_t SetEntry(CPwdEntry _entry, int idx);
 
     // TODO: for testing, expose them.
     const std::vector<CPwdEntry> &GetEntries() const;

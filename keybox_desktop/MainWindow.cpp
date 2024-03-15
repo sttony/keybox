@@ -28,6 +28,8 @@ MainWindow::MainWindow() {
     m_entry_table_view = new QTableView;
     m_entry_table_view->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_entry_table_view->setSelectionMode(QAbstractItemView::SingleSelection);
+    connect(m_entry_table_view, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(onTableRowDoubleClicked(const QModelIndex&)));
+
     //view->setModel(m_pModel.get());
 
     splitter->addWidget(leftTextEdit);
@@ -227,4 +229,14 @@ void MainWindow::RefreshActionEnabled() {
         m_newEntryAction->setEnabled(m_pModel != nullptr);
     if (m_lockAction)
         m_lockAction->setEnabled(m_pModel != nullptr);
+}
+
+void MainWindow::onTableRowDoubleClicked(const QModelIndex &index) {
+    if (index.isValid()) {
+        int row = index.row();
+        EntryDlg entryDlg(m_pModel->GetEntry(row));
+        if(entryDlg.exec()){
+            m_pModel->SetEntry(entryDlg.GetPwdEntry(), row);
+        }
+    }
 }

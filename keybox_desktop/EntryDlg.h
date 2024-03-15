@@ -15,7 +15,8 @@
 class EntryDlg : public QDialog {
 Q_OBJECT
 public:
-    EntryDlg(QWidget *parent = nullptr);
+    explicit EntryDlg(QWidget *parent = nullptr);
+    explicit EntryDlg(const CPwdEntry& pwdEntry, QWidget *parent = nullptr);
 
     const CPwdEntry &GetPwdEntry();
 
@@ -34,8 +35,8 @@ private:
     PasswordBox *m_note_box;
     CPwdEntry m_PwdEntry;
 
-
     QHBoxLayout *createInputLine(const QString &label, QLineEdit *inputWidget);
+    void init(QWidget *parent = nullptr);
 };
 
 

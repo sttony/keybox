@@ -36,6 +36,8 @@ public:
     void SetPrimaryKey(CMaskedBlob p);
 
     void AddEntry(const CPwdEntry &pe);
+    CPwdEntry GetEntry(int index);
+    uint32_t SetEntry(const CPwdEntry &pe, int idx);
 
     uint32_t Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
 

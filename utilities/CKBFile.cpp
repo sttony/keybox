@@ -347,3 +347,18 @@ uint32_t CKBFile::LoadPayload(const unsigned char *pBuffer, uint32_t cbBufferSiz
     }
     return 0;
 }
+
+CPwdEntry CKBFile::GetEntry(int idx) {
+    if(idx >= m_entries.size()){
+        return {};
+    }
+    return m_entries[idx];
+}
+
+uint32_t CKBFile::SetEntry(CPwdEntry _entry, int idx) {
+    if(idx>= m_entries.size()){
+        return ERROR_INVALID_PARAMETER;
+    }
+    m_entries[idx] = _entry;
+    return 0;
+}

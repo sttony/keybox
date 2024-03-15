@@ -37,6 +37,8 @@ private slots:
 
     void openPasswordGenerator();
 
+    void onTableRowDoubleClicked(const QModelIndex &index);
+
 private:
     void createActions();
 
