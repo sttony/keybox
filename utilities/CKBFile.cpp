@@ -137,7 +137,7 @@ CKBFileHeader::CKBFileHeader() : m_encryption_iv(16) {
 
 uint32_t CKBFileHeader::SetDerivativeParameters(const vector<unsigned char> &_salt, int num_round) {
     m_key_derivative_parameters.num_rounds = num_round;
-    if( _salt.size() != 32){
+    if (_salt.size() != 32) {
         return ERROR_INVALID_PARAMETER;
     }
     copy(_salt.begin(), _salt.end(), m_key_derivative_parameters.Salt);
@@ -153,12 +153,12 @@ CPwdEntry CKBFile::QueryEntryByTitle(const string &_title) {
     return {};
 }
 
-const vector<CPwdEntry> & CKBFile::GetEntries() const {
+const vector<CPwdEntry> &CKBFile::GetEntries() const {
     return m_entries;
 }
 
 uint32_t CKBFile::Deserialize(const unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize) {
-    if(m_master_key.size()==0){
+    if (m_master_key.size() == 0) {
         return ERROR_MASTER_KEY_INVALID;
     }
     m_header.Deserialize(pBuffer, cbBufferSize, cbRealSize);
@@ -181,19 +181,19 @@ uint32_t CKBFile::Deserialize(const unsigned char *pBuffer, uint32_t cbBufferSiz
     // load json from decrypted_buff
     decrypted_buff.push_back('\0'); // append a zero
     boost::property_tree::ptree entries_tree;
-    std::istringstream iss( (char*)(&decrypted_buff[0]));
+    std::istringstream iss((char *) (&decrypted_buff[0]));
     string temp = std::string(decrypted_buff.begin(), decrypted_buff.end());
     try {
         boost::property_tree::read_json(iss, entries_tree);
     }
-    catch(exception &e){
+    catch (exception &e) {
         return ERROR_INVALID_JSON;
     }
 
     // Clear existing entries
     m_entries.clear();
 
-    for (const auto& kv : entries_tree.get_child("entries")) {
+    for (const auto &kv: entries_tree.get_child("entries")) {
         CPwdEntry entry;
         entry.fromJsonObj(kv.second);
         m_entries.push_back(std::move(entry));
@@ -203,7 +203,7 @@ uint32_t CKBFile::Deserialize(const unsigned char *pBuffer, uint32_t cbBufferSiz
 
 uint32_t CKBFile::Lock(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize) {
     uint32_t result = this->Serialize(pBuffer, cbBufferSize, cbRealSize);
-    if(result != 0){
+    if (result != 0) {
         return result;
     }
     m_entries.clear();
@@ -242,17 +242,16 @@ uint32_t CKBFile::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint3
     uResult = m_header.Serialize(pBuffer, cbBufferSize, cbRealSize);
 
     if (uResult) {
-        if( pBuffer== nullptr && uResult == ERROR_BUFFER_TOO_SMALL){
+        if (pBuffer == nullptr && uResult == ERROR_BUFFER_TOO_SMALL) {
             // continue
-        }
-        else {
+        } else {
             return uResult;
         }
     }
 
     boost::property_tree::ptree pay_load;
-    boost::property_tree::ptree  entries;
-    for (auto & entry : m_entries) {
+    boost::property_tree::ptree entries;
+    for (auto &entry: m_entries) {
         entries.push_back({"", entry.toJsonObj()});
     }
     pay_load.add_child("entries", entries);
@@ -278,12 +277,11 @@ uint32_t CKBFile::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint3
         return uResult;
     }
     if (cbBufferSize < cbRealSize + encrypted_buff.size()) {
-        if(pBuffer == nullptr){
+        if (pBuffer == nullptr) {
             cbRealSize += encrypted_buff.size();
             cipherEngine.CleanString(pay_load_json);
             return 0;
-        }
-        else{
+        } else {
             return ERROR_BUFFER_TOO_SMALL;
         }
     }
@@ -301,10 +299,9 @@ uint32_t CKBFile::LoadHeader(const unsigned char *pBuffer, uint32_t cbBufferSize
     uResult = m_header.Deserialize(pBuffer, cbBufferSize, cbRealSize);
 
     if (uResult) {
-        if( pBuffer== nullptr && uResult == ERROR_BUFFER_TOO_SMALL){
+        if (pBuffer == nullptr && uResult == ERROR_BUFFER_TOO_SMALL) {
             // continue
-        }
-        else {
+        } else {
             return uResult;
         }
     }
@@ -331,19 +328,19 @@ uint32_t CKBFile::LoadPayload(const unsigned char *pBuffer, uint32_t cbBufferSiz
     // load json from decrypted_buff
     decrypted_buff.push_back('\0'); // append a zero
     boost::property_tree::ptree entries_tree;
-    std::istringstream iss( (char*)(&decrypted_buff[0]));
+    std::istringstream iss((char *) (&decrypted_buff[0]));
     string temp = std::string(decrypted_buff.begin(), decrypted_buff.end());
     try {
         boost::property_tree::read_json(iss, entries_tree);
     }
-    catch(exception &e){
+    catch (exception &e) {
         return ERROR_INVALID_JSON;
     }
 
     // Clear existing entries
     m_entries.clear();
 
-    for (const auto& kv : entries_tree.get_child("entries")) {
+    for (const auto &kv: entries_tree.get_child("entries")) {
         CPwdEntry entry;
         entry.fromJsonObj(kv.second);
         m_entries.push_back(std::move(entry));

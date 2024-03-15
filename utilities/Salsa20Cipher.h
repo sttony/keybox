@@ -16,6 +16,7 @@ private:
 
 public:
     Salsa20Cipher(std::array<unsigned char, 32> vKey32, std::array<unsigned char, 8> vIV8);
+
     ~Salsa20Cipher();
 
     std::array<unsigned char, 64> nextBlock();

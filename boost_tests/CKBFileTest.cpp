@@ -6,6 +6,7 @@
 #include "../utilities/error_code.h"
 #include <iomanip>
 #include <iostream>
+
 using namespace std;
 
 class TestRandomGenerator : public IRandomGenerator {
@@ -38,7 +39,7 @@ BOOST_AUTO_TEST_SUITE(CKBFileTestSuit)
         hresult = ckbFileHeader.Serialize(&buff[0], buff.size(), cbSize);
         BOOST_CHECK_EQUAL(hresult, 0);
 
-        CKBFileHeader newHeader ;
+        CKBFileHeader newHeader;
         newHeader.Deserialize(&buff[0], buff.size(), cbRealSize);
 
         BOOST_CHECK_EQUAL(newHeader.GetDerivativeParameters().num_rounds, 1000);
@@ -65,11 +66,11 @@ BOOST_AUTO_TEST_SUITE(CKBFileTestSuit)
 
         kbFile.AddEntry(pwdEntry);
         kbFile.AddEntry(pwdEntry2);
-        vector<unsigned char> key (32, 0x01);
+        vector<unsigned char> key(32, 0x01);
         kbFile.SetMasterKey(key, fakerg);
 
-        vector<unsigned char> buff(1024*1024);
-        uint32_t realSize =0;
+        vector<unsigned char> buff(1024 * 1024);
+        uint32_t realSize = 0;
         kbFile.Lock(&buff[0], buff.size(), realSize);
 
         CKBFile testKBFile;
@@ -83,4 +84,5 @@ BOOST_AUTO_TEST_SUITE(CKBFileTestSuit)
         auto entry2 = testKBFile.QueryEntryByTitle("Test2");
         BOOST_CHECK_EQUAL(entry2.GetID() == pwdEntry2.GetID(), true);
     }
+
 BOOST_AUTO_TEST_SUITE_END()

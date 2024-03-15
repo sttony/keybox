@@ -5,8 +5,8 @@
 #include <iostream>
 
 using namespace std;
-std::string read_password_from_console()
-{
+
+std::string read_password_from_console() {
 
     return "";
 }

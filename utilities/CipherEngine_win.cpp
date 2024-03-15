@@ -4,8 +4,11 @@
 #include <iostream>
 #include <functional>
 #include <utility>
+
 #define WIN32_NO_STATUS
+
 #include <windows.h>
+
 #undef WIN32_NO_STATUS
 
 #include <winternl.h>
@@ -111,7 +114,7 @@ uint32_t CCipherEngine::SHA256(const unsigned char *pInput, size_t cbInput, unsi
         return status;
     }
 
-    if(cbOutput < HashLength) {
+    if (cbOutput < HashLength) {
         return ERROR_BUFFER_TOO_SMALL;
     }
     status = BCryptCreateHash(
@@ -147,13 +150,13 @@ uint32_t CCipherEngine::SHA256(const unsigned char *pInput, size_t cbInput, unsi
 uint32_t
 CCipherEngine::AES256EnDecrypt(const unsigned char *pInputBuff,
                                size_t cbInputBuff,
-                               const vector<unsigned char>& vKey,
-                               const vector<unsigned char>& vIV,
+                               const vector<unsigned char> &vKey,
+                               const vector<unsigned char> &vIV,
                                uint32_t chain_mode,
                                uint32_t padding_mode,
                                bool bEncrypt,
                                vector<unsigned char> &vOutputBuff) {
-    if(vKey.size() !=32 || vIV.size() != 16){
+    if (vKey.size() != 32 || vIV.size() != 16) {
         return ERROR_INVALID_PARAMETER;
     }
     Win32Handler<BCRYPT_ALG_HANDLE> aesAlgHandle(NULL, [](BCRYPT_ALG_HANDLE _h) {
@@ -182,17 +185,16 @@ CCipherEngine::AES256EnDecrypt(const unsigned char *pInputBuff,
             32,
             0);
     if (!NT_SUCCESS(status)) {
-        if(status == STATUS_BUFFER_TOO_SMALL){
+        if (status == STATUS_BUFFER_TOO_SMALL) {
             return ERROR_BUFFER_TOO_SMALL;
-        }
-        else{
+        } else {
             return status;
         }
     }
     auto bcrypt_chaining_mode = BCRYPT_CHAIN_MODE_NA;
     size_t sz_bcrypt_chaining_mode = sizeof(BCRYPT_CHAIN_MODE_NA);
-    vector<unsigned char> tempIVBuff  = vIV;
-    PBYTE pIV = (PBYTE)&tempIVBuff[0];
+    vector<unsigned char> tempIVBuff = vIV;
+    PBYTE pIV = (PBYTE) &tempIVBuff[0];
     DWORD cbIV = 16;
     switch (chain_mode) {
         case AES_CHAIN_MODE_CBC:
@@ -232,16 +234,16 @@ CCipherEngine::AES256EnDecrypt(const unsigned char *pInputBuff,
         return status;
     }
 
-    DWORD dwPadding  = BCRYPT_BLOCK_PADDING;
-    if(padding_mode == AES_PADDING_MODE_NO){
+    DWORD dwPadding = BCRYPT_BLOCK_PADDING;
+    if (padding_mode == AES_PADDING_MODE_NO) {
         dwPadding = 0;
     }
 
-    if(bEncrypt){
+    if (bEncrypt) {
         DWORD dwCipherTextLength = 0;
         status = BCryptEncrypt(
                 aesKeyHandle,
-                (PBYTE)pInputBuff,
+                (PBYTE) pInputBuff,
                 cbInputBuff,
                 NULL,
                 pIV,
@@ -258,7 +260,7 @@ CCipherEngine::AES256EnDecrypt(const unsigned char *pInputBuff,
 
         status = BCryptEncrypt(
                 aesKeyHandle,
-                (PBYTE)pInputBuff,
+                (PBYTE) pInputBuff,
                 cbInputBuff,
                 NULL,
                 pIV,
@@ -270,12 +272,11 @@ CCipherEngine::AES256EnDecrypt(const unsigned char *pInputBuff,
         if (!NT_SUCCESS(status)) {
             return status;
         }
-    }
-    else{
+    } else {
         DWORD dwPlainTextLength = 0;
         status = BCryptDecrypt(
                 aesKeyHandle,
-                (PBYTE)pInputBuff,
+                (PBYTE) pInputBuff,
                 cbInputBuff,
                 NULL,
                 pIV,
@@ -292,7 +293,7 @@ CCipherEngine::AES256EnDecrypt(const unsigned char *pInputBuff,
         vector<unsigned char> tempIVBuff = vIV;
         status = BCryptDecrypt(
                 aesKeyHandle,
-                (PBYTE)pInputBuff,
+                (PBYTE) pInputBuff,
                 cbInputBuff,
                 NULL,
                 pIV,
@@ -314,7 +315,7 @@ uint32_t CCipherEngine::KeepassDerivativeKey(const string &sKey,
                                              const vector<unsigned char> &vMasterSeed,
                                              vector<unsigned char> &output) {
     static_assert(sizeof(NTSTATUS) == 4);
-    if( vTransformSeed.size() != 32 || vMasterSeed.size() !=32 ){
+    if (vTransformSeed.size() != 32 || vMasterSeed.size() != 32) {
         return ERROR_INVALID_PARAMETER;
     }
 
@@ -363,7 +364,7 @@ uint32_t CCipherEngine::KeepassDerivativeKey(const string &sKey,
     CCipherEngine cipherEngine;
     vector<unsigned char> sha256_key(32);
     //  Sha256(password)
-    status = cipherEngine.SHA256((unsigned char*)sKey.c_str(), sKey.size(), &sha256_key[0], 32);
+    status = cipherEngine.SHA256((unsigned char *) sKey.c_str(), sKey.size(), &sha256_key[0], 32);
     // Sha256(sha256(password))
     status = cipherEngine.SHA256(&sha256_key[0], 32, &sha256_key[0], 32);
 
@@ -380,15 +381,15 @@ uint32_t CCipherEngine::KeepassDerivativeKey(const string &sKey,
     }
 
     DWORD dwCipherTextLength = 0;
-    for(int i= 0; i< uNumRounds; ++i){
+    for (int i = 0; i < uNumRounds; ++i) {
         status = BCryptEncrypt(
                 aesKeyHandle,
-                (PBYTE)&sha256_key[0],
+                (PBYTE) &sha256_key[0],
                 16,
                 NULL,
                 NULL,
                 0,
-                (PBYTE)&sha256_key[0],
+                (PBYTE) &sha256_key[0],
                 16,
                 &dwCipherTextLength,
                 0);
@@ -397,12 +398,12 @@ uint32_t CCipherEngine::KeepassDerivativeKey(const string &sKey,
         }
         status = BCryptEncrypt(
                 aesKeyHandle,
-                (PBYTE)&sha256_key[16],
+                (PBYTE) &sha256_key[16],
                 16,
                 NULL,
                 NULL,
                 0,
-                (PBYTE)&sha256_key[16],
+                (PBYTE) &sha256_key[16],
                 16,
                 &dwCipherTextLength,
                 0);
@@ -412,7 +413,7 @@ uint32_t CCipherEngine::KeepassDerivativeKey(const string &sKey,
     }
 
     // Sha256 again
-    status = cipherEngine.SHA256( &sha256_key[0], 32, &sha256_key[0], 32);
+    status = cipherEngine.SHA256(&sha256_key[0], 32, &sha256_key[0], 32);
     if (!NT_SUCCESS(status)) {
         return status;
     }
@@ -423,18 +424,18 @@ uint32_t CCipherEngine::KeepassDerivativeKey(const string &sKey,
 
     //Sha256 again
     output.resize(32);
-    status = cipherEngine.SHA256(&compositKey[0], compositKey.size(),  &output[0], 32);
+    status = cipherEngine.SHA256(&compositKey[0], compositKey.size(), &output[0], 32);
     return status;
 }
 
 
-void CCipherEngine::CleanString(string& str){
+void CCipherEngine::CleanString(string &str) {
     memset(&str[0], 0, str.size());
 }
 
-uint32_t CCipherEngine::PBKDF2DerivativeKey(const string &sKey, const PBKDF2_256_PARAMETERS & pbkdf2256Parameters,
-                                           vector<unsigned char>& vOutput) {
-    Win32Handler<BCRYPT_ALG_HANDLE> hAlgorithm (NULL, [](BCRYPT_ALG_HANDLE _h) {
+uint32_t CCipherEngine::PBKDF2DerivativeKey(const string &sKey, const PBKDF2_256_PARAMETERS &pbkdf2256Parameters,
+                                            vector<unsigned char> &vOutput) {
+    Win32Handler<BCRYPT_ALG_HANDLE> hAlgorithm(NULL, [](BCRYPT_ALG_HANDLE _h) {
         BCryptCloseAlgorithmProvider(_h, 0);
     });
     NTSTATUS status = BCryptOpenAlgorithmProvider(
@@ -452,13 +453,13 @@ uint32_t CCipherEngine::PBKDF2DerivativeKey(const string &sKey, const PBKDF2_256
             hAlgorithm,
             (PUCHAR) sKey.c_str(),
             sKey.size(),
-            (PUCHAR)pbkdf2256Parameters.Salt,
+            (PUCHAR) pbkdf2256Parameters.Salt,
             32,
             pbkdf2256Parameters.num_rounds,
             &vOutput[0],
             32,
             0
-            );
+    );
 
     if (!NT_SUCCESS(status)) {
 

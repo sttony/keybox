@@ -9,11 +9,11 @@
 #include <memory>
 #include "Salsa20Cipher.h"
 
-struct IRandomGenerator{
-    virtual uint32_t GetNextBytes(uint32_t num, std::vector<unsigned char>& output) = 0;
+struct IRandomGenerator {
+    virtual uint32_t GetNextBytes(uint32_t num, std::vector<unsigned char> &output) = 0;
 };
 
-class RandomGenerator: public IRandomGenerator{
+class RandomGenerator : public IRandomGenerator {
 private:
     uint32_t m_type = 0;
     std::unique_ptr<Salsa20Cipher> m_salsa20;
@@ -22,10 +22,12 @@ private:
     uint32_t m_buffer_used = 0;
 public:
     const static uint32_t Salsa20 = 0x01;
+
     explicit RandomGenerator(uint32_t _type);
+
     uint32_t init(std::vector<unsigned char> vKey32, std::array<unsigned char, 8> vIV8);
 
-    uint32_t GetNextBytes(uint32_t num, std::vector<unsigned char>& output) override;
+    uint32_t GetNextBytes(uint32_t num, std::vector<unsigned char> &output) override;
 };
 
 

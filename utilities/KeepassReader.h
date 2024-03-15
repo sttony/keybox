@@ -8,7 +8,7 @@
 #include <vector>
 #include <string>
 
-class KBDBXHeaderField{
+class KBDBXHeaderField {
 public:
     // constants
     static const uint8_t EndOfHeader = 0;
@@ -31,25 +31,30 @@ public:
 };
 
 
-class CKdbxReader{
+class CKdbxReader {
 private:
-    uint32_t m_sig1=0;
-    uint32_t m_sig2=0;
+    uint32_t m_sig1 = 0;
+    uint32_t m_sig2 = 0;
     union {
-        uint32_t  m_nVer=0;
+        uint32_t m_nVer = 0;
     };
     std::vector<KBDBXHeaderField> fields;
 
-    uint32_t cbTotalHeaderSize=0;
+    uint32_t cbTotalHeaderSize = 0;
 public:
 
-    uint32_t LoadHeader(FILE*);
-    uint32_t ReadNextField(FILE*, bool&);
+    uint32_t LoadHeader(FILE *);
+
+    uint32_t ReadNextField(FILE *, bool &);
 
     std::vector<unsigned char> getTransformSeed();
-    uint32_t  getTransformRounds();
+
+    uint32_t getTransformRounds();
+
     std::vector<unsigned char> getEncryptionIV();
+
     std::vector<unsigned char> getMasterSeed();
+
     std::vector<unsigned char> getInnerRandomStreamKey();
 
 };

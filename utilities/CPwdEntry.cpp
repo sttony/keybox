@@ -20,17 +20,18 @@ boost::property_tree::ptree CPwdEntry::toJsonObj() {
 
     return root;
 }
-const std::string& CPwdEntry::GetTitle() const {
+
+const std::string &CPwdEntry::GetTitle() const {
     return m_title;
 };
 
-void CPwdEntry::SetTitle(const std::string& _title) {
+void CPwdEntry::SetTitle(const std::string &_title) {
     m_title = _title;
 };
 
 
 CPwdEntry::CPwdEntry() {
-    m_uuid= boost::uuids::random_generator()();
+    m_uuid = boost::uuids::random_generator()();
 }
 
 CPwdEntry::CPwdEntry(boost::uuids::uuid _uuid) {

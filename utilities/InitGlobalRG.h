@@ -4,9 +4,11 @@
 
 #ifndef KEYBOX_INITGLOBALRG_H
 #define KEYBOX_INITGLOBALRG_H
+
 #include "RandomGenerator.h"
 
 extern RandomGenerator g_RG;
+
 void InitGlobalRG();
 
 

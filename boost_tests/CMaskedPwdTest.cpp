@@ -41,8 +41,8 @@ BOOST_AUTO_TEST_SUITE(CMaskedPwdTestSuit)
         BOOST_CHECK_EQUAL(plainword, string(4, 0));
         std::ostringstream oss;
         boost::property_tree::write_json(oss, spwd.toJsonObj());
-        BOOST_CHECK_EQUAL(oss.str().find("\"masked\": \"AAAAAA==\"")!= string::npos, true);
-        BOOST_CHECK_EQUAL(oss.str().find("\"onepad\": \"AQIDBA==\"")!= string::npos, true);
+        BOOST_CHECK_EQUAL(oss.str().find("\"masked\": \"AAAAAA==\"") != string::npos, true);
+        BOOST_CHECK_EQUAL(oss.str().find("\"onepad\": \"AQIDBA==\"") != string::npos, true);
     }
 
 

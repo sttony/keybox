@@ -3,7 +3,7 @@ project(keybox)
 
 set(CMAKE_CXX_STANDARD 17)
 
-IF(WIN32)
+IF (WIN32)
     set(SOURCE_FILES
             main.cpp
             help.h
@@ -19,4 +19,4 @@ ENDIF (WIN32)
 
 add_executable(keepassdump ${SOURCE_FILES})
 target_link_libraries(keepassdump utilities)
-target_link_libraries (keepassdump  ${Boost_LIBRARIES}  ${ZLIB_LIBRARIES}  pugixml)
+target_link_libraries(keepassdump ${Boost_LIBRARIES} ${ZLIB_LIBRARIES} pugixml)

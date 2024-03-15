@@ -16,23 +16,26 @@ class EntryDlg : public QDialog {
 Q_OBJECT
 public:
     EntryDlg(QWidget *parent = nullptr);
-    const CPwdEntry& GetPwdEntry();
+
+    const CPwdEntry &GetPwdEntry();
 
 private slots:
-    void onOK();
-private:
-    QLineEdit* m_title_box;
-    QLineEdit* m_user_name_box;
-    QLineEdit* m_url_box;
 
-    QPushButton* m_ok_button;
-    QPushButton* m_cancel_button;
-    PasswordBox* m_pwd_box;
-    PasswordBox* m_note_box;
+    void onOK();
+
+private:
+    QLineEdit *m_title_box;
+    QLineEdit *m_user_name_box;
+    QLineEdit *m_url_box;
+
+    QPushButton *m_ok_button;
+    QPushButton *m_cancel_button;
+    PasswordBox *m_pwd_box;
+    PasswordBox *m_note_box;
     CPwdEntry m_PwdEntry;
 
 
-    QHBoxLayout*  createInputLine(const QString& label, QLineEdit* inputWidget);
+    QHBoxLayout *createInputLine(const QString &label, QLineEdit *inputWidget);
 };
 
 

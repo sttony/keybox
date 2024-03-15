@@ -6,8 +6,8 @@
 #include <windows.h>
 
 using namespace std;
-std::string read_password_from_console()
-{
+
+std::string read_password_from_console() {
     HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
     DWORD mode = 0;
     GetConsoleMode(hStdin, &mode);

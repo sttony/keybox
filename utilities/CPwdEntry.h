@@ -11,62 +11,71 @@
 #include <boost/uuid/uuid.hpp>
 #include "CMaskedBlob.h"
 
-class CPwdEntry{
+class CPwdEntry {
 public:
     CPwdEntry();
+
     CPwdEntry(boost::uuids::uuid _uuid);
 
     boost::property_tree::ptree toJsonObj();
-    uint32_t fromJsonObj(const boost::property_tree::ptree&);
 
-    const boost::uuids::uuid& GetID() const{
+    uint32_t fromJsonObj(const boost::property_tree::ptree &);
+
+    const boost::uuids::uuid &GetID() const {
         return m_uuid;
     }
 
-    const std::string& GetTitle() const;
-    void SetTitle(const std::string& _title);
+    const std::string &GetTitle() const;
 
-    const std::string& GetUserName() const { return m_username;};
-    void SetUserName(const std::string& _username) {
+    void SetTitle(const std::string &_title);
+
+    const std::string &GetUserName() const { return m_username; };
+
+    void SetUserName(const std::string &_username) {
         m_username = _username;
     };
 
-    const std::string& GetUrl() const { return m_url;};
-    void SetUrl(const std::string& _url){
-      m_url = _url;
+    const std::string &GetUrl() const { return m_url; };
+
+    void SetUrl(const std::string &_url) {
+        m_url = _url;
     };
 
-    std::string GetPassword(){
+    std::string GetPassword() {
         return m_password.Show();
     }
-    uint32_t SetPassword(std::string& plain_pwd, IRandomGenerator& iRandomGenerator){
+
+    uint32_t SetPassword(std::string &plain_pwd, IRandomGenerator &iRandomGenerator) {
         return m_password.Set(plain_pwd, iRandomGenerator);
     }
 
-    const CMaskedBlob& GetPwd() const {
+    const CMaskedBlob &GetPwd() const {
         return m_password;
     }
 
-    std::string GetNote(){
+    std::string GetNote() {
         return m_note.Show();
     }
-    uint32_t SetNote(std::string& plain_note, IRandomGenerator& iRandomGenerator){
+
+    uint32_t SetNote(std::string &plain_note, IRandomGenerator &iRandomGenerator) {
         return m_note.Set(plain_note, iRandomGenerator);
     }
-    CMaskedBlob& GetN(){
+
+    CMaskedBlob &GetN() {
         return m_note;
     }
 
-    std::vector<unsigned char> GetAttachment(){
+    std::vector<unsigned char> GetAttachment() {
         return m_attachment.ShowBin();
     }
-    uint32_t SetAttachment(std::vector<unsigned char>& blob, IRandomGenerator& iRandomGenerator){
+
+    uint32_t SetAttachment(std::vector<unsigned char> &blob, IRandomGenerator &iRandomGenerator) {
         return m_attachment.Set(blob, iRandomGenerator);
     }
 
 private:
     boost::uuids::uuid m_uuid;
-    std::string  m_title;
+    std::string m_title;
     std::string m_username;
     std::string m_url;
     CMaskedBlob m_note;

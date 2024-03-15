@@ -13,15 +13,22 @@
 class CMaskedBlob {
 public:
     CMaskedBlob();
-    size_t size() const { return m_password.size(); };
-    std::string Show();
-    std::vector<unsigned char> ShowBin();
-    uint32_t Set(std::string& plainPassword, IRandomGenerator& randomGenerator);
-    uint32_t Set(std::vector<unsigned char> &plainPassword, IRandomGenerator& randomGenerator);
-    boost::property_tree::ptree toJsonObj();
-    uint32_t fromJsonObj(const boost::property_tree::ptree&);
 
-    CMaskedBlob(std::string& plainPassword, IRandomGenerator& randomGenerator){
+    size_t size() const { return m_password.size(); };
+
+    std::string Show();
+
+    std::vector<unsigned char> ShowBin();
+
+    uint32_t Set(std::string &plainPassword, IRandomGenerator &randomGenerator);
+
+    uint32_t Set(std::vector<unsigned char> &plainPassword, IRandomGenerator &randomGenerator);
+
+    boost::property_tree::ptree toJsonObj();
+
+    uint32_t fromJsonObj(const boost::property_tree::ptree &);
+
+    CMaskedBlob(std::string &plainPassword, IRandomGenerator &randomGenerator) {
         Set(plainPassword, randomGenerator);
     }
 

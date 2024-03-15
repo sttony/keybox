@@ -34,46 +34,58 @@ public:
 private:
     uint64_t m_signature = 0;
     uint32_t m_version = 0;
-    std::unordered_map<uint8_t, std::function<uint32_t(const unsigned char*, uint32_t&, uint16_t)>> m_fields2handler;
+    std::unordered_map<uint8_t, std::function<uint32_t(const unsigned char *, uint32_t &, uint16_t)>> m_fields2handler;
 
     PBKDF2_256_PARAMETERS m_key_derivative_parameters = {};
     std::vector<unsigned char> m_encryption_iv = {};
 
 public:
     CKBFileHeader();
-    uint32_t Deserialize(const unsigned char* pBuffer, uint32_t cbBufferSize, uint32_t& cbRealSize);
+
+    uint32_t Deserialize(const unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
+
     uint32_t Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
 
-    PBKDF2_256_PARAMETERS& GetDerivativeParameters(){
+    PBKDF2_256_PARAMETERS &GetDerivativeParameters() {
         return m_key_derivative_parameters;
     }
-    const std::vector<unsigned char>& GetIV(){
+
+    const std::vector<unsigned char> &GetIV() {
         return m_encryption_iv;
     }
 
-    uint32_t SetDerivativeParameters(const std::vector<unsigned char>& _salt, int num_round = 60000);
+    uint32_t SetDerivativeParameters(const std::vector<unsigned char> &_salt, int num_round = 60000);
 };
 
 class CKBFile {
 public:
 
-    uint32_t Deserialize(const unsigned char* pBuffer, uint32_t cbBufferSize, uint32_t& cbRealSize);
+    uint32_t Deserialize(const unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
 
-    uint32_t LoadHeader(const unsigned char* pBuffer, uint32_t cbBufferSize, uint32_t& cbRealSize);
-    uint32_t LoadPayload(const unsigned char* pBuffer, uint32_t cbBufferSize, uint32_t& cbRealSize);
+    uint32_t LoadHeader(const unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
+
+    uint32_t LoadPayload(const unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
+
     uint32_t Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
+
     uint32_t Lock(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
+
     uint32_t AddEntry(CPwdEntry _entry);
 
     // TODO: for testing, expose them.
-    const std::vector<CPwdEntry> & GetEntries() const;
-    CKBFileHeader& GetHeader();
-    void SetMasterKey(std::vector<unsigned char> key, IRandomGenerator& irg);
-    void SetMasterKey(CMaskedBlob p);
-    CPwdEntry QueryEntryByTitle(const std::string& _title);
+    const std::vector<CPwdEntry> &GetEntries() const;
 
-    uint32_t SetDerivativeParameters(const std::vector<unsigned char>& _salt, int num_round = 60000);
-    const PBKDF2_256_PARAMETERS& GetDerivativeParameters(){
+    CKBFileHeader &GetHeader();
+
+    void SetMasterKey(std::vector<unsigned char> key, IRandomGenerator &irg);
+
+    void SetMasterKey(CMaskedBlob p);
+
+    CPwdEntry QueryEntryByTitle(const std::string &_title);
+
+    uint32_t SetDerivativeParameters(const std::vector<unsigned char> &_salt, int num_round = 60000);
+
+    const PBKDF2_256_PARAMETERS &GetDerivativeParameters() {
         return m_header.GetDerivativeParameters();
     }
 

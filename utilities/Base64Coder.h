@@ -7,10 +7,12 @@
 
 #include <vector>
 #include <string>
+
 class Base64Coder {
 public:
-    uint32_t Encode(const unsigned char * pInput, uint32_t cbInput, std::string& vOutput);
-    uint32_t Decode(const std::string& sInput, std::vector<unsigned char>& vOutput );
+    uint32_t Encode(const unsigned char *pInput, uint32_t cbInput, std::string &vOutput);
+
+    uint32_t Decode(const std::string &sInput, std::vector<unsigned char> &vOutput);
 };
 
 

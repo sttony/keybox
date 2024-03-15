@@ -9,8 +9,7 @@
 
 using namespace std;
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     // Create a Qt application
     QApplication app(argc, argv);
     InitGlobalRG();

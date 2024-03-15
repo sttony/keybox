@@ -146,8 +146,7 @@ int main(int argc, char *argv[]) {
                             entries.back().Password = string((char *) &decoded_password[0], decoded_password.size());
                         }
                     }
-                }
-                else if (string(property.name()) == "History") {
+                } else if (string(property.name()) == "History") {
                     for (const pugi::xml_node &history_pw_entry: property.children()) {
                         if (string(pw_entry.name()) == "Entry") {
                             for (const pugi::xml_node &history_property: history_pw_entry.children()) {
@@ -166,7 +165,8 @@ int main(int argc, char *argv[]) {
                                                 decoded_password[i] = decoded_password[i] ^ one_pad[i];
                                             }
 
-                                            entries.back().history_password.emplace_back((char *) &decoded_password[0], decoded_password.size());
+                                            entries.back().history_password.emplace_back((char *) &decoded_password[0],
+                                                                                         decoded_password.size());
                                         }
                                     }
                                 }

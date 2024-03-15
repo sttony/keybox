@@ -9,9 +9,9 @@ find_package(pugixml REQUIRED)
 #include(${CMAKE_TOOLCHAIN_FILE})
 
 #set(Boost_DEBUG ON)
-set (Boost_USE_STATIC_LIBS ON)
+set(Boost_USE_STATIC_LIBS ON)
 
-include_directories (${Boost_INCLUDE_DIRS})
+include_directories(${Boost_INCLUDE_DIRS})
 
 
 add_executable(keybox main.cpp)
@@ -23,7 +23,7 @@ target_include_directories(keybox PRIVATE ${ZLIB_INCLUDE_DIRS})
 
 
 target_link_libraries(keybox utilities)
-target_link_libraries (keybox  ${Boost_LIBRARIES}  ${ZLIB_LIBRARIES}  pugixml)
+target_link_libraries(keybox ${Boost_LIBRARIES} ${ZLIB_LIBRARIES} pugixml)
 
 add_subdirectory(boost_tests)
 add_subdirectory(keepassdump)
