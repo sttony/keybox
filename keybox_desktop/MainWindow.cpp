@@ -22,7 +22,7 @@ using namespace std;
 extern RandomGenerator g_RG;
 
 MainWindow::MainWindow(){
-    createToolbar();
+
     QSplitter* splitter = new QSplitter(this);
     QTextEdit* leftTextEdit = new QTextEdit();
     m_entry_table_view = new QTableView;
@@ -37,21 +37,26 @@ MainWindow::MainWindow(){
     createActions();
     createMenus();
     resize(800, 600);
-
-
+    createToolbar();
 
 }
 
 void MainWindow::createToolbar() {// toolbar
     m_toolbar = addToolBar("toolbar");
-    m_lockAction = new QAction(QIcon(":img/img/lock.svg"), "Lock", this);
-    QToolButton* toolButton = new QToolButton(this);
-    toolButton->setDefaultAction(m_lockAction);
-    connect(m_lockAction, &QAction::triggered, this, &MainWindow::Lock);
-    m_toolbar->addWidget(toolButton);
+
+    AddToolBarButton(m_newFileAction);
+    AddToolBarButton(m_lockAction);
+
+
     QLineEdit* searchBox = new QLineEdit(this);
     searchBox->setPlaceholderText("Search...");
     m_toolbar->addWidget(searchBox);
+}
+
+void MainWindow::AddToolBarButton(QAction* action) {
+    QToolButton *toolButton = new QToolButton(this);
+    toolButton->setDefaultAction(action);
+    m_toolbar->addWidget(toolButton);
 }
 
 void MainWindow::createMenus() {
@@ -74,7 +79,7 @@ void MainWindow::createMenus() {
 }
 
 void MainWindow::createActions() {
-    m_newFileAction = new QAction(tr("&New"), this);
+    m_newFileAction = new QAction(QIcon(":img/img/doc.badge.plus.svg"),tr("&New"), this);
     m_newFileAction->setShortcuts(QKeySequence::New);
     m_newFileAction->setStatusTip(tr("Create a new file"));
     connect(m_newFileAction, &QAction::triggered, this, &MainWindow::newFile);
@@ -94,6 +99,9 @@ void MainWindow::createActions() {
 
     m_passwordGeneratorAction = new QAction(tr("Open Password &Generator"), this);
     connect(m_newEntryAction, &QAction::triggered, this, &MainWindow::openPasswordGenerator);
+
+    m_lockAction = new QAction(QIcon(":img/img/lock.svg"), "Lock", this);
+    connect(m_lockAction, &QAction::triggered, this, &MainWindow::Lock);
 }
 
 void MainWindow::Lock() {

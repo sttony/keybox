@@ -51,6 +51,8 @@ private:
     QTableView* m_entry_table_view;
 
     CKBModel* m_pModel = nullptr;
+
+    void AddToolBarButton(QAction* p);
 };
 
 
