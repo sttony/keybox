@@ -17,6 +17,7 @@ PrimaryPasswordDlg::PrimaryPasswordDlg(PBKDF2_256_PARAMETERS _pbkdf2, QWidget *p
     rootLayout->addWidget(m_pwdBox);
     QHBoxLayout *buttonLine = new QHBoxLayout();
     QPushButton *okButton = new QPushButton("OK", this);
+    okButton->setFocus();
     QPushButton *cancelButton = new QPushButton("Cancel", this);
     buttonLine->addWidget(okButton);
     buttonLine->addWidget(cancelButton);
