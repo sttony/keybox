@@ -11,14 +11,13 @@ extern RandomGenerator g_RG;
 PrimaryPasswordDlg::PrimaryPasswordDlg(PBKDF2_256_PARAMETERS _pbkdf2, QWidget *parent) : m_pbkdf2_paras(_pbkdf2) {
     QVBoxLayout *rootLayout = new QVBoxLayout(this);
 
-    m_pwdBox = new PasswordBox(nullptr, "password", make_shared<CMaskedBlob>(m_pwd), g_RG, false, true);
-
+    m_pwdBox = new PasswordBox(nullptr, "password", make_shared<CMaskedBlob>(m_pwd), g_RG, false, false);
 
     rootLayout->addWidget(m_pwdBox);
     QHBoxLayout *buttonLine = new QHBoxLayout();
     QPushButton *okButton = new QPushButton("OK", this);
-    okButton->setFocus();
     QPushButton *cancelButton = new QPushButton("Cancel", this);
+    okButton->setDefault(true);
     buttonLine->addWidget(okButton);
     buttonLine->addWidget(cancelButton);
 

@@ -44,6 +44,8 @@ public slots:
     void onShowClickedMultipleline();
 
     void onTextChanged(const QString &text);
+
+    void onFocusOut();
 };
 
 

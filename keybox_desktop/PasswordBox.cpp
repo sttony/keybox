@@ -25,7 +25,14 @@ PasswordBox::PasswordBox(QWidget *parent,
     QLabel *label = new QLabel(m_label.c_str());
     if (!multipleLine) {
         m_textInput_oneline = new QLineEdit;
-        m_textInput_oneline->setDisabled(!m_doesShow);
+        if(!m_doesShow){
+            m_textInput_oneline->setEchoMode(QLineEdit::Password);
+        }
+        else{
+            m_textInput_oneline->setEchoMode(QLineEdit::Normal);
+        }
+        connect(m_textInput_oneline, SIGNAL(textChanged(const QString &)), this, SLOT(onTextChanged(const QString &)));
+        connect(m_textInput_oneline, &QLineEdit::editingFinished, this, &PasswordBox::onFocusOut);
     } else {
         m_textInput_multipleline = new QTextEdit;
         m_textInput_multipleline->setDisabled(!m_doesShow);
@@ -73,22 +80,15 @@ PasswordBox::PasswordBox(QWidget *parent,
 }
 
 void PasswordBox::onShowClickedOneline() {
+    assert(m_pMaskedBlob);
     m_doesShow = !m_doesShow;
     if (m_doesShow) {
         m_showButton->setIcon(*m_showIcon);
-        m_textInput_oneline->setDisabled(false);
-        if (m_pMaskedBlob != nullptr) {
-            m_textInput_oneline->setText(m_pMaskedBlob->Show().c_str());
-        }
+        m_textInput_oneline->setEchoMode(QLineEdit::Normal);
+        m_textInput_oneline->setText(m_pMaskedBlob->Show().c_str());
     } else {
         m_showButton->setIcon(*m_hideIcon);
-        m_textInput_oneline->setDisabled(true);
-
-        if (m_pMaskedBlob != nullptr) {
-            string text = m_textInput_oneline->text().toStdString();
-            m_pMaskedBlob->Set(text, m_randomGenerator);
-        }
-        m_textInput_oneline->setText(string(m_textInput_oneline->text().size(), '*').c_str());
+        m_textInput_oneline->setEchoMode(QLineEdit::Password);
     }
 }
 
@@ -113,5 +113,15 @@ void PasswordBox::onShowClickedMultipleline() {
 }
 
 void PasswordBox::onTextChanged(const QString &text) {
+    //m_pMaskedBlob->Set(text.toStdString(), m_randomGenerator);
+}
 
+void PasswordBox::onFocusOut() {
+    m_pMaskedBlob->Set(m_textInput_oneline->text().toStdString(), m_randomGenerator);
+    if(m_doesShow){
+        m_textInput_oneline->setEchoMode(QLineEdit::Normal);
+    }
+    else{
+        m_textInput_oneline->setEchoMode(QLineEdit::Password);
+    }
 }
