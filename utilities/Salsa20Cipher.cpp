@@ -4,6 +4,7 @@
 
 #include "Salsa20Cipher.h"
 #include <cassert>
+#include <cstring>
 
 
 Salsa20Cipher::Salsa20Cipher(std::array<unsigned char, 32> vKey32, std::array<unsigned char, 8> vIV8) {

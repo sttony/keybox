@@ -7,6 +7,7 @@
 
 #include <zlib.h>
 #include <vector>
+#include <cstdint>
 
 class CGZcompressor {
 private:

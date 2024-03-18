@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <string>
+#include <cstdint>
 
 class KBDBXHeaderField {
 public:

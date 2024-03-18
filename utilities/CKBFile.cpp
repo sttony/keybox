@@ -9,6 +9,24 @@
 
 using namespace std;
 
+// make gcc happy
+const uint8_t CKBFileHeader::END_OF_HEADER = 0;
+const uint8_t CKBFileHeader::KEEPASS_Comment = 1;
+const uint8_t CKBFileHeader::KEEPASS_CipherID = 2;
+const uint8_t CKBFileHeader::KEEPASS_CompressionFlags = 3;
+const uint8_t CKBFileHeader::KEEPASS_MasterSeed = 4;
+const uint8_t CKBFileHeader::KEEPASS_TransformSeed = 5;
+const uint8_t CKBFileHeader::KEEPASS_TransformRounds = 6;
+const uint8_t CKBFileHeader::KEEPASS_EncryptionIV = 7;
+const uint8_t CKBFileHeader::KEEPASS_InnerRandomStreamKey = 8;
+const uint8_t CKBFileHeader::KEEPASS_StreamStartBytes = 9;
+const uint8_t CKBFileHeader::KEEPASS_InnerRandomStreamID = 10;
+const uint8_t CKBFileHeader::KEEPASS_KdfParameters = 11;
+const uint8_t CKBFileHeader::KEEPASS_PublicCustomData = 12;
+
+const uint8_t CKBFileHeader::KEYBOX_PBKDF2_PARAM = 0x81;
+const uint8_t CKBFileHeader::KEYBOX_HMAC_SIGNATURE = 0x82;
+
 template<typename T>
 uint32_t read_field(const unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &offset, T &output) {
     if (offset + sizeof(T) > cbBufferSize) {

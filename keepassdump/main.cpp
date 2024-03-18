@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <cstring>
 #include <pugixml.hpp>
 #include "utilities/KeepassReader.h"
 #include "utilities/CipherEngine.h"

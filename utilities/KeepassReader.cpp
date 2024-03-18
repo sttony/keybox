@@ -5,6 +5,8 @@
 #include "CipherEngine.h"
 #include "error_code.h"
 
+#include <cstring>
+
 uint32_t CKdbxReader::LoadHeader(FILE *fp) {
     size_t io_error = fread(&m_sig1, 4, 1, fp);
     if (io_error != 1) {

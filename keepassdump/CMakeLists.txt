@@ -15,6 +15,12 @@ ELSEIF (APPLE)
             help.h
             help_mac.cpp
     )
+ELSEIF (LINUX)
+    set(SOURCE_FILES
+            main.cpp
+            help.h
+            help_mac.cpp
+    )
 ENDIF (WIN32)
 
 add_executable(keepassdump ${SOURCE_FILES})

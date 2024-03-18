@@ -47,10 +47,36 @@ ELSEIF (APPLE)
             Base64Coder.cpp
             CPwdEntry.cpp
             CMaskedBlob.cpp
+            CKBFile.cpp
+    )
+ELSEIF (LINUX)
+    set(SOURCE_FILES
+            CipherEngine_linux.cpp
+            KeepassReader.cpp
+            CGZcompressor.cpp
+            Salsa20Cipher.cpp
+            RandomGenerator.cpp
+            Base64Coder.cpp
+            CPwdEntry.cpp
+            CMaskedBlob.cpp
+            InitGlobalRG_linux.cpp
+            CKBFile.cpp
     )
 ENDIF (WIN32)
 
+IF(LINUX)
+    find_package(OpenSSL REQUIRED)
+    include_directories(${OPENSSL_INCLUDE_DIR})
+
+ENDIF (LINUX)
+
+
 add_library(utilities STATIC ${SOURCE_FILES} ${HEADER_FILES})
+
+IF (LINUX)
+    target_link_libraries(utilities PRIVATE ${OPENSSL_LIBRARIES})
+ENDIF (LINUX)
+
 target_include_directories(utilities PRIVATE ${ZLIB_INCLUDE_DIRS})
 target_link_libraries(utilities PRIVATE ${ZLIB_LIBRARIES})
 

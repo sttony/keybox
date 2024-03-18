@@ -15,22 +15,22 @@
 class CKBFileHeader {
 public:
     // constants
-    static const uint8_t END_OF_HEADER = 0;
-    static const uint8_t KEEPASS_Comment = 1;
-    static const uint8_t KEEPASS_CipherID = 2;
-    static const uint8_t KEEPASS_CompressionFlags = 3;
-    static const uint8_t KEEPASS_MasterSeed = 4;
-    static const uint8_t KEEPASS_TransformSeed = 5;
-    static const uint8_t KEEPASS_TransformRounds = 6;
-    static const uint8_t KEEPASS_EncryptionIV = 7;
-    static const uint8_t KEEPASS_InnerRandomStreamKey = 8;
-    static const uint8_t KEEPASS_StreamStartBytes = 9;
-    static const uint8_t KEEPASS_InnerRandomStreamID = 10;
-    static const uint8_t KEEPASS_KdfParameters = 11;
-    static const uint8_t KEEPASS_PublicCustomData = 12;
+    static const uint8_t END_OF_HEADER;
+    static const uint8_t KEEPASS_Comment;
+    static const uint8_t KEEPASS_CipherID;
+    static const uint8_t KEEPASS_CompressionFlags;
+    static const uint8_t KEEPASS_MasterSeed;
+    static const uint8_t KEEPASS_TransformSeed;
+    static const uint8_t KEEPASS_TransformRounds;
+    static const uint8_t KEEPASS_EncryptionIV;
+    static const uint8_t KEEPASS_InnerRandomStreamKey;
+    static const uint8_t KEEPASS_StreamStartBytes;
+    static const uint8_t KEEPASS_InnerRandomStreamID;
+    static const uint8_t KEEPASS_KdfParameters;
+    static const uint8_t KEEPASS_PublicCustomData;
 
-    static const uint8_t KEYBOX_PBKDF2_PARAM = 0x81;
-    static const uint8_t KEYBOX_HMAC_SIGNATURE = 0x82;
+    static const uint8_t KEYBOX_PBKDF2_PARAM;
+    static const uint8_t KEYBOX_HMAC_SIGNATURE;
 
 private:
     uint64_t m_signature = 0;

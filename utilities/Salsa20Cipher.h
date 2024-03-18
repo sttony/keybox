@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <array>
+#include <cstdint>
 
 class Salsa20Cipher {
 private:

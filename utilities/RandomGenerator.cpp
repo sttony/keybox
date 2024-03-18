@@ -6,6 +6,8 @@
 #include "CipherEngine.h"
 
 #include <memory>
+#include <algorithm>
+#include <cstring>
 
 RandomGenerator::RandomGenerator(uint32_t _type) {
     m_type = _type;

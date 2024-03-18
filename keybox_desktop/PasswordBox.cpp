@@ -117,7 +117,8 @@ void PasswordBox::onTextChanged(const QString &text) {
 }
 
 void PasswordBox::onFocusOut() {
-    m_pMaskedBlob->Set(m_textInput_oneline->text().toStdString(), m_randomGenerator);
+    string temp = m_textInput_oneline->text().toStdString();
+    m_pMaskedBlob->Set(temp, m_randomGenerator);
     if(m_doesShow){
         m_textInput_oneline->setEchoMode(QLineEdit::Normal);
     }
