@@ -92,6 +92,10 @@ public:
         return m_header.GetDerivativeParameters();
     }
 
+    void SortEntryByTitle(bool AscendingOrder);
+    void SortEntryByUserName(bool AscendingOrder);
+    void SortEntryByUrl(bool AscendingOrder);
+
 private:
     CKBFileHeader m_header;
     std::vector<CPwdEntry> m_entries;

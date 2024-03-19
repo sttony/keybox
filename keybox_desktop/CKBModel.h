@@ -23,6 +23,8 @@ public:
 
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 
+    void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) override;
+
 
     // two step load, because payload needs header to decrypt
     uint32_t LoadKBHeader(const std::string &filepath);

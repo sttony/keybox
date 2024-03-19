@@ -119,3 +119,21 @@ uint32_t CKBModel::SetEntry(const CPwdEntry &pe, int idx) {
     endResetModel();
     return result;
 }
+
+void CKBModel::sort(int column, Qt::SortOrder order) {
+    switch(column){
+        case 0:
+            m_kbfile.SortEntryByTitle( order == Qt::SortOrder::AscendingOrder);
+            break;
+        case 1:
+            m_kbfile.SortEntryByUserName( order == Qt::SortOrder::AscendingOrder);
+            break;
+        case 3:
+            m_kbfile.SortEntryByUrl( order == Qt::SortOrder::AscendingOrder);
+            break;
+        default:
+            break;
+    }
+
+    emit layoutChanged();
+}

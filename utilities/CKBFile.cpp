@@ -380,3 +380,21 @@ uint32_t CKBFile::SetEntry(CPwdEntry _entry, int idx) {
     m_entries[idx] = _entry;
     return 0;
 }
+
+void CKBFile::SortEntryByTitle(bool AscendingOrder) {
+    sort(m_entries.begin(), m_entries.end(), [AscendingOrder](const auto& _l, const auto& _r){
+        return AscendingOrder ? _l.GetTitle() < _r.GetTitle() : _l.GetTitle() > _r.GetTitle();
+    });
+}
+
+void CKBFile::SortEntryByUserName(bool AscendingOrder) {
+    sort(m_entries.begin(), m_entries.end(), [AscendingOrder](const auto& _l, const auto& _r){
+        return AscendingOrder ? _l.GetUserName() < _r.GetUserName() : _l.GetUserName() > _r.GetUserName();
+    });
+}
+
+void CKBFile::SortEntryByUrl(bool AscendingOrder) {
+    sort(m_entries.begin(), m_entries.end(), [AscendingOrder](const auto& _l, const auto& _r){
+        return AscendingOrder? _l.GetUrl() < _r.GetUrl() : _l.GetUrl() > _r.GetUrl();
+    });
+}

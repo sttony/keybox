@@ -29,6 +29,7 @@ MainWindow::MainWindow() {
     m_entry_table_view->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_entry_table_view->setSelectionMode(QAbstractItemView::SingleSelection);
     connect(m_entry_table_view, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(onTableRowDoubleClicked(const QModelIndex&)));
+    m_entry_table_view->setSortingEnabled(true);
 
     //view->setModel(m_pModel.get());
 
