@@ -203,6 +203,7 @@ void MainWindow::openFile() {
         }
         auto newModel = new CKBModel;
         newModel->SetFilePath(fileNames.at(0).toStdString());
+        this->setWindowTitle(fileNames.at(0));
         newModel->LoadKBHeader(fileNames.at(0).toStdString());
 
         PrimaryPasswordDlg ppdlg(newModel->GetKeyDerivateParameters());
