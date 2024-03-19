@@ -373,28 +373,12 @@ CPwdEntry CKBFile::GetEntry(int idx) {
     return m_entries[idx];
 }
 
-uint32_t CKBFile::SetEntry(CPwdEntry _entry, int idx) {
-    if(idx>= m_entries.size()){
-        return ERROR_INVALID_PARAMETER;
+uint32_t CKBFile::SetEntry(const CPwdEntry& _entry) {
+    for(auto& pe: m_entries){
+        if( pe.GetID() == _entry.GetID()){
+            pe = _entry;
+            return 0;
+        }
     }
-    m_entries[idx] = _entry;
-    return 0;
-}
-
-void CKBFile::SortEntryByTitle(bool AscendingOrder) {
-    sort(m_entries.begin(), m_entries.end(), [AscendingOrder](const auto& _l, const auto& _r){
-        return AscendingOrder ? _l.GetTitle() < _r.GetTitle() : _l.GetTitle() > _r.GetTitle();
-    });
-}
-
-void CKBFile::SortEntryByUserName(bool AscendingOrder) {
-    sort(m_entries.begin(), m_entries.end(), [AscendingOrder](const auto& _l, const auto& _r){
-        return AscendingOrder ? _l.GetUserName() < _r.GetUserName() : _l.GetUserName() > _r.GetUserName();
-    });
-}
-
-void CKBFile::SortEntryByUrl(bool AscendingOrder) {
-    sort(m_entries.begin(), m_entries.end(), [AscendingOrder](const auto& _l, const auto& _r){
-        return AscendingOrder? _l.GetUrl() < _r.GetUrl() : _l.GetUrl() > _r.GetUrl();
-    });
+    return ERROR_ENTRY_NOT_FOUND;
 }

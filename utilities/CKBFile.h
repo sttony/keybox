@@ -73,7 +73,7 @@ public:
 
     uint32_t AddEntry(CPwdEntry _entry);
     CPwdEntry GetEntry(int idx);
-    uint32_t SetEntry(CPwdEntry _entry, int idx);
+    uint32_t SetEntry(const CPwdEntry& _entry);
 
     // TODO: for testing, expose them.
     const std::vector<CPwdEntry> &GetEntries() const;
@@ -91,10 +91,6 @@ public:
     const PBKDF2_256_PARAMETERS &GetDerivativeParameters() {
         return m_header.GetDerivativeParameters();
     }
-
-    void SortEntryByTitle(bool AscendingOrder);
-    void SortEntryByUserName(bool AscendingOrder);
-    void SortEntryByUrl(bool AscendingOrder);
 
 private:
     CKBFileHeader m_header;

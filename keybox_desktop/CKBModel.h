@@ -25,6 +25,8 @@ public:
 
     void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) override;
 
+    void SetFilter(const QString& filterText);
+
 
     // two step load, because payload needs header to decrypt
     uint32_t LoadKBHeader(const std::string &filepath);
@@ -52,6 +54,8 @@ private:
     std::vector<unsigned char> m_file_buff;
     std::string m_kbfile_fullpath;
     uint32_t m_header_size;
+
+    std::vector<CPwdEntry> m_filtered_entries;
 
 };
 

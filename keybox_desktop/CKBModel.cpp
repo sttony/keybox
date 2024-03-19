@@ -5,16 +5,17 @@
 #include <fstream>
 #include "CKBModel.h"
 #include "../utilities/error_code.h"
+using namespace std;
 
 int CKBModel::rowCount(const QModelIndex &parent) const {
     Q_UNUSED(parent);
-    return m_kbfile.GetEntries().size();
+    return m_filtered_entries.size();
 }
 
 QVariant CKBModel::data(const QModelIndex &index, int role) const {
     if (role == Qt::DisplayRole) {
-        if (m_kbfile.GetEntries().size() > 0) {
-            const CPwdEntry &pwdEntry = m_kbfile.GetEntries().at(index.row());
+        if (!m_filtered_entries.empty()) {
+            const CPwdEntry &pwdEntry = m_filtered_entries.at(index.row());
             if (index.column() == 0) {
                 return QString(pwdEntry.GetTitle().c_str());
             } else if (index.column() == 1) {
@@ -65,8 +66,9 @@ void CKBModel::SetPrimaryKey(CMaskedBlob p) {
 
 void CKBModel::AddEntry(const CPwdEntry &pe) {
     beginResetModel();
-    m_kbfile.AddEntry(pe);
+    m_filtered_entries.push_back(pe);
     endResetModel();
+    m_kbfile.AddEntry(pe);
 }
 
 CKBModel::CKBModel(QObject *parent) : QAbstractTableModel(parent) {
@@ -106,7 +108,11 @@ void CKBModel::SetFilePath(const std::string &filepath) {
 
 uint32_t CKBModel::LoadPayload() {
     uint32_t cbRealSize = 0;
-    return m_kbfile.LoadPayload(m_file_buff.data() + m_header_size, m_file_buff.size() - m_header_size, cbRealSize);
+    uint32_t uResult = m_kbfile.LoadPayload(m_file_buff.data() + m_header_size, m_file_buff.size() - m_header_size, cbRealSize);
+    if(uResult){
+        return uResult;
+    }
+    m_filtered_entries = m_kbfile.GetEntries();
 }
 
 CPwdEntry CKBModel::GetEntry(int index) {
@@ -115,7 +121,8 @@ CPwdEntry CKBModel::GetEntry(int index) {
 
 uint32_t CKBModel::SetEntry(const CPwdEntry &pe, int idx) {
     beginResetModel();
-    uint32_t result = m_kbfile.SetEntry(pe, idx);
+    uint32_t result = m_kbfile.SetEntry(pe);
+    m_filtered_entries[idx] =pe;
     endResetModel();
     return result;
 }
@@ -123,17 +130,43 @@ uint32_t CKBModel::SetEntry(const CPwdEntry &pe, int idx) {
 void CKBModel::sort(int column, Qt::SortOrder order) {
     switch(column){
         case 0:
-            m_kbfile.SortEntryByTitle( order == Qt::SortOrder::AscendingOrder);
+            std::sort(m_filtered_entries.begin(), m_filtered_entries.end(), [order](const auto& _l, const auto& _r){
+                return order == Qt::SortOrder::AscendingOrder ?
+                    _l.GetTitle() < _r.GetTitle() :
+                    _l.GetTitle() > _r.GetTitle();
+
+            });
             break;
         case 1:
-            m_kbfile.SortEntryByUserName( order == Qt::SortOrder::AscendingOrder);
+            std::sort(m_filtered_entries.begin(), m_filtered_entries.end(), [order](const auto& _l, const auto& _r){
+                return order == Qt::SortOrder::AscendingOrder ?
+                       _l.GetUserName() < _r.GetUserName() :
+                       _l.GetUserName() > _r.GetUserName();
+
+            });
             break;
         case 3:
-            m_kbfile.SortEntryByUrl( order == Qt::SortOrder::AscendingOrder);
+            std::sort(m_filtered_entries.begin(), m_filtered_entries.end(), [order](const auto& _l, const auto& _r){
+                return order == Qt::SortOrder::AscendingOrder ?
+                       _l.GetUrl() < _r.GetUrl() :
+                       _l.GetUrl() > _r.GetUrl();
+            });
             break;
         default:
             break;
     }
 
+    emit layoutChanged();
+}
+
+void CKBModel::SetFilter(const QString &filterText) {
+    m_filtered_entries.clear();
+    for(const auto& pe: m_kbfile.GetEntries()){
+        if( pe.GetUserName().find( filterText.toStdString()) != string::npos ||
+                pe.GetUrl().find( filterText.toStdString()) != string::npos ||
+                pe.GetTitle().find( filterText.toStdString()) != string::npos ){
+            m_filtered_entries.emplace_back(pe);
+        }
+    }
     emit layoutChanged();
 }

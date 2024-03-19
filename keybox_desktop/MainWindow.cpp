@@ -54,9 +54,10 @@ void MainWindow::createToolbar() {// toolbar
     AddToolBarButton(m_lockAction);
 
 
-    QLineEdit *searchBox = new QLineEdit(this);
-    searchBox->setPlaceholderText("Search...");
-    m_toolbar->addWidget(searchBox);
+    m_searchBox = new QLineEdit(this);
+    m_searchBox->setPlaceholderText("Search...");
+    connect(m_searchBox, SIGNAL(textChanged(const QString &)), this, SLOT(onSearchTextChange(const QString &)));
+    m_toolbar->addWidget(m_searchBox);
 }
 
 void MainWindow::AddToolBarButton(QAction *action) {
@@ -240,4 +241,8 @@ void MainWindow::onTableRowDoubleClicked(const QModelIndex &index) {
             m_pModel->SetEntry(entryDlg.GetPwdEntry(), row);
         }
     }
+}
+
+void MainWindow::onSearchTextChange(const QString& _filter) {
+    m_pModel->SetFilter(_filter);
 }

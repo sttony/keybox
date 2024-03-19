@@ -39,6 +39,8 @@ private slots:
 
     void onTableRowDoubleClicked(const QModelIndex &index);
 
+    void onSearchTextChange(const QString &);
+
 private:
     void createActions();
 
@@ -57,6 +59,7 @@ private:
     QMenu *entryMenu;
     QMenu *toolMenu;
     QToolBar *m_toolbar;
+    QLineEdit* m_searchBox;
 
     QTableView *m_entry_table_view;
 
