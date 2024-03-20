@@ -153,5 +153,19 @@ BOOST_AUTO_TEST_SUITE(CipherTestSuit)
         BOOST_CHECK_EQUAL(hexStr, "e382fed3606bd2758c6ccb45ab4853be81423c4ee04ae1e2ca8b8071778ea460");
     }
 
+    BOOST_AUTO_TEST_CASE(HMAC_SHA256)
+    {
+        CCipherEngine encryptEngine;
+        std::vector<unsigned char> sha256_buff;
+        vector<unsigned char> key(32);
+        key[0] = 'S';
+        key[1] = 'e';
+        unsigned char input[32] = "aaa";
+        encryptEngine.HMAC_SHA256(key, input, 3, sha256_buff);
+
+        string hexStr = blobToHexString(sha256_buff);
+        BOOST_CHECK_EQUAL(hexStr, "338a5140e13e3cc055e30c4cef3ba869f3d2335190e3aeb0b56c07d852a63e56");
+    }
+
 BOOST_AUTO_TEST_SUITE_END()
 

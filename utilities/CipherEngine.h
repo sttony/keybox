@@ -53,6 +53,8 @@ public:
     PBKDF2DerivativeKey(const std::string &sKey, const PBKDF2_256_PARAMETERS &, std::vector<unsigned char> &vOutput);
 
     void CleanString(std::string &str);
+
+    uint32_t HMAC_SHA256(const std::vector<unsigned char>& key, const unsigned char* pInputBuff, size_t cbInputBuff, std::vector<unsigned char> &Output);
 };
 
 

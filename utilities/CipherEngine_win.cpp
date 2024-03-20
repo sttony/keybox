@@ -470,3 +470,49 @@ uint32_t CCipherEngine::PBKDF2DerivativeKey(const string &sKey, const PBKDF2_256
     return 0;
 }
 
+uint32_t
+CCipherEngine::HMAC_SHA256(const vector<unsigned char> &key, const unsigned char *pInputBuff, size_t cbInputBuff, vector<unsigned char> &Output) {
+    if( key.size() != 32){
+        return ERROR_INVALID_PARAMETER;
+    }
+    Win32Handler<BCRYPT_ALG_HANDLE> hAlgorithm(NULL, [](BCRYPT_ALG_HANDLE _h) {
+        BCryptCloseAlgorithmProvider(_h, 0);
+    });
+
+    Win32Handler<BCRYPT_HASH_HANDLE> hHash(NULL, [](BCRYPT_HASH_HANDLE _h) {
+        BCryptDestroyHash(_h);
+    });
+    NTSTATUS status = BCryptOpenAlgorithmProvider(
+            hAlgorithm.ptr(),
+            BCRYPT_SHA256_ALGORITHM,
+            NULL,
+            BCRYPT_ALG_HANDLE_HMAC_FLAG
+    );
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    status = BCryptCreateHash(hAlgorithm,
+                              hHash.ptr(),
+                              NULL,
+                              0,
+                              (PUCHAR)key.data(),
+                              key.size(),
+                              0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    status = BCryptHashData(hHash, (PUCHAR)pInputBuff, cbInputBuff, 0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+
+    Output.resize(32);
+    status = BCryptFinishHash(hHash, (PUCHAR)Output.data(), Output.size(), 0);
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+    return 0;
+}
+
