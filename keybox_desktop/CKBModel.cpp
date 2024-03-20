@@ -65,10 +65,9 @@ void CKBModel::SetPrimaryKey(CMaskedBlob p) {
 }
 
 void CKBModel::AddEntry(const CPwdEntry &pe) {
-    beginResetModel();
     m_filtered_entries.push_back(pe);
-    endResetModel();
     m_kbfile.AddEntry(pe);
+    emit layoutChanged();
 }
 
 CKBModel::CKBModel(QObject *parent) : QAbstractTableModel(parent) {
@@ -113,6 +112,7 @@ uint32_t CKBModel::LoadPayload() {
         return uResult;
     }
     m_filtered_entries = m_kbfile.GetEntries();
+    return 0;
 }
 
 CPwdEntry CKBModel::GetEntry(int index) {
