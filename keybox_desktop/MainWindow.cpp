@@ -210,8 +210,11 @@ void MainWindow::openFile() {
         ppdlg.exec();
         newModel->SetPrimaryKey(ppdlg.GetPassword());
 
-        newModel->LoadPayload();
-
+        if( newModel->LoadPayload()){
+            QMessageBox::information(nullptr, "Alert", "Seems like the password is not correct");
+            delete newModel;
+            return;
+        };
 
         m_entry_table_view->setModel(newModel);
         delete m_pModel;

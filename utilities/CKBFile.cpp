@@ -148,6 +148,13 @@ CKBFileHeader::CKBFileHeader() : m_encryption_iv(16) {
         return 0u;
     };
 
+    m_fields2handler[KEYBOX_HMAC_SIGNATURE] = [this](const unsigned char *p, uint32_t &offset, uint16_t cbSize) {
+        m_hmac_sha256_signature.resize(cbSize);
+        m_hmac_sha256_signature = std::vector<unsigned char>(p + offset, p + offset + cbSize);
+        offset += cbSize;
+        return 0u;
+    };
+
     m_signature = 0x0BAD19840BAD1984;
     m_version = 1 << 16 | 0;
 
@@ -328,11 +335,18 @@ uint32_t CKBFile::LoadHeader(const unsigned char *pBuffer, uint32_t cbBufferSize
 
 uint32_t CKBFile::LoadPayload(const unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize) {
     CCipherEngine cipherEngine;
+
+    vector<unsigned char> vHmacSignature;
+    cipherEngine.HMAC_SHA256(m_master_key.ShowBin(),pBuffer, cbBufferSize, vHmacSignature);
+    if(vHmacSignature != m_header.GetHMACSignature()){
+        return ERROR_MASTER_KEY_INVALID;
+    }
+
     vector<unsigned char> decrypted_buff;
     uint32_t uResult = 0;
     uResult = cipherEngine.AES256EnDecrypt(
-            pBuffer + cbRealSize,
-            cbBufferSize - cbRealSize,
+            pBuffer,
+            cbBufferSize,
             m_master_key.ShowBin(),
             m_header.GetIV(),
             CCipherEngine::AES_CHAIN_MODE_CBC,

@@ -39,6 +39,7 @@ private:
 
     PBKDF2_256_PARAMETERS m_key_derivative_parameters = {};
     std::vector<unsigned char> m_encryption_iv = {};
+    std::vector<unsigned char> m_hmac_sha256_signature = {};
 
 public:
     CKBFileHeader();
@@ -53,6 +54,10 @@ public:
 
     const std::vector<unsigned char> &GetIV() {
         return m_encryption_iv;
+    }
+
+    const std::vector<unsigned char>& GetHMACSignature(){
+        return m_hmac_sha256_signature;
     }
 
     uint32_t SetDerivativeParameters(const std::vector<unsigned char> &_salt, int num_round = 60000);
