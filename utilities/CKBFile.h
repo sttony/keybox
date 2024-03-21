@@ -61,6 +61,8 @@ public:
     }
 
     uint32_t SetDerivativeParameters(const std::vector<unsigned char> &_salt, int num_round = 60000);
+
+    uint32_t CalculateHMAC(const std::vector<unsigned char>& master_key, const unsigned char* pPayloadBuff, size_t cbPayloadSize);
 };
 
 class CKBFile {

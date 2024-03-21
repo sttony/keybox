@@ -83,8 +83,9 @@ uint32_t CKBFileHeader::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize,
     cbRealSize += sizeof(m_signature);
     cbRealSize += sizeof(m_version);
 
-    cbRealSize += 1 + 2 + m_encryption_iv.size() * sizeof(uint8_t);
+    cbRealSize += 1 + 2 + m_encryption_iv.size();
     cbRealSize += 1 + 2 + sizeof(m_key_derivative_parameters);
+    cbRealSize += 1 + 2 + m_hmac_sha256_signature.size();
     cbRealSize += 1 + 2;
 
     if (cbRealSize > cbBufferSize) {
@@ -119,8 +120,19 @@ uint32_t CKBFileHeader::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize,
     if (write_field(pBuffer, cbBufferSize, offset, field_size)) {
         return ERROR_BUFFER_TOO_SMALL;
     }
-    memcpy(pBuffer + offset, &m_encryption_iv[0], m_encryption_iv.size());
+    memcpy(pBuffer + offset, m_encryption_iv.data(), m_encryption_iv.size());
+    offset += m_encryption_iv.size();
 
+    // write KEYBOX_HMAC_SIGNATURE
+    if (write_field(pBuffer, cbBufferSize, offset, KEYBOX_HMAC_SIGNATURE)) {
+        return ERROR_BUFFER_TOO_SMALL;
+    }
+    field_size = m_hmac_sha256_signature.size();
+    if (write_field(pBuffer, cbBufferSize, offset, field_size)) {
+        return ERROR_BUFFER_TOO_SMALL;
+    }
+    memcpy(pBuffer + offset, m_hmac_sha256_signature.data(), m_hmac_sha256_signature.size());
+    offset += m_hmac_sha256_signature.size();
 
     // write END_OF_HEADER
     if (write_field(pBuffer, cbBufferSize, offset, END_OF_HEADER)) {
@@ -133,7 +145,7 @@ uint32_t CKBFileHeader::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize,
     return 0;
 }
 
-CKBFileHeader::CKBFileHeader() : m_encryption_iv(16) {
+CKBFileHeader::CKBFileHeader() : m_encryption_iv(16), m_hmac_sha256_signature(32) {
     m_fields2handler[KEYBOX_PBKDF2_PARAM] = [this](const unsigned char *p, uint32_t &offset, uint16_t cbSize) {
         if (read_field(p, offset + cbSize, offset, this->m_key_derivative_parameters)) {
             return ERROR_BUFFER_TOO_SMALL;
@@ -168,6 +180,13 @@ uint32_t CKBFileHeader::SetDerivativeParameters(const vector<unsigned char> &_sa
     copy(_salt.begin(), _salt.end(), m_key_derivative_parameters.Salt);
     return 0;
 }
+
+uint32_t CKBFileHeader::CalculateHMAC(const vector<unsigned char> &master_key, const unsigned char *pPayloadBuff,
+                                      size_t cbPayloadSize) {
+    CCipherEngine cipherEngine;
+    return cipherEngine.HMAC_SHA256(master_key, pPayloadBuff, cbPayloadSize, m_hmac_sha256_signature);
+}
+
 
 CPwdEntry CKBFile::QueryEntryByTitle(const string &_title) {
     for (const auto &entry: m_entries) {
@@ -263,9 +282,27 @@ void CKBFile::SetMasterKey(CMaskedBlob p) {
 
 uint32_t CKBFile::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize) {
     cbRealSize = 0;
-    uint32_t uResult = 0;
-    uResult = m_header.Serialize(pBuffer, cbBufferSize, cbRealSize);
+    boost::property_tree::ptree pay_load;
+    boost::property_tree::ptree entries;
+    for (auto &entry: m_entries) {
+        entries.push_back({"", entry.toJsonObj()});
+    }
+    pay_load.add_child("entries", entries);
+    std::ostringstream oss;
+    boost::property_tree::write_json(oss, pay_load);
+    string pay_load_json = oss.str();
 
+    uint32_t uResult = 0;
+    if(pBuffer != nullptr) {
+        uResult = m_header.CalculateHMAC(m_master_key.ShowBin(),
+                                         reinterpret_cast<const unsigned char *>(pay_load_json.data()),
+                                         pay_load_json.size());
+        if (uResult) {
+            return uResult;
+        }
+    }
+
+    uResult = m_header.Serialize(pBuffer, cbBufferSize, cbRealSize);
     if (uResult) {
         if (pBuffer == nullptr && uResult == ERROR_BUFFER_TOO_SMALL) {
             // continue
@@ -274,19 +311,7 @@ uint32_t CKBFile::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint3
         }
     }
 
-    boost::property_tree::ptree pay_load;
-    boost::property_tree::ptree entries;
-    for (auto &entry: m_entries) {
-        entries.push_back({"", entry.toJsonObj()});
-    }
-    pay_load.add_child("entries", entries);
-
-    std::ostringstream oss;
-    boost::property_tree::write_json(oss, pay_load);
-    string pay_load_json = oss.str();
-
     vector<unsigned char> encrypted_buff;
-
     CCipherEngine cipherEngine;
     uResult = cipherEngine.AES256EnDecrypt(
             (unsigned char *) &pay_load_json[0],
@@ -335,13 +360,6 @@ uint32_t CKBFile::LoadHeader(const unsigned char *pBuffer, uint32_t cbBufferSize
 
 uint32_t CKBFile::LoadPayload(const unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize) {
     CCipherEngine cipherEngine;
-
-    vector<unsigned char> vHmacSignature;
-    cipherEngine.HMAC_SHA256(m_master_key.ShowBin(),pBuffer, cbBufferSize, vHmacSignature);
-    if(vHmacSignature != m_header.GetHMACSignature()){
-        return ERROR_MASTER_KEY_INVALID;
-    }
-
     vector<unsigned char> decrypted_buff;
     uint32_t uResult = 0;
     uResult = cipherEngine.AES256EnDecrypt(
@@ -357,11 +375,20 @@ uint32_t CKBFile::LoadPayload(const unsigned char *pBuffer, uint32_t cbBufferSiz
     if (uResult) {
         return uResult;
     }
+
     // load json from decrypted_buff
     decrypted_buff.push_back('\0'); // append a zero
     boost::property_tree::ptree entries_tree;
     std::istringstream iss((char *) (&decrypted_buff[0]));
-    string temp = std::string(decrypted_buff.begin(), decrypted_buff.end());
+    string temp = iss.str();
+
+    // calculate HMAC with temp
+    vector<unsigned char> vHmacSignature;
+    cipherEngine.HMAC_SHA256(m_master_key.ShowBin(), reinterpret_cast<const unsigned char *>(temp.c_str()), temp.size(), vHmacSignature);
+    if(vHmacSignature != m_header.GetHMACSignature()){
+        return ERROR_MASTER_KEY_INVALID;
+    }
+
     try {
         boost::property_tree::read_json(iss, entries_tree);
     }
