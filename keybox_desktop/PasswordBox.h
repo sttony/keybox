@@ -28,10 +28,18 @@ private:
     CMaskedBlob m_masked_blob;
     IRandomGenerator &m_randomGenerator;
 
+    void init(bool multipleLine, bool _doesShow);
+
 public:
     PasswordBox(QWidget *,
                 const std::string &&,
                 IRandomGenerator &,
+                bool multipleLine,
+                bool _doesShow);
+    PasswordBox(QWidget *,
+                const std::string &&,
+                IRandomGenerator &,
+                const CMaskedBlob& _maskedBlob,
                 bool multipleLine,
                 bool _doesShow);
 
@@ -48,6 +56,8 @@ public slots:
     void onTextChanged(const QString &text);
 
     void onFocusOut();
+
+    void onMultipleTextChanged();
 };
 
 

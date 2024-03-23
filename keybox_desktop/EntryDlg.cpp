@@ -66,9 +66,10 @@ void EntryDlg::init(QWidget *parent) {
     rootLayout->addLayout(createInputLine("Url", m_url_box));
     rootLayout->addLayout(createInputLine("Username", m_user_name_box));
 
-    m_pwd_box = new PasswordBox(nullptr, "Password", g_RG, false, false);
+    m_pwd_box = new PasswordBox(nullptr, "Password", g_RG, m_PwdEntry.GetPwd(), false, false);
+
     rootLayout->addWidget(m_pwd_box);
-    m_note_box = new PasswordBox(nullptr, "Note", g_RG, true, false);
+    m_note_box = new PasswordBox(nullptr, "Note", g_RG, m_PwdEntry.GetN(), true, false);
     rootLayout->addWidget(m_note_box);
 
 
