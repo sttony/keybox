@@ -49,6 +49,10 @@ public:
         return m_password.Set(plain_pwd, iRandomGenerator);
     }
 
+    void SetPassword(const CMaskedBlob& _maskedblob ) {
+        m_password = _maskedblob;
+    }
+
     const CMaskedBlob &GetPwd() const {
         return m_password;
     }
@@ -59,6 +63,10 @@ public:
 
     uint32_t SetNote(std::string &plain_note, IRandomGenerator &iRandomGenerator) {
         return m_note.Set(plain_note, iRandomGenerator);
+    }
+
+    void SetNote(const CMaskedBlob& _maskedblob) {
+        m_note = _maskedblob;
     }
 
     CMaskedBlob &GetN() {

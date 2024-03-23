@@ -10,14 +10,12 @@ using namespace std;
 
 PasswordBox::PasswordBox(QWidget *parent,
                          const string &&_label,
-                         shared_ptr<CMaskedBlob> _pMaskedBlob,
                          IRandomGenerator &_rg,
                          bool multipleLine,
                          bool _doesShow)
         : QWidget(parent),
           m_label(_label),
           m_doesShow(_doesShow),
-          m_pMaskedBlob(std::move(_pMaskedBlob)),
           m_randomGenerator(_rg) {
     m_hideIcon = new QIcon(":img/img/eye.slash.svg");
     m_showIcon = new QIcon(":img/img/eye.svg");
@@ -80,12 +78,10 @@ PasswordBox::PasswordBox(QWidget *parent,
 }
 
 void PasswordBox::onShowClickedOneline() {
-    assert(m_pMaskedBlob);
     m_doesShow = !m_doesShow;
     if (m_doesShow) {
         m_showButton->setIcon(*m_showIcon);
         m_textInput_oneline->setEchoMode(QLineEdit::Normal);
-        m_textInput_oneline->setText(m_pMaskedBlob->Show().c_str());
     } else {
         m_showButton->setIcon(*m_hideIcon);
         m_textInput_oneline->setEchoMode(QLineEdit::Password);
@@ -97,28 +93,24 @@ void PasswordBox::onShowClickedMultipleline() {
     if (m_doesShow) {
         m_showButton->setIcon(*m_showIcon);
         m_textInput_multipleline->setDisabled(false);
-        if (m_pMaskedBlob != nullptr) {
-            m_textInput_multipleline->setText(m_pMaskedBlob->Show().c_str());
-        }
+        m_textInput_multipleline->setText(m_masked_blob.Show().c_str());
     } else {
         m_showButton->setIcon(*m_hideIcon);
         m_textInput_multipleline->setDisabled(true);
-
-        if (m_pMaskedBlob != nullptr) {
-            string text = m_textInput_multipleline->toPlainText().toStdString();
-            m_pMaskedBlob->Set(text, m_randomGenerator);
-        }
+        string text = m_textInput_multipleline->toPlainText().toStdString();
+        m_masked_blob.Set(text, m_randomGenerator);
         m_textInput_multipleline->setText(string(m_textInput_multipleline->toPlainText().size(), '*').c_str());
     }
 }
 
 void PasswordBox::onTextChanged(const QString &text) {
-    //m_pMaskedBlob->Set(text.toStdString(), m_randomGenerator);
+    string temp = text.toStdString();
+    m_masked_blob.Set(temp, m_randomGenerator);
 }
 
 void PasswordBox::onFocusOut() {
     string temp = m_textInput_oneline->text().toStdString();
-    m_pMaskedBlob->Set(temp, m_randomGenerator);
+    m_masked_blob.Set(temp, m_randomGenerator);
     if(m_doesShow){
         m_textInput_oneline->setEchoMode(QLineEdit::Normal);
     }

@@ -25,7 +25,7 @@ MainWindow::MainWindow() {
 
     QSplitter *splitter = new QSplitter(this);
     QTextEdit *leftTextEdit = new QTextEdit();
-    m_entry_table_view = new QTableView;
+    m_entry_table_view = new CPwdEntryTableView;
     m_entry_table_view->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_entry_table_view->setSelectionMode(QAbstractItemView::SingleSelection);
     connect(m_entry_table_view, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(onTableRowDoubleClicked(const QModelIndex&)));

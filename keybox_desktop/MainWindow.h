@@ -16,6 +16,7 @@
 #include <QToolBar>
 #include <QTableView>
 #include "CKBModel.h"
+#include "CPwdEntryTableView.h"
 
 class MainWindow : public QMainWindow {
 Q_OBJECT
@@ -61,7 +62,7 @@ private:
     QToolBar *m_toolbar;
     QLineEdit* m_searchBox;
 
-    QTableView *m_entry_table_view;
+    CPwdEntryTableView *m_entry_table_view;
 
     CKBModel *m_pModel = nullptr;
 

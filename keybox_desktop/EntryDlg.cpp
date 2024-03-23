@@ -33,6 +33,8 @@ void EntryDlg::onOK() {
     m_PwdEntry.SetTitle(m_title_box->text().toStdString());
     m_PwdEntry.SetUrl(m_url_box->text().toStdString());
     m_PwdEntry.SetUserName(m_user_name_box->text().toStdString());
+    m_PwdEntry.SetPassword(m_pwd_box->GetPassword());
+    m_PwdEntry.SetNote(m_note_box->GetPassword());
 
     QDialog::accept();
 }
@@ -64,11 +66,9 @@ void EntryDlg::init(QWidget *parent) {
     rootLayout->addLayout(createInputLine("Url", m_url_box));
     rootLayout->addLayout(createInputLine("Username", m_user_name_box));
 
-    m_pwd_box = new PasswordBox(nullptr, "Password", make_shared<CMaskedBlob>(m_PwdEntry.GetPwd()),
-                                g_RG, false, false);
+    m_pwd_box = new PasswordBox(nullptr, "Password", g_RG, false, false);
     rootLayout->addWidget(m_pwd_box);
-    m_note_box = new PasswordBox(nullptr, "Note", make_shared<CMaskedBlob>(m_PwdEntry.GetN()),
-                                 g_RG, true, false);
+    m_note_box = new PasswordBox(nullptr, "Note", g_RG, true, false);
     rootLayout->addWidget(m_note_box);
 
 

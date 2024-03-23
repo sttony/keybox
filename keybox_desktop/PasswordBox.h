@@ -25,17 +25,19 @@ private:
     QPushButton *m_showButton;
 
     bool m_doesShow;
-    std::shared_ptr<CMaskedBlob> m_pMaskedBlob;
+    CMaskedBlob m_masked_blob;
     IRandomGenerator &m_randomGenerator;
 
 public:
     PasswordBox(QWidget *,
                 const std::string &&,
-                std::shared_ptr<CMaskedBlob>,
                 IRandomGenerator &,
                 bool multipleLine,
                 bool _doesShow);
 
+    CMaskedBlob GetPassword() {
+        return m_masked_blob;
+    }
 
 public slots:
 

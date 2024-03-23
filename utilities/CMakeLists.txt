@@ -48,6 +48,7 @@ ELSEIF (APPLE)
             CPwdEntry.cpp
             CMaskedBlob.cpp
             CKBFile.cpp
+            InitGlobalRG_mac.cpp
     )
 ELSEIF (LINUX)
     set(SOURCE_FILES

@@ -28,6 +28,8 @@ add_executable(keyboxd main.cpp
         CKBModel.h
         PrimaryPasswordDlg.cpp
         PrimaryPasswordDlg.h
+        CPwdEntryTableView.cpp
+        CPwdEntryTableView.h
 )
 
 target_link_libraries(
