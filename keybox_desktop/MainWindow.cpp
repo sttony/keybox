@@ -133,7 +133,7 @@ void MainWindow::saveFile() {
         QFileDialog dialog;
         dialog.setFileMode(QFileDialog::AnyFile);
         dialog.setWindowTitle("Select a file");
-
+        dialog.selectFile("keybox.kbx");
         if (dialog.exec()) {
             // Get the selected file path(s)
             QStringList fileNames = dialog.selectedFiles();
@@ -142,6 +142,7 @@ void MainWindow::saveFile() {
             }
 
             m_pModel->SetFilePath(fileNames.at(0).toStdString());
+            this->setWindowTitle(fileNames.at(0));
         }
     }
     if (m_pModel->GetFilePath().empty()) {
@@ -180,14 +181,13 @@ void MainWindow::newFile() {
     newModel->SetKeyDerivateParameters(randomv32);
 
     PrimaryPasswordDlg ppdlg(newModel->GetKeyDerivateParameters());
-    // TODO: check return.
-    ppdlg.exec();
-    newModel->SetPrimaryKey(ppdlg.GetPassword());
-
-    m_entry_table_view->setModel(newModel);
-    delete m_pModel;
-    m_pModel = newModel;
-    this->RefreshActionEnabled();
+    if(ppdlg.exec()) {
+        newModel->SetPrimaryKey(ppdlg.GetPassword());
+        m_entry_table_view->setModel(newModel);
+        delete m_pModel;
+        m_pModel = newModel;
+        this->RefreshActionEnabled();
+    }
 }
 
 void MainWindow::openFile() {
