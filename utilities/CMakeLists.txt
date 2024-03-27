@@ -22,6 +22,7 @@ set(HEADER_FILES
         CPwdEntry.h
         CMaskedBlob.h
         InitGlobalRG.h
+        CPasswordGenerator.h
 )
 
 IF (WIN32)
@@ -36,6 +37,7 @@ IF (WIN32)
             CPwdEntry.cpp
             CMaskedBlob.cpp
             InitGlobalRG_win.cpp
+            CPasswordGenerator.cpp
     )
 ELSEIF (APPLE)
     set(SOURCE_FILES
@@ -49,6 +51,7 @@ ELSEIF (APPLE)
             CMaskedBlob.cpp
             CKBFile.cpp
             InitGlobalRG_mac.cpp
+            CPasswordGenerator.cpp
     )
 ELSEIF (LINUX)
     set(SOURCE_FILES
@@ -62,6 +65,8 @@ ELSEIF (LINUX)
             CMaskedBlob.cpp
             InitGlobalRG_linux.cpp
             CKBFile.cpp
+            CPasswordGenerator.cpp
+
     )
 ENDIF (WIN32)
 
