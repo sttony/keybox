@@ -4,7 +4,7 @@
 #include "MainWindow.h"
 #include "EntryDlg.h"
 #include "../utilities/RandomGenerator.h"
-#include "PrimaryPasswordDlg.h"
+#include "CPrimaryPasswordDlg.h"
 #include "utilities/InitGlobalRG.h"
 
 using namespace std;
@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     InitGlobalRG();
 //    EntryDlg ev;
 //    int ret = ev.exec();
-//    PrimaryPasswordDlg masterpasswordView;
+//    CPrimaryPasswordDlg masterpasswordView;
 //    if( masterpasswordView.exec() == QDialog::Accepted){
 //        cout<<masterpasswordView.GetPassword().Show()<<endl;
 //    }

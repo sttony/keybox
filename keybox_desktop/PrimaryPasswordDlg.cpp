@@ -2,13 +2,13 @@
 // Created by tongl on 3/1/2024.
 //
 
-#include "PrimaryPasswordDlg.h"
+#include "CPrimaryPasswordDlg.h"
 #include <memory>
 
 using namespace std;
 extern RandomGenerator g_RG;
 
-PrimaryPasswordDlg::PrimaryPasswordDlg(PBKDF2_256_PARAMETERS _pbkdf2, QWidget *parent) : m_pbkdf2_paras(_pbkdf2) {
+CPrimaryPasswordDlg::CPrimaryPasswordDlg(PBKDF2_256_PARAMETERS _pbkdf2, QWidget *parent) : m_pbkdf2_paras(_pbkdf2) {
     QVBoxLayout *rootLayout = new QVBoxLayout(this);
 
     m_pwdBox = new PasswordBox(nullptr, "password", g_RG, false, false);
@@ -23,15 +23,15 @@ PrimaryPasswordDlg::PrimaryPasswordDlg(PBKDF2_256_PARAMETERS _pbkdf2, QWidget *p
 
     rootLayout->addLayout(buttonLine);
 
-    QObject::connect(okButton, &QPushButton::clicked, this, &PrimaryPasswordDlg::onOK);
+    QObject::connect(okButton, &QPushButton::clicked, this, &CPrimaryPasswordDlg::onOK);
     QObject::connect(cancelButton, &QPushButton::clicked, this, &QDialog::reject);
 }
 
-CMaskedBlob PrimaryPasswordDlg::GetPassword() {
+CMaskedBlob CPrimaryPasswordDlg::GetPassword() {
     return m_pwd;
 }
 
-void PrimaryPasswordDlg::onOK() {
+void CPrimaryPasswordDlg::onOK() {
     m_pwd = m_pwdBox->GetPassword();
     CCipherEngine cipherEngine;
     vector<unsigned char> keybuff;

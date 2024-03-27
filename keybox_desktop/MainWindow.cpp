@@ -13,7 +13,7 @@
 #include <fstream>
 #include "MainWindow.h"
 #include "CKBModel.h"
-#include "PrimaryPasswordDlg.h"
+#include "CPrimaryPasswordDlg.h"
 #include "EntryDlg.h"
 #include "utilities/error_code.h"
 
@@ -180,7 +180,7 @@ void MainWindow::newFile() {
     g_RG.GetNextBytes(32, randomv32);
     newModel->SetKeyDerivateParameters(randomv32);
 
-    PrimaryPasswordDlg ppdlg(newModel->GetKeyDerivateParameters());
+    CPrimaryPasswordDlg ppdlg(newModel->GetKeyDerivateParameters());
     if(ppdlg.exec()) {
         newModel->SetPrimaryKey(ppdlg.GetPassword());
         m_entry_table_view->setModel(newModel);
@@ -206,7 +206,7 @@ void MainWindow::openFile() {
         this->setWindowTitle(fileNames.at(0));
         newModel->LoadKBHeader(fileNames.at(0).toStdString());
 
-        PrimaryPasswordDlg ppdlg(newModel->GetKeyDerivateParameters());
+        CPrimaryPasswordDlg ppdlg(newModel->GetKeyDerivateParameters());
         ppdlg.exec();
         newModel->SetPrimaryKey(ppdlg.GetPassword());
 

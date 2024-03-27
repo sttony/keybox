@@ -2,8 +2,8 @@
 // Created by tongl on 3/1/2024.
 //
 
-#ifndef KEYBOX_PRIMARYPASSWORDDLG_H
-#define KEYBOX_PRIMARYPASSWORDDLG_H
+#ifndef KEYBOX_CPRIMARYPASSWORDDLG_H
+#define KEYBOX_CPRIMARYPASSWORDDLG_H
 
 #include <QDialog>
 #include <QLineEdit>
@@ -11,10 +11,10 @@
 #include "PasswordBox.h"
 #include "../utilities/CipherEngine.h"
 
-class PrimaryPasswordDlg : public QDialog {
+class CPrimaryPasswordDlg : public QDialog {
 Q_OBJECT
 public:
-    explicit PrimaryPasswordDlg(PBKDF2_256_PARAMETERS _pkdf2_paras, QWidget *parent = nullptr);
+    explicit CPrimaryPasswordDlg(PBKDF2_256_PARAMETERS _pkdf2_paras, QWidget *parent = nullptr);
 
     CMaskedBlob GetPassword();
 
@@ -29,4 +29,4 @@ private:
 };
 
 
-#endif //KEYBOX_PRIMARYPASSWORDDLG_H
+#endif //KEYBOX_CPRIMARYPASSWORDDLG_H
