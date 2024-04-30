@@ -16,6 +16,7 @@
 #include "CPrimaryPasswordDlg.h"
 #include "EntryDlg.h"
 #include "utilities/error_code.h"
+#include "CPwdGeneratorDlg.h"
 
 using namespace std;
 
@@ -107,7 +108,7 @@ void MainWindow::createActions() {
 
 
     m_passwordGeneratorAction = new QAction(tr("Open Password &Generator"), this);
-    connect(m_newEntryAction, &QAction::triggered, this, &MainWindow::openPasswordGenerator);
+    connect(m_passwordGeneratorAction, &QAction::triggered, this, &MainWindow::openPasswordGenerator);
 
     m_lockAction = new QAction(QIcon(":img/img/lock.svg"), "Lock", this);
     connect(m_lockAction, &QAction::triggered, this, &MainWindow::Lock);
@@ -225,7 +226,8 @@ void MainWindow::openFile() {
 }
 
 void MainWindow::openPasswordGenerator() {
-
+    CPwdGeneratorDlg dlg;
+    dlg.exec();
 }
 
 void MainWindow::RefreshActionEnabled() {
