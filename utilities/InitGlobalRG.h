@@ -5,9 +5,9 @@
 #ifndef KEYBOX_INITGLOBALRG_H
 #define KEYBOX_INITGLOBALRG_H
 
-#include "RandomGenerator.h"
+#include "CRandomGenerator.h"
 
-extern RandomGenerator g_RG;
+extern CRandomGenerator g_RG;
 
 void InitGlobalRG();
 

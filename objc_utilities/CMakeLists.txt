@@ -12,11 +12,13 @@ set(HEADER_FILES
         ObjcKBFile.h
         ObjcPwdEntry.h
         ObjcMaskedBlob.h
+        ObjcRandomGenerator.h
 )
 set(SOURCE_FILES
         ObjcKBFile.mm
         ObjcPwdEntry.mm
         ObjcMaskedBlob.mm
+        ObjcRandomGenerator.mm
 )
 
 add_library(objc_utilities STATIC ${SOURCE_FILES} ${HEADER_FILES})

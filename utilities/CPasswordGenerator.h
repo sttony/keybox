@@ -20,12 +20,12 @@ private:
     bool m_needQuestion{};
     bool m_needSlash{};
     bool m_needGreaterLess{}; // <?
-    RandomGenerator& m_RG;
+    CRandomGenerator& m_RG;
     std::vector<char> m_pool;
     int m_length = 8;
 
 public:
-    explicit CPasswordGenerator(RandomGenerator& _rg): m_RG(_rg){
+    explicit CPasswordGenerator(CRandomGenerator& _rg): m_RG(_rg){
 
     }
 

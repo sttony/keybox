@@ -2,8 +2,8 @@
 // Created by tongl on 12/18/2023.
 //
 
-#ifndef KEYBOX_RANDOMGENERATOR_H
-#define KEYBOX_RANDOMGENERATOR_H
+#ifndef KEYBOX_CRANDOMGENERATOR_H
+#define KEYBOX_CRANDOMGENERATOR_H
 
 #include <array>
 #include <memory>
@@ -13,7 +13,7 @@ struct IRandomGenerator {
     virtual uint32_t GetNextBytes(uint32_t num, std::vector<unsigned char> &output) = 0;
 };
 
-class RandomGenerator : public IRandomGenerator {
+class CRandomGenerator : public IRandomGenerator {
 private:
     uint32_t m_type = 0;
     std::unique_ptr<Salsa20Cipher> m_salsa20;
@@ -23,7 +23,7 @@ private:
 public:
     const static uint32_t Salsa20 = 0x01;
 
-    explicit RandomGenerator(uint32_t _type);
+    explicit CRandomGenerator(uint32_t _type);
 
     uint32_t init(std::vector<unsigned char> vKey32, std::array<unsigned char, 8> vIV8);
 
@@ -31,4 +31,4 @@ public:
 };
 
 
-#endif //KEYBOX_RANDOMGENERATOR_H
+#endif //KEYBOX_CRANDOMGENERATOR_H

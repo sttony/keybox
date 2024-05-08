@@ -6,7 +6,7 @@
 #include <memory>
 
 using namespace std;
-extern RandomGenerator g_RG;
+extern CRandomGenerator g_RG;
 
 CPrimaryPasswordDlg::CPrimaryPasswordDlg(PBKDF2_256_PARAMETERS _pbkdf2, QWidget *parent) : m_pbkdf2_paras(_pbkdf2) {
     QVBoxLayout *rootLayout = new QVBoxLayout(this);

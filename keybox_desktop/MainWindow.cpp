@@ -20,7 +20,7 @@
 
 using namespace std;
 
-extern RandomGenerator g_RG;
+extern CRandomGenerator g_RG;
 
 MainWindow::MainWindow() {
 

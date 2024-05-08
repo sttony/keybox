@@ -5,7 +5,7 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include "../utilities/CMaskedBlob.h"
-#include "../utilities/RandomGenerator.h"
+#include "../utilities/CRandomGenerator.h"
 #include <iomanip>
 #include <iostream>
 

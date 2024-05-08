@@ -2,18 +2,18 @@
 // Created by tongl on 12/18/2023.
 //
 
-#include "RandomGenerator.h"
+#include "CRandomGenerator.h"
 #include "CipherEngine.h"
 
 #include <memory>
 #include <algorithm>
 #include <cstring>
 
-RandomGenerator::RandomGenerator(uint32_t _type) {
+CRandomGenerator::CRandomGenerator(uint32_t _type) {
     m_type = _type;
 }
 
-uint32_t RandomGenerator::init(std::vector<unsigned char> vKey32, std::array<unsigned char, 8> vIV8) {
+uint32_t CRandomGenerator::init(std::vector<unsigned char> vKey32, std::array<unsigned char, 8> vIV8) {
     std::vector<unsigned char> real_key;
     CCipherEngine cipherEngine;
     cipherEngine.SHA256(&vKey32[0], vKey32.size(), real_key);
@@ -25,7 +25,7 @@ uint32_t RandomGenerator::init(std::vector<unsigned char> vKey32, std::array<uns
     return 0;
 }
 
-uint32_t RandomGenerator::GetNextBytes(uint32_t num, std::vector<unsigned char> &output) {
+uint32_t CRandomGenerator::GetNextBytes(uint32_t num, std::vector<unsigned char> &output) {
     output.resize(num);
     uint32_t temp_num = num;
 

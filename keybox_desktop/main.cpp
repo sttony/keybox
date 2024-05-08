@@ -3,7 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include "MainWindow.h"
 #include "EntryDlg.h"
-#include "../utilities/RandomGenerator.h"
+#include "../utilities/CRandomGenerator.h"
 #include "CPrimaryPasswordDlg.h"
 #include "utilities/InitGlobalRG.h"
 

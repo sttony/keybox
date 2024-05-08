@@ -5,7 +5,7 @@
 #include "utilities/KeepassReader.h"
 #include "utilities/CipherEngine.h"
 #include "utilities/CGZcompressor.h"
-#include "utilities/RandomGenerator.h"
+#include "utilities/CRandomGenerator.h"
 #include "utilities/Base64Coder.h"
 
 
@@ -102,7 +102,7 @@ int main() {
     fclose(fp2);
 
     ///////////////////////////////////////////////////////////
-    RandomGenerator randomGenerator(RandomGenerator::Salsa20);
+    CRandomGenerator randomGenerator(CRandomGenerator::Salsa20);
     std::array<unsigned char, 8> vIV = {0xe8, 0x30, 0x09, 0x4b, 0x97, 0x20, 0x5d, 0x2a};
     randomGenerator.init(header.getInnerRandomStreamKey(), vIV);
     Base64Coder base64Coder;

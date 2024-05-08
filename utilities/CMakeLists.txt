@@ -15,7 +15,7 @@ set(HEADER_FILES
         KeepassReader.h
         CGZcompressor.h
         Salsa20Cipher.h
-        RandomGenerator.h
+        CRandomGenerator.h
         Base64Coder.cpp
         Base64Coder.h
         CKBFile.h
@@ -31,7 +31,7 @@ IF (WIN32)
             KeepassReader.cpp
             CGZcompressor.cpp
             Salsa20Cipher.cpp
-            RandomGenerator.cpp
+            CRandomGenerator.cpp
             Base64Coder.cpp
             CKBFile.cpp
             CPwdEntry.cpp
@@ -45,7 +45,7 @@ ELSEIF (APPLE)
             KeepassReader.cpp
             CGZcompressor.cpp
             Salsa20Cipher.cpp
-            RandomGenerator.cpp
+            CRandomGenerator.cpp
             Base64Coder.cpp
             CPwdEntry.cpp
             CMaskedBlob.cpp
@@ -59,7 +59,7 @@ ELSEIF (LINUX)
             KeepassReader.cpp
             CGZcompressor.cpp
             Salsa20Cipher.cpp
-            RandomGenerator.cpp
+            CRandomGenerator.cpp
             Base64Coder.cpp
             CPwdEntry.cpp
             CMaskedBlob.cpp

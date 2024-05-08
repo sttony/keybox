@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 #include <boost/property_tree/ptree.hpp>
-#include "RandomGenerator.h"
+#include "CRandomGenerator.h"
 
 class CMaskedBlob {
 public:
