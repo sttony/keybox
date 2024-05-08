@@ -10,9 +10,13 @@ find_package(Boost)
 include_directories(${Boost_INCLUDE_DIRS})
 set(HEADER_FILES
         ObjcKBFile.h
+        ObjcPwdEntry.h
+        ObjcMaskedBlob.h
 )
 set(SOURCE_FILES
         ObjcKBFile.mm
+        ObjcPwdEntry.mm
+        ObjcMaskedBlob.mm
 )
 
 add_library(objc_utilities STATIC ${SOURCE_FILES} ${HEADER_FILES})
