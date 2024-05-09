@@ -8,6 +8,9 @@
 
 #include <QDialog>
 #include <QCheckBox>
+#include <QSlider>
+#include <QLineEdit>
+#include <QSpinBox>
 
 class CPwdGeneratorDlg : public QDialog{
 Q_OBJECT
@@ -26,7 +29,9 @@ private:
     QCheckBox* m_chkboxQuestion;
     QCheckBox* m_chkboxSlash;
     QCheckBox* m_chkboxGreaterLess;
+    QSpinBox*  m_sliderLength;
 
+    QLineEdit* m_textPwd;
 };
 
 

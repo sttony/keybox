@@ -43,5 +43,14 @@ CPwdGeneratorDlg::CPwdGeneratorDlg(QWidget *parent) {
     m_chkboxGreaterLess = new QCheckBox("Greater Less <>");
     rootLayout->addWidget(m_chkboxGreaterLess);
 
+
+    m_sliderLength = new QSpinBox();
+    m_sliderLength->setMinimum(1);
+    m_sliderLength->setMaximum(100);
+    m_sliderLength->setValue(8);
+    rootLayout->addWidget(m_sliderLength);
+
+
+
     this->setLayout(rootLayout);
 }
