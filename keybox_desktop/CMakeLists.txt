@@ -22,8 +22,8 @@ add_executable(keyboxd main.cpp
         resouces.qrc
         EntryDlg.cpp
         EntryDlg.h
-        PasswordBox.cpp
-        PasswordBox.h
+        CPasswordBox.cpp
+        CPasswordBox.h
         CKBModel.cpp
         CKBModel.h
         PrimaryPasswordDlg.cpp

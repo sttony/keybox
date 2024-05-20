@@ -8,7 +8,7 @@
 #include <QDialog>
 #include <QLineEdit>
 #include <QTextEdit>
-#include "PasswordBox.h"
+#include "CPasswordBox.h"
 #include "../utilities/CipherEngine.h"
 
 class CPrimaryPasswordDlg : public QDialog {
@@ -23,7 +23,7 @@ private slots:
     void onOK();
 
 private:
-    PasswordBox *m_pwdBox;
+    CPasswordBox *m_pwdBox;
     CMaskedBlob m_pwd;
     PBKDF2_256_PARAMETERS m_pbkdf2_paras;
 };

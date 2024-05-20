@@ -2,17 +2,17 @@
 // Created by tongl on 2/29/2024.
 //
 
-#include "PasswordBox.h"
+#include "CPasswordBox.h"
 #include <iostream>
 #include <utility>
 
 using namespace std;
 
-PasswordBox::PasswordBox(QWidget *parent,
-                         const string &&_label,
-                         IRandomGenerator &_rg,
-                         bool multipleLine,
-                         bool _doesShow)
+CPasswordBox::CPasswordBox(QWidget *parent,
+                           const string &&_label,
+                           IRandomGenerator &_rg,
+                           bool multipleLine,
+                           bool _doesShow)
         : QWidget(parent),
           m_label(_label),
           m_doesShow(_doesShow),
@@ -20,12 +20,12 @@ PasswordBox::PasswordBox(QWidget *parent,
     init(multipleLine, _doesShow);
 }
 
-PasswordBox::PasswordBox(QWidget *parent,
-                         const string &&_label,
-                         IRandomGenerator &_rg,
-                         const CMaskedBlob& _maskedBlob,
-                         bool multipleLine,
-                         bool _doesShow)
+CPasswordBox::CPasswordBox(QWidget *parent,
+                           const string &&_label,
+                           IRandomGenerator &_rg,
+                           const CMaskedBlob& _maskedBlob,
+                           bool multipleLine,
+                           bool _doesShow)
         : QWidget(parent),
           m_label(_label),
           m_doesShow(_doesShow),
@@ -34,7 +34,7 @@ PasswordBox::PasswordBox(QWidget *parent,
     init(multipleLine, _doesShow);
 }
 
-void PasswordBox::onShowClickedOneline() {
+void CPasswordBox::onShowClickedOneline() {
     m_doesShow = !m_doesShow;
     if (m_doesShow) {
         m_showButton->setIcon(*m_showIcon);
@@ -45,7 +45,7 @@ void PasswordBox::onShowClickedOneline() {
     }
 }
 
-void PasswordBox::onShowClickedMultipleline() {
+void CPasswordBox::onShowClickedMultipleline() {
     m_doesShow = !m_doesShow;
     if (m_doesShow) {
         m_showButton->setIcon(*m_showIcon);
@@ -60,19 +60,19 @@ void PasswordBox::onShowClickedMultipleline() {
     }
 }
 
-void PasswordBox::onTextChanged(const QString &text) {
+void CPasswordBox::onTextChanged(const QString &text) {
     string temp = text.toStdString();
     m_masked_blob.Set(temp, m_randomGenerator);
 }
 
 
-void PasswordBox::onMultipleTextChanged() {
+void CPasswordBox::onMultipleTextChanged() {
     string temp = m_textInput_multipleline->toPlainText().toStdString();
     m_masked_blob.Set(temp, m_randomGenerator);
 }
 
 
-void PasswordBox::onFocusOut() {
+void CPasswordBox::onFocusOut() {
     string temp = m_textInput_oneline->text().toStdString();
     m_masked_blob.Set(temp, m_randomGenerator);
     if(m_doesShow){
@@ -83,7 +83,7 @@ void PasswordBox::onFocusOut() {
     }
 }
 
-void PasswordBox::init( bool multipleLine, bool _doesShow) {
+void CPasswordBox::init(bool multipleLine, bool _doesShow) {
     m_hideIcon = new QIcon(":img/img/eye.slash.svg");
     m_showIcon = new QIcon(":img/img/eye.svg");
 
@@ -98,13 +98,13 @@ void PasswordBox::init( bool multipleLine, bool _doesShow) {
         }
         m_textInput_oneline->setText(m_masked_blob.Show().c_str());
         connect(m_textInput_oneline, SIGNAL(textChanged(const QString &)), this, SLOT(onTextChanged(const QString &)));
-        connect(m_textInput_oneline, &QLineEdit::editingFinished, this, &PasswordBox::onFocusOut);
+        connect(m_textInput_oneline, &QLineEdit::editingFinished, this, &CPasswordBox::onFocusOut);
     } else {
         m_textInput_multipleline = new QTextEdit;
         m_textInput_multipleline->setDisabled(!m_doesShow);
         m_textInput_multipleline->setStyleSheet("border: 2px solid black;");
         m_textInput_multipleline->setText(std::string(m_masked_blob.size(), '*').c_str());
-        connect(m_textInput_multipleline, &QTextEdit::textChanged, this, &PasswordBox::onMultipleTextChanged);
+        connect(m_textInput_multipleline, &QTextEdit::textChanged, this, &CPasswordBox::onMultipleTextChanged);
     }
     m_showButton = new QPushButton();
     if (m_doesShow) {
@@ -117,11 +117,11 @@ void PasswordBox::init( bool multipleLine, bool _doesShow) {
     m_showButton->setFixedSize(m_showButton->iconSize());
 
     if (!multipleLine) {
-        connect(m_showButton, &QPushButton::clicked, this, &PasswordBox::onShowClickedOneline);
+        connect(m_showButton, &QPushButton::clicked, this, &CPasswordBox::onShowClickedOneline);
     } else {
-        connect(m_showButton, &QPushButton::clicked, this, &PasswordBox::onShowClickedMultipleline);
+        connect(m_showButton, &QPushButton::clicked, this, &CPasswordBox::onShowClickedMultipleline);
     }
-    //connect (m_textInput, &QTextEdit::textChanged, this, &PasswordBox::onTextChanged);
+    //connect (m_textInput, &QTextEdit::textChanged, this, &CPasswordBox::onTextChanged);
     if (!multipleLine) {
         QHBoxLayout *layout = new QHBoxLayout(this);
         layout->setContentsMargins(0, 0, 0, 0);

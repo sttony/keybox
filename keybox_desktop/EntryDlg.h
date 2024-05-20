@@ -9,7 +9,7 @@
 #include <QDialog>
 #include <QLineEdit>
 #include <QTextEdit>
-#include "PasswordBox.h"
+#include "CPasswordBox.h"
 #include "utilities/CPwdEntry.h"
 
 class EntryDlg : public QDialog {
@@ -31,8 +31,8 @@ private:
 
     QPushButton *m_ok_button;
     QPushButton *m_cancel_button;
-    PasswordBox *m_pwd_box;
-    PasswordBox *m_note_box;
+    CPasswordBox *m_pwd_box;
+    CPasswordBox *m_note_box;
     CPwdEntry m_PwdEntry;
 
     QHBoxLayout *createInputLine(const QString &label, QLineEdit *inputWidget);

@@ -51,7 +51,7 @@ CPwdGeneratorDlg::CPwdGeneratorDlg(QWidget *parent) {
     m_sliderLength->setValue(8);
     rootLayout->addWidget(m_sliderLength);
 
-    m_textPwd = new PasswordBox(nullptr, "Password", g_RG, false, false);
+    m_textPwd = new CPasswordBox(nullptr, "Password", g_RG, false, false);
     rootLayout->addWidget(m_textPwd);
 
 

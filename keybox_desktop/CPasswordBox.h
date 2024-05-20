@@ -2,8 +2,8 @@
 // Created by tongl on 2/29/2024.
 //
 
-#ifndef KEYBOX_PASSWORDBOX_H
-#define KEYBOX_PASSWORDBOX_H
+#ifndef KEYBOX_CPASSWORDBOX_H
+#define KEYBOX_CPASSWORDBOX_H
 
 #include <QWidget>
 #include <QLabel>
@@ -14,7 +14,7 @@
 #include <memory>
 #include "../utilities/CMaskedBlob.h"
 
-class PasswordBox : public QWidget {
+class CPasswordBox : public QWidget {
 Q_OBJECT
 private:
     std::string m_label;
@@ -31,17 +31,17 @@ private:
     void init(bool multipleLine, bool _doesShow);
 
 public:
-    PasswordBox(QWidget *,
-                const std::string &&,
-                IRandomGenerator &,
-                bool multipleLine,
-                bool _doesShow);
-    PasswordBox(QWidget *,
-                const std::string &&,
-                IRandomGenerator &,
-                const CMaskedBlob& _maskedBlob,
-                bool multipleLine,
-                bool _doesShow);
+    CPasswordBox(QWidget *,
+                 const std::string &&,
+                 IRandomGenerator &,
+                 bool multipleLine,
+                 bool _doesShow);
+    CPasswordBox(QWidget *,
+                 const std::string &&,
+                 IRandomGenerator &,
+                 const CMaskedBlob& _maskedBlob,
+                 bool multipleLine,
+                 bool _doesShow);
 
     CMaskedBlob GetPassword() {
         return m_masked_blob;
@@ -61,4 +61,4 @@ public slots:
 };
 
 
-#endif //KEYBOX_PASSWORDBOX_H
+#endif //KEYBOX_CPASSWORDBOX_H
