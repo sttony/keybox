@@ -27,6 +27,10 @@ uint32_t CMaskedBlob::Set(std::string &plainPassword, IRandomGenerator &randomGe
     return 0;
 }
 
+uint32_t CMaskedBlob::Set(std::string && plainPassword, IRandomGenerator &randomGenerator) {
+    return this->Set(plainPassword, randomGenerator);
+}
+
 uint32_t CMaskedBlob::Set(vector<unsigned char> &plainPassword, IRandomGenerator &randomGenerator) {
     if (randomGenerator.GetNextBytes(plainPassword.size(), m_onepad)) {
         return ERROR_UNEXPECT_RG_FAILURE;

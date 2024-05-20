@@ -22,6 +22,8 @@ public:
 
     uint32_t Set(std::string &plainPassword, IRandomGenerator &randomGenerator);
 
+    uint32_t Set(std::string&& plainPassword, IRandomGenerator &randomGenerator);
+
     uint32_t Set(std::vector<unsigned char> &plainPassword, IRandomGenerator &randomGenerator);
 
     boost::property_tree::ptree toJsonObj();
