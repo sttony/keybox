@@ -7,6 +7,7 @@
 using namespace std;
 void CPasswordGenerator::SetAdd(bool isEnabled) {
     m_needAdd = isEnabled;
+    resetPool();
 }
 bool CPasswordGenerator::GetAdd() {
     return m_needAdd;
@@ -14,6 +15,7 @@ bool CPasswordGenerator::GetAdd() {
 
 void CPasswordGenerator::SetUpper(bool isEnabled) {
     m_needUpper = isEnabled;
+    resetPool();
 }
 bool CPasswordGenerator::GetUpper() {
     return m_needUpper;
@@ -21,6 +23,7 @@ bool CPasswordGenerator::GetUpper() {
 
 void CPasswordGenerator::SetLower(bool isEnabled) {
     m_needLower = isEnabled;
+    resetPool();
 }
 bool CPasswordGenerator::GetLower() {
     return m_needLower;
@@ -28,6 +31,7 @@ bool CPasswordGenerator::GetLower() {
 
 void CPasswordGenerator::SetDigit(bool isEnabled) {
     m_needDigit = isEnabled;
+    resetPool();
 }
 bool CPasswordGenerator::GetDigit() {
     return m_needDigit;
@@ -35,6 +39,7 @@ bool CPasswordGenerator::GetDigit() {
 
 void CPasswordGenerator::SetShift1_8(bool isEnabled) {
     m_needShift1_8 = isEnabled;
+    resetPool();
 }
 bool CPasswordGenerator::GetShift1_8() {
     return m_needShift1_8;
@@ -42,6 +47,7 @@ bool CPasswordGenerator::GetShift1_8() {
 
 void CPasswordGenerator::SetGreaterLess(bool isEnabled) {
     m_needGreaterLess = isEnabled;
+    resetPool();
 }
 bool CPasswordGenerator::GetGreaterLess() {
     return m_needGreaterLess;
@@ -49,6 +55,7 @@ bool CPasswordGenerator::GetGreaterLess() {
 
 void CPasswordGenerator::SetMinus(bool isEnabled) {
     m_needMinus = isEnabled;
+    resetPool();
 }
 bool CPasswordGenerator::GetMinus() {
     return m_needMinus;
@@ -56,6 +63,7 @@ bool CPasswordGenerator::GetMinus() {
 
 void CPasswordGenerator::SetBrace(bool isEnabled) {
     m_needBrace = isEnabled;
+    resetPool();
 }
 bool CPasswordGenerator::GetBrace() {
     return m_needBrace;
@@ -63,6 +71,7 @@ bool CPasswordGenerator::GetBrace() {
 
 void CPasswordGenerator::SetSpace(bool isEnabled) {
     m_needSpace = isEnabled;
+    resetPool();
 }
 bool CPasswordGenerator::GetSpace() {
     return m_needSpace;
@@ -70,6 +79,7 @@ bool CPasswordGenerator::GetSpace() {
 
 void CPasswordGenerator::SetQuestion(bool isEnabled) {
     m_needQuestion = isEnabled;
+    resetPool();
 }
 bool CPasswordGenerator::GetQuestion() {
     return m_needQuestion;
@@ -77,6 +87,7 @@ bool CPasswordGenerator::GetQuestion() {
 
 void CPasswordGenerator::SetSlash(bool isEnabled) {
     m_needSlash = isEnabled;
+    resetPool();
 }
 bool CPasswordGenerator::GetSlash() {
     return m_needSlash;
