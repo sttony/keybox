@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 
 #include "CPwdGeneratorDlg.h"
+extern CRandomGenerator g_RG;
 
 CPwdGeneratorDlg::CPwdGeneratorDlg(QWidget *parent) {
     QVBoxLayout *rootLayout = new QVBoxLayout(this);
@@ -49,6 +50,9 @@ CPwdGeneratorDlg::CPwdGeneratorDlg(QWidget *parent) {
     m_sliderLength->setMaximum(100);
     m_sliderLength->setValue(8);
     rootLayout->addWidget(m_sliderLength);
+
+    m_textPwd = new PasswordBox(nullptr, "Password", g_RG, false, false);
+    rootLayout->addWidget(m_textPwd);
 
 
 

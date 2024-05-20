@@ -11,6 +11,7 @@
 #include <QSlider>
 #include <QLineEdit>
 #include <QSpinBox>
+#include "PasswordBox.h"
 
 class CPwdGeneratorDlg : public QDialog{
 Q_OBJECT
@@ -31,7 +32,7 @@ private:
     QCheckBox* m_chkboxGreaterLess;
     QSpinBox*  m_sliderLength;
 
-    QLineEdit* m_textPwd;
+    PasswordBox* m_textPwd;
 };
 
 
