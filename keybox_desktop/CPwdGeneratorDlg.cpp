@@ -7,7 +7,9 @@
 #include "CPwdGeneratorDlg.h"
 extern CRandomGenerator g_RG;
 
-CPwdGeneratorDlg::CPwdGeneratorDlg(QWidget *parent) {
+using namespace std;
+
+CPwdGeneratorDlg::CPwdGeneratorDlg(QWidget *parent): m_pwdGenerator(g_RG) {
     QVBoxLayout *rootLayout = new QVBoxLayout(this);
 
     m_chkboxUpper = new QCheckBox("Upper case A-Z");
@@ -52,9 +54,63 @@ CPwdGeneratorDlg::CPwdGeneratorDlg(QWidget *parent) {
     rootLayout->addWidget(m_sliderLength);
 
     m_textPwd = new CPasswordBox(nullptr, "Password", g_RG, false, false);
+
     rootLayout->addWidget(m_textPwd);
 
-
+    m_buttonRegenerate = new QPushButton("Re-generate");
+    rootLayout->addWidget(m_buttonRegenerate);
 
     this->setLayout(rootLayout);
+
+    QObject::connect(m_buttonRegenerate, &QPushButton::clicked, this, &CPwdGeneratorDlg::onRegenerate);
+
+    CMaskedBlob _blob;
+    _blob.Set(m_pwdGenerator.GeneratePassword(), g_RG);
+    m_textPwd->SetPassword(_blob);
+
+}
+
+void CPwdGeneratorDlg::onRegenerate() {
+    this->RefreshUI();
+    CMaskedBlob _blob;
+    _blob.Set(m_pwdGenerator.GeneratePassword(), g_RG);
+    m_textPwd->SetPassword(_blob);
+}
+
+void CPwdGeneratorDlg::RefreshUI() {
+    if(m_pwdGenerator.GetSlash()){
+        m_chkboxSlash->setCheckState(Qt::CheckState::Checked);
+    }
+    if(m_pwdGenerator.GetQuestion()){
+        m_chkboxQuestion->setCheckState(Qt::CheckState::Checked);
+    }
+    if(m_pwdGenerator.GetSpace()){
+        m_chkboxSpace->setCheckState(Qt::CheckState::Checked);
+    }
+    if(m_pwdGenerator.GetBrace()){
+        m_chkboxBrace->setCheckState(Qt::CheckState::Checked);
+    }
+    if(m_pwdGenerator.GetMinus()){
+        m_chkboxMinus->setCheckState(Qt::CheckState::Checked);
+    }
+    if(m_pwdGenerator.GetGreaterLess()){
+        m_chkboxGreaterLess->setCheckState(Qt::CheckState::Checked);
+    }
+    if(m_pwdGenerator.GetShift1_8()){
+        m_chkboxShift1_8->setCheckState(Qt::CheckState::Checked);
+    }
+    if(m_pwdGenerator.GetDigit()){
+        m_chkboxDigits->setCheckState(Qt::CheckState::Checked);
+    }
+    if(m_pwdGenerator.GetAdd()){
+        m_chkboxAdd->setCheckState(Qt::CheckState::Checked);
+    }
+    if(m_pwdGenerator.GetLower()){
+        m_chkboxLower->setCheckState(Qt::CheckState::Checked);
+    }
+    if(m_pwdGenerator.GetUpper()){
+        m_chkboxUpper->setCheckState(Qt::CheckState::Checked);
+    }
+    m_sliderLength->setValue(m_pwdGenerator.GetLength());
+
 }

@@ -146,3 +146,13 @@ void CPasswordBox::init(bool multipleLine, bool _doesShow) {
     }
 
 }
+
+void CPasswordBox::SetPassword(CMaskedBlob _blob) {
+    m_masked_blob = _blob;
+    if(m_textInput_multipleline){
+        m_textInput_multipleline->setText(m_masked_blob.Show().c_str());
+    }
+    if(m_textInput_oneline){
+        m_textInput_oneline->setText(m_masked_blob.Show().c_str());
+    }
+}

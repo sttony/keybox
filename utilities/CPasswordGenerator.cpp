@@ -8,45 +8,78 @@ using namespace std;
 void CPasswordGenerator::SetAdd(bool isEnabled) {
     m_needAdd = isEnabled;
 }
+bool CPasswordGenerator::GetAdd() {
+    return m_needAdd;
+}
 
 void CPasswordGenerator::SetUpper(bool isEnabled) {
     m_needUpper = isEnabled;
+}
+bool CPasswordGenerator::GetUpper() {
+    return m_needUpper;
 }
 
 void CPasswordGenerator::SetLower(bool isEnabled) {
     m_needLower = isEnabled;
 }
+bool CPasswordGenerator::GetLower() {
+    return m_needLower;
+}
 
 void CPasswordGenerator::SetDigit(bool isEnabled) {
     m_needDigit = isEnabled;
+}
+bool CPasswordGenerator::GetDigit() {
+    return m_needDigit;
 }
 
 void CPasswordGenerator::SetShift1_8(bool isEnabled) {
     m_needShift1_8 = isEnabled;
 }
+bool CPasswordGenerator::GetShift1_8() {
+    return m_needShift1_8;
+}
 
 void CPasswordGenerator::SetGreaterLess(bool isEnabled) {
     m_needGreaterLess = isEnabled;
+}
+bool CPasswordGenerator::GetGreaterLess() {
+    return m_needGreaterLess;
 }
 
 void CPasswordGenerator::SetMinus(bool isEnabled) {
     m_needMinus = isEnabled;
 }
+bool CPasswordGenerator::GetMinus() {
+    return m_needMinus;
+}
 
 void CPasswordGenerator::SetBrace(bool isEnabled) {
     m_needBrace = isEnabled;
+}
+bool CPasswordGenerator::GetBrace() {
+    return m_needBrace;
 }
 
 void CPasswordGenerator::SetSpace(bool isEnabled) {
     m_needSpace = isEnabled;
 }
+bool CPasswordGenerator::GetSpace() {
+    return m_needSpace;
+}
 
 void CPasswordGenerator::SetQuestion(bool isEnabled) {
     m_needQuestion = isEnabled;
 }
+bool CPasswordGenerator::GetQuestion() {
+    return m_needQuestion;
+}
 
 void CPasswordGenerator::SetSlash(bool isEnabled) {
     m_needSlash = isEnabled;
+}
+bool CPasswordGenerator::GetSlash() {
+    return m_needSlash;
 }
 
 void CPasswordGenerator::resetPool() {
@@ -97,6 +130,9 @@ void CPasswordGenerator::resetPool() {
 
 void CPasswordGenerator::SetLength(int _len) {
     m_length = _len;
+}
+int CPasswordGenerator::GetLength() {
+    return m_length;
 }
 
 string CPasswordGenerator::GeneratePassword() {

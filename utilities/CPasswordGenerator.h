@@ -26,21 +26,45 @@ private:
 
 public:
     explicit CPasswordGenerator(CRandomGenerator& _rg): m_RG(_rg){
-
+        resetPool();
     }
 
     void SetLower(bool isEnabled);
+    bool GetLower();
+
     void SetUpper(bool isEnabled);
+    bool GetUpper();
+
     void SetDigit(bool isEnabled);
+    bool GetDigit();
+
     void SetMinus(bool isEnabled);
+    bool GetMinus();
+
     void SetAdd(bool isEnabled);
+    bool GetAdd();
+
     void SetShift1_8(bool isEnabled);
+    bool GetShift1_8();
+
     void SetBrace(bool isEnabled);
+    bool GetBrace();
+
+
     void SetSpace(bool isEnabled);
+    bool GetSpace();
+
     void SetQuestion(bool isEnabled);
+    bool GetQuestion();
+
     void SetSlash(bool isEnabled);
+    bool GetSlash();
+
     void SetGreaterLess(bool isEnabled);
+    bool GetGreaterLess();
+
     void SetLength(int);
+    int GetLength();
 
     std::string GeneratePassword();
 

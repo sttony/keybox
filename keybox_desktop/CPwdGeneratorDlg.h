@@ -12,12 +12,21 @@
 #include <QLineEdit>
 #include <QSpinBox>
 #include "CPasswordBox.h"
+#include "utilities/CPasswordGenerator.h"
 
 class CPwdGeneratorDlg : public QDialog{
 Q_OBJECT
 public:
     explicit CPwdGeneratorDlg(QWidget *parent = nullptr);
+
+private slots:
+
+    void onRegenerate();
+
 private:
+    void RefreshUI();
+
+    CPasswordGenerator m_pwdGenerator;
 
     QCheckBox* m_chkboxUpper;
     QCheckBox* m_chkboxLower;
@@ -33,6 +42,7 @@ private:
     QSpinBox*  m_sliderLength;
 
     CPasswordBox* m_textPwd;
+    QPushButton* m_buttonRegenerate;
 };
 
 

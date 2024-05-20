@@ -47,6 +47,8 @@ public:
         return m_masked_blob;
     }
 
+    void SetPassword(CMaskedBlob _blob);
+
 public slots:
 
     void onShowClickedOneline();
