@@ -6,7 +6,7 @@
 #include "InitGlobalRG.h"
 
 using namespace std;
-RandomGenerator g_RG(RandomGenerator::Salsa20);
+CRandomGenerator g_RG(CRandomGenerator::Salsa20);
 
 void InitGlobalRG() {
     DWORD current_pid = GetProcessId(GetCurrentProcess());
