@@ -54,6 +54,7 @@ uint32_t CRandomGenerator::GetNextBytes(uint32_t num, vector<unsigned char> &out
 
 uint32_t CRandomGenerator::GetNextInt32() {
     vector<unsigned char> vOut;
+    GetNextBytes(4, vOut);
     uint32_t result;
     memcpy(&result, vOut.data(), 4);
     return result;

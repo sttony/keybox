@@ -20,8 +20,19 @@ public:
     explicit CPwdGeneratorDlg(QWidget *parent = nullptr);
 
 private slots:
-
     void onRegenerate();
+    void onUpperCheck(int);
+    void onLowerCheck(int);
+    void onDigitsCheck(int);
+    void onMinusCheck(int);
+    void onAddCheck(int);
+    void onShift1_8Check(int);
+    void onBraceCheck(int);
+    void onSpaceCheck(int);
+    void onQuestionCheck(int);
+    void onSlashCheck(int);
+    void onGreaterLessCheck(int);
+    void onLengthChange(const QString&);
 
 private:
     void RefreshUI();
@@ -43,6 +54,8 @@ private:
 
     CPasswordBox* m_textPwd;
     QPushButton* m_buttonRegenerate;
+
+    void RefreshPwd();
 };
 
 

@@ -25,7 +25,7 @@ CPwdGeneratorDlg::CPwdGeneratorDlg(QWidget *parent): m_pwdGenerator(g_RG) {
     m_chkboxMinus = new QCheckBox("Minus -");
     rootLayout->addWidget(m_chkboxMinus);
 
-    m_chkboxAdd = new QCheckBox("Add +9");
+    m_chkboxAdd = new QCheckBox("Add +");
     rootLayout->addWidget(m_chkboxAdd);
 
     m_chkboxShift1_8 = new QCheckBox("Shift1_8 !@#$%^&*");
@@ -64,17 +64,35 @@ CPwdGeneratorDlg::CPwdGeneratorDlg(QWidget *parent): m_pwdGenerator(g_RG) {
 
     QObject::connect(m_buttonRegenerate, &QPushButton::clicked, this, &CPwdGeneratorDlg::onRegenerate);
 
+    //Check boxes
+    QObject::connect(m_chkboxUpper, &QCheckBox::stateChanged, this, &CPwdGeneratorDlg::onUpperCheck);
+    QObject::connect(m_chkboxLower, &QCheckBox::stateChanged, this, &CPwdGeneratorDlg::onLowerCheck);
+    QObject::connect(m_chkboxDigits, &QCheckBox::stateChanged, this, &CPwdGeneratorDlg::onDigitsCheck);
+    QObject::connect(m_chkboxMinus, &QCheckBox::stateChanged, this, &CPwdGeneratorDlg::onMinusCheck);
+    QObject::connect(m_chkboxAdd, &QCheckBox::stateChanged, this, &CPwdGeneratorDlg::onAddCheck);
+    QObject::connect(m_chkboxShift1_8, &QCheckBox::stateChanged, this, &CPwdGeneratorDlg::onShift1_8Check);
+    QObject::connect(m_chkboxBrace, &QCheckBox::stateChanged, this, &CPwdGeneratorDlg::onBraceCheck);
+    QObject::connect(m_chkboxSpace, &QCheckBox::stateChanged, this, &CPwdGeneratorDlg::onSpaceCheck);
+    QObject::connect(m_chkboxQuestion, &QCheckBox::stateChanged, this, &CPwdGeneratorDlg::onQuestionCheck);
+    QObject::connect(m_chkboxSlash, &QCheckBox::stateChanged, this, &CPwdGeneratorDlg::onSlashCheck);
+    QObject::connect(m_chkboxGreaterLess, &QCheckBox::stateChanged, this, &CPwdGeneratorDlg::onGreaterLessCheck);
+
+    QObject::connect(m_sliderLength, &QSpinBox::textChanged, this, &CPwdGeneratorDlg::onLengthChange);
+
+    RefreshUI();
+    RefreshPwd();
+
+}
+
+void CPwdGeneratorDlg::RefreshPwd() {
     CMaskedBlob _blob;
     _blob.Set(m_pwdGenerator.GeneratePassword(), g_RG);
     m_textPwd->SetPassword(_blob);
-
 }
 
 void CPwdGeneratorDlg::onRegenerate() {
     this->RefreshUI();
-    CMaskedBlob _blob;
-    _blob.Set(m_pwdGenerator.GeneratePassword(), g_RG);
-    m_textPwd->SetPassword(_blob);
+    this->RefreshPwd();
 }
 
 void CPwdGeneratorDlg::RefreshUI() {
@@ -114,3 +132,64 @@ void CPwdGeneratorDlg::RefreshUI() {
     m_sliderLength->setValue(m_pwdGenerator.GetLength());
 
 }
+
+void CPwdGeneratorDlg::onUpperCheck(int _state) {
+    m_pwdGenerator.SetUpper( _state == Qt::CheckState::Checked);
+    RefreshPwd();
+}
+
+void CPwdGeneratorDlg::onLowerCheck(int _state) {
+    m_pwdGenerator.SetLower( _state == Qt::CheckState::Checked);
+    RefreshPwd();
+}
+
+void CPwdGeneratorDlg::onDigitsCheck(int _state) {
+    m_pwdGenerator.SetDigit( _state == Qt::CheckState::Checked);
+    RefreshPwd();
+}
+
+void CPwdGeneratorDlg::onMinusCheck(int _state) {
+    m_pwdGenerator.SetMinus(_state == Qt::CheckState::Checked);
+    RefreshPwd();
+}
+
+void CPwdGeneratorDlg::onAddCheck(int _state) {
+    m_pwdGenerator.SetAdd(_state == Qt::CheckState::Checked);
+    RefreshPwd();
+}
+
+void CPwdGeneratorDlg::onShift1_8Check(int _state) {
+    m_pwdGenerator.SetShift1_8(_state == Qt::CheckState::Checked);
+    RefreshPwd();
+}
+
+void CPwdGeneratorDlg::onBraceCheck(int _state) {
+    m_pwdGenerator.SetBrace(_state == Qt::CheckState::Checked);
+    RefreshPwd();
+}
+
+void CPwdGeneratorDlg::onSpaceCheck(int _state) {
+    m_pwdGenerator.SetSpace(_state == Qt::CheckState::Checked);
+    RefreshPwd();
+}
+
+void CPwdGeneratorDlg::onQuestionCheck(int _state) {
+    m_pwdGenerator.SetQuestion(_state == Qt::CheckState::Checked);
+    RefreshPwd();
+}
+
+void CPwdGeneratorDlg::onSlashCheck(int _state) {
+    m_pwdGenerator.SetSlash(_state == Qt::CheckState::Checked);
+    RefreshPwd();
+}
+
+void CPwdGeneratorDlg::onGreaterLessCheck(int _state) {
+    m_pwdGenerator.SetGreaterLess(_state == Qt::CheckState::Checked);
+    RefreshPwd();
+}
+
+void CPwdGeneratorDlg::onLengthChange(const QString& _s) {
+    m_pwdGenerator.SetLength(_s.toInt());
+    RefreshPwd();
+}
+

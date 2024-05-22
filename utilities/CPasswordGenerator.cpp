@@ -1,9 +1,7 @@
-//
-// Created by tongl on 3/24/2024.
-//
 
 #include "CPasswordGenerator.h"
 #include <string>
+#include <unordered_set>
 using namespace std;
 void CPasswordGenerator::SetAdd(bool isEnabled) {
     m_needAdd = isEnabled;
@@ -96,44 +94,37 @@ bool CPasswordGenerator::GetSlash() {
 void CPasswordGenerator::resetPool() {
     m_pool.clear();
     if(m_needSlash){
-        m_pool.emplace_back('/');
-        m_pool.emplace_back('\\');
+        m_pool.emplace_back("/\\");
     }
     if(m_needQuestion){
-        m_pool.emplace_back('?');
+        m_pool.emplace_back("?");
     }
     if(m_needSpace){
-        m_pool.emplace_back(' ');
+        m_pool.emplace_back(" ");
     }
     if(m_needBrace){
-        static string braces= "[](){}";
-        m_pool.insert(m_pool.end(), braces.begin(), braces.end());
+        m_pool.emplace_back("[](){}");
     }
     if(m_needMinus){
-        m_pool.emplace_back('-');
+        m_pool.emplace_back("-");
     }
     if(m_needGreaterLess){
-        m_pool.emplace_back('<');
-        m_pool.emplace_back('>');
+        m_pool.emplace_back("<>");
     }
     if(m_needShift1_8){
-        static string specials= "!@#$%^&*";
-        m_pool.insert(m_pool.end(), specials.begin(), specials.end());
+        m_pool.emplace_back("!@#$%^&*");
     }
     if(m_needDigit){
-        static string digits= "0123456789";
-        m_pool.insert(m_pool.end(), digits.begin(), digits.end());
+        m_pool.emplace_back("0123456789");
     }
     if(m_needLower){
-        static string lowers= "abcdefghijklmnopqrstuvwxyz";
-        m_pool.insert(m_pool.end(), lowers.begin(), lowers.end());
+        m_pool.emplace_back("abcdefghijklmnopqrstuvwxyz");
     }
     if(m_needUpper){
-        static string uppers= "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        m_pool.insert(m_pool.end(), uppers.begin(), uppers.end());
+        m_pool.emplace_back("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
     }
     if(m_needAdd){
-        m_pool.emplace_back('+');
+        m_pool.emplace_back("+");
     }
 
 
@@ -141,17 +132,86 @@ void CPasswordGenerator::resetPool() {
 
 void CPasswordGenerator::SetLength(int _len) {
     m_length = _len;
+    resetPool();
 }
 int CPasswordGenerator::GetLength() {
     return m_length;
 }
 
 string CPasswordGenerator::GeneratePassword() {
-    vector<unsigned char> buff ;
-    m_RG.GetNextBytes(m_length, buff);
-    string result;
-    for(int i =0;i <m_length; ++i){
-        result += m_pool[buff[i]%m_pool.size()];
+    if( m_pool.empty()){
+        return "";
+    }
+    string result(m_length, -1);
+    int resultIdx = 0;
+
+    unordered_set<int> idxToFill;
+    for(int i =0; i< m_length; ++i){
+        idxToFill.insert(i);
+    }
+    // fill one group at least one
+    {
+        unordered_set<int> idxGroups;
+        for(int i =0; i< m_pool.size(); ++i){
+            idxGroups.insert(i);
+        }
+        for (int i = 0; i < m_pool.size(); ++i) {
+            // pickup a group;
+            int idxGroup = m_RG.GetNextInt32()% idxGroups.size();
+            auto itGroup = idxGroups.begin();
+            for(int j = 0; j< idxGroup; ++j){
+                itGroup++;
+            }
+            const string& group = m_pool[*itGroup];
+
+            // pick up a position
+            auto itPos = idxToFill.begin();
+            uint32_t pos = m_RG.GetNextInt32() % idxToFill.size();
+            for(int j = 0; j< pos; ++j){
+                itPos ++;
+            }
+            result[*itPos] = group[m_RG.GetNextInt32() % group.size()];
+
+            idxGroups.erase(itGroup);
+            idxToFill.erase(itPos);
+            resultIdx++;
+            if (resultIdx >= m_length)
+                break;
+        }
+    }
+
+    // fill remain with uniform distribution for all
+    {
+        int totalSumSize = 0;
+        for (auto group: m_pool) {
+            totalSumSize += group.size();
+        }
+        for (int i = resultIdx; i < m_length; ++i) {
+            // pick upa position
+            auto itPos = idxToFill.begin();
+            uint32_t pos = m_RG.GetNextInt32() % idxToFill.size();
+            for(int j = 0; j< pos; ++j){
+                itPos ++;
+            }
+
+            int rg = m_RG.GetNextInt32() % totalSumSize;
+            char rr = 0;
+            for (auto &group: m_pool) {
+                bool isBreak = false;
+                for (char c: group) {
+                    rr = c;
+                    if (rg-- == 0) {
+                        isBreak = true;
+                        break;
+                    }
+                }
+                if (isBreak) {
+                    break;
+                }
+            }
+            result[*itPos] = rr;
+            idxToFill.erase(itPos);
+        }
     }
     return result;
 }

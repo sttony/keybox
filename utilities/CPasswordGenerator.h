@@ -21,7 +21,7 @@ private:
     bool m_needSlash{};
     bool m_needGreaterLess{}; // <?
     CRandomGenerator& m_RG;
-    std::vector<char> m_pool;
+    std::vector<std::string> m_pool;
     int m_length = 8;
 
 public:
