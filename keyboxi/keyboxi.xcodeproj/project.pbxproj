@@ -14,6 +14,7 @@
 		73E556CA2BFEAB9000733C0D /* keyboxiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E556C92BFEAB9000733C0D /* keyboxiTests.swift */; };
 		73E556D42BFEAB9000733C0D /* keyboxiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E556D32BFEAB9000733C0D /* keyboxiUITests.swift */; };
 		73E556D62BFEAB9000733C0D /* keyboxiUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E556D52BFEAB9000733C0D /* keyboxiUITestsLaunchTests.swift */; };
+		73E556F62BFEB3EE00733C0D /* objcWrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E556F52BFEB3EE00733C0D /* objcWrap.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,18 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		73E556F12BFEB3EE00733C0D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		73E556B52BFEAB8E00733C0D /* keyboxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = keyboxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E556B82BFEAB8E00733C0D /* keyboxiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboxiApp.swift; sourceTree = "<group>"; };
@@ -44,6 +57,8 @@
 		73E556CF2BFEAB9000733C0D /* keyboxiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = keyboxiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E556D32BFEAB9000733C0D /* keyboxiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboxiUITests.swift; sourceTree = "<group>"; };
 		73E556D52BFEAB9000733C0D /* keyboxiUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboxiUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		73E556F32BFEB3EE00733C0D /* libobjcWrap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libobjcWrap.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		73E556F52BFEB3EE00733C0D /* objcWrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = objcWrap.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +83,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		73E556F02BFEB3EE00733C0D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -77,6 +99,7 @@
 				73E556B72BFEAB8E00733C0D /* keyboxi */,
 				73E556C82BFEAB9000733C0D /* keyboxiTests */,
 				73E556D22BFEAB9000733C0D /* keyboxiUITests */,
+				73E556F42BFEB3EE00733C0D /* objcWrap */,
 				73E556B62BFEAB8E00733C0D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,6 +110,7 @@
 				73E556B52BFEAB8E00733C0D /* keyboxi.app */,
 				73E556C52BFEAB9000733C0D /* keyboxiTests.xctest */,
 				73E556CF2BFEAB9000733C0D /* keyboxiUITests.xctest */,
+				73E556F32BFEB3EE00733C0D /* libobjcWrap.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -125,6 +149,14 @@
 				73E556D52BFEAB9000733C0D /* keyboxiUITestsLaunchTests.swift */,
 			);
 			path = keyboxiUITests;
+			sourceTree = "<group>";
+		};
+		73E556F42BFEB3EE00733C0D /* objcWrap */ = {
+			isa = PBXGroup;
+			children = (
+				73E556F52BFEB3EE00733C0D /* objcWrap.swift */,
+			);
+			path = objcWrap;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,6 +215,23 @@
 			productReference = 73E556CF2BFEAB9000733C0D /* keyboxiUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		73E556F22BFEB3EE00733C0D /* objcWrap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 73E556F72BFEB3EE00733C0D /* Build configuration list for PBXNativeTarget "objcWrap" */;
+			buildPhases = (
+				73E556EF2BFEB3EE00733C0D /* Sources */,
+				73E556F02BFEB3EE00733C0D /* Frameworks */,
+				73E556F12BFEB3EE00733C0D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = objcWrap;
+			productName = objcWrap;
+			productReference = 73E556F32BFEB3EE00733C0D /* libobjcWrap.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -204,6 +253,9 @@
 						CreatedOnToolsVersion = 15.3;
 						TestTargetID = 73E556B42BFEAB8E00733C0D;
 					};
+					73E556F22BFEB3EE00733C0D = {
+						CreatedOnToolsVersion = 15.3;
+					};
 				};
 			};
 			buildConfigurationList = 73E556B02BFEAB8E00733C0D /* Build configuration list for PBXProject "keyboxi" */;
@@ -222,6 +274,7 @@
 				73E556B42BFEAB8E00733C0D /* keyboxi */,
 				73E556C42BFEAB9000733C0D /* keyboxiTests */,
 				73E556CE2BFEAB9000733C0D /* keyboxiUITests */,
+				73E556F22BFEB3EE00733C0D /* objcWrap */,
 			);
 		};
 /* End PBXProject section */
@@ -276,6 +329,14 @@
 			files = (
 				73E556D62BFEAB9000733C0D /* keyboxiUITestsLaunchTests.swift in Sources */,
 				73E556D42BFEAB9000733C0D /* keyboxiUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73E556EF2BFEB3EE00733C0D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73E556F62BFEB3EE00733C0D /* objcWrap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +498,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.k3ybox.keyboxi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = keyboxi/objc_bridge.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -465,6 +527,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.k3ybox.keyboxi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = keyboxi/objc_bridge.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -542,6 +605,30 @@
 			};
 			name = Release;
 		};
+		73E556F82BFEB3EE00733C0D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		73E556F92BFEB3EE00733C0D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -577,6 +664,15 @@
 			buildConfigurations = (
 				73E556E02BFEAB9000733C0D /* Debug */,
 				73E556E12BFEAB9000733C0D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		73E556F72BFEB3EE00733C0D /* Build configuration list for PBXNativeTarget "objcWrap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73E556F82BFEB3EE00733C0D /* Debug */,
+				73E556F92BFEB3EE00733C0D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
