@@ -18,11 +18,11 @@ class CPasswordBox : public QWidget {
 Q_OBJECT
 private:
     std::string m_label;
-    QIcon *m_showIcon;
-    QIcon *m_hideIcon;
-    QLineEdit *m_textInput_oneline;
-    QTextEdit *m_textInput_multipleline;
-    QPushButton *m_showButton;
+    QIcon *m_showIcon = nullptr;
+    QIcon *m_hideIcon = nullptr;
+    QLineEdit *m_textInput_oneline = nullptr;
+    QTextEdit *m_textInput_multipleline = nullptr;
+    QPushButton *m_showButton = nullptr;
 
     bool m_doesShow;
     CMaskedBlob m_masked_blob;
