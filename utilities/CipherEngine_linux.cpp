@@ -6,6 +6,7 @@
 #include <cstring>
 #include <openssl/evp.h>
 #include <openssl/sha.h>
+#include <openssl/hmac.h>
 
 using namespace std;
 
@@ -72,6 +73,9 @@ uint32_t CCipherEngine::PBKDF2DerivativeKey(const string &sKey, const PBKDF2_256
 
 uint32_t
 CCipherEngine::HMAC_SHA256(const vector<unsigned char> &key, const unsigned char *pInputBuff, size_t cbInputBuff, vector<unsigned char> &Output) {
+    unsigned char* digest = HMAC(EVP_sha256(), key.data(), key.size(), pInputBuff, cbInputBuff, NULL, NULL);
+    Output.resize(32);
+    memcpy(Output.data(), digest, 32);
     return 0;
 }
 
