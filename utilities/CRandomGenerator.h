@@ -7,11 +7,18 @@
 
 #include <array>
 #include <memory>
+#include <cstring>
 #include "Salsa20Cipher.h"
 
 struct IRandomGenerator {
     virtual uint32_t GetNextBytes(uint32_t num, std::vector<unsigned char> &output) = 0;
-    virtual uint32_t GetNextInt32() = 0;
+    virtual uint32_t GetNextInt32() {
+        std::vector<unsigned char> vOut;
+        GetNextBytes(4, vOut);
+        uint32_t result;
+        std::memcpy(&result, vOut.data(), 4);
+        return result;
+    }
 };
 
 class CRandomGenerator : public IRandomGenerator {

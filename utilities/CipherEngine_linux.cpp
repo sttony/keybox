@@ -10,12 +10,32 @@
 using namespace std;
 
 uint32_t CCipherEngine::SHA256(const unsigned char *pInput, size_t cbInput, std::vector<unsigned char> &Output) {
+    Output.resize(32);
+
+    EVP_MD_CTX* mdctx = EVP_MD_CTX_new();
+    const EVP_MD* md = EVP_sha256();
+    unsigned int lengthOfHash = 0;
+
+    EVP_DigestInit_ex(mdctx, md, nullptr);
+    EVP_DigestUpdate(mdctx, pInput, cbInput);
+    EVP_DigestFinal_ex(mdctx, Output.data(), &lengthOfHash);
+    EVP_MD_CTX_free(mdctx);
 
     return 0;
 }
 
 uint32_t CCipherEngine::SHA256(const unsigned char *pInput, size_t cbInput, unsigned char *pOutput, size_t cbOutput) {
+    if (cbOutput < 32) {
+        return ERROR_BUFFER_TOO_SMALL;
+    }
+    EVP_MD_CTX* mdctx = EVP_MD_CTX_new();
+    const EVP_MD* md = EVP_sha256();
+    unsigned int lengthOfHash = 0;
 
+    EVP_DigestInit_ex(mdctx, md, nullptr);
+    EVP_DigestUpdate(mdctx, pInput, cbInput);
+    EVP_DigestFinal_ex(mdctx, pOutput, &lengthOfHash);
+    EVP_MD_CTX_free(mdctx);
     return 0;
 }
 
@@ -49,4 +69,10 @@ uint32_t CCipherEngine::PBKDF2DerivativeKey(const string &sKey, const PBKDF2_256
                                             vector<unsigned char> &vOutput) {
     return 0;
 }
+
+uint32_t
+CCipherEngine::HMAC_SHA256(const vector<unsigned char> &key, const unsigned char *pInputBuff, size_t cbInputBuff, vector<unsigned char> &Output) {
+    return 0;
+}
+
 
