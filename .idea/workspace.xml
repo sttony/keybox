@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated>
+      <config projectName="keybox" targetName="Boost_Tests_run" />
+      <config projectName="keybox" targetName="keepassdump" />
+      <config projectName="keybox" targetName="keybox" />
+      <config projectName="keybox" targetName="keyboxd" />
+      <config projectName="keybox" targetName="utilities" />
+      <config projectName="keybox" targetName="objc_utilities" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="257647cf-a60d-4b33-a4f6-bb72301125c4" name="Changes" comment="ios skeleton">
+      <change afterPath="$PROJECT_DIR$/.idea/QtSettings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/keyboxi/keyboxi/objc_bridge.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboxi/keyboxi.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/keyboxi/keyboxi.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboxi/keyboxi.xcodeproj/project.xcworkspace/xcuserdata/tonglt.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/keyboxi/keyboxi.xcodeproj/project.xcworkspace/xcuserdata/tonglt.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboxi/keyboxi.xcodeproj/xcuserdata/tonglt.xcuserdatad/xcschemes/xcschememanagement.plist" beforeDir="false" afterPath="$PROJECT_DIR$/keyboxi/keyboxi.xcodeproj/xcuserdata/tonglt.xcuserdatad/xcschemes/xcschememanagement.plist" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="master" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;sttony&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/sttony/keybox.git&quot;,
+    &quot;accountId&quot;: &quot;d6e8edc4-f87e-4bd1-832b-b612d0172ec8&quot;
+  }
+}</component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2023" />
+    <option name="minorVersion" value="3.4" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2gCTGnBJQfabEheSWuYgn4LS5UE" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Boost.Test.Boost_Tests_run.executor": "Run",
+    "CMake Application.keybox.executor": "Run",
+    "CMake Application.keyboxd.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/Users/tonglt/CLionProjects/keybox",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "CPPToolchains",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="CMake Application.keyboxd">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Boost_Tests_run" type="CMakeBoostTestRunConfigurationType" factoryName="Boost Test" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="keybox" TARGET_NAME="Boost_Tests_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="keybox" RUN_TARGET_NAME="Boost_Tests_run" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="keepassdump" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="keybox" TARGET_NAME="keepassdump" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="keybox" RUN_TARGET_NAME="keepassdump">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="keybox" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="keybox" TARGET_NAME="keybox" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="keybox" RUN_TARGET_NAME="keybox">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="keyboxd" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="keybox" TARGET_NAME="keyboxd" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="keybox" RUN_TARGET_NAME="keyboxd">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="objc_utilities" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="keybox" TARGET_NAME="objc_utilities" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="utilities" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="keybox" TARGET_NAME="utilities" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Boost.Test.Boost_Tests_run" />
+      <item itemvalue="CMake Application.keybox" />
+      <item itemvalue="CMake Application.keepassdump" />
+      <item itemvalue="CMake Application.keyboxd" />
+      <item itemvalue="CMake Application.objc_utilities" />
+      <item itemvalue="CMake Application.utilities" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="257647cf-a60d-4b33-a4f6-bb72301125c4" name="Changes" comment="" />
+      <created>1715200466810</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1715200466810</updated>
+      <workItem from="1715200467952" duration="4310000" />
+      <workItem from="1715205468745" duration="583000" />
+      <workItem from="1715206148257" duration="2466000" />
+      <workItem from="1715711572561" duration="298000" />
+      <workItem from="1715711948535" duration="168000" />
+      <workItem from="1715712124274" duration="7754000" />
+      <workItem from="1715729037564" duration="9000" />
+      <workItem from="1716221513367" duration="23758000" />
+    </task>
+    <task id="LOCAL-00001" summary="Create Objc wrap for iOS.">
+      <option name="closed" value="true" />
+      <created>1715200940439</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1715200940439</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Create Objc wrap for iOS 2">
+      <option name="closed" value="true" />
+      <created>1715201729272</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1715201729272</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add a wrap for RandomGenerator">
+      <option name="closed" value="true" />
+      <created>1715206047643</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1715206047643</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add password box for password generator dlg">
+      <option name="closed" value="true" />
+      <created>1716222440993</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1716222440993</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Rename PasswordBox.">
+      <option name="closed" value="true" />
+      <created>1716223123684</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1716223123684</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add rRef parameter">
+      <option name="closed" value="true" />
+      <created>1716225281731</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1716225281731</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Add refresh Dlg">
+      <option name="closed" value="true" />
+      <created>1716227354776</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1716227354776</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Reset poll when password generator is changed.">
+      <option name="closed" value="true" />
+      <created>1716229409287</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1716229409287</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Add next uint32 for RG">
+      <option name="closed" value="true" />
+      <created>1716248302263</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1716248302263</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Password generator completed">
+      <option name="closed" value="true" />
+      <created>1716397024962</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1716397024963</updated>
+    </task>
+    <task id="LOCAL-00011" summary="ios skeleton">
+      <option name="closed" value="true" />
+      <created>1716417880159</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1716417880159</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VCPKGProject">
+    <isAutomaticCheckingOnLaunch value="false" />
+    <isAutomaticFoundErrors value="true" />
+    <isAutomaticReloadCMake value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Create Objc wrap for iOS." />
+    <MESSAGE value="Create Objc wrap for iOS 2" />
+    <MESSAGE value="Add a wrap for RandomGenerator" />
+    <MESSAGE value="Add password box for password generator dlg" />
+    <MESSAGE value="Rename PasswordBox." />
+    <MESSAGE value="Add rRef parameter" />
+    <MESSAGE value="Add refresh Dlg" />
+    <MESSAGE value="Reset poll when password generator is changed." />
+    <MESSAGE value="Add next uint32 for RG" />
+    <MESSAGE value="Password generator completed" />
+    <MESSAGE value="ios skeleton" />
+    <option name="LAST_COMMIT_MESSAGE" value="ios skeleton" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/keybox_desktop/CPwdGeneratorDlg.cpp</url>
+          <line>191</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/utilities/CPasswordGenerator.cpp</url>
+          <line>133</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

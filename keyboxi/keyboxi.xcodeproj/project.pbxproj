@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73E511602C068D91007389F8 /* libobjcWrap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E556F32BFEB3EE00733C0D /* libobjcWrap.a */; };
+		73E511622C068E41007389F8 /* libutilities.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E511612C068E41007389F8 /* libutilities.a */; };
 		73E556B92BFEAB8E00733C0D /* keyboxiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E556B82BFEAB8E00733C0D /* keyboxiApp.swift */; };
 		73E556BB2BFEAB8E00733C0D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E556BA2BFEAB8E00733C0D /* ContentView.swift */; };
 		73E556BD2BFEAB9000733C0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73E556BC2BFEAB9000733C0D /* Assets.xcassets */; };
@@ -14,7 +16,7 @@
 		73E556CA2BFEAB9000733C0D /* keyboxiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E556C92BFEAB9000733C0D /* keyboxiTests.swift */; };
 		73E556D42BFEAB9000733C0D /* keyboxiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E556D32BFEAB9000733C0D /* keyboxiUITests.swift */; };
 		73E556D62BFEAB9000733C0D /* keyboxiUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E556D52BFEAB9000733C0D /* keyboxiUITestsLaunchTests.swift */; };
-		73E556F62BFEB3EE00733C0D /* objcWrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E556F52BFEB3EE00733C0D /* objcWrap.swift */; };
+		73E556FF2BFEBB1D00733C0D /* ORandomGenerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 73E556FE2BFEBB1D00733C0D /* ORandomGenerator.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		73E511612C068E41007389F8 /* libutilities.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libutilities.a; path = "../cmake-build-debug/utilities/libutilities.a"; sourceTree = "<group>"; };
 		73E556B52BFEAB8E00733C0D /* keyboxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = keyboxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E556B82BFEAB8E00733C0D /* keyboxiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboxiApp.swift; sourceTree = "<group>"; };
 		73E556BA2BFEAB8E00733C0D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,7 +61,9 @@
 		73E556D32BFEAB9000733C0D /* keyboxiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboxiUITests.swift; sourceTree = "<group>"; };
 		73E556D52BFEAB9000733C0D /* keyboxiUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboxiUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		73E556F32BFEB3EE00733C0D /* libobjcWrap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libobjcWrap.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		73E556F52BFEB3EE00733C0D /* objcWrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = objcWrap.swift; sourceTree = "<group>"; };
+		73E556FA2BFEB9EB00733C0D /* objc_bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = objc_bridge.h; sourceTree = "<group>"; };
+		73E556FB2BFEBAC100733C0D /* ORandomGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORandomGenerator.h; sourceTree = "<group>"; };
+		73E556FE2BFEBB1D00733C0D /* ORandomGenerator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ORandomGenerator.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +71,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73E511622C068E41007389F8 /* libutilities.a in Frameworks */,
+				73E511602C068D91007389F8 /* libobjcWrap.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +100,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		73E5115F2C068D91007389F8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				73E511612C068E41007389F8 /* libutilities.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		73E556AC2BFEAB8E00733C0D = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +116,7 @@
 				73E556D22BFEAB9000733C0D /* keyboxiUITests */,
 				73E556F42BFEB3EE00733C0D /* objcWrap */,
 				73E556B62BFEAB8E00733C0D /* Products */,
+				73E5115F2C068D91007389F8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,6 +134,7 @@
 		73E556B72BFEAB8E00733C0D /* keyboxi */ = {
 			isa = PBXGroup;
 			children = (
+				73E556FA2BFEB9EB00733C0D /* objc_bridge.h */,
 				73E556B82BFEAB8E00733C0D /* keyboxiApp.swift */,
 				73E556BA2BFEAB8E00733C0D /* ContentView.swift */,
 				73E556BC2BFEAB9000733C0D /* Assets.xcassets */,
@@ -154,7 +171,8 @@
 		73E556F42BFEB3EE00733C0D /* objcWrap */ = {
 			isa = PBXGroup;
 			children = (
-				73E556F52BFEB3EE00733C0D /* objcWrap.swift */,
+				73E556FE2BFEBB1D00733C0D /* ORandomGenerator.mm */,
+				73E556FB2BFEBAC100733C0D /* ORandomGenerator.h */,
 			);
 			path = objcWrap;
 			sourceTree = "<group>";
@@ -336,7 +354,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73E556F62BFEB3EE00733C0D /* objcWrap.swift in Sources */,
+				73E556FF2BFEBB1D00733C0D /* ORandomGenerator.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +503,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"keyboxi/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -494,6 +513,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "../../**";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.k3ybox.keyboxi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -514,6 +534,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"keyboxi/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -523,6 +544,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "../../**";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.k3ybox.keyboxi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
