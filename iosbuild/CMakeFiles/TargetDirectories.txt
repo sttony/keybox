@@ -1,0 +1,3 @@
+/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/utilities.dir
+/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/ALL_BUILD.dir
+/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/ZERO_CHECK.dir

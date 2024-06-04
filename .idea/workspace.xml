@@ -26,14 +26,96 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257647cf-a60d-4b33-a4f6-bb72301125c4" name="Changes" comment="ios skeleton">
-      <change afterPath="$PROJECT_DIR$/.idea/QtSettings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/keyboxi/keyboxi/objc_bridge.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeCache.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CMakeCCompiler.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CMakeCXXCompiler.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CMakeSystem.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CMakeCCompilerId.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-all-non-framework-target-headers.hmap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-all-target-headers.hmap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-generated-files.hmap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-own-target-headers.hmap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-project-headers.hmap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC.hmap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC.xcent" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC.xcent.der" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/DerivedSources/Entitlements.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Objects-normal/arm64/CMakeCCompilerId.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Objects-normal/arm64/CMakeCCompilerId.dia" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Objects-normal/arm64/CMakeCCompilerId.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Objects-normal/arm64/CompilerIdC.LinkFileList" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Objects-normal/arm64/CompilerIdC_dependency_info.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Script-2C8FEB8E15DC1A1A00E56A5D.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/all-product-headers.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.xcodeproj/project.pbxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/XCBuildData/9d0cd73ae16201017e9c76421fa89958.xcbuilddata/attachments/177becd055ce63eae4d9f1e7ec0ce515" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/XCBuildData/9d0cd73ae16201017e9c76421fa89958.xcbuilddata/attachments/2c8fb3d7bfe808069253caa581c1e300" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/XCBuildData/9d0cd73ae16201017e9c76421fa89958.xcbuilddata/attachments/6fd8ac6031afc4c21f9688e38eb31960" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/XCBuildData/9d0cd73ae16201017e9c76421fa89958.xcbuilddata/attachments/8bba4233626f64a7ea772bb94a08a1a9" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/XCBuildData/9d0cd73ae16201017e9c76421fa89958.xcbuilddata/attachments/a51551c9d91c1a367693ffa4732dedf6" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/XCBuildData/9d0cd73ae16201017e9c76421fa89958.xcbuilddata/attachments/fd8314defc70a8778956f026c0ddfd19" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/XCBuildData/9d0cd73ae16201017e9c76421fa89958.xcbuilddata/build-request.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/XCBuildData/9d0cd73ae16201017e9c76421fa89958.xcbuilddata/description.msgpack" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/XCBuildData/9d0cd73ae16201017e9c76421fa89958.xcbuilddata/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/XCBuildData/9d0cd73ae16201017e9c76421fa89958.xcbuilddata/target-graph.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/XCBuildData/9d0cd73ae16201017e9c76421fa89958.xcbuilddata/task-store.msgpack" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdC/XCBuildData/build.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CMakeCXXCompilerId.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-all-non-framework-target-headers.hmap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-all-target-headers.hmap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-generated-files.hmap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-own-target-headers.hmap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-project-headers.hmap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX.hmap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX.xcent" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX.xcent.der" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/DerivedSources/Entitlements.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Objects-normal/arm64/CMakeCXXCompilerId.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Objects-normal/arm64/CMakeCXXCompilerId.dia" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Objects-normal/arm64/CMakeCXXCompilerId.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Objects-normal/arm64/CompilerIdCXX.LinkFileList" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Objects-normal/arm64/CompilerIdCXX_dependency_info.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Script-2C8FEB8E15DC1A1A00E56A5D.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/all-product-headers.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.xcodeproj/project.pbxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/XCBuildData/1378b37e6fb0577074cc1b77e0940b81.xcbuilddata/attachments/02d3238438cae5de260b310b98894db3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/XCBuildData/1378b37e6fb0577074cc1b77e0940b81.xcbuilddata/attachments/177becd055ce63eae4d9f1e7ec0ce515" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/XCBuildData/1378b37e6fb0577074cc1b77e0940b81.xcbuilddata/attachments/706a3b74832af6ebc2583dc888cae185" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/XCBuildData/1378b37e6fb0577074cc1b77e0940b81.xcbuilddata/attachments/8bba4233626f64a7ea772bb94a08a1a9" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/XCBuildData/1378b37e6fb0577074cc1b77e0940b81.xcbuilddata/attachments/a51551c9d91c1a367693ffa4732dedf6" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/XCBuildData/1378b37e6fb0577074cc1b77e0940b81.xcbuilddata/attachments/fd8314defc70a8778956f026c0ddfd19" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/XCBuildData/1378b37e6fb0577074cc1b77e0940b81.xcbuilddata/build-request.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/XCBuildData/1378b37e6fb0577074cc1b77e0940b81.xcbuilddata/description.msgpack" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/XCBuildData/1378b37e6fb0577074cc1b77e0940b81.xcbuilddata/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/XCBuildData/1378b37e6fb0577074cc1b77e0940b81.xcbuilddata/target-graph.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/XCBuildData/1378b37e6fb0577074cc1b77e0940b81.xcbuilddata/task-store.msgpack" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/XCBuildData/build.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeFiles/cmake.check_cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/CMakeScripts/ReRunCMake.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/cmake_install.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/keybox.xcodeproj/project.pbxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iosbuild/keybox.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/keyboxi/keyboxi.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/keyboxi/keyboxi.xcodeproj/project.pbxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/keyboxi/keyboxi.xcodeproj/project.xcworkspace/xcuserdata/tonglt.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/keyboxi/keyboxi.xcodeproj/project.xcworkspace/xcuserdata/tonglt.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keyboxi/keyboxi.xcodeproj/xcuserdata/tonglt.xcuserdatad/xcschemes/xcschememanagement.plist" beforeDir="false" afterPath="$PROJECT_DIR$/keyboxi/keyboxi.xcodeproj/xcuserdata/tonglt.xcuserdatad/xcschemes/xcschememanagement.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/objc_utilities/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/objc_utilities/ObjcKBFile.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/objc_utilities/ObjcKBFile.mm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/objc_utilities/ObjcMaskedBlob.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/objc_utilities/ObjcMaskedBlob.mm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/objc_utilities/ObjcPwdEntry.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/objc_utilities/ObjcPwdEntry.mm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/objc_utilities/ObjcRandomGenerator.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/objc_utilities/ObjcRandomGenerator.mm" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,29 +158,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Boost.Test.Boost_Tests_run.executor": "Run",
-    "CMake Application.keybox.executor": "Run",
-    "CMake Application.keyboxd.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/Users/tonglt/CLionProjects/keybox",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "CPPToolchains",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Boost.Test.Boost_Tests_run.executor&quot;: &quot;Run&quot;,
+    &quot;CMake Application.keybox.executor&quot;: &quot;Run&quot;,
+    &quot;CMake Application.keyboxd.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/tonglt/CLionProjects/keybox&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;CPPToolchains&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="CMake Application.keyboxd">
+}</component>
+  <component name="RunManager" selected="CMake Application.utilities_ios">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
@@ -135,6 +217,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="utilities_ios" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="keybox" TARGET_NAME="utilities" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Boost.Test.Boost_Tests_run" />
       <item itemvalue="CMake Application.keybox" />
@@ -142,6 +229,7 @@
       <item itemvalue="CMake Application.keyboxd" />
       <item itemvalue="CMake Application.objc_utilities" />
       <item itemvalue="CMake Application.utilities" />
+      <item itemvalue="CMake Application.utilities_ios" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -160,6 +248,8 @@
       <workItem from="1715712124274" duration="7754000" />
       <workItem from="1715729037564" duration="9000" />
       <workItem from="1716221513367" duration="23758000" />
+      <workItem from="1716939791204" duration="511000" />
+      <workItem from="1717543831332" duration="347000" />
     </task>
     <task id="LOCAL-00001" summary="Create Objc wrap for iOS.">
       <option name="closed" value="true" />

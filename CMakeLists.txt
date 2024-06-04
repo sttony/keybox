@@ -28,7 +28,3 @@ target_link_libraries(keybox ${Boost_LIBRARIES} ${ZLIB_LIBRARIES} pugixml)
 add_subdirectory(boost_tests)
 add_subdirectory(keepassdump)
 add_subdirectory(keybox_desktop)
-
-if(APPLE)
-    add_subdirectory(objc_utilities)
-endif(APPLE)

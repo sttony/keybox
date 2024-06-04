@@ -1,0 +1,910 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeDetermineSystem.cmake:233 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: Darwin - 23.5.0 - arm64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      Command line invocation:
+          /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
+      
+      User defaults from command line:
+          IDEPackageSupportUseBuiltinSCM = YES
+      
+      ComputeTargetDependencyGraph
+      note: Building targets in dependency order
+      note: Target dependency graph (1 target)
+          Target 'CompilerIdC' in project 'CompilerIdC' (no dependencies)
+      
+      GatherProvisioningInputs
+      
+      CreateBuildDescription
+      
+      ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -x c -c /dev/null
+      
+      ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -x c -c /dev/null
+      
+      ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+      
+      Build description signature: 9d0cd73ae16201017e9c76421fa89958
+      Build description path: /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/./XCBuildData/9d0cd73ae16201017e9c76421fa89958.xcbuilddata
+      CreateBuildDirectory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.xcodeproj
+          builtin-create-build-directory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+      
+      ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.xcodeproj
+          /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -o /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache
+      
+      CreateBuildDirectory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/EagerLinkingTBDs/Debug
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.xcodeproj
+          builtin-create-build-directory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/EagerLinkingTBDs/Debug
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/DerivedSources/Entitlements.plist (in target 'CompilerIdC' from project 'CompilerIdC')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/DerivedSources/Entitlements.plist
+      
+      ProcessProductPackaging "" /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC.xcent (in target 'CompilerIdC' from project 'CompilerIdC')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          
+          Entitlements:
+          
+          {
+          "com.apple.application-identifier" = "";
+          "com.apple.security.get-task-allow" = 1;
+      }
+          
+          builtin-productPackagingUtility -entitlements -format xml -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC.xcent
+      
+      ProcessProductPackagingDER /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC.xcent /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC.xcent.der (in target 'CompilerIdC' from project 'CompilerIdC')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          /usr/bin/derq query -f xml -i /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC.xcent -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC.xcent.der --raw
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/all-product-headers.yaml (in target 'CompilerIdC' from project 'CompilerIdC')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/all-product-headers.yaml
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC.hmap (in target 'CompilerIdC' from project 'CompilerIdC')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC.hmap
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-project-headers.hmap (in target 'CompilerIdC' from project 'CompilerIdC')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-project-headers.hmap
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-own-target-headers.hmap (in target 'CompilerIdC' from project 'CompilerIdC')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-own-target-headers.hmap
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-generated-files.hmap (in target 'CompilerIdC' from project 'CompilerIdC')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-generated-files.hmap
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-all-target-headers.hmap (in target 'CompilerIdC' from project 'CompilerIdC')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-all-target-headers.hmap
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-all-non-framework-target-headers.hmap (in target 'CompilerIdC' from project 'CompilerIdC')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-all-non-framework-target-headers.hmap
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Objects-normal/arm64/CompilerIdC.LinkFileList (in target 'CompilerIdC' from project 'CompilerIdC')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Objects-normal/arm64/CompilerIdC.LinkFileList
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp (in target 'CompilerIdC' from project 'CompilerIdC')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp
+      -target arm64-apple-macos14.4 -fpascal-strings -Os -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -g '-fvisibility=hidden' -iquote /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-generated-files.hmap -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-own-target-headers.hmap -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-all-target-headers.hmap -iquote /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC-project-headers.hmap -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/include -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/DerivedSources-normal/arm64 -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/DerivedSources/arm64 -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/DerivedSources -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+      
+      CompileC /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Objects-normal/arm64/CMakeCCompilerId.o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CMakeCCompilerId.c normal arm64 c com.apple.compilers.llvm.clang.1_0.compiler (in target 'CompilerIdC' from project 'CompilerIdC')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c -ivfsstatcache /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache -fmessage-length\\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Wno-sign-conversion -Wno-infinite-recursion -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-semicolon-before-method-body @/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp -MMD -MT dependencies -MF /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Objects-normal/arm64/CMakeCCompilerId.d --serialize-diagnostics /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Objects-normal/arm64/CMakeCCompilerId.dia -c /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CMakeCCompilerId.c -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Objects-normal/arm64/CMakeCCompilerId.o
+      
+      Ld /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC normal (in target 'CompilerIdC' from project 'CompilerIdC')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-macos14.4 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -Os -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/EagerLinkingTBDs/Debug -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/EagerLinkingTBDs/Debug -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC -filelist /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Objects-normal/arm64/CompilerIdC.LinkFileList -Xlinker -object_path_lto -Xlinker /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Objects-normal/arm64/CompilerIdC_lto.o -Xlinker -no_adhoc_codesign -Xlinker -dependency_info -Xlinker /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Objects-normal/arm64/CompilerIdC_dependency_info.dat -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Script-2C8FEB8E15DC1A1A00E56A5D.sh (in target 'CompilerIdC' from project 'CompilerIdC')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Script-2C8FEB8E15DC1A1A00E56A5D.sh
+      
+      PhaseScriptExecution Run\\ Script /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Script-2C8FEB8E15DC1A1A00E56A5D.sh (in target 'CompilerIdC' from project 'CompilerIdC')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          /bin/sh -c /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/Script-2C8FEB8E15DC1A1A00E56A5D.sh
+      GCC_VERSION=com.apple.compilers.llvm.clang.1_0
+      ARCHS=arm64
+      
+      CodeSign /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC (in target 'CompilerIdC' from project 'CompilerIdC')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          
+          Signing Identity:     "-"
+          
+          /usr/bin/codesign --force --sign - --entitlements /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC.build/Debug/CompilerIdC.build/CompilerIdC.xcent --timestamp\\=none --generate-entitlement-der /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC
+      
+      RegisterExecutionPolicyException /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC (in target 'CompilerIdC' from project 'CompilerIdC')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC
+          builtin-RegisterExecutionPolicyException /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC
+      
+      warning: Traditional headermap style is no longer supported; please migrate to using separate headermaps and set 'ALWAYS_SEARCH_USER_PATHS' to NO. (in target 'CompilerIdC' from project 'CompilerIdC')
+      note: Run script build phase 'Run Script' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'CompilerIdC' from project 'CompilerIdC')
+      ** BUILD SUCCEEDED **
+      
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC"
+      
+      The C compiler identification is AppleClang, found in:
+        /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdC/CompilerIdC
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      Command line invocation:
+          /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
+      
+      User defaults from command line:
+          IDEPackageSupportUseBuiltinSCM = YES
+      
+      ComputeTargetDependencyGraph
+      note: Building targets in dependency order
+      note: Target dependency graph (1 target)
+          Target 'CompilerIdCXX' in project 'CompilerIdCXX' (no dependencies)
+      
+      GatherProvisioningInputs
+      
+      CreateBuildDescription
+      
+      ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -x c++ -c /dev/null
+      
+      ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -x c -c /dev/null
+      
+      ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -x c -c /dev/null
+      
+      ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+      
+      Build description signature: 1378b37e6fb0577074cc1b77e0940b81
+      Build description path: /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/./XCBuildData/1378b37e6fb0577074cc1b77e0940b81.xcbuilddata
+      CreateBuildDirectory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.xcodeproj
+          builtin-create-build-directory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+      
+      ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.xcodeproj
+          /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -o /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache
+      
+      CreateBuildDirectory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/EagerLinkingTBDs/Debug
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.xcodeproj
+          builtin-create-build-directory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/EagerLinkingTBDs/Debug
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/DerivedSources/Entitlements.plist (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/DerivedSources/Entitlements.plist
+      
+      ProcessProductPackaging "" /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX.xcent (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          
+          Entitlements:
+          
+          {
+          "com.apple.application-identifier" = "";
+          "com.apple.security.get-task-allow" = 1;
+      }
+          
+          builtin-productPackagingUtility -entitlements -format xml -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX.xcent
+      
+      ProcessProductPackagingDER /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX.xcent /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX.xcent.der (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          /usr/bin/derq query -f xml -i /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX.xcent -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX.xcent.der --raw
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/all-product-headers.yaml (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/all-product-headers.yaml
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX.hmap (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX.hmap
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-project-headers.hmap (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-project-headers.hmap
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-generated-files.hmap (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-generated-files.hmap
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-own-target-headers.hmap (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-own-target-headers.hmap
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-all-target-headers.hmap (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-all-target-headers.hmap
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-all-non-framework-target-headers.hmap (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-all-non-framework-target-headers.hmap
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Objects-normal/arm64/CompilerIdCXX.LinkFileList (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Objects-normal/arm64/CompilerIdCXX.LinkFileList
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+      -target arm64-apple-macos14.4 -fpascal-strings -Os -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -g '-fvisibility=hidden' -fvisibility-inlines-hidden -iquote /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-generated-files.hmap -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-own-target-headers.hmap -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-all-target-headers.hmap -iquote /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX-project-headers.hmap -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/include -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/DerivedSources-normal/arm64 -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/DerivedSources/arm64 -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/DerivedSources -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+      
+      CompileC /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Objects-normal/arm64/CMakeCXXCompilerId.o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CMakeCXXCompilerId.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache -fmessage-length\\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body @/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Objects-normal/arm64/CMakeCXXCompilerId.d --serialize-diagnostics /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Objects-normal/arm64/CMakeCXXCompilerId.dia -c /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CMakeCXXCompilerId.cpp -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Objects-normal/arm64/CMakeCXXCompilerId.o
+      
+      Ld /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX normal (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -Xlinker -reproducible -target arm64-apple-macos14.4 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -Os -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/EagerLinkingTBDs/Debug -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/EagerLinkingTBDs/Debug -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX -filelist /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Objects-normal/arm64/CompilerIdCXX.LinkFileList -Xlinker -object_path_lto -Xlinker /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Objects-normal/arm64/CompilerIdCXX_lto.o -Xlinker -no_adhoc_codesign -Xlinker -dependency_info -Xlinker /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Objects-normal/arm64/CompilerIdCXX_dependency_info.dat -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX
+      
+      WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Script-2C8FEB8E15DC1A1A00E56A5D.sh (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Script-2C8FEB8E15DC1A1A00E56A5D.sh
+      
+      PhaseScriptExecution Run\\ Script /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Script-2C8FEB8E15DC1A1A00E56A5D.sh (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          /bin/sh -c /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/Script-2C8FEB8E15DC1A1A00E56A5D.sh
+      GCC_VERSION=com.apple.compilers.llvm.clang.1_0
+      ARCHS=arm64
+      
+      CodeSign /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          
+          Signing Identity:     "-"
+          
+          /usr/bin/codesign --force --sign - --entitlements /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX.build/Debug/CompilerIdCXX.build/CompilerIdCXX.xcent --timestamp\\=none --generate-entitlement-der /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX
+      
+      RegisterExecutionPolicyException /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+          cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX
+          builtin-RegisterExecutionPolicyException /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX
+      
+      warning: Traditional headermap style is no longer supported; please migrate to using separate headermaps and set 'ALWAYS_SEARCH_USER_PATHS' to NO. (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+      note: Run script build phase 'Run Script' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'CompilerIdCXX' from project 'CompilerIdCXX')
+      ** BUILD SUCCEEDED **
+      
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX"
+      
+      The CXX compiler identification is AppleClang, found in:
+        /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/3.28.3/CompilerIdCXX/CompilerIdCXX
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw"
+      binary: "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_OSX_ARCHITECTURES: ""
+      CMAKE_OSX_DEPLOYMENT_TARGET: ""
+      CMAKE_OSX_SYSROOT: "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw'
+        
+        Run Build Command(s): /usr/bin/xcodebuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTC_5fbab -parallelizeTargets -configuration Debug -hideShellScriptEnvironment
+        Command line invocation:
+            /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTC_5fbab -parallelizeTargets -configuration Debug -hideShellScriptEnvironment
+        
+        User defaults from command line:
+            HideShellScriptEnvironment = YES
+            IDEPackageSupportUseBuiltinSCM = YES
+        
+        ComputeTargetDependencyGraph
+        note: Building targets in dependency order
+        note: Target dependency graph (1 target)
+            Target 'cmTC_5fbab' in project 'CMAKE_TRY_COMPILE' (no dependencies)
+        
+        GatherProvisioningInputs
+        
+        CreateBuildDescription
+        
+        ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -x c -c /dev/null
+        
+        ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -x c -c /dev/null
+        
+        ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+        
+        Build description signature: 66884206008eea836f45c8f00fdc5095
+        Build description path: /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/XCBuildData/66884206008eea836f45c8f00fdc5095.xcbuilddata
+        CreateBuildDirectory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug
+            cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/CMAKE_TRY_COMPILE.xcodeproj
+            builtin-create-build-directory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug
+        
+        CreateBuildDirectory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build
+            cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/CMAKE_TRY_COMPILE.xcodeproj
+            builtin-create-build-directory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build
+        
+        ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache
+            cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/CMAKE_TRY_COMPILE.xcodeproj
+            /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -o /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache
+        
+        CreateBuildDirectory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug
+            cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/CMAKE_TRY_COMPILE.xcodeproj
+            builtin-create-build-directory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug
+        
+        WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab.LinkFileList (in target 'cmTC_5fbab' from project 'CMAKE_TRY_COMPILE')
+            cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw
+            write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab.LinkFileList
+        
+        WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp (in target 'cmTC_5fbab' from project 'CMAKE_TRY_COMPILE')
+            cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw
+            write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp
+        -target arm64-apple-macos14.4 -fpascal-strings -O0 '-DCMAKE_INTDIR="Debug"' -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -g -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug/include -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/DerivedSources-normal/arm64 -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/DerivedSources/arm64 -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/DerivedSources -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug
+        
+        CompileC /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/CMakeCCompilerABI.o /opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeCCompilerABI.c normal arm64 c com.apple.compilers.llvm.clang.1_0.compiler (in target 'cmTC_5fbab' from project 'CMAKE_TRY_COMPILE')
+            cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw
+            /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c -ivfsstatcache /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache -fmessage-length\\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Wno-sign-conversion -Wno-infinite-recursion -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-semicolon-before-method-body -v -Wl,-v @/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp -MMD -MT dependencies -MF /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/CMakeCCompilerABI.d --serialize-diagnostics /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/CMakeCCompilerABI.dia -c /opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeCCompilerABI.c -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/CMakeCCompilerABI.o
+        Apple clang version 15.0.0 (clang-1500.3.9.4)
+        Target: arm64-apple-macos14.4
+        Thread model: posix
+        InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+        clang: warning: -Wl,-v: 'linker' input unused [-Wunused-command-line-argument]
+         "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple arm64-apple-macosx14.4.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -mrelax-all --mrelax-relocations -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=14.4 -fvisibility-inlines-hidden-static-local-var -target-cpu apple-m1 -target-feature +v8.5a -target-feature +crc -target-feature +lse -target-feature +rdm -target-feature +crypto -target-feature +dotprod -target-feature +fp-armv8 -target-feature +neon -target-feature +fp16fml -target-feature +ras -target-feature +rcpc -target-feature +zcm -target-feature +zcz -target-feature +fullfp16 -target-feature +sm4 -target-feature +sha3 -target-feature +sha2 -target-feature +aes -target-abi darwinpcs -debug-info-kind=standalone -dwarf-version=4 -debugger-tuning=lldb -target-linker-version 1053.12 -v -fcoverage-compilation-dir=/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0 -dependency-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/CMakeCCompilerABI.d -skip-unused-modulemap-deps -MT dependencies -ivfsstatcache /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -D "CMAKE_INTDIR=\\"Debug\\"" -I /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug/include -I /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/DerivedSources-normal/arm64 -I /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/DerivedSources/arm64 -I /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/DerivedSources -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -O0 -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-implicit-fallthrough -Wdeprecated-declarations -Wno-sign-conversion -Wno-infinite-recursion -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-semicolon-before-method-body -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -fdebug-compilation-dir=/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw -ferror-limit 19 -fmacro-backtrace-limit 0 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fpascal-strings -fmax-type-align=16 -fcommon -fdiagnostics-show-note-include-stack -serialize-diagnostic-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/CMakeCCompilerABI.dia -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -mllvm -disable-aligned-alloc-awareness=1 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/CMakeCCompilerABI.o -x c /opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeCCompilerABI.c
+        clang -cc1 version 15.0.0 (clang-1500.3.9.4) default target arm64-apple-darwin23.5.0
+        ignoring nonexistent directory "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug/include"
+        ignoring nonexistent directory "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/DerivedSources-normal/arm64"
+        ignoring nonexistent directory "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/DerivedSources/arm64"
+        ignoring nonexistent directory "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/DerivedSources"
+        ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/local/include"
+        ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/Library/Frameworks"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug (framework directory)
+         /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include
+         /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include
+         /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+         /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/System/Library/Frameworks (framework directory)
+        End of search list.
+        
+        Ld /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug/cmTC_5fbab normal (in target 'cmTC_5fbab' from project 'CMAKE_TRY_COMPILE')
+            cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw
+            /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-macos14.4 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -O0 -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug -filelist /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab.LinkFileList -Xlinker -object_path_lto -Xlinker /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab_lto.o -Xlinker -no_deduplicate -v -Wl,-v -Wl,-search_paths_first -Wl,-headerpad_max_install_names -Xlinker -dependency_info -Xlinker /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab_dependency_info.dat -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug/cmTC_5fbab
+        Apple clang version 15.0.0 (clang-1500.3.9.4)
+        Target: arm64-apple-macos14.4
+        Thread model: posix
+        InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+         "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -lto_library /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib -no_deduplicate -dynamic -arch arm64 -platform_version macos 14.4.0 14.4 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -O0 -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug/cmTC_5fbab -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug -reproducible -filelist /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab.LinkFileList -object_path_lto /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab_lto.o -no_deduplicate -v -search_paths_first -headerpad_max_install_names -dependency_info /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab_dependency_info.dat -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/lib/darwin/libclang_rt.osx.a -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug
+        @(#)PROGRAM:ld PROJECT:ld-1053.12
+        BUILD 15:45:29 Feb  3 2024
+        configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em
+        will use ld-classic for: armv6 armv7 armv7s arm64_32 i386 armv6m armv7k armv7m armv7em
+        LTO support using: LLVM version 15.0.0 (static support for 29, runtime is 29)
+        TAPI support using: Apple TAPI version 15.0.0 (tapi-1500.3.2.2)
+        Library search paths:
+        	/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug
+        	/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug
+        	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib
+        	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib/swift
+        Framework search paths:
+        	/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug
+        	/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug
+        	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/System/Library/Frameworks
+        
+        RegisterExecutionPolicyException /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug/cmTC_5fbab (in target 'cmTC_5fbab' from project 'CMAKE_TRY_COMPILE')
+            cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw
+            builtin-RegisterExecutionPolicyException /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug/cmTC_5fbab
+        
+        ** BUILD SUCCEEDED **
+        
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:127 (message)"
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include]
+          add: [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include]
+          add: [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include]
+        end of search list found
+        collapse include dir [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include] ==> [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include]
+        collapse include dir [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include] ==> [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include]
+        collapse include dir [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include] ==> [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include]
+        implicit include dirs: [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include;/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:159 (message)"
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        ignore line: [Change Dir: '/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw']
+        ignore line: []
+        ignore line: [Run Build Command(s): /usr/bin/xcodebuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTC_5fbab -parallelizeTargets -configuration Debug -hideShellScriptEnvironment]
+        ignore line: [Command line invocation:]
+        ignore line: [    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTC_5fbab -parallelizeTargets -configuration Debug -hideShellScriptEnvironment]
+        ignore line: []
+        ignore line: [User defaults from command line:]
+        ignore line: [    HideShellScriptEnvironment = YES]
+        ignore line: [    IDEPackageSupportUseBuiltinSCM = YES]
+        ignore line: []
+        ignore line: [ComputeTargetDependencyGraph]
+        ignore line: [note: Building targets in dependency order]
+        ignore line: [note: Target dependency graph (1 target)]
+        ignore line: [    Target 'cmTC_5fbab' in project 'CMAKE_TRY_COMPILE' (no dependencies)]
+        ignore line: []
+        ignore line: [GatherProvisioningInputs]
+        ignore line: []
+        ignore line: [CreateBuildDescription]
+        ignore line: []
+        ignore line: [ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -x c -c /dev/null]
+        ignore line: []
+        ignore line: [ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -x c -c /dev/null]
+        ignore line: []
+        ignore line: [ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details]
+        ignore line: []
+        ignore line: [Build description signature: 66884206008eea836f45c8f00fdc5095]
+        ignore line: [Build description path: /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/XCBuildData/66884206008eea836f45c8f00fdc5095.xcbuilddata]
+        ignore line: [CreateBuildDirectory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug]
+        ignore line: [    cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/CMAKE_TRY_COMPILE.xcodeproj]
+        ignore line: [    builtin-create-build-directory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug]
+        ignore line: []
+        ignore line: [CreateBuildDirectory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build]
+        ignore line: [    cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/CMAKE_TRY_COMPILE.xcodeproj]
+        ignore line: [    builtin-create-build-directory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build]
+        ignore line: []
+        ignore line: [ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache]
+        ignore line: [    cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/CMAKE_TRY_COMPILE.xcodeproj]
+        ignore line: [    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -o /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache]
+        ignore line: []
+        ignore line: [CreateBuildDirectory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug]
+        ignore line: [    cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/CMAKE_TRY_COMPILE.xcodeproj]
+        ignore line: [    builtin-create-build-directory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug]
+        ignore line: []
+        ignore line: [WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab.LinkFileList (in target 'cmTC_5fbab' from project 'CMAKE_TRY_COMPILE')]
+        ignore line: [    cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw]
+        ignore line: [    write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab.LinkFileList]
+        ignore line: []
+        ignore line: [WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp (in target 'cmTC_5fbab' from project 'CMAKE_TRY_COMPILE')]
+        ignore line: [    cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw]
+        ignore line: [    write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp]
+        ignore line: [-target arm64-apple-macos14.4 -fpascal-strings -O0 '-DCMAKE_INTDIR="Debug"' -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -g -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug/include -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/DerivedSources-normal/arm64 -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/DerivedSources/arm64 -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/DerivedSources -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug]
+        ignore line: []
+        ignore line: [CompileC /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/CMakeCCompilerABI.o /opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeCCompilerABI.c normal arm64 c com.apple.compilers.llvm.clang.1_0.compiler (in target 'cmTC_5fbab' from project 'CMAKE_TRY_COMPILE')]
+        ignore line: [    cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw]
+        ignore line: [    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c -ivfsstatcache /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache -fmessage-length\\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Wno-sign-conversion -Wno-infinite-recursion -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-semicolon-before-method-body -v -Wl -v @/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp -MMD -MT dependencies -MF /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/CMakeCCompilerABI.d --serialize-diagnostics /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/CMakeCCompilerABI.dia -c /opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeCCompilerABI.c -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/CMakeCCompilerABI.o]
+        ignore line: [Apple clang version 15.0.0 (clang-1500.3.9.4)]
+        ignore line: [Target: arm64-apple-macos14.4]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin]
+        ignore line: [clang: warning: -Wl -v: 'linker' input unused [-Wunused-command-line-argument]]
+        ignore line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple arm64-apple-macosx14.4.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -mrelax-all --mrelax-relocations -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=14.4 -fvisibility-inlines-hidden-static-local-var -target-cpu apple-m1 -target-feature +v8.5a -target-feature +crc -target-feature +lse -target-feature +rdm -target-feature +crypto -target-feature +dotprod -target-feature +fp-armv8 -target-feature +neon -target-feature +fp16fml -target-feature +ras -target-feature +rcpc -target-feature +zcm -target-feature +zcz -target-feature +fullfp16 -target-feature +sm4 -target-feature +sha3 -target-feature +sha2 -target-feature +aes -target-abi darwinpcs -debug-info-kind=standalone -dwarf-version=4 -debugger-tuning=lldb -target-linker-version 1053.12 -v -fcoverage-compilation-dir=/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0 -dependency-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/CMakeCCompilerABI.d -skip-unused-modulemap-deps -MT dependencies -ivfsstatcache /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -D "CMAKE_INTDIR=\\"Debug\\"" -I /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug/include -I /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/DerivedSources-normal/arm64 -I /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/DerivedSources/arm64 -I /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/DerivedSources -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -O0 -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-implicit-fallthrough -Wdeprecated-declarations -Wno-sign-conversion -Wno-infinite-recursion -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-semicolon-before-method-body -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -fdebug-compilation-dir=/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw -ferror-limit 19 -fmacro-backtrace-limit 0 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fpascal-strings -fmax-type-align=16 -fcommon -fdiagnostics-show-note-include-stack -serialize-diagnostic-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/CMakeCCompilerABI.dia -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -mllvm -disable-aligned-alloc-awareness=1 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/CMakeCCompilerABI.o -x c /opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [clang -cc1 version 15.0.0 (clang-1500.3.9.4) default target arm64-apple-darwin23.5.0]
+        ignore line: [ignoring nonexistent directory "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug/include"]
+        ignore line: [ignoring nonexistent directory "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/DerivedSources-normal/arm64"]
+        ignore line: [ignoring nonexistent directory "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/DerivedSources/arm64"]
+        ignore line: [ignoring nonexistent directory "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/DerivedSources"]
+        ignore line: [ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/local/include"]
+        ignore line: [ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/Library/Frameworks"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug (framework directory)]
+        ignore line: [ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include]
+        ignore line: [ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include]
+        ignore line: [ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include]
+        ignore line: [ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/System/Library/Frameworks (framework directory)]
+        ignore line: [End of search list.]
+        ignore line: []
+        ignore line: [Ld /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug/cmTC_5fbab normal (in target 'cmTC_5fbab' from project 'CMAKE_TRY_COMPILE')]
+        ignore line: [    cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw]
+        ignore line: [    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-macos14.4 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -O0 -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug -filelist /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab.LinkFileList -Xlinker -object_path_lto -Xlinker /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab_lto.o -Xlinker -no_deduplicate -v -Wl -v -Wl -search_paths_first -Wl -headerpad_max_install_names -Xlinker -dependency_info -Xlinker /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab_dependency_info.dat -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug/cmTC_5fbab]
+        ignore line: [Apple clang version 15.0.0 (clang-1500.3.9.4)]
+        ignore line: [Target: arm64-apple-macos14.4]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin]
+        reduced line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -lto_library /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib -no_deduplicate -dynamic -arch arm64 -platform_version macos 14.4.0 14.4 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -O0 -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug/cmTC_5fbab -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug -reproducible -filelist /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab.LinkFileList -object_path_lto /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab_lto.o -no_deduplicate -v -search_paths_first -headerpad_max_install_names -dependency_info /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab_dependency_info.dat -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/lib/darwin/libclang_rt.osx.a -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug]
+                  to: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -lto_library /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib -no_deduplicate -dynamic -arch arm64 -platform_version macos 14.4.0 14.4 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -O0 -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug/cmTC_5fbab -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug -reproducible -filelist /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab.LinkFileList -object_path_lto /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab_lto.o -no_deduplicate -v -search_paths_first -headerpad_max_install_names -dependency_info /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab_dependency_info.dat -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/lib/darwin/libclang_rt.osx.a -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug]
+        link line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -lto_library /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib -no_deduplicate -dynamic -arch arm64 -platform_version macos 14.4.0 14.4 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -O0 -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug/cmTC_5fbab -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug -reproducible -filelist /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab.LinkFileList -object_path_lto /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab_lto.o -no_deduplicate -v -search_paths_first -headerpad_max_install_names -dependency_info /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab_dependency_info.dat -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/lib/darwin/libclang_rt.osx.a -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug]
+          arg [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld] ==> ignore
+          arg [-demangle] ==> ignore
+          arg [-lto_library] ==> ignore, skip following value
+          arg [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib] ==> skip value of -lto_library
+          arg [-no_deduplicate] ==> ignore
+          arg [-dynamic] ==> ignore
+          arg [-arch] ==> ignore
+          arg [arm64] ==> ignore
+          arg [-platform_version] ==> ignore
+          arg [macos] ==> ignore
+          arg [14.4.0] ==> ignore
+          arg [14.4] ==> ignore
+          arg [-syslibroot] ==> ignore
+          arg [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk] ==> ignore
+          arg [-O0] ==> ignore
+          arg [-o] ==> ignore
+          arg [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug/cmTC_5fbab] ==> ignore
+          arg [-L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug] ==> dir [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug]
+          arg [-reproducible] ==> ignore
+          arg [-filelist] ==> ignore
+          arg [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab.LinkFileList] ==> ignore
+          arg [-object_path_lto] ==> ignore
+          arg [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab_lto.o] ==> obj [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab_lto.o]
+          arg [-no_deduplicate] ==> ignore
+          arg [-v] ==> ignore
+          arg [-search_paths_first] ==> ignore
+          arg [-headerpad_max_install_names] ==> ignore
+          arg [-dependency_info] ==> ignore
+          arg [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab_dependency_info.dat] ==> ignore
+          arg [-lSystem] ==> lib [System]
+          arg [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/lib/darwin/libclang_rt.osx.a] ==> lib [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/lib/darwin/libclang_rt.osx.a]
+          arg [-F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug] ==> ignore
+        Library search paths: [;/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug;/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib/swift]
+        Framework search paths: [;/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug;/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/System/Library/Frameworks]
+        remove lib [System]
+        remove lib [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/lib/darwin/libclang_rt.osx.a]
+        collapse library dir [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug] ==> [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug], skipping non-system directory
+        collapse library dir [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug] ==> [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug], skipping non-system directory
+        collapse library dir [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug] ==> [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug], skipping non-system directory
+        collapse library dir [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib] ==> [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib]
+        collapse library dir [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib/swift] ==> [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib/swift]
+        collapse framework dir [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug] ==> [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/EagerLinkingTBDs/Debug], skipping non-system directory
+        collapse framework dir [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug] ==> [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/Debug], skipping non-system directory
+        collapse framework dir [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/System/Library/Frameworks] ==> [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/System/Library/Frameworks]
+        implicit libs: []
+        implicit objs: [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-rcxGgw/build/cmTC_5fbab.build/Debug/Objects-normal/arm64/cmTC_5fbab_lto.o]
+        implicit dirs: [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib/swift]
+        implicit fwks: [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/System/Library/Frameworks]
+      
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8"
+      binary: "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_OSX_ARCHITECTURES: ""
+      CMAKE_OSX_DEPLOYMENT_TARGET: ""
+      CMAKE_OSX_SYSROOT: "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8'
+        
+        Run Build Command(s): /usr/bin/xcodebuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTC_d988c -parallelizeTargets -configuration Debug -hideShellScriptEnvironment
+        Command line invocation:
+            /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTC_d988c -parallelizeTargets -configuration Debug -hideShellScriptEnvironment
+        
+        User defaults from command line:
+            HideShellScriptEnvironment = YES
+            IDEPackageSupportUseBuiltinSCM = YES
+        
+        ComputeTargetDependencyGraph
+        note: Building targets in dependency order
+        note: Target dependency graph (1 target)
+            Target 'cmTC_d988c' in project 'CMAKE_TRY_COMPILE' (no dependencies)
+        
+        GatherProvisioningInputs
+        
+        CreateBuildDescription
+        
+        ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -x c -c /dev/null
+        
+        ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -x c++ -c /dev/null
+        
+        ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -x c -c /dev/null
+        
+        ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+        
+        Build description signature: 76ec075c0b35e7cd619d278a8137ecfb
+        Build description path: /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/XCBuildData/76ec075c0b35e7cd619d278a8137ecfb.xcbuilddata
+        CreateBuildDirectory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build
+            cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/CMAKE_TRY_COMPILE.xcodeproj
+            builtin-create-build-directory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build
+        
+        CreateBuildDirectory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug
+            cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/CMAKE_TRY_COMPILE.xcodeproj
+            builtin-create-build-directory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug
+        
+        ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache
+            cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/CMAKE_TRY_COMPILE.xcodeproj
+            /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -o /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache
+        
+        CreateBuildDirectory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug
+            cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/CMAKE_TRY_COMPILE.xcodeproj
+            builtin-create-build-directory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug
+        
+        WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c.LinkFileList (in target 'cmTC_d988c' from project 'CMAKE_TRY_COMPILE')
+            cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8
+            write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c.LinkFileList
+        
+        WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp (in target 'cmTC_d988c' from project 'CMAKE_TRY_COMPILE')
+            cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8
+            write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+        -target arm64-apple-macos14.4 -fpascal-strings -O0 '-DCMAKE_INTDIR="Debug"' -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -g -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug/include -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/DerivedSources-normal/arm64 -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/DerivedSources/arm64 -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/DerivedSources -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug
+        
+        CompileC /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/CMakeCXXCompilerABI.o /opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeCXXCompilerABI.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'cmTC_d988c' from project 'CMAKE_TRY_COMPILE')
+            cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8
+            /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache -fmessage-length\\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body -v -Wl,-v @/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/CMakeCXXCompilerABI.d --serialize-diagnostics /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/CMakeCXXCompilerABI.dia -c /opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeCXXCompilerABI.cpp -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/CMakeCXXCompilerABI.o
+        Apple clang version 15.0.0 (clang-1500.3.9.4)
+        Target: arm64-apple-macos14.4
+        Thread model: posix
+        InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+        clang: warning: -Wl,-v: 'linker' input unused [-Wunused-command-line-argument]
+         "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple arm64-apple-macosx14.4.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -mrelax-all --mrelax-relocations -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=14.4 -fvisibility-inlines-hidden-static-local-var -target-cpu apple-m1 -target-feature +v8.5a -target-feature +crc -target-feature +lse -target-feature +rdm -target-feature +crypto -target-feature +dotprod -target-feature +fp-armv8 -target-feature +neon -target-feature +fp16fml -target-feature +ras -target-feature +rcpc -target-feature +zcm -target-feature +zcz -target-feature +fullfp16 -target-feature +sm4 -target-feature +sha3 -target-feature +sha2 -target-feature +aes -target-abi darwinpcs -debug-info-kind=standalone -dwarf-version=4 -debugger-tuning=lldb -target-linker-version 1053.12 -v -fcoverage-compilation-dir=/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8 -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0 -dependency-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/CMakeCXXCompilerABI.d -skip-unused-modulemap-deps -MT dependencies -ivfsstatcache /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -D "CMAKE_INTDIR=\\"Debug\\"" -I /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug/include -I /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/DerivedSources-normal/arm64 -I /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/DerivedSources/arm64 -I /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/DerivedSources -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1 -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -O0 -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -fdeprecated-macro -fdebug-compilation-dir=/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8 -ferror-limit 19 -fmacro-backtrace-limit 0 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fno-cxx-modules -fcxx-exceptions -fexceptions -fpascal-strings -fmax-type-align=16 -fcommon -fdiagnostics-show-note-include-stack -serialize-diagnostic-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/CMakeCXXCompilerABI.dia -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -mllvm -disable-aligned-alloc-awareness=1 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/CMakeCXXCompilerABI.o -x c++ /opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        clang -cc1 version 15.0.0 (clang-1500.3.9.4) default target arm64-apple-darwin23.5.0
+        ignoring nonexistent directory "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug/include"
+        ignoring nonexistent directory "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/DerivedSources-normal/arm64"
+        ignoring nonexistent directory "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/DerivedSources/arm64"
+        ignoring nonexistent directory "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/DerivedSources"
+        ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/local/include"
+        ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/Library/Frameworks"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug (framework directory)
+         /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1
+         /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include
+         /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include
+         /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+         /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/System/Library/Frameworks (framework directory)
+        End of search list.
+        
+        Ld /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug/cmTC_d988c normal (in target 'cmTC_d988c' from project 'CMAKE_TRY_COMPILE')
+            cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8
+            /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -Xlinker -reproducible -target arm64-apple-macos14.4 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -O0 -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug -filelist /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c.LinkFileList -Xlinker -object_path_lto -Xlinker /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c_lto.o -Xlinker -no_deduplicate -v -Wl,-v -Wl,-search_paths_first -Wl,-headerpad_max_install_names -Xlinker -dependency_info -Xlinker /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c_dependency_info.dat -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug/cmTC_d988c
+        Apple clang version 15.0.0 (clang-1500.3.9.4)
+        Target: arm64-apple-macos14.4
+        Thread model: posix
+        InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+         "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -lto_library /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib -no_deduplicate -dynamic -arch arm64 -platform_version macos 14.4.0 14.4 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -O0 -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug/cmTC_d988c -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug -reproducible -filelist /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c.LinkFileList -object_path_lto /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c_lto.o -no_deduplicate -v -search_paths_first -headerpad_max_install_names -dependency_info /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c_dependency_info.dat -lc++ -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/lib/darwin/libclang_rt.osx.a -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug
+        @(#)PROGRAM:ld PROJECT:ld-1053.12
+        BUILD 15:45:29 Feb  3 2024
+        configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em
+        will use ld-classic for: armv6 armv7 armv7s arm64_32 i386 armv6m armv7k armv7m armv7em
+        LTO support using: LLVM version 15.0.0 (static support for 29, runtime is 29)
+        TAPI support using: Apple TAPI version 15.0.0 (tapi-1500.3.2.2)
+        Library search paths:
+        	/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug
+        	/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug
+        	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib
+        	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib/swift
+        Framework search paths:
+        	/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug
+        	/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug
+        	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/System/Library/Frameworks
+        
+        RegisterExecutionPolicyException /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug/cmTC_d988c (in target 'cmTC_d988c' from project 'CMAKE_TRY_COMPILE')
+            cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8
+            builtin-RegisterExecutionPolicyException /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug/cmTC_d988c
+        
+        ** BUILD SUCCEEDED **
+        
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:127 (message)"
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1]
+          add: [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include]
+          add: [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include]
+          add: [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include]
+        end of search list found
+        collapse include dir [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1] ==> [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1]
+        collapse include dir [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include] ==> [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include]
+        collapse include dir [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include] ==> [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include]
+        collapse include dir [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include] ==> [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include]
+        implicit include dirs: [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1;/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include;/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:159 (message)"
+      - "/opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        ignore line: [Change Dir: '/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8']
+        ignore line: []
+        ignore line: [Run Build Command(s): /usr/bin/xcodebuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTC_d988c -parallelizeTargets -configuration Debug -hideShellScriptEnvironment]
+        ignore line: [Command line invocation:]
+        ignore line: [    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTC_d988c -parallelizeTargets -configuration Debug -hideShellScriptEnvironment]
+        ignore line: []
+        ignore line: [User defaults from command line:]
+        ignore line: [    HideShellScriptEnvironment = YES]
+        ignore line: [    IDEPackageSupportUseBuiltinSCM = YES]
+        ignore line: []
+        ignore line: [ComputeTargetDependencyGraph]
+        ignore line: [note: Building targets in dependency order]
+        ignore line: [note: Target dependency graph (1 target)]
+        ignore line: [    Target 'cmTC_d988c' in project 'CMAKE_TRY_COMPILE' (no dependencies)]
+        ignore line: []
+        ignore line: [GatherProvisioningInputs]
+        ignore line: []
+        ignore line: [CreateBuildDescription]
+        ignore line: []
+        ignore line: [ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -x c -c /dev/null]
+        ignore line: []
+        ignore line: [ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -x c++ -c /dev/null]
+        ignore line: []
+        ignore line: [ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -x c -c /dev/null]
+        ignore line: []
+        ignore line: [ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details]
+        ignore line: []
+        ignore line: [Build description signature: 76ec075c0b35e7cd619d278a8137ecfb]
+        ignore line: [Build description path: /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/XCBuildData/76ec075c0b35e7cd619d278a8137ecfb.xcbuilddata]
+        ignore line: [CreateBuildDirectory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build]
+        ignore line: [    cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/CMAKE_TRY_COMPILE.xcodeproj]
+        ignore line: [    builtin-create-build-directory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build]
+        ignore line: []
+        ignore line: [CreateBuildDirectory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug]
+        ignore line: [    cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/CMAKE_TRY_COMPILE.xcodeproj]
+        ignore line: [    builtin-create-build-directory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug]
+        ignore line: []
+        ignore line: [ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache]
+        ignore line: [    cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/CMAKE_TRY_COMPILE.xcodeproj]
+        ignore line: [    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -o /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache]
+        ignore line: []
+        ignore line: [CreateBuildDirectory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug]
+        ignore line: [    cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/CMAKE_TRY_COMPILE.xcodeproj]
+        ignore line: [    builtin-create-build-directory /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug]
+        ignore line: []
+        ignore line: [WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c.LinkFileList (in target 'cmTC_d988c' from project 'CMAKE_TRY_COMPILE')]
+        ignore line: [    cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8]
+        ignore line: [    write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c.LinkFileList]
+        ignore line: []
+        ignore line: [WriteAuxiliaryFile /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp (in target 'cmTC_d988c' from project 'CMAKE_TRY_COMPILE')]
+        ignore line: [    cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8]
+        ignore line: [    write-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp]
+        ignore line: [-target arm64-apple-macos14.4 -fpascal-strings -O0 '-DCMAKE_INTDIR="Debug"' -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -g -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug/include -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/DerivedSources-normal/arm64 -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/DerivedSources/arm64 -I/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/DerivedSources -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug]
+        ignore line: []
+        ignore line: [CompileC /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/CMakeCXXCompilerABI.o /opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeCXXCompilerABI.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'cmTC_d988c' from project 'CMAKE_TRY_COMPILE')]
+        ignore line: [    cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8]
+        ignore line: [    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache -fmessage-length\\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body -v -Wl -v @/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/CMakeCXXCompilerABI.d --serialize-diagnostics /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/CMakeCXXCompilerABI.dia -c /opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeCXXCompilerABI.cpp -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/CMakeCXXCompilerABI.o]
+        ignore line: [Apple clang version 15.0.0 (clang-1500.3.9.4)]
+        ignore line: [Target: arm64-apple-macos14.4]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin]
+        ignore line: [clang: warning: -Wl -v: 'linker' input unused [-Wunused-command-line-argument]]
+        ignore line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple arm64-apple-macosx14.4.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -mrelax-all --mrelax-relocations -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=14.4 -fvisibility-inlines-hidden-static-local-var -target-cpu apple-m1 -target-feature +v8.5a -target-feature +crc -target-feature +lse -target-feature +rdm -target-feature +crypto -target-feature +dotprod -target-feature +fp-armv8 -target-feature +neon -target-feature +fp16fml -target-feature +ras -target-feature +rcpc -target-feature +zcm -target-feature +zcz -target-feature +fullfp16 -target-feature +sm4 -target-feature +sha3 -target-feature +sha2 -target-feature +aes -target-abi darwinpcs -debug-info-kind=standalone -dwarf-version=4 -debugger-tuning=lldb -target-linker-version 1053.12 -v -fcoverage-compilation-dir=/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8 -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0 -dependency-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/CMakeCXXCompilerABI.d -skip-unused-modulemap-deps -MT dependencies -ivfsstatcache /var/folders/24/7xwc9np96r1bkjgz6tr55z380000gr/C/com.apple.DeveloperTools/15.3-15E204a/Xcode/SDKStatCaches.noindex/macosx14.4-23E208-13f6e737bddbb37f317b3579f3535bf5.sdkstatcache -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -D "CMAKE_INTDIR=\\"Debug\\"" -I /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug/include -I /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/DerivedSources-normal/arm64 -I /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/DerivedSources/arm64 -I /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/DerivedSources -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1 -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -O0 -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -fdeprecated-macro -fdebug-compilation-dir=/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8 -ferror-limit 19 -fmacro-backtrace-limit 0 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fno-cxx-modules -fcxx-exceptions -fexceptions -fpascal-strings -fmax-type-align=16 -fcommon -fdiagnostics-show-note-include-stack -serialize-diagnostic-file /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/CMakeCXXCompilerABI.dia -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -mllvm -disable-aligned-alloc-awareness=1 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/CMakeCXXCompilerABI.o -x c++ /opt/homebrew/Cellar/cmake/3.28.3/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [clang -cc1 version 15.0.0 (clang-1500.3.9.4) default target arm64-apple-darwin23.5.0]
+        ignore line: [ignoring nonexistent directory "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug/include"]
+        ignore line: [ignoring nonexistent directory "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/DerivedSources-normal/arm64"]
+        ignore line: [ignoring nonexistent directory "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/DerivedSources/arm64"]
+        ignore line: [ignoring nonexistent directory "/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/DerivedSources"]
+        ignore line: [ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/local/include"]
+        ignore line: [ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/Library/Frameworks"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug (framework directory)]
+        ignore line: [ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1]
+        ignore line: [ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include]
+        ignore line: [ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include]
+        ignore line: [ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include]
+        ignore line: [ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/System/Library/Frameworks (framework directory)]
+        ignore line: [End of search list.]
+        ignore line: []
+        ignore line: [Ld /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug/cmTC_d988c normal (in target 'cmTC_d988c' from project 'CMAKE_TRY_COMPILE')]
+        ignore line: [    cd /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8]
+        ignore line: [    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -Xlinker -reproducible -target arm64-apple-macos14.4 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -O0 -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug -filelist /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c.LinkFileList -Xlinker -object_path_lto -Xlinker /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c_lto.o -Xlinker -no_deduplicate -v -Wl -v -Wl -search_paths_first -Wl -headerpad_max_install_names -Xlinker -dependency_info -Xlinker /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c_dependency_info.dat -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug/cmTC_d988c]
+        ignore line: [Apple clang version 15.0.0 (clang-1500.3.9.4)]
+        ignore line: [Target: arm64-apple-macos14.4]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin]
+        reduced line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -lto_library /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib -no_deduplicate -dynamic -arch arm64 -platform_version macos 14.4.0 14.4 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -O0 -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug/cmTC_d988c -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug -reproducible -filelist /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c.LinkFileList -object_path_lto /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c_lto.o -no_deduplicate -v -search_paths_first -headerpad_max_install_names -dependency_info /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c_dependency_info.dat -lc++ -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/lib/darwin/libclang_rt.osx.a -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug]
+                  to: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -lto_library /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib -no_deduplicate -dynamic -arch arm64 -platform_version macos 14.4.0 14.4 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -O0 -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug/cmTC_d988c -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug -reproducible -filelist /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c.LinkFileList -object_path_lto /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c_lto.o -no_deduplicate -v -search_paths_first -headerpad_max_install_names -dependency_info /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c_dependency_info.dat -lc++ -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/lib/darwin/libclang_rt.osx.a -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug]
+        link line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -lto_library /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib -no_deduplicate -dynamic -arch arm64 -platform_version macos 14.4.0 14.4 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -O0 -o /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug/cmTC_d988c -L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug -reproducible -filelist /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c.LinkFileList -object_path_lto /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c_lto.o -no_deduplicate -v -search_paths_first -headerpad_max_install_names -dependency_info /Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c_dependency_info.dat -lc++ -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/lib/darwin/libclang_rt.osx.a -F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug]
+          arg [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld] ==> ignore
+          arg [-demangle] ==> ignore
+          arg [-lto_library] ==> ignore, skip following value
+          arg [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib] ==> skip value of -lto_library
+          arg [-no_deduplicate] ==> ignore
+          arg [-dynamic] ==> ignore
+          arg [-arch] ==> ignore
+          arg [arm64] ==> ignore
+          arg [-platform_version] ==> ignore
+          arg [macos] ==> ignore
+          arg [14.4.0] ==> ignore
+          arg [14.4] ==> ignore
+          arg [-syslibroot] ==> ignore
+          arg [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk] ==> ignore
+          arg [-O0] ==> ignore
+          arg [-o] ==> ignore
+          arg [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug/cmTC_d988c] ==> ignore
+          arg [-L/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug] ==> dir [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug]
+          arg [-reproducible] ==> ignore
+          arg [-filelist] ==> ignore
+          arg [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c.LinkFileList] ==> ignore
+          arg [-object_path_lto] ==> ignore
+          arg [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c_lto.o] ==> obj [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c_lto.o]
+          arg [-no_deduplicate] ==> ignore
+          arg [-v] ==> ignore
+          arg [-search_paths_first] ==> ignore
+          arg [-headerpad_max_install_names] ==> ignore
+          arg [-dependency_info] ==> ignore
+          arg [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c_dependency_info.dat] ==> ignore
+          arg [-lc++] ==> lib [c++]
+          arg [-lSystem] ==> lib [System]
+          arg [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/lib/darwin/libclang_rt.osx.a] ==> lib [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/lib/darwin/libclang_rt.osx.a]
+          arg [-F/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug] ==> ignore
+        Library search paths: [;/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug;/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib/swift]
+        Framework search paths: [;/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug;/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/System/Library/Frameworks]
+        remove lib [System]
+        remove lib [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/lib/darwin/libclang_rt.osx.a]
+        collapse library dir [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug] ==> [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug], skipping non-system directory
+        collapse library dir [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug] ==> [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug], skipping non-system directory
+        collapse library dir [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug] ==> [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug], skipping non-system directory
+        collapse library dir [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib] ==> [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib]
+        collapse library dir [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib/swift] ==> [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib/swift]
+        collapse framework dir [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug] ==> [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/EagerLinkingTBDs/Debug], skipping non-system directory
+        collapse framework dir [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug] ==> [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/Debug], skipping non-system directory
+        collapse framework dir [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/System/Library/Frameworks] ==> [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/System/Library/Frameworks]
+        implicit libs: [c++]
+        implicit objs: [/Users/tonglt/CLionProjects/keybox/iosbuild/CMakeFiles/CMakeScratch/TryCompile-lyoyp8/build/cmTC_d988c.build/Debug/Objects-normal/arm64/cmTC_d988c_lto.o]
+        implicit dirs: [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib/swift]
+        implicit fwks: [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/System/Library/Frameworks]
+      
+      
+...
