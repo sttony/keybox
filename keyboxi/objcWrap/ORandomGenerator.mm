@@ -16,9 +16,10 @@ using namespace std;
     return data;
 }
 
-- (uint32_t)getNextInt { 
-    return 0;
+- (uint32_t)getNextInt {
+    return m_rg->GetNextInt32();
 }
+
 
 
 - (instancetype)init:(uint32_t)_type {

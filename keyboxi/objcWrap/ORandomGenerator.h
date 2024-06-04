@@ -14,6 +14,7 @@ const int kSalsa20Type = 0x01;
 - (instancetype)init:(uint32_t)_type;
 - (bool)initWithKey:(NSData *)vKey iv:(NSData *)vIV;
 - (NSMutableData*)getNextBytes:(uint32_t)num;
+- (uint32_t)getNextInt;
 @end
 
 
