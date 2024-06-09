@@ -24,12 +24,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="257647cf-a60d-4b33-a4f6-bb72301125c4" name="Changes" comment="ios skeleton">
-      <change afterPath="$PROJECT_DIR$/keybox_desktop/CSettings.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/keybox_desktop/CSettings.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/QtSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/QtSettings.xml" afterDir="false" />
+    <list default="true" id="257647cf-a60d-4b33-a4f6-bb72301125c4" name="Changes" comment="Add setting class">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keybox_desktop/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/keybox_desktop/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keybox_desktop/MainWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/keybox_desktop/MainWindow.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keybox_desktop/MainWindow.h" beforeDir="false" afterPath="$PROJECT_DIR$/keybox_desktop/MainWindow.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keybox_desktop/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/keybox_desktop/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +153,7 @@
       <workItem from="1716221513367" duration="23758000" />
       <workItem from="1716939791204" duration="511000" />
       <workItem from="1717543831332" duration="347000" />
-      <workItem from="1717967808751" duration="2517000" />
+      <workItem from="1717967808751" duration="4404000" />
     </task>
     <task id="LOCAL-00001" summary="Create Objc wrap for iOS.">
       <option name="closed" value="true" />
@@ -244,7 +243,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716417880159</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Add setting class">
+      <option name="closed" value="true" />
+      <created>1717970384893</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1717970384893</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -267,7 +274,8 @@
     <MESSAGE value="Add next uint32 for RG" />
     <MESSAGE value="Password generator completed" />
     <MESSAGE value="ios skeleton" />
-    <option name="LAST_COMMIT_MESSAGE" value="ios skeleton" />
+    <MESSAGE value="Add setting class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add setting class" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

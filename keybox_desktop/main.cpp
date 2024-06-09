@@ -6,13 +6,17 @@
 #include "../utilities/CRandomGenerator.h"
 #include "CPrimaryPasswordDlg.h"
 #include "utilities/InitGlobalRG.h"
+#include "CSettings.h"
 
 using namespace std;
+CSettings g_Settings;
 
 int main(int argc, char *argv[]) {
     // Create a Qt application
     QApplication app(argc, argv);
     InitGlobalRG();
+    g_Settings.Load();
+
 //    EntryDlg ev;
 //    int ret = ev.exec();
 //    CPrimaryPasswordDlg masterpasswordView;
@@ -24,7 +28,6 @@ int main(int argc, char *argv[]) {
 //    }
     // Create a main window
     MainWindow mainWindow;
-
     // Show the main window
     mainWindow.show();
 

@@ -17,10 +17,12 @@
 #include "EntryDlg.h"
 #include "utilities/error_code.h"
 #include "CPwdGeneratorDlg.h"
+#include "CSettings.h"
 
 using namespace std;
 
 extern CRandomGenerator g_RG;
+extern CSettings g_Settings;
 
 MainWindow::MainWindow() {
 
@@ -45,6 +47,10 @@ MainWindow::MainWindow() {
     resize(800, 600);
     createToolbar();
 
+    string last_file_path = g_Settings.GetLastKeyboxFilepath();
+    if( !last_file_path.empty()){
+        OpenFile(last_file_path);
+    }
 }
 
 void MainWindow::createToolbar() {// toolbar
@@ -202,27 +208,33 @@ void MainWindow::openFile() {
         if (fileNames.empty()) {
             return;
         }
-        auto newModel = new CKBModel;
-        newModel->SetFilePath(fileNames.at(0).toStdString());
-        this->setWindowTitle(fileNames.at(0));
-        newModel->LoadKBHeader(fileNames.at(0).toStdString());
+        auto file_path = fileNames.at(0).toStdString();
+        OpenFile(file_path);
 
-        CPrimaryPasswordDlg ppdlg(newModel->GetKeyDerivateParameters());
-        ppdlg.exec();
-        newModel->SetPrimaryKey(ppdlg.GetPassword());
-
-        if( newModel->LoadPayload()){
-            QMessageBox::information(nullptr, "Alert", "Seems like the password is not correct");
-            delete newModel;
-            return;
-        };
-
-        m_entry_table_view->setModel(newModel);
-        delete m_pModel;
-        m_pModel = newModel;
-        m_entry_table_view->repaint();
-        this->RefreshActionEnabled();
     }
+}
+
+void MainWindow::OpenFile(const std::string& file_path) {
+    auto newModel = new CKBModel;
+    newModel->SetFilePath(file_path);
+    setWindowTitle(file_path.c_str());
+    newModel->LoadKBHeader(file_path);
+
+    CPrimaryPasswordDlg ppdlg(newModel->GetKeyDerivateParameters());
+    ppdlg.exec();
+    newModel->SetPrimaryKey(ppdlg.GetPassword());
+
+    if( newModel->LoadPayload()){
+        QMessageBox::information(nullptr, "Alert", "Seems like the password is not correct");
+        delete newModel;
+        return;
+    };
+
+    m_entry_table_view->setModel(newModel);
+    delete m_pModel;
+    m_pModel = newModel;
+    m_entry_table_view->repaint();
+    RefreshActionEnabled();
 }
 
 void MainWindow::openPasswordGenerator() {

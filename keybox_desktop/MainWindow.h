@@ -69,6 +69,8 @@ private:
     void AddToolBarButton(QAction *p);
 
     void RefreshActionEnabled();
+
+    void OpenFile(const std::string&);
 };
 
 
