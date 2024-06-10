@@ -9,61 +9,10 @@
 #include <vector>
 #include <unordered_map>
 #include <functional>
+#include "CKBFileHeader.h"
 #include "CipherEngine.h"
 #include "CPwdEntry.h"
-
-class CKBFileHeader {
-public:
-    // constants
-    static const uint8_t END_OF_HEADER;
-    static const uint8_t KEEPASS_Comment;
-    static const uint8_t KEEPASS_CipherID;
-    static const uint8_t KEEPASS_CompressionFlags;
-    static const uint8_t KEEPASS_MasterSeed;
-    static const uint8_t KEEPASS_TransformSeed;
-    static const uint8_t KEEPASS_TransformRounds;
-    static const uint8_t KEEPASS_EncryptionIV;
-    static const uint8_t KEEPASS_InnerRandomStreamKey;
-    static const uint8_t KEEPASS_StreamStartBytes;
-    static const uint8_t KEEPASS_InnerRandomStreamID;
-    static const uint8_t KEEPASS_KdfParameters;
-    static const uint8_t KEEPASS_PublicCustomData;
-
-    static const uint8_t KEYBOX_PBKDF2_PARAM;
-    static const uint8_t KEYBOX_HMAC_SIGNATURE;
-
-private:
-    uint64_t m_signature = 0;
-    uint32_t m_version = 0;
-    std::unordered_map<uint8_t, std::function<uint32_t(const unsigned char *, uint32_t &, uint16_t)>> m_fields2handler;
-
-    PBKDF2_256_PARAMETERS m_key_derivative_parameters = {};
-    std::vector<unsigned char> m_encryption_iv = {};
-    std::vector<unsigned char> m_hmac_sha256_signature = {};
-
-public:
-    CKBFileHeader();
-
-    uint32_t Deserialize(const unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
-
-    uint32_t Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
-
-    PBKDF2_256_PARAMETERS &GetDerivativeParameters() {
-        return m_key_derivative_parameters;
-    }
-
-    const std::vector<unsigned char> &GetIV() {
-        return m_encryption_iv;
-    }
-
-    const std::vector<unsigned char>& GetHMACSignature(){
-        return m_hmac_sha256_signature;
-    }
-
-    uint32_t SetDerivativeParameters(const std::vector<unsigned char> &_salt, int num_round = 60000);
-
-    uint32_t CalculateHMAC(const std::vector<unsigned char>& master_key, const unsigned char* pPayloadBuff, size_t cbPayloadSize);
-};
+#include "CPwdGroup.h"
 
 class CKBFile {
 public:
@@ -87,7 +36,7 @@ public:
 
     CKBFileHeader &GetHeader();
 
-    void SetMasterKey(std::vector<unsigned char> key, IRandomGenerator &irg);
+    void SetMasterKey(std::vector<unsigned char> key, std::vector<unsigned char>&& onepad);
 
     void SetMasterKey(CMaskedBlob p);
 
@@ -99,9 +48,14 @@ public:
         return m_header.GetDerivativeParameters();
     }
 
+    const std::vector<CPwdGroup>& GetGroups();
+    uint32_t RemoveGroup(const std::string _uuid_str);
+    uint32_t UpdateGroup(const std::string& uid, const std::string& name);
+
 private:
     CKBFileHeader m_header;
     std::vector<CPwdEntry> m_entries;
+    std::vector<CPwdGroup> m_groups = {g_RootGroup};
     CMaskedBlob m_master_key;
 };
 

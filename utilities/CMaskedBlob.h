@@ -20,18 +20,18 @@ public:
 
     std::vector<unsigned char> ShowBin();
 
-    uint32_t Set(std::string &plainPassword, IRandomGenerator &randomGenerator);
+    uint32_t Set(std::string& plainPassword, std::vector<unsigned char>&& onepad);
 
-    uint32_t Set(std::string&& plainPassword, IRandomGenerator &randomGenerator);
+    uint32_t Set(std::string&& plainPassword, std::vector<unsigned char>&& onepad);
 
-    uint32_t Set(std::vector<unsigned char> &plainPassword, IRandomGenerator &randomGenerator);
+    uint32_t Set(std::vector<unsigned char> &plainPassword, std::vector<unsigned char>&& onepad);
 
     boost::property_tree::ptree toJsonObj();
 
     uint32_t fromJsonObj(const boost::property_tree::ptree &);
 
-    CMaskedBlob(std::string &plainPassword, IRandomGenerator &randomGenerator) {
-        Set(plainPassword, randomGenerator);
+    CMaskedBlob(std::string& plainPassword, std::vector<unsigned char>&& onepad) {
+        this->Set(plainPassword, std::move(onepad));
     }
 
     ~CMaskedBlob();

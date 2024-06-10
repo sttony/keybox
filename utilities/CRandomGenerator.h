@@ -12,13 +12,8 @@
 
 struct IRandomGenerator {
     virtual uint32_t GetNextBytes(uint32_t num, std::vector<unsigned char> &output) = 0;
-    virtual uint32_t GetNextInt32() {
-        std::vector<unsigned char> vOut;
-        GetNextBytes(4, vOut);
-        uint32_t result;
-        std::memcpy(&result, vOut.data(), 4);
-        return result;
-    }
+    virtual std::vector<unsigned char> GetNextBytes(uint32_t num) = 0;
+    virtual uint32_t GetNextInt32() = 0;
 };
 
 class CRandomGenerator : public IRandomGenerator {
@@ -36,6 +31,8 @@ public:
     uint32_t init(std::vector<unsigned char> vKey32, std::array<unsigned char, 8> vIV8);
 
     uint32_t GetNextBytes(uint32_t num, std::vector<unsigned char> &output) override;
+
+    virtual std::vector<unsigned char> GetNextBytes(uint32_t num) override;
 
     uint32_t GetNextInt32() override;
 };

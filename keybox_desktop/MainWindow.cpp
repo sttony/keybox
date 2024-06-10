@@ -14,10 +14,11 @@
 #include "MainWindow.h"
 #include "CKBModel.h"
 #include "CPrimaryPasswordDlg.h"
-#include "EntryDlg.h"
+#include "CPwdEntryDlg.h"
 #include "utilities/error_code.h"
 #include "CPwdGeneratorDlg.h"
 #include "CSettings.h"
+#include "CPwdGroupDlg.h"
 
 using namespace std;
 
@@ -27,43 +28,49 @@ extern CSettings g_Settings;
 MainWindow::MainWindow() {
 
     QSplitter *splitter = new QSplitter(this);
-    QTextEdit *leftTextEdit = new QTextEdit();
+
     m_entry_table_view = new CPwdEntryTableView;
     m_entry_table_view->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_entry_table_view->setSelectionMode(QAbstractItemView::SingleSelection);
-    connect(m_entry_table_view, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(onTableRowDoubleClicked(const QModelIndex&)));
+    connect(m_entry_table_view, &QTableView::doubleClicked, this, &MainWindow::onTableRowDoubleClicked);
     m_entry_table_view->setSortingEnabled(true);
+
+    m_group_list_view = new CPwdGroupListView;
+    m_group_model = new QStringListModel;
+    m_group_list_view->setModel(m_group_model);
 
     //view->setModel(m_pModel.get());
 
-    splitter->addWidget(leftTextEdit);
+    splitter->addWidget(m_group_list_view);
     splitter->addWidget(m_entry_table_view);
     QList<int> sizes;
     sizes << 200 << 800;
     splitter->setSizes(sizes);
     this->setCentralWidget(splitter);
-    createActions();
-    createMenus();
+    CreateActions();
+    CreateMenus();
     resize(800, 600);
-    createToolbar();
+    CreateToolbar();
 
+    RefreshActionEnabled();
     string last_file_path = g_Settings.GetLastKeyboxFilepath();
-    if( !last_file_path.empty()){
+    if (!last_file_path.empty()) {
         OpenFile(last_file_path);
     }
 }
 
-void MainWindow::createToolbar() {// toolbar
+void MainWindow::CreateToolbar() {// toolbar
     m_toolbar = addToolBar("toolbar");
     AddToolBarButton(m_newFileAction);
     AddToolBarButton(m_newEntryAction);
     AddToolBarButton(m_saveFileAction);
+    AddToolBarButton(m_newGroupAction);
     AddToolBarButton(m_lockAction);
 
 
     m_searchBox = new QLineEdit(this);
     m_searchBox->setPlaceholderText("Search...");
-    connect(m_searchBox, SIGNAL(textChanged(const QString &)), this, SLOT(onSearchTextChange(const QString &)));
+    connect(m_searchBox, &QLineEdit::textChanged, this, &MainWindow::onSearchTextChange);
     m_toolbar->addWidget(m_searchBox);
 }
 
@@ -74,7 +81,7 @@ void MainWindow::AddToolBarButton(QAction *action) {
     m_toolbar->addWidget(toolButton);
 }
 
-void MainWindow::createMenus() {
+void MainWindow::CreateMenus() {
     fileMenu = menuBar()->addMenu(tr("&File"));
     fileMenu->addAction(m_newFileAction);
     fileMenu->addAction(m_saveFileAction);
@@ -83,6 +90,8 @@ void MainWindow::createMenus() {
     entryMenu = menuBar()->addMenu(tr("&Entry"));
     entryMenu->addAction(m_newEntryAction);
 
+    groupMenu = menuBar()->addMenu(tr("&Group"));
+    groupMenu->addAction(m_newGroupAction);
 
     toolMenu = menuBar()->addMenu(tr("&Tools"));
     toolMenu->addAction(m_passwordGeneratorAction);
@@ -92,7 +101,7 @@ void MainWindow::createMenus() {
 
 }
 
-void MainWindow::createActions() {
+void MainWindow::CreateActions() {
     m_newFileAction = new QAction(QIcon(":img/img/doc.badge.plus.svg"), tr("&New"), this);
     m_newFileAction->setShortcuts(QKeySequence::New);
     m_newFileAction->setStatusTip(tr("Create a new file"));
@@ -112,44 +121,47 @@ void MainWindow::createActions() {
     m_newEntryAction = new QAction(QIcon(":img/img/person.badge.key.svg"), tr("&Add Entry"), this);
     connect(m_newEntryAction, &QAction::triggered, this, &MainWindow::newEntry);
 
+    m_newGroupAction = new QAction(QIcon(":img/img/folder.svg"), tr("Add Group"), this);
+    connect(m_newGroupAction, &QAction::triggered, this, &MainWindow::newGroup);
 
     m_passwordGeneratorAction = new QAction(tr("Open Password &Generator"), this);
     connect(m_passwordGeneratorAction, &QAction::triggered, this, &MainWindow::openPasswordGenerator);
 
-    m_lockAction = new QAction(QIcon(":img/img/lock.svg"), "Lock", this);
-    connect(m_lockAction, &QAction::triggered, this, &MainWindow::Lock);
+    m_lockAction = new QAction(QIcon(":img/img/lock.svg"), "lockFile", this);
+    connect(m_lockAction, &QAction::triggered, this, &MainWindow::lockFile);
 
     this->RefreshActionEnabled();
 
 }
 
-void MainWindow::Lock() {
+void MainWindow::lockFile() {
 
 }
 
 void MainWindow::newEntry() {
-    EntryDlg ev;
+    assert(m_pModel);
+    CPwdEntryDlg ev( m_pModel->GetGroups());
     if (ev.exec()) {
         m_pModel->AddEntry(ev.GetPwdEntry());
     }
 }
 
+void MainWindow::newGroup() {
+    assert(m_pModel);
+    CPwdGroupDlg dlg(m_pModel);
+    dlg.exec();
+}
+
 void MainWindow::saveFile() {
     assert(m_pModel != nullptr);
     if (m_pModel->GetFilePath().empty()) {
-        QFileDialog dialog;
-        dialog.setFileMode(QFileDialog::AnyFile);
-        dialog.setWindowTitle("Select a file");
-        dialog.selectFile("keybox.kbx");
-        if (dialog.exec()) {
-            // Get the selected file path(s)
-            QStringList fileNames = dialog.selectedFiles();
-            if (fileNames.empty()) {
-                return;
-            }
-
-            m_pModel->SetFilePath(fileNames.at(0).toStdString());
-            this->setWindowTitle(fileNames.at(0));
+        QString fileName = QFileDialog::getSaveFileName(this,
+                                                        "Save to",
+                                                        QDir::home().filePath("keybox.kbx"),
+                                                        "" );
+        if(!fileName.isEmpty()){
+            m_pModel->SetFilePath(fileName.toStdString());
+            this->setWindowTitle(fileName);
         }
     }
     if (m_pModel->GetFilePath().empty()) {
@@ -179,6 +191,9 @@ void MainWindow::saveFile() {
 
     ofs.close();
 
+    g_Settings.SetLastKeyboxFilepath(m_pModel->GetFilePath());
+    g_Settings.Save();
+
 }
 
 void MainWindow::newFile() {
@@ -188,13 +203,24 @@ void MainWindow::newFile() {
     newModel->SetKeyDerivateParameters(randomv32);
 
     CPrimaryPasswordDlg ppdlg(newModel->GetKeyDerivateParameters());
-    if(ppdlg.exec()) {
+    if (ppdlg.exec()) {
         newModel->SetPrimaryKey(ppdlg.GetPassword());
         m_entry_table_view->setModel(newModel);
+        ResetGroup(newModel);
         delete m_pModel;
         m_pModel = newModel;
         this->RefreshActionEnabled();
     }
+}
+
+void MainWindow::ResetGroup(CKBModel *newModel) {
+    QStringList groupList;
+    for (const auto &group: newModel->GetGroups()) {
+        groupList << group.GetName().c_str();
+
+    }
+    this->m_group_model->setStringList(groupList);
+    this->m_group_list_view->repaint();
 }
 
 void MainWindow::openFile() {
@@ -214,27 +240,31 @@ void MainWindow::openFile() {
     }
 }
 
-void MainWindow::OpenFile(const std::string& file_path) {
+void MainWindow::OpenFile(const std::string &file_path) {
     auto newModel = new CKBModel;
     newModel->SetFilePath(file_path);
-    setWindowTitle(file_path.c_str());
     newModel->LoadKBHeader(file_path);
-
     CPrimaryPasswordDlg ppdlg(newModel->GetKeyDerivateParameters());
-    ppdlg.exec();
-    newModel->SetPrimaryKey(ppdlg.GetPassword());
+    ppdlg.setWindowTitle( file_path.c_str());
+    if( ppdlg.exec() ) {
+        newModel->SetPrimaryKey(ppdlg.GetPassword());
 
-    if( newModel->LoadPayload()){
-        QMessageBox::information(nullptr, "Alert", "Seems like the password is not correct");
+        if (newModel->LoadPayload()) {
+            QMessageBox::information(nullptr, "Alert", "Seems like the password is not correct");
+            delete newModel;
+            return;
+        };
+        m_entry_table_view->setModel(newModel);
+        ResetGroup(newModel);
+        delete m_pModel;
+        m_pModel = newModel;
+        m_entry_table_view->repaint();
+        RefreshActionEnabled();
+        setWindowTitle(file_path.c_str());
+    }
+    else{
         delete newModel;
-        return;
-    };
-
-    m_entry_table_view->setModel(newModel);
-    delete m_pModel;
-    m_pModel = newModel;
-    m_entry_table_view->repaint();
-    RefreshActionEnabled();
+    }
 }
 
 void MainWindow::openPasswordGenerator() {
@@ -249,18 +279,24 @@ void MainWindow::RefreshActionEnabled() {
         m_newEntryAction->setEnabled(m_pModel != nullptr);
     if (m_lockAction)
         m_lockAction->setEnabled(m_pModel != nullptr);
+    if (m_searchBox) {
+        m_searchBox->setEnabled(m_pModel != nullptr);
+    }
+    if (m_newGroupAction) {
+        m_newGroupAction->setEnabled(m_pModel != nullptr);
+    }
 }
 
 void MainWindow::onTableRowDoubleClicked(const QModelIndex &index) {
     if (index.isValid()) {
         int row = index.row();
-        EntryDlg entryDlg(m_pModel->GetEntry(row));
-        if(entryDlg.exec()){
+        CPwdEntryDlg entryDlg(m_pModel->GetGroups(), m_pModel->GetEntry(row));
+        if (entryDlg.exec()) {
             m_pModel->SetEntry(entryDlg.GetPwdEntry(), row);
         }
     }
 }
 
-void MainWindow::onSearchTextChange(const QString& _filter) {
+void MainWindow::onSearchTextChange(const QString &_filter) {
     m_pModel->SetFilter(_filter);
 }

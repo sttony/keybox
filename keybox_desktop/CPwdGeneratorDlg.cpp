@@ -86,7 +86,7 @@ CPwdGeneratorDlg::CPwdGeneratorDlg(QWidget *parent): m_pwdGenerator(g_RG) {
 
 void CPwdGeneratorDlg::RefreshPwd() {
     CMaskedBlob _blob;
-    _blob.Set(m_pwdGenerator.GeneratePassword(), g_RG);
+    _blob.Set(m_pwdGenerator.GeneratePassword(), g_RG.GetNextBytes(m_pwdGenerator.GetLength()));
     m_textPwd->SetPassword(_blob);
 }
 

@@ -45,8 +45,8 @@ public:
         return m_password.Show();
     }
 
-    uint32_t SetPassword(std::string &plain_pwd, IRandomGenerator &iRandomGenerator) {
-        return m_password.Set(plain_pwd, iRandomGenerator);
+    uint32_t SetPassword(std::string &plain_pwd, std::vector<unsigned char>&& onepad) {
+        return m_password.Set(plain_pwd, std::move(onepad));
     }
 
     void SetPassword(const CMaskedBlob& _maskedblob ) {
@@ -61,8 +61,8 @@ public:
         return m_note.Show();
     }
 
-    uint32_t SetNote(std::string &plain_note, IRandomGenerator &iRandomGenerator) {
-        return m_note.Set(plain_note, iRandomGenerator);
+    uint32_t SetNote(std::string &plain_note, std::vector<unsigned char>&& onepad) {
+        return m_note.Set(plain_note, std::move(onepad));
     }
 
     void SetNote(const CMaskedBlob& _maskedblob) {
@@ -77,9 +77,12 @@ public:
         return m_attachment.ShowBin();
     }
 
-    uint32_t SetAttachment(std::vector<unsigned char> &blob, IRandomGenerator &iRandomGenerator) {
-        return m_attachment.Set(blob, iRandomGenerator);
+    uint32_t SetAttachment(std::vector<unsigned char> &blob, std::vector<unsigned char>&& onepad) {
+        return m_attachment.Set(blob, std::move(onepad));
     }
+
+    boost::uuids::uuid GetGroup();
+    void SetGroup(boost::uuids::uuid uuid);
 
 private:
     boost::uuids::uuid m_uuid;
@@ -89,6 +92,7 @@ private:
     CMaskedBlob m_note;
     CMaskedBlob m_password;
     CMaskedBlob m_attachment;
+    boost::uuids::uuid m_group_uuid;
     std::vector<CMaskedBlob> m_password_history;
 };
 

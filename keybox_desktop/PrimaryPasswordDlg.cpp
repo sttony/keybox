@@ -36,6 +36,6 @@ void CPrimaryPasswordDlg::onOK() {
     CCipherEngine cipherEngine;
     vector<unsigned char> keybuff;
     cipherEngine.PBKDF2DerivativeKey(m_pwd.Show(), m_pbkdf2_paras, keybuff);
-    m_pwd.Set(keybuff, g_RG);
+    m_pwd.Set(keybuff, g_RG.GetNextBytes(keybuff.size()));
     QDialog::accept();
 }

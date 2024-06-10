@@ -2,7 +2,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
 #include "MainWindow.h"
-#include "EntryDlg.h"
+#include "CPwdEntryDlg.h"
 #include "../utilities/CRandomGenerator.h"
 #include "CPrimaryPasswordDlg.h"
 #include "utilities/InitGlobalRG.h"
@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     InitGlobalRG();
     g_Settings.Load();
 
-//    EntryDlg ev;
+//    CPwdEntryDlg ev;
 //    int ret = ev.exec();
 //    CPrimaryPasswordDlg masterpasswordView;
 //    if( masterpasswordView.exec() == QDialog::Accepted){

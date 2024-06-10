@@ -15,31 +15,37 @@ CMaskedBlob::~CMaskedBlob() {
         memset(&m_onepad[0], 0, m_onepad.size());
 }
 
-uint32_t CMaskedBlob::Set(std::string &plainPassword, IRandomGenerator &randomGenerator) {
-    if (randomGenerator.GetNextBytes(plainPassword.size(), m_onepad)) {
-        return ERROR_UNEXPECT_RG_FAILURE;
+uint32_t CMaskedBlob::Set(std::string& plainPassword, vector<unsigned char>&& onepad) {
+    if (plainPassword.size() != onepad.size()) {
+        return ERROR_INVALID_PARAMETER;
     };
+    m_onepad.resize(onepad.size());
+    memcpy(m_onepad.data(), onepad.data(), onepad.size());
     m_password = vector<unsigned char>(plainPassword.size(), '*');
     for (int i = 0; i < m_password.size(); ++i) {
         m_password[i] = plainPassword[i] ^ m_onepad[i];
     }
-    memset(&plainPassword[0], 0, plainPassword.size());
+    memset(plainPassword.data(), 0, plainPassword.size());
+    memset(onepad.data(), 0, onepad.size());
     return 0;
 }
 
-uint32_t CMaskedBlob::Set(std::string && plainPassword, IRandomGenerator &randomGenerator) {
-    return this->Set(plainPassword, randomGenerator);
+uint32_t CMaskedBlob::Set(std::string&& plainPassword, vector<unsigned char>&& onepad) {
+    return this->Set(plainPassword, std::move(onepad));
 }
 
-uint32_t CMaskedBlob::Set(vector<unsigned char> &plainPassword, IRandomGenerator &randomGenerator) {
-    if (randomGenerator.GetNextBytes(plainPassword.size(), m_onepad)) {
-        return ERROR_UNEXPECT_RG_FAILURE;
+uint32_t CMaskedBlob::Set(vector<unsigned char> &plainPassword, vector<unsigned char>&& onepad) {
+    if (plainPassword.size() != onepad.size()) {
+        return ERROR_INVALID_PARAMETER;
     };
+    m_onepad.resize(onepad.size());
+    memcpy(m_onepad.data(), onepad.data(), onepad.size());
     m_password = vector<unsigned char>(plainPassword.size(), '*');
     for (int i = 0; i < m_password.size(); ++i) {
         m_password[i] = plainPassword[i] ^ m_onepad[i];
     }
-    memset(&plainPassword[0], 0, plainPassword.size());
+    memset(plainPassword.data(), 0, plainPassword.size());
+    memset(onepad.data(), 0, onepad.size());
     return 0;
 }
 

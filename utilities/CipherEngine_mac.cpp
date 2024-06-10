@@ -96,7 +96,44 @@ uint32_t CCipherEngine::KeepassDerivativeKey(const string &sKey,
                                              uint32_t uNumRounds,
                                              const vector<unsigned char> &vMasterSeed,
                                              vector<unsigned char> &output){
-    return 0;
+    uint32_t status  = 0;
+    CCipherEngine cipherEngine;
+    vector<unsigned char> sha256_key(32);
+    //  Sha256(password)
+    status = cipherEngine.SHA256((unsigned char *) sKey.c_str(), sKey.size(), &sha256_key[0], 32);
+    // Sha256(sha256(password))
+    status = cipherEngine.SHA256(&sha256_key[0], 32, &sha256_key[0], 32);
+
+    vector<unsigned char> tempIV(16);
+    CCOperation op = kCCEncrypt;
+    CCOptions options  = 0;
+    options |= kCCOptionECBMode;
+    size_t cbRealOutPutSize = 0;
+    for (int i = 0; i < uNumRounds; ++i) {
+        status = CCCrypt(op, kCCAlgorithmAES, options,
+                         vTransformSeed.data(), vTransformSeed.size(),
+                         nullptr,
+                         sha256_key.data(), 16,
+                         sha256_key.data(), 16,
+                         &cbRealOutPutSize
+        );
+        status = CCCrypt(op, kCCAlgorithmAES, options,
+                         vTransformSeed.data(), vTransformSeed.size(),
+                         nullptr,
+                         sha256_key.data()+16, 16,
+                         sha256_key.data()+16, 16,
+                         &cbRealOutPutSize
+        );
+    }
+    // Sha256 again
+    status = cipherEngine.SHA256(&sha256_key[0], 32, &sha256_key[0], 32);
+    vector<unsigned char> compositKey(64);
+    memcpy(&compositKey[0], &vMasterSeed[0], 32);
+    memcpy(&compositKey[32], &sha256_key[0], 32);
+
+    output.resize(32);
+    status = cipherEngine.SHA256(&compositKey[0], compositKey.size(), &output[0], 32);
+    return status;
 }
 
 void CCipherEngine::CleanString(string &str) {

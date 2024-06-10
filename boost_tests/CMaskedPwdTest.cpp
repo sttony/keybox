@@ -20,6 +20,20 @@ public:
         }
         return 0;
     }
+
+    vector<unsigned char> GetNextBytes(uint32_t num) override {
+        vector<unsigned char> result;
+        this->GetNextBytes(num, result);
+        return std::move(result);
+    }
+
+    uint32_t GetNextInt32() override {
+        vector<unsigned char> vOut;
+        GetNextBytes(4, vOut);
+        uint32_t result;
+        memcpy(&result, vOut.data(), 4);
+        return result;
+    }
 };
 
 BOOST_AUTO_TEST_SUITE(CMaskedPwdTestSuit)
@@ -28,7 +42,7 @@ BOOST_AUTO_TEST_SUITE(CMaskedPwdTestSuit)
 
         string plainword = "\x1\x2\x3\x4";
         TestRandomGenerator fakeRG;
-        CMaskedBlob spwd(plainword, fakeRG);
+        CMaskedBlob spwd(plainword, fakeRG.GetNextBytes(plainword.size()));
         BOOST_CHECK_EQUAL(plainword, string(4, 0));
         BOOST_CHECK_EQUAL(spwd.Show(), "\x1\x2\x3\x4");
     }
@@ -37,7 +51,7 @@ BOOST_AUTO_TEST_SUITE(CMaskedPwdTestSuit)
 
         string plainword = "\x1\x2\x3\x4";
         TestRandomGenerator fakeRG;
-        CMaskedBlob spwd(plainword, fakeRG);
+        CMaskedBlob spwd(plainword, fakeRG.GetNextBytes(plainword.size()));
         BOOST_CHECK_EQUAL(plainword, string(4, 0));
         std::ostringstream oss;
         boost::property_tree::write_json(oss, spwd.toJsonObj());

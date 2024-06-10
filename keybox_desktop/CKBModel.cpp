@@ -170,3 +170,15 @@ void CKBModel::SetFilter(const QString &filterText) {
     }
     emit layoutChanged();
 }
+
+const std::vector<CPwdGroup> &CKBModel::GetGroups() {
+    return m_kbfile.GetGroups();
+}
+
+uint32_t CKBModel::RemoveGroup(const std::string _uuid_str) {
+    return m_kbfile.RemoveGroup(_uuid_str);
+}
+
+uint32_t CKBModel::UpdateGroup(const std::string &uid, const std::string &name) {
+    return m_kbfile.UpdateGroup(uid, name);
+}

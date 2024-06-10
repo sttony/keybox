@@ -55,26 +55,26 @@ void CPasswordBox::onShowClickedMultipleline() {
         m_showButton->setIcon(*m_hideIcon);
         m_textInput_multipleline->setDisabled(true);
         string text = m_textInput_multipleline->toPlainText().toStdString();
-        m_masked_blob.Set(text, m_randomGenerator);
+        m_masked_blob.Set(text, m_randomGenerator.GetNextBytes(text.size()));
         m_textInput_multipleline->setText(string(m_textInput_multipleline->toPlainText().size(), '*').c_str());
     }
 }
 
 void CPasswordBox::onTextChanged(const QString &text) {
     string temp = text.toStdString();
-    m_masked_blob.Set(temp, m_randomGenerator);
+    m_masked_blob.Set(temp, m_randomGenerator.GetNextBytes(temp.size()));
 }
 
 
 void CPasswordBox::onMultipleTextChanged() {
     string temp = m_textInput_multipleline->toPlainText().toStdString();
-    m_masked_blob.Set(temp, m_randomGenerator);
+    m_masked_blob.Set(temp, m_randomGenerator.GetNextBytes(temp.size()));
 }
 
 
 void CPasswordBox::onFocusOut() {
     string temp = m_textInput_oneline->text().toStdString();
-    m_masked_blob.Set(temp, m_randomGenerator);
+    m_masked_blob.Set(temp, m_randomGenerator.GetNextBytes(temp.size()));
     if(m_doesShow){
         m_textInput_oneline->setEchoMode(QLineEdit::Normal);
     }

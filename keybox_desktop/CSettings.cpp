@@ -25,6 +25,9 @@ uint32_t CSettings::Load() {
     }
     boost::property_tree::ptree settings_pt;
     ifstream ifs(full_path.string(), ios_base::in);
+    if(ifs.bad()){
+        return ERROR_FILE_IO;
+    }
     try {
         boost::property_tree::read_json(ifs, settings_pt);
     } catch (const boost::property_tree::json_parser_error &e) {
@@ -32,6 +35,7 @@ uint32_t CSettings::Load() {
     }
 
     m_last_keybox_file_path = settings_pt.get<std::string>(LAST_KEYBOX_FILE_PATH_KEY);
+    return 0;
 }
 
 void CSettings::Save() {
@@ -41,7 +45,10 @@ void CSettings::Save() {
 
     boost::property_tree::ptree settings_pt;
     settings_pt.put(LAST_KEYBOX_FILE_PATH_KEY,m_last_keybox_file_path);
-    ofstream ofs(full_path.string(), ios_base::in);
+    ofstream ofs(full_path.string(), ios_base::out);
+    if(ofs.bad()){
+        return;
+    }
     boost::property_tree::write_json(ofs, settings_pt);
     ofs.close();
 }

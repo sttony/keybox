@@ -20,8 +20,8 @@ add_executable(keyboxd main.cpp
         MainWindow.h
         ${MOC_SOURCES}
         resouces.qrc
-        EntryDlg.cpp
-        EntryDlg.h
+        CPwdEntryDlg.cpp
+        CPwdEntryDlg.h
         CPasswordBox.cpp
         CPasswordBox.h
         CKBModel.cpp
@@ -34,6 +34,10 @@ add_executable(keyboxd main.cpp
         CPwdGeneratorDlg.h
         CSettings.cpp
         CSettings.h
+        CPwdGroupListView.cpp
+        CPwdGroupListView.h
+        CPwdGroupDlg.cpp
+        CPwdGroupDlg.h
 )
 
 target_link_libraries(

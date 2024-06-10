@@ -8,8 +8,9 @@
 #include <QAbstractTableModel>
 
 #include "../utilities/CKBFile.h"
+#include "utilities/CPwdGroup.h"
 
-class CKBModel : public QAbstractTableModel {
+class CKBModel : public QAbstractTableModel{
 Q_OBJECT
 
 public:
@@ -48,6 +49,10 @@ public:
     const std::string &GetFilePath() const;
 
     void SetFilePath(const std::string &filepath);
+
+    const std::vector<CPwdGroup>& GetGroups();
+    uint32_t RemoveGroup(const std::string _uuid_str);
+    uint32_t UpdateGroup(const std::string& uid, const std::string& name);
 
 private:
     CKBFile m_kbfile;

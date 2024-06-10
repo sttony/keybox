@@ -19,10 +19,12 @@ set(HEADER_FILES
         Base64Coder.cpp
         Base64Coder.h
         CKBFile.h
+        CKBFileHeader.h
         CPwdEntry.h
         CMaskedBlob.h
         InitGlobalRG.h
         CPasswordGenerator.h
+        CPwdGroup.h
 )
 
 IF (WIN32)
@@ -33,11 +35,13 @@ IF (WIN32)
             Salsa20Cipher.cpp
             CRandomGenerator.cpp
             Base64Coder.cpp
+            CKBFileHeader.cpp
             CKBFile.cpp
             CPwdEntry.cpp
             CMaskedBlob.cpp
             InitGlobalRG_win.cpp
             CPasswordGenerator.cpp
+            CPwdGroup.cpp
     )
 ELSEIF (APPLE)
     set(SOURCE_FILES
@@ -49,9 +53,11 @@ ELSEIF (APPLE)
             Base64Coder.cpp
             CPwdEntry.cpp
             CMaskedBlob.cpp
+            CKBFileHeader.cpp
             CKBFile.cpp
             InitGlobalRG_mac.cpp
             CPasswordGenerator.cpp
+            CPwdGroup.cpp
     )
 ELSEIF (LINUX)
     set(SOURCE_FILES
@@ -64,8 +70,10 @@ ELSEIF (LINUX)
             CPwdEntry.cpp
             CMaskedBlob.cpp
             InitGlobalRG_linux.cpp
+            CKBFileHeader.cpp
             CKBFile.cpp
             CPasswordGenerator.cpp
+            CPwdGroup.cpp
 
     )
 ENDIF (WIN32)

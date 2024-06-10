@@ -18,6 +18,19 @@ public:
         }
         return 0;
     }
+    vector<unsigned char> GetNextBytes(uint32_t num) override {
+        vector<unsigned char> result;
+        this->GetNextBytes(num, result);
+        return std::move(result);
+    }
+
+    uint32_t GetNextInt32() override {
+        vector<unsigned char> vOut;
+        GetNextBytes(4, vOut);
+        uint32_t result;
+        memcpy(&result, vOut.data(), 4);
+        return result;
+    }
 };
 
 BOOST_AUTO_TEST_SUITE(CKBFileTestSuit)
@@ -57,17 +70,17 @@ BOOST_AUTO_TEST_SUITE(CKBFileTestSuit)
         pwdEntry.SetTitle("Test");
         string plainpwd = "abc123";
         TestRandomGenerator fakerg;
-        pwdEntry.SetPassword(plainpwd, fakerg);
+        pwdEntry.SetPassword(plainpwd, fakerg.GetNextBytes(plainpwd.size()));
 
         CPwdEntry pwdEntry2;
         pwdEntry2.SetTitle("Test2");
         string plainpwd2 = "password";
-        pwdEntry2.SetPassword(plainpwd2, fakerg);
+        pwdEntry2.SetPassword(plainpwd2, fakerg.GetNextBytes(plainpwd2.size()));
 
         kbFile.AddEntry(pwdEntry);
         kbFile.AddEntry(pwdEntry2);
         vector<unsigned char> key(32, 0x01);
-        kbFile.SetMasterKey(key, fakerg);
+        kbFile.SetMasterKey(key, fakerg.GetNextBytes(key.size()));
 
         vector<unsigned char> buff(1024 * 1024);
         uint32_t realSize = 0;
@@ -75,7 +88,7 @@ BOOST_AUTO_TEST_SUITE(CKBFileTestSuit)
 
         CKBFile testKBFile;
         key = vector<unsigned char>(32, 0x01);
-        testKBFile.SetMasterKey(key, fakerg);
+        testKBFile.SetMasterKey(key, fakerg.GetNextBytes(key.size()));
         uint32_t cbRealSize = 0;
         testKBFile.Deserialize(&buff[0], realSize, cbRealSize);
         auto entry1 = testKBFile.QueryEntryByTitle("Test");

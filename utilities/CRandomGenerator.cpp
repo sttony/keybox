@@ -27,6 +27,12 @@ uint32_t CRandomGenerator::init(std::vector<unsigned char> vKey32, std::array<un
     return 0;
 }
 
+vector<unsigned char> CRandomGenerator::GetNextBytes(uint32_t num) {
+    vector<unsigned char> result;
+    this->GetNextBytes(num, result);
+    return std::move(result);
+}
+
 uint32_t CRandomGenerator::GetNextBytes(uint32_t num, vector<unsigned char> &output) {
     output.resize(num);
     uint32_t temp_num = num;

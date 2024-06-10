@@ -15,8 +15,10 @@
 #include <QTreeWidgetItem>
 #include <QToolBar>
 #include <QTableView>
+#include <QStringListModel>
 #include "CKBModel.h"
 #include "CPwdEntryTableView.h"
+#include "CPwdGroupListView.h"
 
 class MainWindow : public QMainWindow {
 Q_OBJECT
@@ -34,7 +36,7 @@ private slots:
 
     void newEntry();
 
-    void Lock();
+    void lockFile();
 
     void openPasswordGenerator();
 
@@ -42,27 +44,36 @@ private slots:
 
     void onSearchTextChange(const QString &);
 
+    void newGroup();
+
 private:
-    void createActions();
+    void CreateActions();
 
-    void createMenus();
+    void CreateMenus();
 
-    void createToolbar();
+    void CreateToolbar();
 
-    QAction *m_newFileAction;
-    QAction *m_saveFileAction;
-    QAction *m_openFileAction;
-    QAction *m_newEntryAction;
-    QAction *m_lockAction;
-    QAction *m_passwordGeneratorAction;
+    void ResetGroup(CKBModel *newModel);
 
-    QMenu *fileMenu;
-    QMenu *entryMenu;
-    QMenu *toolMenu;
-    QToolBar *m_toolbar;
-    QLineEdit* m_searchBox;
 
-    CPwdEntryTableView *m_entry_table_view;
+    QAction *m_newFileAction = nullptr;
+    QAction *m_saveFileAction = nullptr;
+    QAction *m_openFileAction = nullptr;
+    QAction *m_newEntryAction = nullptr;
+    QAction *m_newGroupAction = nullptr;
+    QAction *m_lockAction = nullptr;
+    QAction *m_passwordGeneratorAction = nullptr;
+
+    QMenu *fileMenu = nullptr;
+    QMenu *entryMenu = nullptr;
+    QMenu *groupMenu = nullptr;
+    QMenu *toolMenu = nullptr;
+    QToolBar *m_toolbar = nullptr;
+    QLineEdit* m_searchBox = nullptr;
+
+    CPwdEntryTableView *m_entry_table_view = nullptr ;
+    CPwdGroupListView *m_group_list_view = nullptr;
+    QStringListModel *m_group_model = nullptr;
 
     CKBModel *m_pModel = nullptr;
 
