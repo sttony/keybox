@@ -46,6 +46,8 @@ private slots:
 
     void newGroup();
 
+    void onClickGroup(const QModelIndex& index);
+
 private:
     void CreateActions();
 

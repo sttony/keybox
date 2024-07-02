@@ -59,7 +59,7 @@ uint32_t CPwdEntry::fromJsonObj(const boost::property_tree::ptree &jsonObj) {
     return 0;
 }
 
-boost::uuids::uuid CPwdEntry::GetGroup() {
+boost::uuids::uuid CPwdEntry::GetGroup() const {
     return m_group_uuid;
 }
 

@@ -111,7 +111,7 @@ uint32_t CKBModel::LoadPayload() {
     if(uResult){
         return uResult;
     }
-    m_filtered_entries = m_kbfile.GetEntries();
+    setFilter();
     return 0;
 }
 
@@ -159,19 +159,30 @@ void CKBModel::sort(int column, Qt::SortOrder order) {
     emit layoutChanged();
 }
 
-void CKBModel::SetFilter(const QString &filterText) {
+void CKBModel::setFilter() {
     m_filtered_entries.clear();
     for(const auto& pe: m_kbfile.GetEntries()){
-        if( pe.GetUserName().find( filterText.toStdString()) != string::npos ||
-                pe.GetUrl().find( filterText.toStdString()) != string::npos ||
-                pe.GetTitle().find( filterText.toStdString()) != string::npos ){
+        if( (pe.GetUserName().find( m_filter_text) != string::npos ||
+                pe.GetUrl().find( m_filter_text) != string::npos ||
+                pe.GetTitle().find( m_filter_text) != string::npos )
+                && pe.GetGroup() == m_filter_group){
             m_filtered_entries.emplace_back(pe);
         }
     }
     emit layoutChanged();
 }
 
-const std::vector<CPwdGroup> &CKBModel::GetGroups() {
+void CKBModel::SetFilter(const QString& filterText){
+    m_filter_text = filterText.toStdString();
+    this->setFilter();
+}
+
+void CKBModel::SetFilter(const boost::uuids::uuid group){
+    m_filter_group = group;
+    this->setFilter();
+}
+
+const std::vector<CPwdGroup> &CKBModel::GetGroups() const {
     return m_kbfile.GetGroups();
 }
 

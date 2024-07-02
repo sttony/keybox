@@ -272,7 +272,7 @@ uint32_t CKBFile::SetEntry(const CPwdEntry& _entry) {
     return ERROR_ENTRY_NOT_FOUND;
 }
 
-const std::vector<CPwdGroup> &CKBFile::GetGroups() {
+const std::vector<CPwdGroup> &CKBFile::GetGroups() const {
     return m_groups;
 }
 

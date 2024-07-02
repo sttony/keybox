@@ -38,8 +38,7 @@ MainWindow::MainWindow() {
     m_group_list_view = new CPwdGroupListView;
     m_group_model = new QStringListModel;
     m_group_list_view->setModel(m_group_model);
-
-    //view->setModel(m_pModel.get());
+    connect(m_group_list_view, &QListView::clicked, this, &MainWindow::onClickGroup);
 
     splitter->addWidget(m_group_list_view);
     splitter->addWidget(m_entry_table_view);
@@ -150,6 +149,11 @@ void MainWindow::newGroup() {
     assert(m_pModel);
     CPwdGroupDlg dlg(m_pModel);
     dlg.exec();
+}
+
+void MainWindow::onClickGroup(const QModelIndex& index) {
+    assert(m_pModel);
+    m_pModel->SetFilter(m_pModel->GetGroups().at(index.row()).GetUUID());
 }
 
 void MainWindow::saveFile() {

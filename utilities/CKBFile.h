@@ -48,7 +48,7 @@ public:
         return m_header.GetDerivativeParameters();
     }
 
-    const std::vector<CPwdGroup>& GetGroups();
+    const std::vector<CPwdGroup>& GetGroups() const;
     uint32_t RemoveGroup(const std::string _uuid_str);
     uint32_t UpdateGroup(const std::string& uid, const std::string& name);
 

@@ -27,6 +27,7 @@ public:
     void sort(int column, Qt::SortOrder order) override;
 
     void SetFilter(const QString& filterText);
+    void SetFilter(const boost::uuids::uuid group);
 
 
     // two step load, because payload needs header to decrypt
@@ -50,7 +51,7 @@ public:
 
     void SetFilePath(const std::string &filepath);
 
-    const std::vector<CPwdGroup>& GetGroups();
+    const std::vector<CPwdGroup>& GetGroups() const;
     uint32_t RemoveGroup(const std::string _uuid_str);
     uint32_t UpdateGroup(const std::string& uid, const std::string& name);
 
@@ -60,6 +61,9 @@ private:
     std::string m_kbfile_fullpath;
     uint32_t m_header_size;
 
+    boost::uuids::uuid m_filter_group = g_RootGroupId;
+    std::string m_filter_text;
+    void setFilter();
     std::vector<CPwdEntry> m_filtered_entries;
 
 };

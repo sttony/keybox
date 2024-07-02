@@ -81,7 +81,7 @@ public:
         return m_attachment.Set(blob, std::move(onepad));
     }
 
-    boost::uuids::uuid GetGroup();
+    boost::uuids::uuid GetGroup() const;
     void SetGroup(boost::uuids::uuid uuid);
 
 private:
