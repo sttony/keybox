@@ -49,6 +49,44 @@ CCipherEngine::AES256EnDecrypt(const unsigned char *pInputBuff,
                                uint32_t padding_mode,
                                bool bEncrypt,
                                vector<unsigned char> &vOutputBuff) {
+    if (vKey.size() != 32 || vIV.size() != 16) {
+        return ERROR_INVALID_PARAMETER;
+    }
+
+    const EVP_CIPHER* hC = EVP_aes_256_cbc();
+    switch(chain_mode){
+        case AES_CHAIN_MODE_CBC:
+
+            break;
+        case AES_CHAIN_MODE_ECB:
+            hC = EVP_aes_256_ecb();
+            break;
+        default:
+            return ERROR_INVALID_PARAMETER;
+    }
+    EVP_CIPHER_CTX* ctx = EVP_CIPHER_CTX_new();
+    if(padding_mode == AES_PADDING_MODE_NO){
+        EVP_CIPHER_CTX_set_padding(ctx, false);
+    }
+    else if ( padding_mode == AES_PADDING_MODE_PKCS7){
+        EVP_CIPHER_CTX_set_padding(ctx, true);
+    }
+
+    if (bEncrypt) {
+        size_t cbRealOutPutSize = 0;
+        EVP_EncryptUpdate(ctx,  vOutputBuff.data(), (int*)&cbRealOutPutSize, pInputBuff, (int)cbInputBuff);
+
+        EVP_EncryptFinal_ex(ctx, reinterpret_cast<unsigned char*>(&ciphertext[0]) + len, &len);
+        EVP_CIPHER_CTX_free(ctx);
+
+    }
+    else{
+
+    }
+
+
+
+
 
     return 0;
 }
