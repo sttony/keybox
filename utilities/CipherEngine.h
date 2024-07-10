@@ -55,6 +55,16 @@ public:
     void CleanString(std::string &str);
 
     uint32_t HMAC_SHA256(const std::vector<unsigned char>& key, const unsigned char* pInputBuff, size_t cbInputBuff, std::vector<unsigned char> &Output);
+
+    uint32_t EC_Sign(const unsigned char *pInputBuff,
+                     size_t cbInputBuff,
+                     const std::vector<unsigned char>& vPrvKey,
+                     std::vector<unsigned char> &vOutputBuff);
+
+    uint32_t EC_Verify(const unsigned char *pInputBuff,
+                     size_t cbInputBuff,
+                     const std::vector<unsigned char>& vPubKey,
+                     const std::vector<unsigned char>& vDigitSignature);
 };
 
 

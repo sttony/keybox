@@ -516,3 +516,12 @@ CCipherEngine::HMAC_SHA256(const vector<unsigned char> &key, const unsigned char
     return 0;
 }
 
+uint32_t CCipherEngine::EC_Sign(const unsigned char *pInputBuff, size_t cbInputBuff, const vector<unsigned char> &vPrvKey,
+                                vector<unsigned char> &vOutputBuff) {
+    return 0;
+}
+
+uint32_t CCipherEngine::EC_Verify(const unsigned char *pInputBuff, size_t cbInputBuff, const vector<unsigned char> &vPubKey,
+                                  const vector<unsigned char>& vDigitSignature) {
+    return 0;
+}

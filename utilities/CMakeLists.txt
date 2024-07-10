@@ -4,11 +4,15 @@ project(keybox)
 set(CMAKE_CXX_STANDARD 17)
 
 find_package(ZLIB REQUIRED)
+find_package(OpenSSL REQUIRED)
 set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost)
 
-
 include_directories(${Boost_INCLUDE_DIRS})
+
+include_directories(${OPENSSL_INCLUDE_DIR})
+include_directories(${ZLIB_INCLUDE_DIRS})
+
 set(HEADER_FILES
         win32_handler.h
         CipherEngine.h
@@ -42,6 +46,7 @@ IF (WIN32)
             InitGlobalRG_win.cpp
             CPasswordGenerator.cpp
             CPwdGroup.cpp
+            CAsymmetricKeyPair.cpp
     )
 ELSEIF (APPLE)
     set(SOURCE_FILES
@@ -58,6 +63,7 @@ ELSEIF (APPLE)
             InitGlobalRG_mac.cpp
             CPasswordGenerator.cpp
             CPwdGroup.cpp
+            CAsymmetricKeyPair.cpp
     )
 ELSEIF (LINUX)
     set(SOURCE_FILES
@@ -74,24 +80,17 @@ ELSEIF (LINUX)
             CKBFile.cpp
             CPasswordGenerator.cpp
             CPwdGroup.cpp
+            CAsymmetricKeyPair.cpp
 
     )
 ENDIF (WIN32)
 
-IF(LINUX)
-    find_package(OpenSSL REQUIRED)
-    include_directories(${OPENSSL_INCLUDE_DIR})
-
-ENDIF (LINUX)
 
 
 add_library(utilities STATIC ${SOURCE_FILES} ${HEADER_FILES})
 
-IF (LINUX)
-    target_link_libraries(utilities PRIVATE ${OPENSSL_LIBRARIES})
-ENDIF (LINUX)
+target_link_libraries(utilities PRIVATE ${OPENSSL_LIBRARIES})
 
-target_include_directories(utilities PRIVATE ${ZLIB_INCLUDE_DIRS})
 target_link_libraries(utilities PRIVATE ${ZLIB_LIBRARIES})
 
 IF (WIN32)
