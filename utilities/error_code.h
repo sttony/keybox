@@ -17,5 +17,6 @@ const static uint32_t ERROR_INVALID_BASE64 = 0x00000007;
 const static uint32_t ERROR_INVALID_JSON = 0x00000008;
 const static uint32_t ERROR_FILE_IO = 0x00000009;
 const static uint32_t ERROR_ENTRY_NOT_FOUND = 0x000000a;
+const static uint32_t ERROR_INVALID_PEM = 0x0000000b;
 
 #endif //KEYBOX_ERROR_CODE_H

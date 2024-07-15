@@ -14,6 +14,8 @@ public:
     CMaskedBlob GetPrivateKey(std::vector<unsigned char>&& onepad);
     size_t GetPrivateKeyLength();
 
+    uint32_t LoadPrivateKey(std::vector<unsigned char>&& privKey);
+
     uint32_t ReGenerate();
 
     boost::property_tree::ptree toJsonObj();

@@ -5,9 +5,11 @@
 #include <openssl/ec.h>
 #include <openssl/evp.h>
 #include <openssl/core_names.h>
+#include <openssl/pem.h>
 #include "CAsymmetricKeyPair.h"
 #include "error_code.h"
 #include "InitGlobalRG.h"
+#include "Base64Coder.h"
 
 using namespace std;
 
@@ -69,10 +71,16 @@ CMaskedBlob CAsymmetricKeyPair::GetPrivateKey(std::vector<unsigned char> &&onepa
 }
 
 boost::property_tree::ptree CAsymmetricKeyPair::toJsonObj() {
-    return boost::property_tree::ptree();
+    boost::property_tree::ptree root;
+    CMaskedBlob private_key = this->GetPrivateKey( vector<unsigned char>( this->GetPrivateKeyLength(), 0xFF));
+    root.add_child("async_pair", private_key.toJsonObj());
+    return root;
 }
 
-uint32_t CAsymmetricKeyPair::fromJsonObj(const boost::property_tree::ptree &) {
+uint32_t CAsymmetricKeyPair::fromJsonObj(const boost::property_tree::ptree & _root) {
+    CMaskedBlob private_key;
+    private_key.fromJsonObj(_root);
+    this->LoadPrivateKey(private_key.ShowBin());
     return 0;
 }
 
@@ -91,4 +99,25 @@ CAsymmetricKeyPair::~CAsymmetricKeyPair() {
     if (m_pkey != nullptr) {
         EVP_PKEY_free(m_pkey);
     }
+}
+
+uint32_t CAsymmetricKeyPair::LoadPrivateKey(vector<unsigned char> &&privKey) {
+    BIO *bio = BIO_new_mem_buf(privKey.data(), privKey.size());
+    if(bio == nullptr){
+        return ERROR_INVALID_PEM;
+    }
+
+    if (m_pkey != nullptr) {
+        EVP_PKEY_free(m_pkey);
+    }
+
+    m_pkey = PEM_read_bio_PrivateKey(bio, NULL, NULL, NULL);
+
+    if(m_pkey == nullptr){
+        BIO_free_all(bio);
+        return ERROR_INVALID_PEM;
+    }
+
+    BIO_free_all(bio);
+    return 0;
 }
