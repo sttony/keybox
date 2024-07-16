@@ -6,12 +6,13 @@ set(CMAKE_CXX_STANDARD 17)
 find_package(ZLIB REQUIRED)
 find_package(OpenSSL REQUIRED)
 set(Boost_USE_STATIC_LIBS ON)
-find_package(Boost)
+find_package(Boost REQUIRED)
+find_package(CURL REQUIRED)
 
 include_directories(${Boost_INCLUDE_DIRS})
-
 include_directories(${OPENSSL_INCLUDE_DIR})
 include_directories(${ZLIB_INCLUDE_DIRS})
+include_directories(${CURL_INCLUDE_DIRS})
 
 set(HEADER_FILES
         win32_handler.h
@@ -29,6 +30,7 @@ set(HEADER_FILES
         InitGlobalRG.h
         CPasswordGenerator.h
         CPwdGroup.h
+        CRequest.h
 )
 
 IF (WIN32)
@@ -47,6 +49,7 @@ IF (WIN32)
             CPasswordGenerator.cpp
             CPwdGroup.cpp
             CAsymmetricKeyPair.cpp
+            CRequest.cpp
     )
 ELSEIF (APPLE)
     set(SOURCE_FILES
@@ -64,6 +67,7 @@ ELSEIF (APPLE)
             CPasswordGenerator.cpp
             CPwdGroup.cpp
             CAsymmetricKeyPair.cpp
+            CRequest.cpp
     )
 ELSEIF (LINUX)
     set(SOURCE_FILES
@@ -81,6 +85,7 @@ ELSEIF (LINUX)
             CPasswordGenerator.cpp
             CPwdGroup.cpp
             CAsymmetricKeyPair.cpp
+            CRequest.cpp
 
     )
 ENDIF (WIN32)
@@ -92,6 +97,7 @@ add_library(utilities STATIC ${SOURCE_FILES} ${HEADER_FILES})
 target_link_libraries(utilities PRIVATE ${OPENSSL_LIBRARIES})
 
 target_link_libraries(utilities PRIVATE ${ZLIB_LIBRARIES})
+target_link_libraries(utilities PRIVATE ${CURL_LIBRARIES})
 
 IF (WIN32)
     target_link_libraries(utilities
