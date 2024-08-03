@@ -76,7 +76,7 @@ CCipherEngine::AES256EnDecrypt(const unsigned char *pInputBuff,
         size_t cbRealOutPutSize = 0;
         EVP_EncryptUpdate(ctx,  vOutputBuff.data(), (int*)&cbRealOutPutSize, pInputBuff, (int)cbInputBuff);
 
-        EVP_EncryptFinal_ex(ctx, reinterpret_cast<unsigned char*>(&ciphertext[0]) + len, &len);
+//        EVP_EncryptFinal_ex(ctx, reinterpret_cast<unsigned char*>(&ciphertext[0]) + len, &len);
         EVP_CIPHER_CTX_free(ctx);
 
     }

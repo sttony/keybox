@@ -3,6 +3,7 @@
 #define KEYBOX_CSETTINGS_H
 
 #include <string>
+#include <cstdint>
 
 class CSettings {
 private:

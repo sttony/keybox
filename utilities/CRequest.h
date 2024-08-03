@@ -2,6 +2,7 @@
 
 #ifndef KEYBOX_CPOSTREQUEST_H
 #define KEYBOX_CPOSTREQUEST_H
+#include <cstdint>
 #include <string>
 #include <unordered_map>
 #include <vector>
