@@ -6,6 +6,8 @@ from aws_lambda_powertools import Tracer
 from aws_lambda_powertools import Metrics
 from aws_lambda_powertools.metrics import MetricUnit
 
+from refresh_token import handler as refresh_handler
+
 app = APIGatewayRestResolver()
 tracer = Tracer()
 logger = Logger()
@@ -22,6 +24,11 @@ def hello():
     # See: https://awslabs.github.io/aws-lambda-powertools-python/latest/core/logger/
     logger.info("Hello world API - HTTP 200")
     return {"message": "hello world"}, 404
+
+@app.post("/refresh_token")
+@tracer.capture_method
+def refresh_token():
+    return refresh_handler.lambda_handler(app.current_event, app.context)
 
 # Enrich logging with contextual information from Lambda
 @logger.inject_lambda_context(correlation_id_path=correlation_paths.API_GATEWAY_REST)
