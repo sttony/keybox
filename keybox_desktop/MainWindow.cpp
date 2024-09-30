@@ -250,6 +250,8 @@ void MainWindow::OpenFile(const std::string &file_path) {
     newModel->LoadKBHeader(file_path);
     CPrimaryPasswordDlg ppdlg(newModel->GetKeyDerivateParameters());
     ppdlg.setWindowTitle( file_path.c_str());
+    ppdlg.setMinimumWidth(file_path.size() * 16);
+
     if( ppdlg.exec() ) {
         newModel->SetPrimaryKey(ppdlg.GetPassword());
 

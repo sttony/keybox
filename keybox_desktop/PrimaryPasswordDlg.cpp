@@ -23,6 +23,7 @@ CPrimaryPasswordDlg::CPrimaryPasswordDlg(PBKDF2_256_PARAMETERS _pbkdf2, QWidget 
 
     rootLayout->addLayout(buttonLine);
 
+    this->setWindowFlag(Qt::WindowTitleHint, true);
     QObject::connect(okButton, &QPushButton::clicked, this, &CPrimaryPasswordDlg::onOK);
     QObject::connect(cancelButton, &QPushButton::clicked, this, &QDialog::reject);
 }
