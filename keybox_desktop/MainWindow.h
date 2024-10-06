@@ -83,7 +83,7 @@ private:
 
     void RefreshActionEnabled();
 
-    void OpenFile(const std::string&);
+    int OpenFile(const std::string&);
 };
 
 

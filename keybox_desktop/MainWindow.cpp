@@ -54,7 +54,7 @@ MainWindow::MainWindow() {
     RefreshActionEnabled();
     string last_file_path = g_Settings.GetLastKeyboxFilepath();
     if (!last_file_path.empty()) {
-        OpenFile(last_file_path);
+        while(OpenFile(last_file_path));
     }
 }
 
@@ -239,12 +239,14 @@ void MainWindow::openFile() {
             return;
         }
         auto file_path = fileNames.at(0).toStdString();
-        OpenFile(file_path);
+        while(OpenFile(file_path)){
+
+        }
 
     }
 }
 
-void MainWindow::OpenFile(const std::string &file_path) {
+int MainWindow::OpenFile(const std::string &file_path) {
     auto newModel = new CKBModel;
     newModel->SetFilePath(file_path);
     newModel->LoadKBHeader(file_path);
@@ -256,9 +258,21 @@ void MainWindow::OpenFile(const std::string &file_path) {
         newModel->SetPrimaryKey(ppdlg.GetPassword());
 
         if (newModel->LoadPayload()) {
-            QMessageBox::information(nullptr, "Alert", "Seems like the password is not correct");
+            QMessageBox msgBox;
+            msgBox.setWindowTitle("Open file failed");
+            msgBox.setText("Seems like the password is not correct");
+            QPushButton *customProceedButton = msgBox.addButton("Retry", QMessageBox::AcceptRole);
+            QPushButton *customCancelButton = msgBox.addButton("Abort", QMessageBox::RejectRole);
+            msgBox.exec();
             delete newModel;
-            return;
+            if (msgBox.clickedButton() == customProceedButton) {
+                return 1;
+            } else if (msgBox.clickedButton() == customCancelButton) {
+                return 0;
+            }
+            else{
+                return 0;
+            }
         };
         m_entry_table_view->setModel(newModel);
         ResetGroup(newModel);
