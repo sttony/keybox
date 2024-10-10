@@ -285,6 +285,7 @@ int MainWindow::OpenFile(const std::string &file_path) {
     else{
         delete newModel;
     }
+    return 0;
 }
 
 void MainWindow::openPasswordGenerator() {

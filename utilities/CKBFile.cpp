@@ -241,16 +241,23 @@ uint32_t CKBFile::LoadPayload(const unsigned char *pBuffer, uint32_t cbBufferSiz
     m_entries.clear();
     m_groups.clear();
 
-    for (const auto &kv: entries_tree.get_child("entries")) {
-        CPwdEntry entry;
-        entry.fromJsonObj(kv.second);
-        m_entries.push_back(std::move(entry));
+    auto entries = entries_tree.get_child_optional("entries");
+    if ( entries.has_value()) {
+        for (const auto &kv: entries.get()) {
+            CPwdEntry entry;
+            entry.fromJsonObj(kv.second);
+            m_entries.push_back(std::move(entry));
+        }
     }
 
-    for (const auto &kv: entries_tree.get_child("groups")) {
-        CPwdGroup group("");
-        group.fromJsonObj(kv.second);
-        m_groups.push_back(std::move(group));
+    auto groups = entries_tree.get_child_optional("groups");
+    if(groups.has_value()) {
+
+        for (const auto &kv:groups.get()) {
+            CPwdGroup group("");
+            group.fromJsonObj(kv.second);
+            m_groups.push_back(std::move(group));
+        }
     }
     return 0;
 }
