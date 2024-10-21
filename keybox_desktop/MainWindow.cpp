@@ -149,6 +149,7 @@ void MainWindow::newGroup() {
     assert(m_pModel);
     CPwdGroupDlg dlg(m_pModel);
     dlg.exec();
+    ResetGroup(m_pModel);
 }
 
 void MainWindow::onClickGroup(const QModelIndex& index) {
