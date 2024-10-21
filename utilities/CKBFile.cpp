@@ -259,6 +259,7 @@ uint32_t CKBFile::LoadPayload(const unsigned char *pBuffer, uint32_t cbBufferSiz
             m_groups.push_back(std::move(group));
         }
     }
+    UpdateGroup(g_RootGroup.GetID(), g_RootGroup.GetName());
     return 0;
 }
 
