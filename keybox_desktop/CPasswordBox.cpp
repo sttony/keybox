@@ -54,9 +54,11 @@ void CPasswordBox::onShowClickedMultipleline() {
     } else {
         m_showButton->setIcon(*m_hideIcon);
         m_textInput_multipleline->setDisabled(true);
-        string text = m_textInput_multipleline->toPlainText().toStdString();
+        string text = m_masked_blob.Show();
         m_masked_blob.Set(text, m_randomGenerator.GetNextBytes(text.size()));
+        m_textInput_multipleline->blockSignals(true);
         m_textInput_multipleline->setText(string(m_textInput_multipleline->toPlainText().size(), '*').c_str());
+        m_textInput_multipleline->blockSignals(false);
     }
 }
 
