@@ -48,6 +48,10 @@ private slots:
 
     void onClickGroup(const QModelIndex& index);
 
+    void openSyncSetting();
+
+    void syncRemote();
+
 private:
     void CreateActions();
 
@@ -65,11 +69,15 @@ private:
     QAction *m_newGroupAction = nullptr;
     QAction *m_lockAction = nullptr;
     QAction *m_passwordGeneratorAction = nullptr;
+    QAction *m_syncSetting = nullptr;
+    QAction *m_syncRemote = nullptr;
+
 
     QMenu *fileMenu = nullptr;
     QMenu *entryMenu = nullptr;
     QMenu *groupMenu = nullptr;
     QMenu *toolMenu = nullptr;
+
     QToolBar *m_toolbar = nullptr;
     QLineEdit* m_searchBox = nullptr;
 

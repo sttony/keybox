@@ -94,6 +94,8 @@ void MainWindow::CreateMenus() {
 
     toolMenu = menuBar()->addMenu(tr("&Tools"));
     toolMenu->addAction(m_passwordGeneratorAction);
+    toolMenu->addAction(m_syncRemote);
+    toolMenu->addAction(m_syncSetting);
 
     fileMenu = menuBar()->addMenu(tr("&Help"));
 
@@ -129,7 +131,21 @@ void MainWindow::CreateActions() {
     m_lockAction = new QAction(QIcon(":img/img/lock.svg"), "lockFile", this);
     connect(m_lockAction, &QAction::triggered, this, &MainWindow::lockFile);
 
+    m_syncSetting =  new QAction(tr("Open Sync Setting"), this);
+    connect(m_syncSetting, &QAction::triggered, this, &MainWindow::openSyncSetting);
+
+    m_syncRemote =  new QAction(tr("Sync with remote"), this);
+    connect(m_syncSetting, &QAction::triggered, this, &MainWindow::syncRemote);
+
     this->RefreshActionEnabled();
+
+}
+
+void MainWindow::openSyncSetting(){
+
+}
+
+void MainWindow::syncRemote(){
 
 }
 
