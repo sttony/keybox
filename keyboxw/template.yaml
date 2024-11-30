@@ -3,8 +3,6 @@ Transform: AWS::Serverless-2016-10-31
 Description: >
     keyboxw
 
-    Powertools example
-
 Globals: # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification-template-anatomy-globals.html
     Function:
         Timeout: 5
@@ -25,7 +23,7 @@ Resources:
                 HelloPath:
                     Type: Api # More info about API Event Source: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-api.html
                     Properties:
-                        Path: /*
+                        Path: /{proxy+}
                         Method: GET
              # Powertools env vars: https://awslabs.github.io/aws-lambda-powertools-python/#environment-variables
             Environment:
