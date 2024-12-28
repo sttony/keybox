@@ -10,11 +10,11 @@ Globals: # https://docs.aws.amazon.com/serverless-application-model/latest/devel
         Runtime: python3.12
 
 Resources:
-    HelloWorldFunction:
+    KeyboxFunction:
         Type: AWS::Serverless::Function # More info about Function Resource: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
         Properties:
             Handler: app.lambda_handler
-            CodeUri: hello_world
+            CodeUri: keybox_web
             Description: Hello World function
             Architectures:
                 - x86_64
@@ -35,11 +35,11 @@ Resources:
                 LambdaPowertools: python
 
 Outputs:
-    HelloWorldApi:
+    KeyboxApi:
       Description: "API Gateway endpoint URL for Prod environment for Hello World Function"
       Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello"
 
-    HelloWorldFunction:
+    KeyboxFunction:
       Description: "Hello World Lambda Function ARN"
       Value: !GetAtt HelloWorldFunction.Arn
 

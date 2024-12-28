@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from hello_world import app
+from keybox_web import app
 
 def lambda_context():
     class LambdaContext:

@@ -15,6 +15,7 @@ tracer = Tracer()
 logger = Logger()
 metrics = Metrics(namespace="Powertools")
 
+
 @app.get("/hello")
 @tracer.capture_method
 def hello():
@@ -27,21 +28,23 @@ def hello():
     logger.info("Hello world API - HTTP 200")
     return {"message": "hello world"}, 404
 
+
 @app.post("/refresh_token")
 @tracer.capture_method
 def refresh_token():
     return refresh_handler.lambda_handler(app.current_event, app.context)
+
 
 @app.post("/register")
 @tracer.capture_method
 def register():
     return register_handler.lambda_handler(app.current_event, app.context)
 
+
 @app.post("/activate")
 @tracer.capture_method
 def activate():
     return activate_handler.lambda_handler(app.current_event, app.context)
-
 
 
 # Enrich logging with contextual information from Lambda
