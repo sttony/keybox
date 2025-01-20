@@ -34,7 +34,7 @@ public:
     // TODO: for testing, expose them.
     const std::vector<CPwdEntry> &GetEntries() const;
 
-    const CKBFileHeader &GetHeader();
+    CKBFileHeader &GetHeader();
 
     void SetMasterKey(std::vector<unsigned char> key, std::vector<unsigned char>&& onepad);
 

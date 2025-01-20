@@ -29,6 +29,7 @@ public:
     static const uint8_t KEYBOX_PBKDF2_PARAM;
     static const uint8_t KEYBOX_HMAC_SIGNATURE;
     static const uint8_t KEYBOX_SYNC_URL;
+    static const uint8_t KEYBOX_SYNC_EMAIL;
 
 private:
     uint64_t m_signature = 0;
@@ -40,6 +41,7 @@ private:
     std::vector<unsigned char> m_hmac_sha256_signature = {};
 
     std::string m_sync_url;
+    std::string m_sync_email;
 
 public:
     CKBFileHeader();
@@ -61,6 +63,24 @@ public:
     }
 
     uint32_t SetDerivativeParameters(const std::vector<unsigned char> &_salt, int num_round = 60000);
+
+    std::string GetSyncUrl() {
+        return m_sync_url;
+    }
+
+    uint32_t SetSyncUrl(const std::string && sync_url) {
+        m_sync_url = sync_url;
+        return 0;
+    }
+
+    std::string GetSyncEmail() {
+        return m_sync_email;
+    }
+
+    uint32_t SetSyncEmail(const std::string && sync_email) {
+        m_sync_url = sync_email;
+        return 0;
+    }
 
     uint32_t CalculateHMAC(const std::vector<unsigned char>& master_key, const unsigned char* pPayloadBuff, size_t cbPayloadSize);
 };

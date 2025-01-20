@@ -5,9 +5,9 @@
 
 class CSyncEngine {
 private:
-    const CKBFile& m_kb_file;
+    std::shared_ptr<CKBFile> m_pKbfile;
 public:
-    CSyncEngine(const CKBFile& ckbFile): m_kb_file(ckbFile) {};
+    CSyncEngine(const CKBFile& ckbFile): m_pKbfile(std::make_shared<CKBFile>(ckbFile)) {};
     ~CSyncEngine();
 
     void Register(); // Register 1st step
