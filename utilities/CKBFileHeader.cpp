@@ -21,6 +21,7 @@ const uint8_t CKBFileHeader::KEEPASS_PublicCustomData = 12;
 
 const uint8_t CKBFileHeader::KEYBOX_PBKDF2_PARAM = 0x81;
 const uint8_t CKBFileHeader::KEYBOX_HMAC_SIGNATURE = 0x82;
+const uint8_t CKBFileHeader::KEYBOX_SYNC_URL = 0x83;
 
 template<typename T>
 uint32_t read_field(const unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &offset, T &output) {
@@ -129,6 +130,17 @@ uint32_t CKBFileHeader::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize,
     memcpy(pBuffer + offset, m_hmac_sha256_signature.data(), m_hmac_sha256_signature.size());
     offset += m_hmac_sha256_signature.size();
 
+    // write KEYBOX_SYNC_URL
+    if (write_field(pBuffer, cbBufferSize, offset, KEYBOX_SYNC_URL)) {
+        return ERROR_BUFFER_TOO_SMALL;
+    }
+    field_size = m_sync_url.size();
+    if (write_field(pBuffer, cbBufferSize, offset, field_size)) {
+        return ERROR_BUFFER_TOO_SMALL;
+    }
+    memcpy(pBuffer + offset, m_sync_url.data(), m_sync_url.size());
+    offset += m_sync_url.size();
+
     // write END_OF_HEADER
     if (write_field(pBuffer, cbBufferSize, offset, END_OF_HEADER)) {
         field_size = 0;
@@ -158,6 +170,13 @@ CKBFileHeader::CKBFileHeader() : m_encryption_iv(16), m_hmac_sha256_signature(32
     m_fields2handler[KEYBOX_HMAC_SIGNATURE] = [this](const unsigned char *p, uint32_t &offset, uint16_t cbSize) {
         m_hmac_sha256_signature.resize(cbSize);
         m_hmac_sha256_signature = std::vector<unsigned char>(p + offset, p + offset + cbSize);
+        offset += cbSize;
+        return 0u;
+    };
+
+    m_fields2handler[KEYBOX_SYNC_URL] = [this](const unsigned char *p, uint32_t &offset, uint16_t cbSize) {
+        m_sync_url.resize(cbSize);
+        m_sync_url = std::string(p + offset, p + offset + cbSize);
         offset += cbSize;
         return 0u;
     };

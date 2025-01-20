@@ -85,7 +85,7 @@ uint32_t CKBFile::Lock(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &
     return 0;
 }
 
-CKBFileHeader &CKBFile::GetHeader() {
+const CKBFileHeader &CKBFile::GetHeader() {
     return m_header;
 }
 

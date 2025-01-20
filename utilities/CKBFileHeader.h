@@ -28,6 +28,7 @@ public:
 
     static const uint8_t KEYBOX_PBKDF2_PARAM;
     static const uint8_t KEYBOX_HMAC_SIGNATURE;
+    static const uint8_t KEYBOX_SYNC_URL;
 
 private:
     uint64_t m_signature = 0;
@@ -37,6 +38,8 @@ private:
     PBKDF2_256_PARAMETERS m_key_derivative_parameters = {};
     std::vector<unsigned char> m_encryption_iv = {};
     std::vector<unsigned char> m_hmac_sha256_signature = {};
+
+    std::string m_sync_url;
 
 public:
     CKBFileHeader();

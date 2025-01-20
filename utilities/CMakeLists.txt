@@ -31,6 +31,7 @@ set(HEADER_FILES
         CPasswordGenerator.h
         CPwdGroup.h
         CRequest.h
+        CSyncEngine.h
 )
 
 IF (WIN32)
@@ -50,6 +51,7 @@ IF (WIN32)
             CPwdGroup.cpp
             CAsymmetricKeyPair.cpp
             CRequest.cpp
+            CSyncEngine_win.cpp
     )
 ELSEIF (APPLE)
     set(SOURCE_FILES
