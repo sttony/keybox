@@ -1,24 +1,25 @@
 import json
 import logging
 import requests
+from aws_lambda_powertools.utilities.typing import LambdaContext
 
 from utility import secretsmanager
+from utility import http_parameter_helper
 
 # Configure logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
-def lambda_handler(event, context):
+def lambda_handler(event: dict, context: LambdaContext):
     if ("queryStringParameters" not in event) or (not event["queryStringParameters"]):
         logger.error("No queryStringParameters in event")
         return {"message": "no queryStringParameters"}, 404
 
-    if "code" not in event["queryStringParameters"]:
+    authentication_code = http_parameter_helper.get_query_parameter(event, "code")
+    if not authentication_code:
         logger.error("No code in queryStringParameters")
         return {"message": "no code"}, 404
-
-    authentication_code = event["queryStringParameters"]["code"]
 
     response = secretsmanager.get_secret("prod_zoho")
     if not response:
