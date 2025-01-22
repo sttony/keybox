@@ -19,4 +19,6 @@ const static uint32_t ERROR_FILE_IO = 0x00000009;
 const static uint32_t ERROR_ENTRY_NOT_FOUND = 0x000000a;
 const static uint32_t ERROR_INVALID_PEM = 0x0000000b;
 
+const static uint32_t ERROR_HTTP_ERROR_PREFIX = 0x00008100;  // e.g. 0x8100 | 0x191 ==  401
+
 #endif //KEYBOX_ERROR_CODE_H

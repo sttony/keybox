@@ -10,7 +10,7 @@ public:
     CSyncEngine(const CKBFile& ckbFile): m_pKbfile(std::make_shared<CKBFile>(ckbFile)) {};
     ~CSyncEngine();
 
-    void Register(); // Register 1st step
+    uint32_t Register(); // Register 1st step
     void FinishRegister(); // Register 2nd step
     void Unregister();
     void Sync(); //sync;
