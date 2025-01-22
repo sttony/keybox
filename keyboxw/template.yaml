@@ -40,6 +40,6 @@ Outputs:
       Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello"
 
     KeyboxFunction:
-      Description: "Hello World Lambda Function ARN"
-      Value: !GetAtt HelloWorldFunction.Arn
+      Description: "Lambda Function ARN"
+      Value: !GetAtt KeyboxFunction.Arn
 
