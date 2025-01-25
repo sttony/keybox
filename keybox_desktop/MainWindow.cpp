@@ -19,6 +19,7 @@
 #include "CPwdGeneratorDlg.h"
 #include "CSettings.h"
 #include "CPwdGroupDlg.h"
+#include "CSyncSettingDlg.h"
 
 using namespace std;
 
@@ -142,10 +143,11 @@ void MainWindow::CreateActions() {
 }
 
 void MainWindow::openSyncSetting(){
-
+    CSyncSettingDlg syncSettingDlg;
+    syncSettingDlg.exec();
 }
 
-void MainWindow::syncRemote(){
+void MainWindow::syncRemote() {
 
 }
 
