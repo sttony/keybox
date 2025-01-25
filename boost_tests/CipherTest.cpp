@@ -39,10 +39,10 @@ BOOST_AUTO_TEST_SUITE(CipherTestSuit)
         vector<unsigned char> iv(16);
         iv[0] = '\1';
 
-        const char plaintext[16] = {0};
+        const char plaintext[17] = {0};
         std::vector<unsigned char> encrypted_buff;
         encryptEngine.AES256EnDecrypt((unsigned char *) plaintext,
-                                      16,
+                                      17,
                                       key,
                                       iv,
                                       CCipherEngine::AES_CHAIN_MODE_CBC,
@@ -52,7 +52,7 @@ BOOST_AUTO_TEST_SUITE(CipherTestSuit)
 
 
         string hexStr = blobToHexString(encrypted_buff);
-        BOOST_CHECK_EQUAL(hexStr, "5275f3d86b4fb8684593133ebfa53cd3a32ee726721a38c529df5a9b0d3af07f");
+        BOOST_CHECK_EQUAL(hexStr, "5275f3d86b4fb8684593133ebfa53cd342e936cc00cc101043bf01d397cfdb8a");
 
         std::vector<unsigned char> decrypted_buff;
         encryptEngine.AES256EnDecrypt(&encrypted_buff[0],

@@ -83,6 +83,8 @@ uint32_t CKBFileHeader::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize,
     cbRealSize += 1 + 2 + m_encryption_iv.size();
     cbRealSize += 1 + 2 + sizeof(m_key_derivative_parameters);
     cbRealSize += 1 + 2 + m_hmac_sha256_signature.size();
+    cbRealSize += 1 + 2 + m_sync_email.size();
+    cbRealSize += 1 + 2 + m_sync_email.size();
     cbRealSize += 1 + 2;
 
     if (cbRealSize > cbBufferSize) {

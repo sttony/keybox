@@ -4,6 +4,7 @@
 #include <functional>
 #include <utility>
 #include <cstring>
+#include <cmath>
 #include <openssl/evp.h>
 #include <openssl/sha.h>
 #include <openssl/hmac.h>
@@ -65,29 +66,42 @@ CCipherEngine::AES256EnDecrypt(const unsigned char *pInputBuff,
             return ERROR_INVALID_PARAMETER;
     }
     EVP_CIPHER_CTX* ctx = EVP_CIPHER_CTX_new();
-    if(padding_mode == AES_PADDING_MODE_NO){
-        EVP_CIPHER_CTX_set_padding(ctx, false);
-    }
-    else if ( padding_mode == AES_PADDING_MODE_PKCS7){
-        EVP_CIPHER_CTX_set_padding(ctx, true);
-    }
+
 
     if (bEncrypt) {
+        EVP_EncryptInit_ex(ctx, hC, nullptr, vKey.data(), vIV.data());
+        if(padding_mode == AES_PADDING_MODE_NO){
+            EVP_CIPHER_CTX_set_padding(ctx, false);
+        }
+        else if ( padding_mode == AES_PADDING_MODE_PKCS7){
+            EVP_CIPHER_CTX_set_padding(ctx, true);
+        }
+        vOutputBuff.resize( (cbInputBuff /32 +1) *32);
         size_t cbRealOutPutSize = 0;
         EVP_EncryptUpdate(ctx,  vOutputBuff.data(), (int*)&cbRealOutPutSize, pInputBuff, (int)cbInputBuff);
-
-//        EVP_EncryptFinal_ex(ctx, reinterpret_cast<unsigned char*>(&ciphertext[0]) + len, &len);
+        int len = 0;
+        EVP_EncryptFinal_ex(ctx,  vOutputBuff.data() + cbRealOutPutSize, &len);
+        vOutputBuff.resize(cbRealOutPutSize + len);
         EVP_CIPHER_CTX_free(ctx);
-
     }
     else{
-
+        EVP_DecryptInit_ex(ctx, hC, nullptr, vKey.data(), vIV.data());
+        if(padding_mode == AES_PADDING_MODE_NO){
+            EVP_CIPHER_CTX_set_padding(ctx, false);
+        }
+        else if ( padding_mode == AES_PADDING_MODE_PKCS7){
+            EVP_CIPHER_CTX_set_padding(ctx, true);
+        }
+        vOutputBuff.resize( ceil(cbInputBuff /32.0) *32);
+        size_t cbRealOutPutSize = 0;
+        EVP_DecryptUpdate(ctx, vOutputBuff.data(), (int*)&cbRealOutPutSize, pInputBuff, (int)cbInputBuff);
+        int len = 0;
+        EVP_DecryptFinal_ex(ctx,  vOutputBuff.data() + cbRealOutPutSize, &len);
+        if ( padding_mode == AES_PADDING_MODE_NO){
+            vOutputBuff.resize(cbRealOutPutSize + len);
+        }
+        EVP_CIPHER_CTX_free(ctx);
     }
-
-
-
-
-
     return 0;
 }
 
@@ -96,7 +110,32 @@ uint32_t CCipherEngine::KeepassDerivativeKey(const string &sKey,
                                              uint32_t uNumRounds,
                                              const vector<unsigned char> &vMasterSeed,
                                              vector<unsigned char> &output){
-    return 0;
+    uint32_t status  = 0;
+    CCipherEngine cipherEngine;
+    vector<unsigned char> sha256_key(32);
+    //  Sha256(password)
+    status = cipherEngine.SHA256((unsigned char *) sKey.c_str(), sKey.size(), &sha256_key[0], 32);
+    // Sha256(sha256(password))
+    status = cipherEngine.SHA256(&sha256_key[0], 32, &sha256_key[0], 32);
+
+    vector<unsigned char> tempIV(16);
+    size_t cbRealOutPutSize = 16;
+    EVP_CIPHER_CTX* ctx = EVP_CIPHER_CTX_new();
+    EVP_EncryptInit_ex(ctx, EVP_aes_256_ecb(), nullptr, vTransformSeed.data(), nullptr);
+    for (int i = 0; i < uNumRounds; ++i) {
+        EVP_EncryptUpdate(ctx,  sha256_key.data(), (int*)&cbRealOutPutSize, sha256_key.data(), 16);
+        EVP_EncryptUpdate(ctx,  sha256_key.data()+16, (int*)&cbRealOutPutSize, sha256_key.data()+16, 16);
+    }
+
+    // Sha256 again
+    status = cipherEngine.SHA256(&sha256_key[0], 32, &sha256_key[0], 32);
+    vector<unsigned char> compositKey(64);
+    memcpy(&compositKey[0], &vMasterSeed[0], 32);
+    memcpy(&compositKey[32], &sha256_key[0], 32);
+
+    output.resize(32);
+    status = cipherEngine.SHA256(&compositKey[0], compositKey.size(), &output[0], 32);
+    return status;
 }
 
 
@@ -106,6 +145,8 @@ void CCipherEngine::CleanString(string &str) {
 
 uint32_t CCipherEngine::PBKDF2DerivativeKey(const string &sKey, const PBKDF2_256_PARAMETERS &pbkdf2256Parameters,
                                             vector<unsigned char> &vOutput) {
+    vOutput.resize(32);
+    PKCS5_PBKDF2_HMAC(sKey.data(), sKey.size(), pbkdf2256Parameters.Salt, 32, pbkdf2256Parameters.num_rounds, EVP_sha256(), 32, vOutput.data());
     return 0;
 }
 
