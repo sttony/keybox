@@ -68,7 +68,7 @@ public:
         return m_sync_url;
     }
 
-    uint32_t SetSyncUrl(const std::string && sync_url) {
+    uint32_t SetSyncUrl(const std::string& sync_url) {
         m_sync_url = sync_url;
         return 0;
     }
@@ -77,8 +77,8 @@ public:
         return m_sync_email;
     }
 
-    uint32_t SetSyncEmail(const std::string && sync_email) {
-        m_sync_url = sync_email;
+    uint32_t SetSyncEmail(const std::string& sync_email) {
+        m_sync_email = sync_email;
         return 0;
     }
 

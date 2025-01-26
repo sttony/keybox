@@ -44,7 +44,6 @@ uint32_t write_field(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &of
     return 0;
 }
 
-
 uint32_t CKBFileHeader::Deserialize(const unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize) {
     uint32_t offset = 0;
     if (read_field(pBuffer, cbBufferSize, offset, m_signature)) {
@@ -83,7 +82,7 @@ uint32_t CKBFileHeader::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize,
     cbRealSize += 1 + 2 + m_encryption_iv.size();
     cbRealSize += 1 + 2 + sizeof(m_key_derivative_parameters);
     cbRealSize += 1 + 2 + m_hmac_sha256_signature.size();
-    cbRealSize += 1 + 2 + m_sync_email.size();
+    cbRealSize += 1 + 2 + m_sync_url.size();
     cbRealSize += 1 + 2 + m_sync_email.size();
     cbRealSize += 1 + 2;
 
@@ -204,6 +203,7 @@ CKBFileHeader::CKBFileHeader() : m_encryption_iv(16), m_hmac_sha256_signature(32
 
     m_signature = 0x0BAD19840BAD1984;
     m_version = 1 << 16 | 0;
+    m_sync_url = "https://k3ybox.us/";
 
 }
 

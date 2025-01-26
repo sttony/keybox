@@ -143,7 +143,7 @@ void MainWindow::CreateActions() {
 }
 
 void MainWindow::openSyncSetting(){
-    CSyncSettingDlg syncSettingDlg;
+    CSyncSettingDlg syncSettingDlg(m_pModel, this);
     syncSettingDlg.exec();
 }
 

@@ -55,6 +55,11 @@ public:
     uint32_t RemoveGroup(const std::string _uuid_str);
     uint32_t UpdateGroup(const std::string& uid, const std::string& name);
 
+    const std::string GetEmail();
+    uint32_t SetEmail(const std::string email);
+    const std::string GetSyncUrl();
+    uint32_t SetSyncUrl(const std::string syncUrl);
+
 private:
     CKBFile m_kbfile;
     std::vector<unsigned char> m_file_buff;

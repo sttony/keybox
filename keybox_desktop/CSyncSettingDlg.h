@@ -9,15 +9,19 @@
 #include <QLabel>
 #include <QPushButton>
 
+#include "CKBModel.h"
+
 class CSyncSettingDlg : public QDialog {
 Q_OBJECT
 public:
-    explicit CSyncSettingDlg(QWidget *parent = nullptr);
+    explicit CSyncSettingDlg(CKBModel* pModel, QWidget *parent = nullptr);
 
 private slots:
     void onSave();
 
 private:
+    CKBModel* m_kbModel = nullptr;
+
     QLineEdit * m_emailBox = nullptr;
     QLineEdit * m_syncUrlBox = nullptr;
     QPushButton* m_saveBtn = nullptr;

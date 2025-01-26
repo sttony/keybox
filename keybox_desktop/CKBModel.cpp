@@ -193,3 +193,16 @@ uint32_t CKBModel::RemoveGroup(const std::string _uuid_str) {
 uint32_t CKBModel::UpdateGroup(const std::string &uid, const std::string &name) {
     return m_kbfile.UpdateGroup(uid, name);
 }
+
+const std::string CKBModel::GetEmail() {
+    return m_kbfile.GetHeader().GetSyncEmail();
+}
+uint32_t CKBModel::SetEmail(const std::string email) {
+    return m_kbfile.GetHeader().SetSyncEmail(email);
+}
+const std::string CKBModel::GetSyncUrl() {
+    return m_kbfile.GetHeader().GetSyncUrl();
+}
+uint32_t CKBModel::SetSyncUrl(const std::string syncUrl) {
+    return m_kbfile.GetHeader().SetSyncUrl(syncUrl);
+}
