@@ -3,11 +3,7 @@
 //
 
 #include <QSplitter>
-#include <QTextEdit>
-#include <QListView>
-
 #include <QToolButton>
-#include <QLineEdit>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <fstream>
@@ -15,7 +11,6 @@
 #include "CKBModel.h"
 #include "CPrimaryPasswordDlg.h"
 #include "CPwdEntryDlg.h"
-#include "utilities/error_code.h"
 #include "CPwdGeneratorDlg.h"
 #include "CSettings.h"
 #include "CPwdGroupDlg.h"
