@@ -5,16 +5,10 @@
 #ifndef KEYBOX_MAINWINDOW_H
 #define KEYBOX_MAINWINDOW_H
 
-#include <memory>
 #include <QtGlobal>
 #include <QMainWindow>
-#include <QActionGroup>
-#include <QLabel>
-#include <QMenu>
 #include <QMenuBar>
-#include <QTreeWidgetItem>
 #include <QToolBar>
-#include <QTableView>
 #include <QStringListModel>
 #include "CKBModel.h"
 #include "CPwdEntryTableView.h"
