@@ -31,7 +31,9 @@ public:
 
 
     // two step load, because payload needs header to decrypt
+    uint32_t LoadKBFileToBuff(const std::string &filepath);
     uint32_t LoadKBHeader(const std::string &filepath);
+    uint32_t LoadKBHeader();
 
     uint32_t LoadPayload();
 
@@ -59,6 +61,8 @@ public:
     uint32_t SetEmail(const std::string email);
     const std::string GetSyncUrl();
     uint32_t SetSyncUrl(const std::string syncUrl);
+
+    void Lock();
 
 private:
     CKBFile m_kbfile;

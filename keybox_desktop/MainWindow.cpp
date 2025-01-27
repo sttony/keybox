@@ -142,17 +142,38 @@ void MainWindow::CreateActions() {
 
 }
 
-void MainWindow::openSyncSetting(){
-    CSyncSettingDlg syncSettingDlg(m_pModel, this);
-    syncSettingDlg.exec();
-}
-
-void MainWindow::syncRemote() {
-
-}
-
 void MainWindow::lockFile() {
+    m_pModel->Lock();
+    m_entry_table_view->hide();
+    repaint();
 
+    CPrimaryPasswordDlg ppdlg(m_pModel->GetKeyDerivateParameters());
+    ppdlg.setWindowTitle( m_pModel->GetFilePath().c_str());
+    ppdlg.setMinimumWidth(m_pModel->GetFilePath().size() * 16);
+    while (true) {
+        if (ppdlg.exec() ) {
+            m_pModel->LoadKBHeader();
+            m_pModel->SetPrimaryKey(ppdlg.GetPassword());
+            if (!m_pModel->LoadPayload() ) {
+                this->RefreshActionEnabled();
+                m_entry_table_view->show();
+                break;
+            }
+        }
+        else {
+            // clicked cancel, create a new file.
+            QMessageBox msgBox;
+            msgBox.setWindowTitle("Seems like you don't want to unlock current file.");
+            msgBox.setText("Do you want to create new file?");
+            QPushButton *customProceedButton = msgBox.addButton("Create a new File", QMessageBox::AcceptRole);
+            QPushButton *customCancelButton = msgBox.addButton("Retry", QMessageBox::RejectRole);
+            msgBox.exec();
+            if (msgBox.clickedButton() == customProceedButton) {
+                newFile();
+                break;
+            }
+        }
+    }
 }
 
 void MainWindow::newEntry() {
@@ -339,4 +360,13 @@ void MainWindow::onTableRowDoubleClicked(const QModelIndex &index) {
 
 void MainWindow::onSearchTextChange(const QString &_filter) {
     m_pModel->SetFilter(_filter);
+}
+
+void MainWindow::openSyncSetting(){
+    CSyncSettingDlg syncSettingDlg(m_pModel, this);
+    syncSettingDlg.exec();
+}
+
+void MainWindow::syncRemote() {
+
 }

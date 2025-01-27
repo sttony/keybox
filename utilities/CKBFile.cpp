@@ -170,10 +170,8 @@ uint32_t CKBFile::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint3
         if (pBuffer == nullptr) {
             cbRealSize += encrypted_buff.size();
             cipherEngine.CleanString(pay_load_json);
-            return 0;
-        } else {
-            return ERROR_BUFFER_TOO_SMALL;
         }
+        return ERROR_BUFFER_TOO_SMALL;
     }
     memcpy(pBuffer + cbRealSize, &encrypted_buff[0], encrypted_buff.size());
     cbRealSize += encrypted_buff.size();
