@@ -49,6 +49,7 @@ uint32_t CKBModel::LoadKBFileToBuff(const std::string &filepath) {
     if (!fd.read((char *) m_file_buff.data(), size)) {
         return ERROR_FILE_IO;
     }
+    return 0;
 }
 
 uint32_t CKBModel::LoadKBHeader(const std::string &filepath) {
