@@ -63,6 +63,7 @@ public:
     uint32_t SetSyncUrl(const std::string syncUrl);
 
     void Lock();
+    void Register();
 
 private:
     CKBFile m_kbfile;

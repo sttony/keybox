@@ -47,7 +47,8 @@ uint32_t CRequest::Send() {
 }
 
 void CRequest::SetPayload(std::string &&payload) {
-
+    m_payLoadBuff = payload;
+    curl_easy_setopt(m_curl, CURLOPT_POSTFIELDS, m_payLoadBuff.c_str());
 }
 
 uint32_t CRequest::GetResponseCode() {

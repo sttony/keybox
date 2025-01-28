@@ -5,6 +5,8 @@
 #include <fstream>
 #include "CKBModel.h"
 #include "../utilities/error_code.h"
+#include "utilities/CSyncEngine.h"
+
 using namespace std;
 
 int CKBModel::rowCount(const QModelIndex &parent) const {
@@ -222,4 +224,9 @@ void CKBModel::Lock() {
     m_file_buff.resize(cbRealSize);
     m_kbfile.Lock(m_file_buff.data(), m_file_buff.size(), cbRealSize);
     emit layoutChanged();
+}
+
+void CKBModel::Register() {
+    CSyncEngine syncEngine(m_kbfile);
+    syncEngine.Register();
 }

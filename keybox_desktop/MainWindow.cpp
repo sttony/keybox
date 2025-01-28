@@ -131,7 +131,7 @@ void MainWindow::CreateActions() {
     connect(m_syncSetting, &QAction::triggered, this, &MainWindow::openSyncSetting);
 
     m_syncRemote =  new QAction(tr("Sync with remote"), this);
-    connect(m_syncSetting, &QAction::triggered, this, &MainWindow::syncRemote);
+    connect(m_syncRemote, &QAction::triggered, this, &MainWindow::syncRemote);
 
     this->RefreshActionEnabled();
 
@@ -363,5 +363,5 @@ void MainWindow::openSyncSetting(){
 }
 
 void MainWindow::syncRemote() {
-
+    m_pModel->Register();
 }

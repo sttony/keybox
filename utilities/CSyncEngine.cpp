@@ -32,3 +32,8 @@ uint32_t CSyncEngine::Register(){
     }
     return request.GetResponseCode() | ERROR_HTTP_ERROR_PREFIX;
 }
+
+
+CSyncEngine::~CSyncEngine(){
+
+}

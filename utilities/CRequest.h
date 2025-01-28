@@ -19,7 +19,7 @@ public:
     static const std::string GET;
     static const std::string POST;
 
-    CRequest(std::string&& url, std::string method = GET);
+    explicit CRequest(std::string&& url, std::string method = GET);
     ~CRequest();
     void SetHeader(std::string&& header_name, std::string&& header_value);
     void SetPayload(std::string&& payload);
@@ -31,7 +31,7 @@ public:
 private:
     static size_t WriteCallback(void *ptr, size_t size, size_t nmemb, void *data);
 
-
+    std::string m_payLoadBuff;
     std::string m_method;
     CURL *m_curl;
     std::vector<unsigned char> m_response_payload;
