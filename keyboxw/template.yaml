@@ -24,7 +24,7 @@ Resources:
                     Type: Api # More info about API Event Source: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-api.html
                     Properties:
                         Path: /{proxy+}
-                        Method: GET
+                        Method: ANY
              # Powertools env vars: https://awslabs.github.io/aws-lambda-powertools-python/#environment-variables
             Environment:
                 Variables:
