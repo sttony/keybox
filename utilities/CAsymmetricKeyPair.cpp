@@ -13,42 +13,42 @@
 
 using namespace std;
 
-size_t CAsymmetricKeyPair::GetPublicKeyLength() {
+size_t CAsymmetricKeyPair::GetPublicKeyLength() const {
     assert(m_pkey);
-    size_t len = 0;
-    if (EVP_PKEY_get_octet_string_param(m_pkey, OSSL_PKEY_PARAM_PUB_KEY, nullptr, 0, &len) != 1) {
-        return 0;
-    }
+    BIO *bio = BIO_new(BIO_s_mem());
+    PEM_write_bio_PUBKEY(bio, m_pkey);
+
+    long len = BIO_get_mem_data(bio, nullptr);
+    BIO_free(bio);
     return len;
 }
 
-CMaskedBlob CAsymmetricKeyPair::GetPublicKey(std::vector<unsigned char> &&onepad) {
+CMaskedBlob CAsymmetricKeyPair::GetPublicKey(std::vector<unsigned char> &&onepad) const {
     assert(m_pkey);
     size_t len = GetPublicKeyLength();
     if (len != onepad.size()) {
         return {};
     }
     vector<unsigned char> buff(len);
-    if (EVP_PKEY_get_octet_string_param(m_pkey, OSSL_PKEY_PARAM_PUB_KEY, buff.data(), buff.size(), &len) != 1) {
-        return {};
-    };
+    BIO *bio = BIO_new(BIO_s_mem());
+    PEM_write_bio_PUBKEY(bio, m_pkey);
+    char* data = nullptr;
+    BIO_get_mem_data(bio, &data);
 
     CMaskedBlob result;
-    result.Set(buff, std::move(onepad));
+    result.Set(data, std::move(onepad));
+    BIO_free(bio);
     return result;
 }
 
 size_t CAsymmetricKeyPair::GetPrivateKeyLength() {
     assert(m_pkey);
-    size_t len = 0;
-    BIGNUM *pri_key = nullptr;
-    if (EVP_PKEY_get_bn_param(m_pkey, OSSL_PKEY_PARAM_PRIV_KEY, &pri_key) != 1) {
-        return 0;
-    }
+    BIO *bio = BIO_new(BIO_s_mem());
+    PEM_write_bio_PrivateKey(bio, m_pkey, NULL, NULL, 0, NULL, NULL);
 
-    size_t result = BN_num_bytes(pri_key);
-    BN_clear_free(pri_key);
-    return result;
+    long len = BIO_get_mem_data(bio, nullptr);
+    BIO_free(bio);
+    return len;
 }
 
 CMaskedBlob CAsymmetricKeyPair::GetPrivateKey(std::vector<unsigned char> &&onepad) {
@@ -58,15 +58,13 @@ CMaskedBlob CAsymmetricKeyPair::GetPrivateKey(std::vector<unsigned char> &&onepa
         return {};
     }
     vector<unsigned char> buff(len);
-    BIGNUM *pri_key = nullptr;
-    if (EVP_PKEY_get_bn_param(m_pkey, OSSL_PKEY_PARAM_PRIV_KEY, &pri_key) != 1) {
-        return {};
-    }
-    if (!BN_bn2bin(pri_key, buff.data())) {
-        return {};
-    }
+    BIO *bio = BIO_new(BIO_s_mem());
+    PEM_write_bio_PrivateKey(bio, m_pkey, NULL, NULL, 0, NULL, NULL);
+    char* data = nullptr;
+    BIO_get_mem_data(bio, &data);
     CMaskedBlob result;
-    result.Set(buff, std::move(onepad));
+    result.Set(data, std::move(onepad));
+    BIO_free(bio);
     return result;
 }
 

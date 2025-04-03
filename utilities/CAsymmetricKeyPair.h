@@ -9,8 +9,8 @@
 
 class CAsymmetricKeyPair {
 public:
-    CMaskedBlob GetPublicKey(std::vector<unsigned char>&& onepad);
-    size_t GetPublicKeyLength();
+    CMaskedBlob GetPublicKey(std::vector<unsigned char>&& onepad) const;
+    size_t GetPublicKeyLength() const;
     CMaskedBlob GetPrivateKey(std::vector<unsigned char>&& onepad);
     size_t GetPrivateKeyLength();
 
