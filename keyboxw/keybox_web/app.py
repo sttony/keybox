@@ -9,6 +9,8 @@ from aws_lambda_powertools.metrics import MetricUnit
 from refresh_token import handler as refresh_handler
 from register import handler as register_handler
 from activate import handler as activate_handler
+from retrieve import handler as retrieve_handler
+from upload import handler as upload_handler
 
 app = APIGatewayRestResolver()
 tracer = Tracer()
@@ -41,10 +43,20 @@ def register():
     return register_handler.lambda_handler(app.current_event, app.context)
 
 
-@app.post("/activate")
+@app.get("/activate")
 @tracer.capture_method
 def activate():
     return activate_handler.lambda_handler(app.current_event, app.context)
+
+@app.post('/retrieve')
+@tracer.capture_method
+def retrieve():
+    return retrieve_handler.lambda_handler(app.current_event, app.context)
+
+@app.post('/upload')
+@tracer.capture_method
+def upload():
+    return upload_handler.lambda_handler(app.current_event, app.context)
 
 
 # Enrich logging with contextual information from Lambda

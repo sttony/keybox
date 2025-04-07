@@ -4,12 +4,13 @@ import logging
 import uuid
 
 import requests
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric import ec
+from cryptography.exceptions import InvalidSignature
 
 import sys
 
 from utility import secretsmanager
-from utility.http_parameter_helper import HttpParameterHelper
-from utility.email_adapter import EmailAdapter
 from utility.http_parameter_helper import HttpParameterHelper
 from utility.ddb_adapter import DDBAdapter
 from utility.user_entity import User
@@ -31,24 +32,22 @@ def lambda_handler(event, context):
     ddb_adapter = DDBAdapter()
     user = ddb_adapter.get_user(email)
     if not user:
-        user = User(
-            email=email,
-            activate_status='pending',
-            activate_code=str(uuid.uuid4()),
-            expiring_date=datetime.datetime.now() + datetime.timedelta(minutes=10)
-        )
+        return {"message": "user not found"}, 404
     else:
         if user.activate_status == 'pending' and user.expiring_date > datetime.datetime.now():
-            return {"message": "email exists"}, 403
-        else:
-            user.activate_code = str(uuid.uuid4())
-            user.expiring_date = datetime.datetime.now() + datetime.timedelta(minutes=10)
+            return {"message": "user not activated"}, 403
 
-    # update entity
-    ddb_adapter.put_user(user)
+    # check signature
+    signature = http_parameter_helper.get_json_api_payload("signature")
+    if not email:
+        logger.error("No signature")
+        return {"message": "no email"}, 403
 
-    # send email
-    email_adapter = EmailAdapter()
-    email_adapter.send_activate()
+
+
+
+
+    # return s3
+
 
     return {"message": "Refresh succeed"}, 200

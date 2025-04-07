@@ -1,22 +1,21 @@
 import json
 import logging
 import requests
+from aws_lambda_powertools.utilities.data_classes import APIGatewayProxyEvent
 from aws_lambda_powertools.utilities.typing import LambdaContext
 
 from utility import secretsmanager
-from utility import http_parameter_helper
+from utility.http_parameter_helper import HttpParameterHelper
 
 # Configure logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
-def lambda_handler(event: dict, context: LambdaContext):
-    if ("queryStringParameters" not in event) or (not event["queryStringParameters"]):
-        logger.error("No queryStringParameters in event")
-        return {"message": "no queryStringParameters"}, 404
+def lambda_handler(event: APIGatewayProxyEvent, context: dict):
+    http_parameter_helper = HttpParameterHelper(event, context)
 
-    authentication_code = http_parameter_helper.get_query_parameter(event, "code")
+    authentication_code = http_parameter_helper.get_query_parameter("code")
     if not authentication_code:
         logger.error("No code in queryStringParameters")
         return {"message": "no code"}, 404

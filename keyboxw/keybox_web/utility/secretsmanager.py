@@ -1,5 +1,5 @@
 import json
-from typing import Dict
+from typing import Dict, Optional
 
 import boto3
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError
@@ -9,7 +9,7 @@ import logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-def get_secret(secret_name, region_name="us-west-2") -> Dict:
+def get_secret(secret_name, region_name="us-west-2") -> Optional[Dict]:
     # Create a Secrets Manager client
     client = boto3.client('secretsmanager', region_name=region_name)
 
@@ -44,18 +44,18 @@ def set_secret(secret_name, payload_dict, region_name="us-west-2"):
         response = client.update_secret(SecretId=secret_name, SecretString=json.dumps(payload_dict))
     except NoCredentialsError:
         logger.error("Credentials not available")
-        return response
+        return None
     except PartialCredentialsError:
         logger.error("Incomplete credentials")
-        return response
+        return None
     except client.exceptions.ResourceNotFoundException:
         logger.error(f"The requested secret {secret_name} was not found")
-        return response
+        return None
     except client.exceptions.InvalidRequestException as e:
         logger.error(f"The request was invalid due to: {e}")
-        return response
+        return None
     except client.exceptions.InvalidParameterException as e:
         logger.error(f"The request had invalid params: {e}")
-        return response
+        return None
 
     return None
