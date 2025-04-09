@@ -47,7 +47,7 @@ CPwdGroupDlg::CPwdGroupDlg(CKBModel *pModel, QWidget *parent) {
     btnLine2->addWidget(m_cancelBtn);
     rootLayout->addLayout(btnLine2);
     connect(m_saveBtn, &QPushButton::clicked, this, &CPwdGroupDlg::onSave);
-    QObject::connect(m_saveBtn, &QPushButton::clicked, this, &QDialog::reject);
+    QObject::connect(m_cancelBtn, &QPushButton::clicked, this, &QDialog::reject);
     this->setLayout(rootLayout);
 
 }
