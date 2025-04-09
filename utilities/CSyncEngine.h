@@ -11,7 +11,13 @@ public:
     ~CSyncEngine();
 
     uint32_t Register(); // Register 1st step
-    void FinishRegister(); // Register 2nd step
+    /**
+     *  Register 2nd step
+     * @return No register is pending
+     *         register is not activate
+     *         0, it is done.
+     */
+    uint32_t FinishRegister();
     void Unregister();
     void Sync(); //sync;
 

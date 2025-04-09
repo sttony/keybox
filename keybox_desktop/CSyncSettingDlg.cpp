@@ -34,7 +34,7 @@ CSyncSettingDlg::CSyncSettingDlg(CKBModel* pModel, QWidget *parent) {
     setLayout(rootLayout);
 
     connect(m_saveBtn, &QPushButton::clicked, this, &CSyncSettingDlg::onSave);
-    QObject::connect(m_saveBtn, &QPushButton::clicked, this, &QDialog::reject);
+    QObject::connect(m_cancelBtn, &QPushButton::clicked, this, &QDialog::reject);
 }
 
 void CSyncSettingDlg::onSave() {
