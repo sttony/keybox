@@ -62,6 +62,7 @@ uint32_t CKBFile::Deserialize(const unsigned char *pBuffer, uint32_t cbBufferSiz
     // Clear existing entries
     m_entries.clear();
     m_groups.clear();
+    m_pAsymmetric_key_pair.reset();
 
     for (const auto &kv: entries_tree.get_child("entries")) {
         CPwdEntry entry;
@@ -73,6 +74,10 @@ uint32_t CKBFile::Deserialize(const unsigned char *pBuffer, uint32_t cbBufferSiz
         group.fromJsonObj(kv.second);
         m_groups.push_back(std::move(group));
     }
+    for (const auto &kv: entries_tree.get_child("asymmetric_key")) {
+        m_pAsymmetric_key_pair->fromJsonObj(kv.second);
+    }
+
     return 0;
 }
 
@@ -127,6 +132,10 @@ uint32_t CKBFile::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint3
         groups.push_back({"", group.toJsonObj()});
     }
     pay_load.add_child("groups", groups);
+
+    // Asym key
+    boost::property_tree::ptree asymmetric_key;
+    pay_load.add_child("asymmetric_key", m_pAsymmetric_key_pair->toJsonObj());
 
     std::ostringstream oss;
     boost::property_tree::write_json(oss, pay_load);
@@ -318,6 +327,12 @@ uint32_t CKBFile::UpdateGroup(const std::string &uuid_str, const std::string &na
     }
 
 
+    return 0;
+}
+
+uint32_t CKBFile::SetAsymKey(unique_ptr<CAsymmetricKeyPair> _key) {
+    m_pAsymmetric_key_pair.reset();
+    m_pAsymmetric_key_pair = std::move(_key);
     return 0;
 }
 

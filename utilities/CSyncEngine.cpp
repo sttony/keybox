@@ -8,10 +8,6 @@
 using namespace std;
 
 uint32_t CSyncEngine::Register(){
-    // read url from kb file
-    string sync_url = m_pKbfile->GetHeader().GetSyncUrl();
-    // read email from kb file
-    string sync_email = m_pKbfile->GetHeader().GetSyncEmail();
     // generate async pair
     CAsymmetricKeyPair asymmetricKeyPair;
     asymmetricKeyPair.ReGenerate();
@@ -22,10 +18,10 @@ uint32_t CSyncEngine::Register(){
 
     // send pubkey, email to url
     CMaskedBlob pubKey = asymmetricKeyPair.GetPublicKey( vector<unsigned char>(asymmetricKeyPair.GetPublicKeyLength()));
-    CRequest request(sync_url+"/" + "register", CRequest::POST);
+    CRequest request(m_sync_url+"/" + "register", CRequest::POST);
     boost::property_tree::ptree pay_load;
     pay_load.put("pubKey", pubKey.Show());
-    pay_load.put("email", sync_email);
+    pay_load.put("email", m_sync_email);
     std::ostringstream oss;
     boost::property_tree::write_json(oss, pay_load);
     request.SetPayload(oss.str());
@@ -38,11 +34,9 @@ uint32_t CSyncEngine::Register(){
 }
 
 uint32_t CSyncEngine::FinishRegister() {
-    // read url from kb file
-    string sync_url = m_pKbfile->GetHeader().GetSyncUrl();
-    // read email from kb file
-    string sync_email = m_pKbfile->GetHeader().GetSyncEmail();
-    CRequest request(sync_url+"/" + "check_status", CRequest::POST);
+
+
+    CRequest request(m_sync_url+"/" + "check_status", CRequest::POST);
     request.Send();
 
     if (request.GetResponseCode() == 200) {
@@ -54,12 +48,26 @@ uint32_t CSyncEngine::FinishRegister() {
 void CSyncEngine::Unregister() {
 }
 
-void CSyncEngine::Sync() {
+uint32_t CSyncEngine::Sync(CKBFile* pKBFile) {
+    // check if pubkey exists, if not exist,  try to register
+    assert(pKBFile);
+    CAsymmetricKeyPair asymmetricKeyPair;
+    pKBFile->GetHeader();
+
+    //
+    // CRequest request(m_sync_url+"/" + "retrieve", CRequest::POST);
+    // boost::property_tree::ptree pay_load;
+    // pay_load.put("email", m_sync_email);
+    // std::ostringstream oss;
+    // boost::property_tree::write_json(oss, pay_load);
+    // request.SetPayload(oss.str());
+    // request.Send();
 
 
+
+
+    return 0;
 }
 
 
-CSyncEngine::~CSyncEngine(){
-
-}
+CSyncEngine::~CSyncEngine()= default;

@@ -9,6 +9,8 @@
 #include <vector>
 #include <unordered_map>
 #include <functional>
+
+#include "CAsymmetricKeyPair.h"
 #include "CKBFileHeader.h"
 #include "CipherEngine.h"
 #include "CPwdEntry.h"
@@ -52,11 +54,15 @@ public:
     uint32_t RemoveGroup(const std::string _uuid_str);
     uint32_t UpdateGroup(const std::string& uid, const std::string& name);
 
+    uint32_t SetAsymKey(std::unique_ptr<CAsymmetricKeyPair> _key);
+
+
 private:
     CKBFileHeader m_header;
     std::vector<CPwdEntry> m_entries;
     std::vector<CPwdGroup> m_groups = {g_RootGroup};
     CMaskedBlob m_master_key;
+    std::unique_ptr<CAsymmetricKeyPair> m_pAsymmetric_key_pair;
 };
 
 

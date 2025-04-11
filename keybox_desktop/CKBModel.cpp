@@ -227,6 +227,6 @@ void CKBModel::Lock() {
 }
 
 void CKBModel::Register() {
-    CSyncEngine syncEngine(m_kbfile);
-    syncEngine.Register();
+    // CSyncEngine syncEngine(m_kbfile);
+    // syncEngine.Register();
 }

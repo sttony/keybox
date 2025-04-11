@@ -5,9 +5,11 @@
 
 class CSyncEngine {
 private:
-    std::shared_ptr<CKBFile> m_pKbfile;
+    std::string m_sync_email;
+    std::string m_sync_url;
 public:
-    CSyncEngine(const CKBFile& ckbFile): m_pKbfile(std::make_shared<CKBFile>(ckbFile)) {};
+    CSyncEngine(const std::string& sync_email, const std::string& sync_url)
+        : m_sync_email(sync_email), m_sync_url(sync_url) {};
     ~CSyncEngine();
 
     uint32_t Register(); // Register 1st step
@@ -18,8 +20,9 @@ public:
      *         0, it is done.
      */
     uint32_t FinishRegister();
+
     void Unregister();
-    void Sync(); //sync;
+    uint32_t Sync(CKBFile* pKBFile); //sync;
 
 
 };
