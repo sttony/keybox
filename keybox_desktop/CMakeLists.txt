@@ -14,6 +14,9 @@ set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost REQUIRED unit_test_framework filesystem)
 include_directories(${Boost_INCLUDE_DIRS})
 
+find_package(OpenSSL REQUIRED)
+include_directories(${OPENSSL_INCLUDE_DIR})
+
 
 add_executable(keyboxd main.cpp
         MainWindow.cpp
@@ -50,4 +53,5 @@ target_link_libraries(
         Qt5::Widgets
         utilities
         ${Boost_LIBRARIES}
+        ${OPENSSL_LIBRARIES}
 )
