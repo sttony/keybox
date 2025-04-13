@@ -6,10 +6,12 @@
 #include <openssl/evp.h>
 #include <openssl/core_names.h>
 #include <openssl/pem.h>
+#include <openssl/err.h>
 #include "CAsymmetricKeyPair.h"
 #include "error_code.h"
 #include "InitGlobalRG.h"
 #include "Base64Coder.h"
+#include "CipherEngine.h"
 
 using namespace std;
 
@@ -97,6 +99,68 @@ CAsymmetricKeyPair::~CAsymmetricKeyPair() {
     if (m_pkey != nullptr) {
         EVP_PKEY_free(m_pkey);
     }
+}
+
+uint32_t CAsymmetricKeyPair::Sign(const std::vector<unsigned char> &data, std::vector<unsigned char> &signature) {
+    /* Create the EVP_PKEY_CTX context for signing */
+    EVP_PKEY_CTX * ctx = EVP_PKEY_CTX_new(m_pkey, nullptr);
+    if (!ctx) {
+        return ERR_get_error();
+    }
+
+    /* Initialize the signing context */
+    if (EVP_PKEY_sign_init(ctx) <= 0) {
+        EVP_PKEY_CTX_free(ctx);
+        return ERR_get_error();
+    }
+
+    vector<unsigned char> hash_data;
+    CCipherEngine cipher_engine;
+    cipher_engine.SHA256(data.data(), data.size(), hash_data);
+
+    size_t signature_len = 0;
+    /* Determine the required buffer length for the signature */
+    if (EVP_PKEY_sign(ctx, nullptr, &signature_len, hash_data.data(), hash_data.size()) <= 0) {
+        EVP_PKEY_CTX_free(ctx);
+        return ERR_get_error();
+    }
+    signature.resize(signature_len);
+
+    /* Perform the signing operation */
+    if (EVP_PKEY_sign(ctx, signature.data(), &signature_len, hash_data.data(), hash_data.size()) <= 0) {
+        EVP_PKEY_CTX_free(ctx);
+        return ERR_get_error();
+    }
+    EVP_PKEY_CTX_free(ctx);
+    return 0;
+}
+
+uint32_t CAsymmetricKeyPair::Verify(const std::vector<unsigned char> &data, const std::vector<unsigned char> &signature) {
+    /* Create the EVP_PKEY_CTX context for signing */
+    EVP_PKEY_CTX * ctx = EVP_PKEY_CTX_new(m_pkey, nullptr);
+    if (!ctx) {
+        return ERR_get_error();
+    }
+
+    /* Initialize the signing context */
+    if (EVP_PKEY_verify_init(ctx) <= 0) {
+        EVP_PKEY_CTX_free(ctx);
+        return ERR_get_error();
+    }
+
+    vector<unsigned char> hash_data;
+    CCipherEngine cipher_engine;
+    cipher_engine.SHA256(data.data(), data.size(), hash_data);
+
+    size_t signature_len = 0;
+
+    /* Perform the verifying operation */
+    if (EVP_PKEY_verify(ctx, signature.data(), signature.size(), hash_data.data(), hash_data.size()) <= 0) {
+        EVP_PKEY_CTX_free(ctx);
+        return ERR_get_error();
+    }
+    EVP_PKEY_CTX_free(ctx);
+    return 0;
 }
 
 uint32_t CAsymmetricKeyPair::LoadPrivateKey(vector<unsigned char> &&privKey) {

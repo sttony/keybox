@@ -21,6 +21,9 @@ public:
     boost::property_tree::ptree toJsonObj();
     uint32_t fromJsonObj(const boost::property_tree::ptree &);
     ~CAsymmetricKeyPair();
+
+    uint32_t Sign( const std::vector<unsigned char>& data, std::vector<unsigned char>& signature);
+    uint32_t Verify( const std::vector<unsigned char>& data, const std::vector<unsigned char>& signature);
 private:
     EVP_PKEY* m_pkey = nullptr;
 };
