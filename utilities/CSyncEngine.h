@@ -22,6 +22,8 @@ public:
     uint32_t FinishRegister();
 
     void Unregister();
+    uint32_t Retrieve();
+
     uint32_t Sync(CKBFile* pKBFile); //sync;
 
 

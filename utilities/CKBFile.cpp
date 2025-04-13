@@ -10,6 +10,9 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/random_generator.hpp>
 
+#include "CRequest.h"
+#include "InitGlobalRG.h"
+
 using namespace std;
 
 
@@ -337,3 +340,26 @@ uint32_t CKBFile::SetAsymKey(unique_ptr<CAsymmetricKeyPair> _key) {
 }
 
 
+uint32_t CKBFile::RetrieveFromRemote() {
+    const string& sync_url = m_header.GetSyncUrl();
+    const string& sync_email = m_header.GetSyncEmail();
+    CRequest request(sync_url+"/" + "retrieve", CRequest::POST);
+    boost::property_tree::ptree pay_load;
+
+    vector<unsigned char> salt(32);
+    g_RG.GetNextBytes(32, salt);
+
+    pay_load.put("email", sync_email);
+    pay_load.put("saltgkhu", "asd" );
+    std::ostringstream oss;
+    boost::property_tree::write_json(oss, pay_load);
+    request.SetPayload(oss.str());
+    request.Send();
+    if (request.GetResponseCode() == 200) {
+        request.GetResponsePayload();
+    }
+    else {
+
+    }
+    return 0;
+}

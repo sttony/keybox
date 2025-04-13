@@ -57,6 +57,10 @@ public:
     uint32_t SetAsymKey(std::unique_ptr<CAsymmetricKeyPair> _key);
 
 
+    // Sync related code
+    uint32_t RetrieveFromRemote();
+
+
 private:
     CKBFileHeader m_header;
     std::vector<CPwdEntry> m_entries;

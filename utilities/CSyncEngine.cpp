@@ -48,6 +48,24 @@ uint32_t CSyncEngine::FinishRegister() {
 void CSyncEngine::Unregister() {
 }
 
+// uint32_t CSyncEngine::Retrieve(const vector<unsigned char>& salt) {
+//     CRequest request(m_sync_url+"/" + "register", CRequest::POST);
+//     boost::property_tree::ptree pay_load;
+//     pay_load.put("email", m_sync_email);
+//     pay_load.put("saltgkhu", m_sync_email);
+//     std::ostringstream oss;
+//     boost::property_tree::write_json(oss, pay_load);
+//     request.SetPayload(oss.str());
+//     request.Send();
+//     if (request.GetResponseCode() == 200) {
+//         request.GetResponsePayload();
+//     }
+//     else {
+//
+//     }
+//     return 0;
+// }
+
 uint32_t CSyncEngine::Sync(CKBFile* pKBFile) {
     // check if pubkey exists, if not exist,  try to register
     assert(pKBFile);
