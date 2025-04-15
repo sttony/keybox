@@ -3,6 +3,9 @@
 //
 
 #include "CKBFile.h"
+
+#include <boost/lexical_cast.hpp>
+
 #include "error_code.h"
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -10,6 +13,7 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/random_generator.hpp>
 
+#include "Base64Coder.h"
 #include "CRequest.h"
 #include "InitGlobalRG.h"
 
@@ -33,54 +37,15 @@ uint32_t CKBFile::Deserialize(const unsigned char *pBuffer, uint32_t cbBufferSiz
     if (m_master_key.size() == 0) {
         return ERROR_MASTER_KEY_INVALID;
     }
-    m_header.Deserialize(pBuffer, cbBufferSize, cbRealSize);
-    CCipherEngine cipherEngine;
-    vector<unsigned char> decrypted_buff;
-    uint32_t uResult = 0;
-    uResult = cipherEngine.AES256EnDecrypt(
-            pBuffer + cbRealSize,
-            cbBufferSize - cbRealSize,
-            m_master_key.ShowBin(),
-            m_header.GetIV(),
-            CCipherEngine::AES_CHAIN_MODE_CBC,
-            CCipherEngine::AES_PADDING_MODE_PKCS7,
-            false,
-            decrypted_buff
-    );
-    if (uResult) {
-        return uResult;
-    }
-    // load json from decrypted_buff
-    decrypted_buff.push_back('\0'); // append a zero
-    boost::property_tree::ptree entries_tree;
-    std::istringstream iss((char *) (&decrypted_buff[0]));
-    string temp = std::string(decrypted_buff.begin(), decrypted_buff.end());
-    try {
-        boost::property_tree::read_json(iss, entries_tree);
-    }
-    catch (exception &e) {
-        return ERROR_INVALID_JSON;
+    uint32_t result = this->LoadHeader(pBuffer, cbBufferSize, cbRealSize);
+    if ( result ) {
+        return result;
     }
 
-    // Clear existing entries
-    m_entries.clear();
-    m_groups.clear();
-    m_pAsymmetric_key_pair.reset();
-
-    for (const auto &kv: entries_tree.get_child("entries")) {
-        CPwdEntry entry;
-        entry.fromJsonObj(kv.second);
-        m_entries.push_back(std::move(entry));
+    result = this->LoadPayload(pBuffer + cbRealSize, cbBufferSize - cbRealSize, cbRealSize);
+    if ( result ) {
+        return result;
     }
-    for (const auto &kv: entries_tree.get_child("groups")) {
-        CPwdGroup group("");
-        group.fromJsonObj(kv.second);
-        m_groups.push_back(std::move(group));
-    }
-    for (const auto &kv: entries_tree.get_child("asymmetric_key")) {
-        m_pAsymmetric_key_pair->fromJsonObj(kv.second);
-    }
-
     return 0;
 }
 
@@ -136,9 +101,15 @@ uint32_t CKBFile::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint3
     }
     pay_load.add_child("groups", groups);
 
-    // Asym key
-    boost::property_tree::ptree asymmetric_key;
-    pay_load.add_child("asymmetric_key", m_pAsymmetric_key_pair->toJsonObj());
+    if (m_pAsymmetric_key_pair) {
+        // Asym key
+        pay_load.add_child("asymmetric_key", m_pAsymmetric_key_pair->toJsonObj());
+    }
+
+    // client ID
+    boost::property_tree::ptree client_id;
+    client_id.put("uuid", to_string(m_client_uuid));
+    pay_load.add_child("client_id", client_id);
 
     std::ostringstream oss;
     boost::property_tree::write_json(oss, pay_load);
@@ -250,9 +221,9 @@ uint32_t CKBFile::LoadPayload(const unsigned char *pBuffer, uint32_t cbBufferSiz
     // Clear existing entries
     m_entries.clear();
     m_groups.clear();
+    m_pAsymmetric_key_pair.reset();
 
-    auto entries = entries_tree.get_child_optional("entries");
-    if ( entries.has_value()) {
+    if (auto entries = entries_tree.get_child_optional("entries"); entries.has_value()) {
         for (const auto &kv: entries.get()) {
             CPwdEntry entry;
             entry.fromJsonObj(kv.second);
@@ -260,14 +231,20 @@ uint32_t CKBFile::LoadPayload(const unsigned char *pBuffer, uint32_t cbBufferSiz
         }
     }
 
-    auto groups = entries_tree.get_child_optional("groups");
-    if(groups.has_value()) {
-
+    if (auto groups = entries_tree.get_child_optional("groups"); groups.has_value()) {
         for (const auto &kv:groups.get()) {
             CPwdGroup group("");
             group.fromJsonObj(kv.second);
             m_groups.push_back(std::move(group));
         }
+    }
+    if (auto asymmetric_key = entries_tree.get_child_optional("asymmetric_key"); asymmetric_key.has_value()) {
+        m_pAsymmetric_key_pair->fromJsonObj(entries_tree.get_child("asymmetric_key"));
+    }
+
+    if (auto client_id = entries_tree.get_child_optional("client_id"); client_id.has_value()) {
+        auto uuidStr = entries_tree.get_child("client_id").get<std::string>("uuid");
+        m_client_uuid = boost::lexical_cast<boost::uuids::uuid>(uuidStr);
     }
     UpdateGroup(g_RootGroup.GetID(), g_RootGroup.GetName());
     return 0;
@@ -346,11 +323,14 @@ uint32_t CKBFile::RetrieveFromRemote() {
     CRequest request(sync_url+"/" + "retrieve", CRequest::POST);
     boost::property_tree::ptree pay_load;
 
-    vector<unsigned char> salt(32);
-    g_RG.GetNextBytes(32, salt);
+    vector<unsigned char> bin_signature;
+    m_pAsymmetric_key_pair->Sign(m_client_uuid.data(), 128/8, bin_signature);
+    Base64Coder base64coder;
+    string base64_signature;
+    base64coder.Encode(bin_signature.data(), bin_signature.size(), base64_signature);
 
     pay_load.put("email", sync_email);
-    pay_load.put("saltgkhu", "asd" );
+    pay_load.put("signature", base64_signature);
     std::ostringstream oss;
     boost::property_tree::write_json(oss, pay_load);
     request.SetPayload(oss.str());

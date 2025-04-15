@@ -23,6 +23,7 @@ public:
     ~CAsymmetricKeyPair();
 
     uint32_t Sign( const std::vector<unsigned char>& data, std::vector<unsigned char>& signature);
+    uint32_t Sign( const unsigned char* data, uint32_t data_size, std::vector<unsigned char>& signature);
     uint32_t Verify( const std::vector<unsigned char>& data, const std::vector<unsigned char>& signature);
 private:
     EVP_PKEY* m_pkey = nullptr;

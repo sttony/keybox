@@ -72,7 +72,7 @@ CMaskedBlob CAsymmetricKeyPair::GetPrivateKey(std::vector<unsigned char> &&onepa
 
 boost::property_tree::ptree CAsymmetricKeyPair::toJsonObj() {
     boost::property_tree::ptree root;
-    CMaskedBlob private_key = this->GetPrivateKey( vector<unsigned char>( this->GetPrivateKeyLength(), 0xFF));
+    CMaskedBlob private_key = this->GetPrivateKey( g_RG.GetNextBytes(this->GetPrivateKeyLength()));
     root.add_child("async_pair", private_key.toJsonObj());
     return root;
 }
@@ -102,6 +102,11 @@ CAsymmetricKeyPair::~CAsymmetricKeyPair() {
 }
 
 uint32_t CAsymmetricKeyPair::Sign(const std::vector<unsigned char> &data, std::vector<unsigned char> &signature) {
+    return Sign(data.data(), data.size(), signature);
+}
+
+uint32_t CAsymmetricKeyPair::Sign(const unsigned char *data, uint32_t data_size,
+    std::vector<unsigned char> &signature) {
     /* Create the EVP_PKEY_CTX context for signing */
     EVP_PKEY_CTX * ctx = EVP_PKEY_CTX_new(m_pkey, nullptr);
     if (!ctx) {
@@ -116,7 +121,7 @@ uint32_t CAsymmetricKeyPair::Sign(const std::vector<unsigned char> &data, std::v
 
     vector<unsigned char> hash_data;
     CCipherEngine cipher_engine;
-    cipher_engine.SHA256(data.data(), data.size(), hash_data);
+    cipher_engine.SHA256(data, data_size, hash_data);
 
     size_t signature_len = 0;
     /* Determine the required buffer length for the signature */

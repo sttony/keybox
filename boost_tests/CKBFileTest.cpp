@@ -32,6 +32,7 @@ public:
         return result;
     }
 };
+TestRandomGenerator g_RG;
 
 BOOST_AUTO_TEST_SUITE(CKBFileTestSuit)
 
@@ -81,6 +82,10 @@ BOOST_AUTO_TEST_SUITE(CKBFileTestSuit)
         kbFile.AddEntry(pwdEntry2);
         vector<unsigned char> key(32, 0x01);
         kbFile.SetMasterKey(key, fakerg.GetNextBytes(key.size()));
+
+        std::unique_ptr<CAsymmetricKeyPair> asymmetric_key_pair = std::make_unique<CAsymmetricKeyPair>();
+        asymmetric_key_pair->ReGenerate();
+        kbFile.SetAsymKey(std::move(asymmetric_key_pair));
 
         vector<unsigned char> buff(1024 * 1024);
         uint32_t realSize = 0;

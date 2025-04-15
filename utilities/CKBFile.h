@@ -9,6 +9,7 @@
 #include <vector>
 #include <unordered_map>
 #include <functional>
+#include <boost/uuid/random_generator.hpp>
 
 #include "CAsymmetricKeyPair.h"
 #include "CKBFileHeader.h"
@@ -67,6 +68,8 @@ private:
     std::vector<CPwdGroup> m_groups = {g_RootGroup};
     CMaskedBlob m_master_key;
     std::unique_ptr<CAsymmetricKeyPair> m_pAsymmetric_key_pair;
+
+    boost::uuids::uuid m_client_uuid = boost::uuids::random_generator()();
 };
 
 

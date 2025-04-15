@@ -251,6 +251,9 @@ void MainWindow::newFile() {
         m_pModel = newModel;
         this->RefreshActionEnabled();
     }
+    else {
+        delete newModel;
+    }
 }
 
 void MainWindow::ResetGroup(CKBModel *newModel) {
