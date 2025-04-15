@@ -37,15 +37,17 @@ uint32_t CKBFile::Deserialize(const unsigned char *pBuffer, uint32_t cbBufferSiz
     if (m_master_key.size() == 0) {
         return ERROR_MASTER_KEY_INVALID;
     }
-    uint32_t result = this->LoadHeader(pBuffer, cbBufferSize, cbRealSize);
+    uint32_t cbHeaderRealSize = 0;
+    uint32_t result = this->LoadHeader(pBuffer, cbBufferSize, cbHeaderRealSize);
     if ( result ) {
         return result;
     }
 
-    result = this->LoadPayload(pBuffer + cbRealSize, cbBufferSize - cbRealSize, cbRealSize);
+    result = this->LoadPayload(pBuffer + cbHeaderRealSize, cbBufferSize - cbHeaderRealSize, cbRealSize);
     if ( result ) {
         return result;
     }
+    cbRealSize += cbHeaderRealSize;
     return 0;
 }
 
