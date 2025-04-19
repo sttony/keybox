@@ -326,7 +326,7 @@ uint32_t CKBFile::RetrieveFromRemote() {
     boost::property_tree::ptree pay_load;
 
     vector<unsigned char> bin_signature;
-    m_pAsymmetric_key_pair->Sign(m_client_uuid.data(), 128/8, bin_signature);
+    m_pAsymmetric_key_pair->Sign(m_client_uuid.data, 128/8, bin_signature);
     Base64Coder base64coder;
     string base64_signature;
     base64coder.Encode(bin_signature.data(), bin_signature.size(), base64_signature);
