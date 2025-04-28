@@ -319,29 +319,59 @@ uint32_t CKBFile::SetAsymKey(unique_ptr<CAsymmetricKeyPair> _key) {
 }
 
 
+/**
+ *  Retrieve from Remote,  Send email and client ID.
+ *  Server return
+ *      1. an encrypted session key with email's pubkey
+ *      2. AES256 encrypted payload.
+ *  Client:
+ *      1. decrypt the session key with email's prvkey
+ *      2. decrypt the payload with session key
+ *      3. load the payload as a new CKBFile.
+ *      4. Merge the remote CKBFile with local
+ * @return
+ */
 uint32_t CKBFile::RetrieveFromRemote() {
     const string& sync_url = m_header.GetSyncUrl();
     const string& sync_email = m_header.GetSyncEmail();
     CRequest request(sync_url+"/" + "retrieve", CRequest::POST);
     boost::property_tree::ptree pay_load;
 
-    vector<unsigned char> bin_signature;
-    m_pAsymmetric_key_pair->Sign(m_client_uuid.data, 128/8, bin_signature);
-    Base64Coder base64coder;
-    string base64_signature;
-    base64coder.Encode(bin_signature.data(), bin_signature.size(), base64_signature);
-
     pay_load.put("email", sync_email);
-    pay_load.put("signature", base64_signature);
+    pay_load.put("client_id", to_string(m_client_uuid));
     std::ostringstream oss;
     boost::property_tree::write_json(oss, pay_load);
     request.SetPayload(oss.str());
     request.Send();
-    if (request.GetResponseCode() == 200) {
-        request.GetResponsePayload();
+    if (request.GetResponseCode() != 200) {
+        return ERROR_HTTP_ERROR_PREFIX | request.GetResponseCode();
     }
-    else {
 
+    // load payload json
+    std::istringstream iss(reinterpret_cast<const char *>(request.GetResponsePayload().data()) );
+    boost::property_tree::ptree response;
+    try {
+        boost::property_tree::read_json(iss, response);
     }
+    catch (exception &e) {
+        return ERROR_INVALID_JSON;
+    }
+
+    string session_key = response.get<std::string>("session_key");
+    vector<unsigned char> session_key_bytes;
+    Base64Coder base64_coder;
+    base64_coder.Decode(session_key, session_key_bytes);
+
+
+
+    string payload = response.get<std::string>("payload");
+    vector<unsigned char> payload_bytes;
+
+    base64_coder.Decode(payload, payload_bytes);
+
+
+
+
+
     return 0;
 }
