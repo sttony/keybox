@@ -180,6 +180,14 @@ uint32_t CAsymmetricKeyPair::Verify(const std::vector<unsigned char> &data, cons
     return 0;
 }
 
+uint32_t CAsymmetricKeyPair::Encrypt(const std::vector<unsigned char> &data, std::vector<unsigned char> &cipher) {
+    return 0;
+}
+
+uint32_t CAsymmetricKeyPair::Decrypt(const std::vector<unsigned char> &cipher, std::vector<unsigned char> &data) {
+    return 0;
+}
+
 uint32_t CAsymmetricKeyPair::LoadPrivateKey(vector<unsigned char> &&privKey) {
     BIO *bio = BIO_new_mem_buf(privKey.data(), privKey.size());
     if(bio == nullptr){
