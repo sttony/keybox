@@ -20,25 +20,30 @@ size_t CAsymmetricKeyPair::GetPublicKeyLength() const {
     BIO *bio = BIO_new(BIO_s_mem());
     PEM_write_bio_PUBKEY(bio, m_pkey);
 
-    long len = BIO_get_mem_data(bio, nullptr);
+    BUF_MEM* buf;
+    BIO_get_mem_ptr(bio, &buf);
+    const size_t len = buf->length;
     BIO_free(bio);
     return len;
 }
 
 CMaskedBlob CAsymmetricKeyPair::GetPublicKey(std::vector<unsigned char> &&onepad) const {
     assert(m_pkey);
-    size_t len = GetPublicKeyLength();
+    BIO *bio = BIO_new(BIO_s_mem());
+    PEM_write_bio_PUBKEY(bio, m_pkey);
+
+    BUF_MEM* buf;
+    BIO_get_mem_ptr(bio, &buf);
+    const size_t len = buf->length;
+
     if (len != onepad.size()) {
+        BIO_free(bio);
         return {};
     }
     vector<unsigned char> buff(len);
-    BIO *bio = BIO_new(BIO_s_mem());
-    PEM_write_bio_PUBKEY(bio, m_pkey);
-    char* data = nullptr;
-    BIO_get_mem_data(bio, &data);
 
     CMaskedBlob result;
-    result.Set(data, std::move(onepad));
+    result.Set(string(buf->data, len), std::move(onepad));
     BIO_free(bio);
     return result;
 }
@@ -65,7 +70,7 @@ CMaskedBlob CAsymmetricKeyPair::GetPrivateKey(std::vector<unsigned char> &&onepa
     char* data = nullptr;
     BIO_get_mem_data(bio, &data);
     CMaskedBlob result;
-    result.Set(data, std::move(onepad));
+    result.Set(string(data, len), std::move(onepad));
     BIO_free(bio);
     return result;
 }
@@ -87,17 +92,24 @@ uint32_t CAsymmetricKeyPair::fromJsonObj(const boost::property_tree::ptree & _ro
 uint32_t CAsymmetricKeyPair::ReGenerate() {
     if (m_pkey != nullptr) {
         EVP_PKEY_free(m_pkey);
+        m_pkey = nullptr;
     }
-    m_pkey = EVP_EC_gen("secp521r1");
+    EVP_PKEY_CTX *ctx = EVP_PKEY_CTX_new_id(EVP_PKEY_RSA, NULL);
+    EVP_PKEY_keygen_init(ctx);
+    EVP_PKEY_CTX_set_rsa_keygen_bits(ctx, 4096);
+    EVP_PKEY_keygen(ctx, &m_pkey);
     if (m_pkey == nullptr) {
+        EVP_PKEY_CTX_free(ctx);
         return ERROR_UNEXPECT_OPENSSL_FAILURE;
     }
+    EVP_PKEY_CTX_free(ctx);
     return 0;
 }
 
 CAsymmetricKeyPair::~CAsymmetricKeyPair() {
     if (m_pkey != nullptr) {
         EVP_PKEY_free(m_pkey);
+        m_pkey = nullptr;
     }
 }
 
