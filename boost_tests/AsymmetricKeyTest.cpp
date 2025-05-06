@@ -127,4 +127,27 @@ llHGxoGi26UclGBkJqgFVN4lPiUp
 
     }
 
+    BOOST_AUTO_TEST_CASE(EncryptDecrypt_Test) {
+        // Generate a key pair
+        CAsymmetricKeyPair keyPair;
+        BOOST_REQUIRE_EQUAL(keyPair.ReGenerate(), 0);
+
+        // Create plaintext to encrypt
+        std::string plaintext = "This is a test message!";
+        std::vector<unsigned char> input_data(plaintext.begin(), plaintext.end());
+
+        // Encrypt the data
+        std::vector<unsigned char> cipher_data;
+        BOOST_REQUIRE_EQUAL(keyPair.Encrypt(input_data, cipher_data), 0);
+        BOOST_REQUIRE(!cipher_data.empty());
+
+        // Decrypt the data
+        std::vector<unsigned char> decrypted_data;
+        BOOST_REQUIRE_EQUAL(keyPair.Decrypt(cipher_data, decrypted_data), 0);
+        BOOST_REQUIRE(!decrypted_data.empty());
+
+        // Verify that the decrypted data matches the original plaintext
+        std::string decrypted_text(reinterpret_cast<char*>(decrypted_data.data()));
+        BOOST_CHECK_EQUAL(plaintext, decrypted_text);
+    }
 BOOST_AUTO_TEST_SUITE_END()

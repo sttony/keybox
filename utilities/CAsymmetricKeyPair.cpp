@@ -181,11 +181,75 @@ uint32_t CAsymmetricKeyPair::Verify(const std::vector<unsigned char> &data, cons
 }
 
 uint32_t CAsymmetricKeyPair::Encrypt(const std::vector<unsigned char> &data, std::vector<unsigned char> &cipher) {
-    return 0;
+    assert(m_pkey); // Ensure the key pair is valid
+
+    // Create a context for encryption
+    EVP_PKEY_CTX *ctx = EVP_PKEY_CTX_new(m_pkey, nullptr);
+    if (!ctx) {
+        return ERR_get_error(); // Return an error if context creation fails
+    }
+
+    // Initialize the encryption operation
+    if (EVP_PKEY_encrypt_init(ctx) <= 0) {
+        EVP_PKEY_CTX_free(ctx);
+        return ERR_get_error();
+    }
+
+    // Determine the buffer length needed for encryption
+    size_t cipher_len = 0;
+    if (EVP_PKEY_encrypt(ctx, nullptr, &cipher_len, data.data(), data.size()) <= 0) {
+        EVP_PKEY_CTX_free(ctx);
+        return ERR_get_error();
+    }
+
+    // Resize the output vector to hold the encrypted data
+    cipher.resize(cipher_len);
+
+    // Perform the encryption
+    if (EVP_PKEY_encrypt(ctx, cipher.data(), &cipher_len, data.data(), data.size()) <= 0) {
+        EVP_PKEY_CTX_free(ctx);
+        return ERR_get_error();
+    }
+
+    EVP_PKEY_CTX_free(ctx); // Free the encryption context
+    return 0; // Return success
+
 }
 
 uint32_t CAsymmetricKeyPair::Decrypt(const std::vector<unsigned char> &cipher, std::vector<unsigned char> &data) {
-    return 0;
+    assert(m_pkey); // Ensure the private key is valid
+
+    // Create a context for decryption
+    EVP_PKEY_CTX *ctx = EVP_PKEY_CTX_new(m_pkey, nullptr);
+    if (!ctx) {
+        return ERR_get_error();
+    }
+
+    // Initialize the decryption operation
+    if (EVP_PKEY_decrypt_init(ctx) <= 0) {
+        EVP_PKEY_CTX_free(ctx);
+        return ERR_get_error();
+    }
+
+    // Determine the buffer size required for the plaintext
+    size_t data_len = 0;
+    if (EVP_PKEY_decrypt(ctx, nullptr, &data_len, cipher.data(), cipher.size()) <= 0) {
+        EVP_PKEY_CTX_free(ctx);
+        return ERR_get_error();
+    }
+
+    // Resize the output vector to hold the decrypted data
+    data.resize(data_len);
+
+    // Perform the decryption
+    if (EVP_PKEY_decrypt(ctx, data.data(), &data_len, cipher.data(), cipher.size()) <= 0) {
+        EVP_PKEY_CTX_free(ctx);
+        return ERR_get_error();
+    }
+
+    EVP_PKEY_CTX_free(ctx); // Free resources
+    return 0; // Return success
+
 }
 
 uint32_t CAsymmetricKeyPair::LoadPrivateKey(vector<unsigned char> &&privKey) {
