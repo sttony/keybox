@@ -13,6 +13,7 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/random_generator.hpp>
 
+#include "CipherEngine.h"
 #include "Base64Coder.h"
 #include "CRequest.h"
 #include "InitGlobalRG.h"
@@ -332,6 +333,7 @@ uint32_t CKBFile::SetAsymKey(unique_ptr<CAsymmetricKeyPair> _key) {
  * @return
  */
 uint32_t CKBFile::RetrieveFromRemote() {
+    uint32_t uResult = 0;
     const string& sync_url = m_header.GetSyncUrl();
     const string& sync_email = m_header.GetSyncEmail();
     CRequest request(sync_url+"/" + "retrieve", CRequest::POST);
@@ -357,20 +359,49 @@ uint32_t CKBFile::RetrieveFromRemote() {
         return ERROR_INVALID_JSON;
     }
 
-    string session_key = response.get<std::string>("session_key");
     vector<unsigned char> session_key_bytes;
     Base64Coder base64_coder;
-    base64_coder.Decode(session_key, session_key_bytes);
+    base64_coder.Decode(response.get<std::string>("session_key"), session_key_bytes);
+    vector<unsigned char> session_key_bytes_decrypted;
+    m_pAsymmetric_key_pair->Decrypt(session_key_bytes, session_key_bytes_decrypted);
 
 
-
-    string payload = response.get<std::string>("payload");
     vector<unsigned char> payload_bytes;
+    base64_coder.Decode(response.get<std::string>("payload"), payload_bytes);
+    vector<unsigned char> iv(16);
+    base64_coder.Decode(response.get<std::string>("iv"), iv);
 
-    base64_coder.Decode(payload, payload_bytes);
+    vector<unsigned char> decrypted_buff;
+    CCipherEngine cipherEngine;
 
+    uResult = cipherEngine.AES256EnDecrypt(
+        payload_bytes.data(),
+        payload_bytes.size(),
+        session_key_bytes_decrypted,
+        iv,
+        CCipherEngine::AES_CHAIN_MODE_CBC,
+        CCipherEngine::AES_PADDING_MODE_PKCS7,
+        false,
+        decrypted_buff);
 
+    if (uResult) {
+        return uResult;
+    }
 
+    CKBFile remote_ckb_file;
+    size_t cbRealSize = 0;
+    uResult = remote_ckb_file.Deserialize(decrypted_buff.data(), decrypted_buff.size(), uResult);
+    if (uResult) {
+        return uResult;
+    }
+
+    for (const auto &grp  : remote_ckb_file.GetGroups()) {
+        this->UpdateGroup(grp.GetID(), grp.GetName());
+    }
+
+    for (const auto &entry : remote_ckb_file.GetEntries()) {
+        this->AddEntry(entry);
+    }
 
 
     return 0;
