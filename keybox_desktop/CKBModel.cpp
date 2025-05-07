@@ -5,7 +5,6 @@
 #include <fstream>
 #include "CKBModel.h"
 #include "../utilities/error_code.h"
-#include "utilities/CSyncEngine.h"
 
 using namespace std;
 

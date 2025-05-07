@@ -12,6 +12,7 @@
 #include <boost/uuid/string_generator.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/random_generator.hpp>
+#include <memory>
 
 #include "CipherEngine.h"
 #include "Base64Coder.h"
@@ -447,4 +448,58 @@ uint32_t CKBFile::PushToRemote() {
     else {
         return request.GetResponseCode() + ERROR_HTTP_ERROR_PREFIX;
     }
+}
+
+/**
+ * 1. generate asymm pair
+ * 3. send pubkey, email to url
+ *
+ * @return
+ */
+uint32_t CKBFile::Register() {
+    // 1. re generate asymmetric key
+    m_pAsymmetric_key_pair = std::make_unique<CAsymmetricKeyPair>();
+
+    uint32_t result = m_pAsymmetric_key_pair->ReGenerate();
+    if (result) {
+        return result;
+    }
+
+    vector<unsigned char> pubKeyPad = g_RG.GetNextBytes(m_pAsymmetric_key_pair->GetPublicKeyLength());
+    CMaskedBlob maskedPubKey= m_pAsymmetric_key_pair->GetPublicKey(std::move(pubKeyPad));
+
+    CMaskedBlob pubKey = m_pAsymmetric_key_pair->GetPublicKey( vector<unsigned char>(m_pAsymmetric_key_pair->GetPublicKeyLength()));
+    CRequest request(m_header.GetSyncUrl()+"/" + "register", CRequest::POST);
+    boost::property_tree::ptree pay_load;
+    pay_load.put("pubKey", pubKey.Show());
+    pay_load.put("email", m_header.GetSyncEmail());
+    std::ostringstream oss;
+    boost::property_tree::write_json(oss, pay_load);
+    request.SetPayload(oss.str());
+    request.Send();
+
+    if (request.GetResponseCode() == 200) {
+        return 0;
+    }
+    return request.GetResponseCode() | ERROR_HTTP_ERROR_PREFIX;
+
+
+    return 0; // Success
+
+}
+
+/**
+ *  Register 2nd step
+ * @return No register is pending
+ *         register is not activate
+ *         0, it is done.
+ */
+uint32_t CKBFile::FinishRegister() {
+    CRequest request(m_header.GetSyncUrl() + "/" + "check_status", CRequest::POST);
+    request.Send();
+
+    if (request.GetResponseCode() == 200) {
+        return 0;
+    }
+    return request.GetResponseCode() | ERROR_HTTP_ERROR_PREFIX;
 }
