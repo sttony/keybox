@@ -60,6 +60,7 @@ public:
 
     // Sync related code
     uint32_t RetrieveFromRemote();
+    uint32_t PushToRemote();
 
 
 private:

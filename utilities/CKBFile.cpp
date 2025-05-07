@@ -406,3 +406,45 @@ uint32_t CKBFile::RetrieveFromRemote() {
 
     return 0;
 }
+
+/**
+ *  serialize the file,
+ *  Sign with prv key
+ *  Send { signature:
+ *         payload
+ *         }
+ *
+ * @return
+ */
+uint32_t CKBFile::PushToRemote() {
+    vector<unsigned char> buff;
+    uint32_t cbRealsize = 0;
+    this->Serialize(nullptr, 0, cbRealsize);
+    buff.resize(cbRealsize);
+    this->Serialize(buff.data(), buff.size(), cbRealsize);
+    Base64Coder base64_coder;
+    string payload_string;
+    base64_coder.Encode(buff.data(), buff.size(), payload_string);
+
+    vector<unsigned char> signature;
+    m_pAsymmetric_key_pair->Sign(buff, signature);
+    string signatur_string;
+
+    base64_coder.Encode(signature.data(), signature.size(), signatur_string);
+
+    CRequest request(m_header.GetSyncUrl() + "/" + "push", CRequest::POST);
+    boost::property_tree::ptree pay_load;
+
+    pay_load.put("signature", signatur_string);
+    pay_load.put("payload", payload_string);
+    std::ostringstream oss;
+    boost::property_tree::write_json(oss, pay_load);
+    request.SetPayload(oss.str());
+    request.Send();
+    if (request.GetResponseCode() != 200) {
+        return 0;
+    }
+    else {
+        return request.GetResponseCode() + ERROR_HTTP_ERROR_PREFIX;
+    }
+}
