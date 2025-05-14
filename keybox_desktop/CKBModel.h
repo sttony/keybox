@@ -65,6 +65,8 @@ public:
     void Lock();
     void Register();
 
+uint32_t RetrieveFromRemote();
+
 private:
     CKBFile m_kbfile;
     std::vector<unsigned char> m_file_buff;

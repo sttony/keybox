@@ -229,3 +229,7 @@ void CKBModel::Register() {
     // CSyncEngine syncEngine(m_kbfile);
     // syncEngine.Register();
 }
+
+uint32_t CKBModel::RetrieveFromRemote() {
+    return m_kbfile.RetrieveFromRemote();
+}
