@@ -30,6 +30,8 @@ public:
     static const uint8_t KEYBOX_HMAC_SIGNATURE;
     static const uint8_t KEYBOX_SYNC_URL;
     static const uint8_t KEYBOX_SYNC_EMAIL;
+    static const uint8_t KEYBOX_COMPRESS_FLAG;
+    // end constants
 
 private:
     uint64_t m_signature = 0;
@@ -42,6 +44,8 @@ private:
 
     std::string m_sync_url;
     std::string m_sync_email;
+
+    uint32_t m_compress_flag = 0;
 
 public:
     CKBFileHeader();

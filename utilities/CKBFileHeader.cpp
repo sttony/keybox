@@ -23,6 +23,7 @@ const uint8_t CKBFileHeader::KEYBOX_PBKDF2_PARAM = 0x81;
 const uint8_t CKBFileHeader::KEYBOX_HMAC_SIGNATURE = 0x82;
 const uint8_t CKBFileHeader::KEYBOX_SYNC_URL = 0x83;
 const uint8_t CKBFileHeader::KEYBOX_SYNC_EMAIL = 0x84;
+const uint8_t CKBFileHeader::KEYBOX_COMPRESS_FLAG = 0x85;
 
 template<typename T>
 uint32_t read_field(const unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &offset, T &output) {
@@ -84,6 +85,7 @@ uint32_t CKBFileHeader::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize,
     cbRealSize += 1 + 2 + m_hmac_sha256_signature.size();
     cbRealSize += 1 + 2 + m_sync_url.size();
     cbRealSize += 1 + 2 + m_sync_email.size();
+    cbRealSize += 1 + 2 + sizeof(m_compress_flag);
     cbRealSize += 1 + 2;
 
     if (cbRealSize > cbBufferSize) {
@@ -154,6 +156,17 @@ uint32_t CKBFileHeader::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize,
     memcpy(pBuffer + offset, m_sync_email.data(), m_sync_email.size());
     offset += m_sync_email.size();
 
+    // write KEYBOX_COMPRESS_FLAG  uint32
+    if (write_field(pBuffer, cbBufferSize, offset, KEYBOX_COMPRESS_FLAG)) {
+        return ERROR_BUFFER_TOO_SMALL;
+    }
+    field_size = sizeof(m_compress_flag);
+    if (write_field(pBuffer, cbBufferSize, offset, field_size)) {
+        return ERROR_BUFFER_TOO_SMALL;
+    }
+    memcpy(pBuffer + offset, &m_compress_flag, sizeof(m_compress_flag));
+    offset += sizeof(m_compress_flag);
+
     // write END_OF_HEADER
     if (write_field(pBuffer, cbBufferSize, offset, END_OF_HEADER)) {
         field_size = 0;
@@ -197,6 +210,15 @@ CKBFileHeader::CKBFileHeader() : m_encryption_iv(16), m_hmac_sha256_signature(32
     m_fields2handler[KEYBOX_SYNC_EMAIL] = [this](const unsigned char *p, uint32_t &offset, uint16_t cbSize) {
         m_sync_email.resize(cbSize);
         m_sync_email = std::string(p + offset, p + offset + cbSize);
+        offset += cbSize;
+        return 0u;
+    };
+
+    m_fields2handler[KEYBOX_COMPRESS_FLAG] = [this](const unsigned char *p, uint32_t &offset, uint16_t cbSize) {
+        if (cbSize != sizeof(m_compress_flag)) {
+            return ERROR_INVALID_PARAMETER;
+        }
+        m_compress_flag = *((uint32_t *) (p + offset));
         offset += cbSize;
         return 0u;
     };
