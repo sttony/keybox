@@ -225,9 +225,8 @@ void CKBModel::Lock() {
     emit layoutChanged();
 }
 
-void CKBModel::Register() {
-    // CSyncEngine syncEngine(m_kbfile);
-    // syncEngine.Register();
+uint32_t CKBModel::Register() {
+    return m_kbfile.Register();
 }
 
 uint32_t CKBModel::RetrieveFromRemote() {

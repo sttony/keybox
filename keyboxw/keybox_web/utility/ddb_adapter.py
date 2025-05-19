@@ -19,11 +19,11 @@ class DDBAdapter:
             return None
 
         item = response['Item']
-        user = User(email=item['email'])
+        field_values = {}
         for field in fields(User):
-            if field.name in item:
-                setattr(user, field.name, item[field.name])
-        return user
+            field_values[field.name] = item.get(field.name)
+
+        return User(**field_values)
 
     def put_user(self, user: User):
         item = asdict(user)
@@ -31,3 +31,11 @@ class DDBAdapter:
         if response['ResponseMetadata']['HTTPStatusCode'] != 200:
             logging.error(f'Put {user.email} to db failed with {response}')
             raise Exception(f'Put {user.email} to db failed with {response}')
+
+
+if __name__ == "__main__":
+    ddb_adapter = DDBAdapter()
+    user = User(email='<EMAIL>', activate_status='pending', activate_code='123456', expiring_date='2021-01-01 00:00:00', public_key='123456', file_path='s3://bucket/keybox.kdb')
+    ddb_adapter.put_user(user)
+    user = ddb_adapter.get_user('<EMAIL>')
+    print(user)

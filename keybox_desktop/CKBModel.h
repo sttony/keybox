@@ -63,9 +63,9 @@ public:
     uint32_t SetSyncUrl(const std::string syncUrl);
 
     void Lock();
-    void Register();
+    uint32_t Register();
 
-uint32_t RetrieveFromRemote();
+    uint32_t RetrieveFromRemote();
 
 private:
     CKBFile m_kbfile;

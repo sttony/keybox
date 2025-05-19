@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 #include "CSyncSettingDlg.h"
 
+#include <QMessageBox>
 
 
 CSyncSettingDlg::CSyncSettingDlg(CKBModel* pModel, QWidget *parent) {
@@ -40,4 +41,14 @@ CSyncSettingDlg::CSyncSettingDlg(CKBModel* pModel, QWidget *parent) {
 void CSyncSettingDlg::onSave() {
     m_kbModel->SetSyncUrl(m_syncUrlBox->text().toStdString());
     m_kbModel->SetEmail(m_emailBox->text().toStdString());
+
+    uint32_t result = m_kbModel->Register();
+    if ( result == 0){
+        QMessageBox::information(nullptr, "Alert", "Register success, please check your email to activate");
+        QDialog::accept();
+    }
+    else {
+        QMessageBox::information(nullptr, "Alert", "Register failed");
+        QDialog::reject();
+    }
 }
