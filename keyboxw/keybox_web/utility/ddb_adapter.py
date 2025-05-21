@@ -1,17 +1,18 @@
 import logging
+
 from dataclasses import fields, asdict
 from typing import Optional
 
 import boto3
 
-from .user_entity import User
+from utility.user_entity import User
 
 
 class DDBAdapter:
-    def __init__(self):
+    def __init__(self, stage = "beta"):
         self.session = boto3.Session(region_name="us-west-2")
         self.dynamodb = self.session.resource("dynamodb")
-        self.user_table = self.dynamodb.Table("User")
+        self.user_table = self.dynamodb.Table(f"{stage}_users")
 
     def get_user(self, email: str) -> Optional[User]:
         response = self.user_table.get_item(Key={"email": email})
@@ -34,6 +35,8 @@ class DDBAdapter:
 
 
 if __name__ == "__main__":
+    import os
+    os.environ['AWS_PROFILE'] = 'keybox'
     ddb_adapter = DDBAdapter()
     user = User(email='<EMAIL>', activate_status='pending', activate_code='123456', expiring_date='2021-01-01 00:00:00', public_key='123456', file_path='s3://bucket/keybox.kdb')
     ddb_adapter.put_user(user)
