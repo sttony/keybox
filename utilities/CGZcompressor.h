@@ -12,19 +12,19 @@
 class CGZcompressor {
 private:
     z_stream m_zs = {};
-    std::vector<unsigned char> m_buff;
-public:
-    CGZcompressor() : m_buff(4096) {
-    }
 
-    uint32_t reset() {
-        return inflateInit2(&m_zs, 16 + MAX_WBITS);
+public:
+    CGZcompressor() {
     }
 
     uint32_t decompressData(const unsigned char *pCompressedData,
                             size_t cbCompressedDataSize,
-                            unsigned char *pUncompressedData,
-                            size_t cbUncompressedDataSize);
+                            std::vector<unsigned char> &vUnCompressedData);
+
+    uint32_t compressData(const unsigned char *pUncompressedData,
+                          size_t cbUncompressedData,
+                          std::vector<unsigned char> &vCompressedData
+                          );
 };
 
 

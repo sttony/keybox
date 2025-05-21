@@ -17,6 +17,7 @@ add_executable(Boost_Tests_run CipherTest.cpp
         CPwdEntryTest.cpp
         AsymmetricKeyTest.cpp
         CRequestTest.cpp
+        GZTest.cpp
 )
 target_link_libraries(Boost_Tests_run
         utilities

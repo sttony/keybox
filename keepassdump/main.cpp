@@ -89,9 +89,7 @@ int main(int argc, char *argv[]) {
 
     auto *block1 = (Block *) &decrypted[32];
     CGZcompressor gzCompressor;
-    if (gzCompressor.reset()) {
-        cout << "Reset zlib failed" << endl;
-    };
+
     CRandomGenerator randomGenerator(CRandomGenerator::Salsa20);
     std::array<unsigned char, 8> vIV = {0xe8, 0x30, 0x09, 0x4b, 0x97, 0x20, 0x5d, 0x2a};
     randomGenerator.init(header.getInnerRandomStreamKey(), vIV);
