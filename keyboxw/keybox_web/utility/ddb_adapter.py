@@ -1,3 +1,4 @@
+import datetime
 import logging
 
 from dataclasses import fields, asdict
@@ -38,7 +39,9 @@ if __name__ == "__main__":
     import os
     os.environ['AWS_PROFILE'] = 'keybox'
     ddb_adapter = DDBAdapter()
-    user = User(email='<EMAIL>', activate_status='pending', activate_code='123456', expiring_date='2021-01-01 00:00:00', public_key='123456', file_path='s3://bucket/keybox.kdb')
+    user = User(email='<EMAIL>', activate_status='pending', activate_code='123456',
+                expiring_date=int((datetime.datetime.now() + datetime.timedelta(minutes=10)).timestamp()),
+                public_key='123456', file_path='s3://bucket/keybox.kdb')
     ddb_adapter.put_user(user)
     user = ddb_adapter.get_user('<EMAIL>')
     print(user)

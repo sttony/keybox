@@ -34,6 +34,15 @@ Resources:
             Tags:
                 LambdaPowertools: python
 
+            Policies:
+                - Statement:
+                      - Effect: Allow
+                        Action:
+                            - dynamodb:GetItem
+                            - dynamodb:PutItem
+                        Resource: !Sub 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/*'
+
+
 Outputs:
     KeyboxApi:
       Description: "API Gateway endpoint URL for Prod environment for Hello World Function"

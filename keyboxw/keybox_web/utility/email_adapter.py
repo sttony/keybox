@@ -29,6 +29,8 @@ class EmailAdapter:
         resp = response.json()
         return resp
 
+    def send_activate(self):
+        pass
 
 
 if __name__ == "__main__":
