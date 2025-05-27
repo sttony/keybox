@@ -5,6 +5,7 @@ import os
 import uuid
 
 import requests
+import boto3
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
@@ -19,7 +20,7 @@ from utility.user_entity import User
 # Configure logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-
+STAGE = "beta"
 
 def generate_and_encrypt_session_key(public_key_str: str) -> tuple[bytes, bytes]:
     # Generate a random 256-bit AES key
@@ -39,6 +40,32 @@ def generate_and_encrypt_session_key(public_key_str: str) -> tuple[bytes, bytes]
     )
 
     return session_key, encrypted_session_key
+
+
+def encrypt_file_content(file_content: bytes, session_key: bytes) -> tuple[bytes, bytes]:
+    """
+    Encrypts file content using AES in GCM mode.
+
+    Parameters:
+    - file_content: The content of the file to encrypt.
+    - session_key: The 256-bit AES key used for encryption.
+
+    Returns:
+    - The encrypted file content (ciphertext).
+    - The associated initialization vector (IV) used for encryption.
+    """
+    # Generate a random 96-bit IV (GCM supports 12 bytes/96 bits for security)
+    iv = os.urandom(12)
+
+    # Create AES cipher in GCM mode
+    cipher = Cipher(algorithms.AES(session_key), modes.GCM(iv))
+    encryptor = cipher.encryptor()
+
+    # Perform the encryption
+    encrypted_file_content = encryptor.update(file_content) + encryptor.finalize()
+
+    # Return both the encrypted data and the IV
+    return encrypted_file_content, iv
 
 
 def lambda_handler(event, context):
@@ -62,8 +89,12 @@ def lambda_handler(event, context):
     session_key, encrypted_session_key = generate_and_encrypt_session_key(user.public_key)
 
     # fetch files from s3
-    
+    s3 = boto3.client('s3')
+    obj = s3.get_object(Bucket=f"{STAGE}_user", Key=user.file_path)
+    file_content = obj['Body'].read()
 
     # encrypt the file with the session key
+    encrypted_file_content, iv = encrypt_file_content(file_content, session_key)
 
-    return {"payload": "Refresh succeed"}, 200
+    return {"encrypted_file_content": encrypted_file_content.hex(), "encrypted_session_key": encrypted_session_key.hex(), "iv": iv.hex()}, 200
+
