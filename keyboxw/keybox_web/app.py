@@ -31,7 +31,7 @@ def hello():
     return {"message": "hello world"}, 404
 
 
-@app.post("/refresh_token")
+@app.get("/refresh_token")
 @tracer.capture_method
 def refresh_token():
     return refresh_handler.lambda_handler(app.current_event, app.context)

@@ -2,7 +2,6 @@ import json
 import logging
 import requests
 
-from app import activate
 from utility import secretsmanager
 from utility.ddb_adapter import DDBAdapter
 from utility.http_parameter_helper import HttpParameterHelper

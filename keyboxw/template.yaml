@@ -15,7 +15,7 @@ Resources:
         Properties:
             Handler: app.lambda_handler
             CodeUri: keybox_web
-            Description: Hello World function
+            Description: Keybox
             Architectures:
                 - x86_64
             Tracing: Active
@@ -31,6 +31,7 @@ Resources:
                     POWERTOOLS_SERVICE_NAME: PowertoolsHelloWorld
                     POWERTOOLS_METRICS_NAMESPACE: Powertools
                     LOG_LEVEL: INFO
+
             Tags:
                 LambdaPowertools: python
 
@@ -41,12 +42,24 @@ Resources:
                             - dynamodb:GetItem
                             - dynamodb:PutItem
                         Resource: !Sub 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/*'
+                - Statement:
+                      - Effect: Allow
+                        Action:
+                            - secretsmanager:GetSecretValue
+                        Resource: !Sub 'arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:prod_zoho-*'
+                - Statement:
+                      - Effect: Allow
+                        Action:
+                            - secretsmanager:GetSecretValue
+                            - secretsmanager:UpdateSecret
+                        Resource: !Sub 'arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:zoho_mail_token-*'
 
 
 Outputs:
     KeyboxApi:
-      Description: "API Gateway endpoint URL for Prod environment for Hello World Function"
-      Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello"
+      Description: "API Gateway endpoint URL for Prod environment"
+      Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod"
+
 
     KeyboxFunction:
       Description: "Lambda Function ARN"

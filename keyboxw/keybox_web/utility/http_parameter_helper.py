@@ -10,10 +10,12 @@ class HttpParameterHelper:
     def __init__(self, event: dict, context: LambdaContext) -> None:
         self.event = event
         self.context = context
+        self.query_parameters ={}
+
         if 'queryStringParameters' in self.event:
             self.query_parameters = self.event['queryStringParameters']
-
-        if 'body' in self.event:
+        self.body = None
+        if 'body' in self.event and self.event['body']:
             try:
                 self.body = json.loads(self.event['body'])
             except ValueError:
@@ -24,4 +26,7 @@ class HttpParameterHelper:
         return self.query_parameters.get(parameter_name, None)
 
     def get_json_api_payload(self, parameter_name: str) -> Optional[str]:
-        return self.body.get(parameter_name, None)
+        if self.body:
+            return self.body.get(parameter_name, None)
+        else:
+            return None

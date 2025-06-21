@@ -1,3 +1,4 @@
+import os
 import json
 import logging
 import requests
@@ -20,14 +21,19 @@ def lambda_handler(event: APIGatewayProxyEvent, context: dict):
         logger.error("No code in queryStringParameters")
         return {"message": "no code"}, 404
 
-    response = secretsmanager.get_secret("prod_zoho")
-    if not response:
+    zoho_secrets = secretsmanager.get_secret("prod_zoho")
+    if not zoho_secrets:
         return {"message": "Secrete manager failed"}, 404
 
-    client_id = response["zoho_client_id"]
-    client_secret = response["zoho_client_secret"]
+    client_id = zoho_secrets['client_id']
+    client_secret = zoho_secrets['client_secret']
 
-    get_auth_token_url = f"https://accounts.zoho.com/oauth/v2/token?code={authentication_code}&grant_type=authorization_code&client_id={client_id}&client_secret={client_secret}&redirect_uri=https://jysrwrfcrh.execute-api.us-west-2.amazonaws.com/Prod/refresh_token&scope=ZohoMail.accounts.ALL"
+    base_url = os.environ.get("ApiEndpoint")
+    logger.info(f"base_url: {base_url}")
+
+    get_auth_token_url = (f"https://accounts.zoho.com/oauth/v2/token?code={authentication_code}&"
+                          f"grant_type=authorization_code&client_id={client_id}&client_secret={client_secret}&"
+                          f"redirect_uri=https://j9gr9uiepf.execute-api.us-west-2.amazonaws.com/Prod/refresh_token&scope=ZohoMail.accounts.ALL")
 
     response = requests.post(get_auth_token_url)
     if response.status_code != 200:
@@ -40,7 +46,7 @@ def lambda_handler(event: APIGatewayProxyEvent, context: dict):
         logger.error(f"no access_token or no refresh_token in response {response.status_code}, {response.json()}")
         return {"message": "no access_token or refresh_token in response"}, 501
     logger.info("Got access_token and refresh token")
-    response = secretsmanager.set_secret("prod_zoho",
+    response = secretsmanager.set_secret("zoho_mail_token",
                                          {'access_token': ddt['access_token'], 'refresh_token': ddt['refresh_token']})
     if response:
         logger.error(f"failed to set secrete with {response.status_code}, {response.json()}")
