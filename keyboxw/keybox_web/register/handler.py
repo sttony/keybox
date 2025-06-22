@@ -56,6 +56,6 @@ def lambda_handler(event, context):
 
     # send email
     email_adapter = EmailAdapter()
-    email_adapter.send_activate()
+    email_adapter.send_activate(user)
 
     return {"message": "Refresh succeed"}, 200

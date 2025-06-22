@@ -33,7 +33,7 @@ def lambda_handler(event: APIGatewayProxyEvent, context: dict):
 
     get_auth_token_url = (f"https://accounts.zoho.com/oauth/v2/token?code={authentication_code}&"
                           f"grant_type=authorization_code&client_id={client_id}&client_secret={client_secret}&"
-                          f"redirect_uri=https://j9gr9uiepf.execute-api.us-west-2.amazonaws.com/Prod/refresh_token&scope=ZohoMail.accounts.ALL")
+                          f"redirect_uri=https://j9gr9uiepf.execute-api.us-west-2.amazonaws.com/Prod/refresh_token&scope=ZohoMail.messages.ALL")
 
     response = requests.post(get_auth_token_url)
     if response.status_code != 200:

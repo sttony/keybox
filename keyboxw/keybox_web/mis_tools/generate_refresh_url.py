@@ -9,7 +9,7 @@ def refresh_url():
 
     # fetch auth_code
     params = {
-        "scope": "ZohoMail.accounts.ALL",
+        "scope": "ZohoMail.messages.ALL",
         "client_id": client_id,
         "response_type": "code",
         "access_type": "offline",
