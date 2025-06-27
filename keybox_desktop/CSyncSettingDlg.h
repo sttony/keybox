@@ -19,6 +19,9 @@ public:
 private slots:
     void onSave();
 
+signals:
+    void saveSignal(); // connect to main window save
+
 private:
     CKBModel* m_kbModel = nullptr;
 

@@ -21,5 +21,6 @@ const static uint32_t ERROR_INVALID_PEM = 0x0000000b;
 const static uint32_t ERROR_EMAIL_IS_NOT_REGISTERED = 0x0000000c;
 
 const static uint32_t ERROR_HTTP_ERROR_PREFIX = 0x00008100;  // e.g. 0x8100 | 0x191 ==  401
+const static uint32_t ERROR_CURL_ERROR_PREFIX = 0x00008200;
 
 #endif //KEYBOX_ERROR_CODE_H

@@ -46,6 +46,7 @@ void CSyncSettingDlg::onSave() {
     if ( result == 0){
         QMessageBox::information(nullptr, "Alert", "Register success, please check your email to activate");
         QDialog::accept();
+        emit saveSignal();
     }
     else {
         QMessageBox::information(nullptr, "Alert", "Register failed");

@@ -203,10 +203,13 @@ uint32_t CKBFile::LoadPayload(const unsigned char *pBuffer, uint32_t cbBufferSiz
     }
 
     // load json from decrypted_buff
-    decrypted_buff.push_back('\0'); // append a zero
+    decrypted_buff.back() = '\0'; // append a zero
+    string temp ( decrypted_buff.begin(), decrypted_buff.end() );
+    if (size_t lastBrace = temp.find_last_of('}'); lastBrace != std::string::npos) {
+        temp = temp.substr(0, lastBrace+1);
+    }
+    temp.push_back('\n'); // boost serialize to json, a '\n' is appended to end.
     boost::property_tree::ptree entries_tree;
-    std::istringstream iss((char *) (&decrypted_buff[0]));
-    string temp = iss.str();
 
     // calculate HMAC with temp
     vector<unsigned char> vHmacSignature;
@@ -216,7 +219,8 @@ uint32_t CKBFile::LoadPayload(const unsigned char *pBuffer, uint32_t cbBufferSiz
     }
 
     try {
-        boost::property_tree::read_json(iss, entries_tree);
+        stringstream ss(temp);
+        boost::property_tree::read_json(ss, entries_tree);
     }
     catch (exception &e) {
         return ERROR_INVALID_JSON;
@@ -476,16 +480,15 @@ uint32_t CKBFile::Register() {
     std::ostringstream oss;
     boost::property_tree::write_json(oss, pay_load);
     request.SetPayload(oss.str());
-    request.Send();
+    result = request.Send();
+    if ( result != 0 ) {
+        return result;
+    };
 
     if (request.GetResponseCode() == 200) {
         return 0;
     }
     return request.GetResponseCode() | ERROR_HTTP_ERROR_PREFIX;
-
-
-    return 0; // Success
-
 }
 
 /**

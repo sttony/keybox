@@ -24,6 +24,13 @@ def lambda_handler(event, context):
     if not email:
         logger.error("No email")
         return {"message": "no email"}, 404
+    signature = http_parameter_helper.get_json_api_payload("signature")
+    if not signature:
+        return {"message": "no signature"}, 404
+    payload = http_parameter_helper.get_json_api_payload("payload")
+    if not payload:
+        return {"message": "no payload"}, 404
+
 
     # check if email is ready in DDB
     ddb_adapter = DDBAdapter()

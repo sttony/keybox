@@ -363,6 +363,7 @@ void MainWindow::onSearchTextChange(const QString &_filter) {
 
 void MainWindow::openSyncSetting(){
     CSyncSettingDlg syncSettingDlg(m_pModel, this);
+    connect(&syncSettingDlg, &CSyncSettingDlg::saveSignal, this, &MainWindow::saveFile);
     syncSettingDlg.exec();
 }
 
