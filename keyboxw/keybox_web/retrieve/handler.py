@@ -6,6 +6,7 @@ import uuid
 
 import requests
 import boto3
+from botocore.exceptions import ClientError
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
@@ -90,11 +91,16 @@ def lambda_handler(event, context):
 
     # fetch files from s3
     s3 = boto3.client('s3')
-    obj = s3.get_object(Bucket=f"{STAGE}_user", Key=user.file_path)
-    file_content = obj['Body'].read()
+    try:
+        obj = s3.get_object(Bucket=f"{STAGE}-keybox-user", Key=user.file_path)
+        file_content = obj['Body'].read()
+    except ClientError as e:
+        file_content = None
 
+    if file_content:
     # encrypt the file with the session key
-    encrypted_file_content, iv = encrypt_file_content(file_content, session_key)
-
-    return {"encrypted_file_content": encrypted_file_content.hex(), "encrypted_session_key": encrypted_session_key.hex(), "iv": iv.hex()}, 200
+        encrypted_file_content, iv = encrypt_file_content(file_content, session_key)
+        return {"encrypted_file_content": encrypted_file_content.hex(), "encrypted_session_key": encrypted_session_key.hex(), "iv": iv.hex()}, 200
+    else:
+        return {"encrypted_file_content":""}, 200
 

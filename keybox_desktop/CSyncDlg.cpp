@@ -75,7 +75,6 @@ void CSyncDlg::startSync() {
     m_syncButton->setEnabled(false);
     m_progressBar->setValue(0);
     updateStatus("Starting synchronization...");
-
     if (m_syncThread.joinable()) {
         m_syncThread.join();
     }
@@ -109,7 +108,7 @@ void CSyncDlg::syncThreadFunction() {
         updateProgress(50);
 
         updateStatus("Pushing data to remote server...");
-        result = m_pModel->RetrieveFromRemote();
+        result = m_pModel->PushToRemote();
         if (result != 0) {
             emit syncError(QString("Failed to pushing remote data (error code: %1)").arg(result));
             m_isSyncing = false;

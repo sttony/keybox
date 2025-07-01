@@ -364,15 +364,20 @@ uint32_t CKBFile::RetrieveFromRemote() {
         return ERROR_INVALID_JSON;
     }
 
-    vector<unsigned char> session_key_bytes;
+    string encrypted_file_content = response.get<std::string>("encrypted_file_content");
+    if ( encrypted_file_content.empty()) {
+        return 0;
+    }
+
+    vector<unsigned char> encrypted_session_key_bytes;
     Base64Coder base64_coder;
-    base64_coder.Decode(response.get<std::string>("session_key"), session_key_bytes);
+    base64_coder.Decode(response.get<std::string>("encrypted_session_key"), encrypted_session_key_bytes);
     vector<unsigned char> session_key_bytes_decrypted;
-    m_pAsymmetric_key_pair->Decrypt(session_key_bytes, session_key_bytes_decrypted);
+    m_pAsymmetric_key_pair->Decrypt(encrypted_session_key_bytes, session_key_bytes_decrypted);
 
 
-    vector<unsigned char> payload_bytes;
-    base64_coder.Decode(response.get<std::string>("payload"), payload_bytes);
+    vector<unsigned char> encrypted_file_content_bytes;
+    base64_coder.Decode(response.get<std::string>("encrypted_file_content"), encrypted_file_content_bytes);
     vector<unsigned char> iv(16);
     base64_coder.Decode(response.get<std::string>("iv"), iv);
 
@@ -380,8 +385,8 @@ uint32_t CKBFile::RetrieveFromRemote() {
     CCipherEngine cipherEngine;
 
     uResult = cipherEngine.AES256EnDecrypt(
-        payload_bytes.data(),
-        payload_bytes.size(),
+        encrypted_file_content_bytes.data(),
+        encrypted_file_content_bytes.size(),
         session_key_bytes_decrypted,
         iv,
         CCipherEngine::AES_CHAIN_MODE_CBC,
@@ -407,7 +412,6 @@ uint32_t CKBFile::RetrieveFromRemote() {
     for (const auto &entry : remote_ckb_file.GetEntries()) {
         this->AddEntry(entry);
     }
-
 
     return 0;
 }

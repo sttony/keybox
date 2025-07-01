@@ -6,7 +6,7 @@ Description: >
 Globals: # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification-template-anatomy-globals.html
     Function:
         Timeout: 5
-        MemorySize: 128
+        MemorySize: 1024
         Runtime: python3.12
 
 Resources:

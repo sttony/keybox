@@ -66,6 +66,7 @@ public:
     uint32_t Register();
 
     uint32_t RetrieveFromRemote();
+    uint32_t PushToRemote();
 
 private:
     CKBFile m_kbfile;

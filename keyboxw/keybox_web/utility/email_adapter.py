@@ -68,7 +68,7 @@ class EmailAdapter:
             "subject": "You registered a email to k3ybox.us",
             "content": f"""
                 Please use follow url to activate your email:
-                https://j9gr9uiepf.execute-api.us-west-2.amazonaws.com/Prod/activate?activate_code={user.activate_code}
+                https://j9gr9uiepf.execute-api.us-west-2.amazonaws.com/Prod/activate?activate_code={user.activate_code}&email={urllib.parse.urlencode(user.email)}
                 """,
             "askReceipt": "yes"
         }

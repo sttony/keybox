@@ -232,3 +232,7 @@ uint32_t CKBModel::Register() {
 uint32_t CKBModel::RetrieveFromRemote() {
     return m_kbfile.RetrieveFromRemote();
 }
+
+uint32_t CKBModel::PushToRemote() {
+    return m_kbfile.PushToRemote();
+}
