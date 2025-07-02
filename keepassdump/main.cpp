@@ -95,8 +95,8 @@ int main(int argc, char *argv[]) {
     randomGenerator.init(header.getInnerRandomStreamKey(), vIV);
     Base64Coder base64Coder;
 
-    vector<unsigned char> uncompressed(1024 * 1024);
-    gzCompressor.decompressData(&decrypted[sizeof(Block) + 32], block1->block_size, &uncompressed[0], 1024 * 1024);
+    vector<unsigned char> uncompressed;
+    gzCompressor.decompressData(&decrypted[sizeof(Block) + 32], block1->block_size, uncompressed);
     vector<PasswordEntry> entries;
 
     pugi::xml_document doc;
