@@ -1,10 +1,9 @@
 
-
+#include "error_code.h"
 #include "CRequest.h"
 
 #include <utility>
 
-#include "error_code.h"
 using namespace std;
 
 const string CRequest::GET = "GET";
