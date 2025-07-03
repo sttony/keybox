@@ -105,7 +105,7 @@ uint32_t CKBFile::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint3
     }
     pay_load.add_child("groups", groups);
 
-    if (m_pAsymmetric_key_pair) {
+    if (m_pAsymmetric_key_pair != nullptr) {
         // Asym key
         pay_load.add_child("asymmetric_key", m_pAsymmetric_key_pair->toJsonObj());
     }
@@ -247,7 +247,8 @@ uint32_t CKBFile::LoadPayload(const unsigned char *pBuffer, uint32_t cbBufferSiz
         }
     }
     if (auto asymmetric_key = entries_tree.get_child_optional("asymmetric_key"); asymmetric_key.has_value()) {
-        m_pAsymmetric_key_pair->fromJsonObj(entries_tree.get_child("asymmetric_key"));
+        m_pAsymmetric_key_pair = std::make_unique<CAsymmetricKeyPair>();
+        m_pAsymmetric_key_pair->fromJsonObj(asymmetric_key.get());
     }
 
     if (auto client_id = entries_tree.get_child_optional("client_id"); client_id.has_value()) {
@@ -437,20 +438,21 @@ uint32_t CKBFile::PushToRemote() {
 
     vector<unsigned char> signature;
     m_pAsymmetric_key_pair->Sign(buff, signature);
-    string signatur_string;
+    string signature_string;
 
-    base64_coder.Encode(signature.data(), signature.size(), signatur_string);
+    base64_coder.Encode(signature.data(), signature.size(), signature_string);
 
-    CRequest request(m_header.GetSyncUrl() + "/" + "push", CRequest::POST);
+    CRequest request(m_header.GetSyncUrl() + "/" + "upload", CRequest::POST);
     boost::property_tree::ptree pay_load;
 
-    pay_load.put("signature", signatur_string);
+    pay_load.put("email", m_header.GetSyncEmail());
+    pay_load.put("signature", signature_string);
     pay_load.put("payload", payload_string);
     std::ostringstream oss;
     boost::property_tree::write_json(oss, pay_load);
     request.SetPayload(oss.str());
     request.Send();
-    if (request.GetResponseCode() != 200) {
+    if (request.GetResponseCode() == 200) {
         return 0;
     }
     else {

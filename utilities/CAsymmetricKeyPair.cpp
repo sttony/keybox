@@ -78,13 +78,13 @@ CMaskedBlob CAsymmetricKeyPair::GetPrivateKey(std::vector<unsigned char> &&onepa
 boost::property_tree::ptree CAsymmetricKeyPair::toJsonObj() {
     boost::property_tree::ptree root;
     CMaskedBlob private_key = this->GetPrivateKey( g_RG.GetNextBytes(this->GetPrivateKeyLength()));
-    root.add_child("async_pair", private_key.toJsonObj());
+    root.add_child("asym_pair", private_key.toJsonObj());
     return root;
 }
 
 uint32_t CAsymmetricKeyPair::fromJsonObj(const boost::property_tree::ptree & _root) {
     CMaskedBlob private_key;
-    private_key.fromJsonObj(_root);
+    private_key.fromJsonObj(_root.get_child("asym_pair"));
     this->LoadPrivateKey(private_key.ShowBin());
     return 0;
 }

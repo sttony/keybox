@@ -1,6 +1,7 @@
 import urllib
 
 import requests
+from urllib.parse import quote
 
 from utility import secretsmanager
 from utility.user_entity import User
@@ -27,7 +28,6 @@ class EmailAdapter:
 
         response = requests.post(token_url, data=payload)
         access_token = response.json().get("access_token")
-        print(access_token)
         return access_token
 
 
@@ -68,7 +68,7 @@ class EmailAdapter:
             "subject": "You registered a email to k3ybox.us",
             "content": f"""
                 Please use follow url to activate your email:
-                https://j9gr9uiepf.execute-api.us-west-2.amazonaws.com/Prod/activate?activate_code={user.activate_code}&email={urllib.parse.urlencode(user.email)}
+                https://j9gr9uiepf.execute-api.us-west-2.amazonaws.com/Prod/activate?activate_code={user.activate_code}&email={quote(user.email)}
                 """,
             "askReceipt": "yes"
         }

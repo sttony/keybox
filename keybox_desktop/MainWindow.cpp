@@ -16,6 +16,7 @@
 #include "CPwdGroupDlg.h"
 #include "CSyncDlg.h"
 #include "CSyncSettingDlg.h"
+#include "utilities/error_code.h"
 
 using namespace std;
 
@@ -210,10 +211,19 @@ void MainWindow::saveFile() {
     }
     vector<unsigned char> buff;
     uint32_t cbRealsize = 0;
-    m_pModel->Serialize(nullptr, 0, cbRealsize);
-    buff.resize(cbRealsize);
+    uint32_t result = m_pModel->Serialize(nullptr, 0, cbRealsize);
+    if (result != ERROR_BUFFER_TOO_SMALL) {
+        QMessageBox::information(nullptr, "Alert", ("Save failed, error code: " + to_string(result)).c_str());
+        return;
+    }
+    buff.resize(cbRealsize + 32); // to avoid padding issue
+    cbRealsize = 0;
 
-    m_pModel->Serialize(buff.data(), buff.size(), cbRealsize);
+    result = m_pModel->Serialize(buff.data(), buff.size(), cbRealsize);
+    if (result) {
+        QMessageBox::information(nullptr, "Alert", ("Save failed, error code: " + to_string(result)).c_str());
+        return;
+    }
 
     std::ofstream ofs(m_pModel->GetFilePath(), std::ios::binary); // Open file in binary mode
 
@@ -221,7 +231,7 @@ void MainWindow::saveFile() {
         QMessageBox::information(nullptr, "Alert", "Failed to open file");
         return;
     }
-    ofs.write(reinterpret_cast<const char *>(buff.data()), buff.size());
+    ofs.write(reinterpret_cast<const char *>(buff.data()), cbRealsize);
 
     // Check if writing was successful
     if (!ofs.good()) {
