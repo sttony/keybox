@@ -77,7 +77,7 @@ CMaskedBlob CAsymmetricKeyPair::GetPrivateKey(std::vector<unsigned char> &&onepa
 
 boost::property_tree::ptree CAsymmetricKeyPair::toJsonObj() {
     boost::property_tree::ptree root;
-    CMaskedBlob private_key = this->GetPrivateKey( g_RG.GetNextBytes(this->GetPrivateKeyLength()));
+    CMaskedBlob private_key = this->GetPrivateKey( vector<unsigned char>(this->GetPrivateKeyLength()));
     root.add_child("asym_pair", private_key.toJsonObj());
     return root;
 }

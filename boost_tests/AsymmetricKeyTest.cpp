@@ -117,7 +117,7 @@ llHGxoGi26UclGBkJqgFVN4lPiUp
 
         asymmetricKeyPair.LoadPrivateKey(std::move(prvkey));
         const char* toSign = "this is the data I want to sign";
-        vector<unsigned char> data (toSign, toSign + strlen ( toSign ) );
+        vector<unsigned char> data (toSign, toSign + strlen ( toSign ) +1);
         vector<unsigned char> signature;
         asymmetricKeyPair.Sign(data, signature);
         string hexStr = blobToHexString(signature);

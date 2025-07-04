@@ -3,9 +3,24 @@
 //
 #include <boost/test/unit_test.hpp>
 #include <vector>
+#include <random>
 #include "../utilities/Base64Coder.h"
 
 using namespace std;
+std::vector<unsigned char> createTestData(size_t size);
+// Helper function to create test data
+//
+//     std::vector<unsigned char> data(size);
+//     std::random_device rd;
+//     std::mt19937 gen(rd());
+//     std::uniform_int_distribution<> dis(0, 255);
+//
+//     for (size_t i = 0; i < size; ++i) {
+//         data[i] = static_cast<unsigned char>(dis(gen));
+//     }
+//     return data;
+// }
+
 
 BOOST_AUTO_TEST_SUITE(Base64TestSuit)
 
@@ -41,5 +56,20 @@ BOOST_AUTO_TEST_SUITE(Base64TestSuit)
         BOOST_CHECK_EQUAL(output, "AQIDBAUA");
     }
 
+    BOOST_AUTO_TEST_CASE(super_long)
+    {
+        // Create large test data (1MB)
+        std::vector<unsigned char> original = createTestData(1024 * 10 +1);
+        Base64Coder base64Coder;
+        string encode_str;
+        base64Coder.Encode(original.data(), original.size(), encode_str);
+        vector<unsigned char> decode_data;
+        base64Coder.Decode(encode_str, decode_data);
+        // Verify the result
+        BOOST_CHECK_EQUAL_COLLECTIONS(
+            original.begin(), original.end(),
+            decode_data.begin(), decode_data.end()
+        );
+    }
 
 BOOST_AUTO_TEST_SUITE_END()

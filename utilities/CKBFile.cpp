@@ -429,9 +429,16 @@ uint32_t CKBFile::RetrieveFromRemote() {
 uint32_t CKBFile::PushToRemote() {
     vector<unsigned char> buff;
     uint32_t cbRealsize = 0;
-    this->Serialize(nullptr, 0, cbRealsize);
+    uint32_t result = this->Serialize(nullptr, 0, cbRealsize);
+    if (result != ERROR_BUFFER_TOO_SMALL) {
+        return result;
+    }
     buff.resize(cbRealsize);
-    this->Serialize(buff.data(), buff.size(), cbRealsize);
+    cbRealsize = 0;
+    result = this->Serialize(buff.data(), buff.size(), cbRealsize);
+    if (result) {
+        return result;
+    }
     Base64Coder base64_coder;
     string payload_string;
     base64_coder.Encode(buff.data(), buff.size(), payload_string);
@@ -451,6 +458,8 @@ uint32_t CKBFile::PushToRemote() {
     std::ostringstream oss;
     boost::property_tree::write_json(oss, pay_load);
     request.SetPayload(oss.str());
+    auto private_key = m_pAsymmetric_key_pair->GetPrivateKey(vector<unsigned char>(m_pAsymmetric_key_pair->GetPrivateKeyLength()));
+    string private_key_string = private_key.Show();
     request.Send();
     if (request.GetResponseCode() == 200) {
         return 0;
