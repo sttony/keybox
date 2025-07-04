@@ -120,35 +120,19 @@ uint32_t CAsymmetricKeyPair::Sign(const std::vector<unsigned char> &data, std::v
 uint32_t CAsymmetricKeyPair::Sign(const unsigned char *data, uint32_t data_size,
     std::vector<unsigned char> &signature) {
     /* Create the EVP_PKEY_CTX context for signing */
-    EVP_PKEY_CTX * ctx = EVP_PKEY_CTX_new(m_pkey, nullptr);
+    EVP_MD_CTX * ctx = EVP_MD_CTX_new();
     if (!ctx) {
         return ERR_get_error();
     }
 
-    /* Initialize the signing context */
-    if (EVP_PKEY_sign_init(ctx) <= 0) {
-        EVP_PKEY_CTX_free(ctx);
-        return ERR_get_error();
-    }
+    EVP_DigestSignInit(ctx, nullptr, EVP_sha256(), nullptr, m_pkey);
+    EVP_DigestSignUpdate(ctx, data, data_size);
 
-    vector<unsigned char> hash_data;
-    CCipherEngine cipher_engine;
-    cipher_engine.SHA256(data, data_size, hash_data);
-
-    size_t signature_len = 0;
-    /* Determine the required buffer length for the signature */
-    if (EVP_PKEY_sign(ctx, nullptr, &signature_len, hash_data.data(), hash_data.size()) <= 0) {
-        EVP_PKEY_CTX_free(ctx);
-        return ERR_get_error();
-    }
-    signature.resize(signature_len);
-
-    /* Perform the signing operation */
-    if (EVP_PKEY_sign(ctx, signature.data(), &signature_len, hash_data.data(), hash_data.size()) <= 0) {
-        EVP_PKEY_CTX_free(ctx);
-        return ERR_get_error();
-    }
-    EVP_PKEY_CTX_free(ctx);
+    size_t siglen;
+    EVP_DigestSignFinal(ctx, nullptr, &siglen);
+    signature.resize(siglen);
+    EVP_DigestSignFinal(ctx, signature.data(), &siglen);
+    EVP_MD_CTX_free(ctx);
     return 0;
 }
 
