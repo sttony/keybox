@@ -43,6 +43,12 @@ Resources:
                             - dynamodb:PutItem
                         Resource: !Sub 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/*'
                 - Statement:
+                  - Effect: Allow
+                    Action:
+                      - s3:PutObject
+                      - s3:GetObject
+                    Resource:  !Sub 'arn:aws:s3:::*-keybox-user/*'
+                - Statement:
                       - Effect: Allow
                         Action:
                             - secretsmanager:GetSecretValue

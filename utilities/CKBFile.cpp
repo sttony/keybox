@@ -325,6 +325,19 @@ uint32_t CKBFile::SetAsymKey(unique_ptr<CAsymmetricKeyPair> _key) {
     return 0;
 }
 
+std::vector<unsigned char> hex_to_bytes(const std::string& hex) {
+    std::vector<unsigned char> bytes;
+    bytes.reserve(hex.length() / 2);
+
+    for (size_t i = 0; i < hex.length(); i += 2) {
+        std::string byteString = hex.substr(i, 2);
+        unsigned char byte = static_cast<unsigned char>(strtol(byteString.c_str(), nullptr, 16));
+        bytes.push_back(byte);
+    }
+
+    return bytes;
+}
+
 
 /**
  *  Retrieve from Remote,  Send email and client ID.
@@ -370,17 +383,14 @@ uint32_t CKBFile::RetrieveFromRemote() {
         return 0;
     }
 
-    vector<unsigned char> encrypted_session_key_bytes;
-    Base64Coder base64_coder;
-    base64_coder.Decode(response.get<std::string>("encrypted_session_key"), encrypted_session_key_bytes);
+    vector<unsigned char> encrypted_session_key_bytes = hex_to_bytes(response.get<std::string>("encrypted_session_key"));
     vector<unsigned char> session_key_bytes_decrypted;
     m_pAsymmetric_key_pair->Decrypt(encrypted_session_key_bytes, session_key_bytes_decrypted);
+    session_key_bytes_decrypted.resize(32);
 
 
-    vector<unsigned char> encrypted_file_content_bytes;
-    base64_coder.Decode(response.get<std::string>("encrypted_file_content"), encrypted_file_content_bytes);
-    vector<unsigned char> iv(16);
-    base64_coder.Decode(response.get<std::string>("iv"), iv);
+    vector<unsigned char> encrypted_file_content_bytes = hex_to_bytes(response.get<std::string>("encrypted_file_content"));
+    vector<unsigned char> iv = hex_to_bytes(response.get<std::string>("iv"));
 
     vector<unsigned char> decrypted_buff;
     CCipherEngine cipherEngine;
@@ -401,6 +411,7 @@ uint32_t CKBFile::RetrieveFromRemote() {
 
     CKBFile remote_ckb_file;
     size_t cbRealSize = 0;
+    remote_ckb_file.SetMasterKey(this->m_master_key);
     uResult = remote_ckb_file.Deserialize(decrypted_buff.data(), decrypted_buff.size(), uResult);
     if (uResult) {
         return uResult;

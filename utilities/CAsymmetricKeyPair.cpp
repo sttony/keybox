@@ -214,7 +214,11 @@ uint32_t CAsymmetricKeyPair::Decrypt(const std::vector<unsigned char> &cipher, s
         EVP_PKEY_CTX_free(ctx);
         return ERR_get_error();
     }
-
+    // Set padding to PKCS#1 v1.5
+    if (EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_PKCS1_PADDING) <= 0) {
+        EVP_PKEY_CTX_free(ctx);
+        return ERR_get_error();
+    }
     // Determine the buffer size required for the plaintext
     size_t data_len = 0;
     if (EVP_PKEY_decrypt(ctx, nullptr, &data_len, cipher.data(), cipher.size()) <= 0) {
