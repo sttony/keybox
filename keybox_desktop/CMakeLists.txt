@@ -29,7 +29,7 @@ add_executable(keyboxd main.cpp
         CPasswordBox.h
         CKBModel.cpp
         CKBModel.h
-        PrimaryPasswordDlg.cpp
+        CPrimaryPasswordDlg.cpp
         CPrimaryPasswordDlg.h
         CPwdEntryTableView.cpp
         CPwdEntryTableView.h
