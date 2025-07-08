@@ -7,7 +7,9 @@
 
 #include <QMessageBox>
 
+#include "CPrimaryPasswordDlg.h"
 
+using namespace std;
 CSyncSettingDlg::CSyncSettingDlg(CKBModel* pModel, QWidget *parent) {
     QVBoxLayout *rootLayout = new QVBoxLayout(this);
     m_kbModel = pModel;
@@ -27,14 +29,17 @@ CSyncSettingDlg::CSyncSettingDlg(CKBModel* pModel, QWidget *parent) {
 
 
     QHBoxLayout *btnLine2 = new QHBoxLayout();
-    m_saveBtn = new QPushButton("Save");
+    m_registerBtn = new QPushButton("Register new email");
     m_cancelBtn = new QPushButton("Cancel");
-    btnLine2->addWidget(m_saveBtn);
+    m_setNewClientBtn = new QPushButton("Set new client");
+    btnLine2->addWidget(m_registerBtn);
+    btnLine2->addWidget(m_setNewClientBtn);
     btnLine2->addWidget(m_cancelBtn);
     rootLayout->addLayout(btnLine2);
     setLayout(rootLayout);
 
-    connect(m_saveBtn, &QPushButton::clicked, this, &CSyncSettingDlg::onSave);
+    connect(m_registerBtn, &QPushButton::clicked, this, &CSyncSettingDlg::onSave);
+    connect(m_setNewClientBtn, &QPushButton::clicked, this, &CSyncSettingDlg::onNewClient);
     QObject::connect(m_cancelBtn, &QPushButton::clicked, this, &QDialog::reject);
 }
 
@@ -52,4 +57,22 @@ void CSyncSettingDlg::onSave() {
         QMessageBox::information(nullptr, "Alert", "Register failed");
         QDialog::reject();
     }
+}
+
+void CSyncSettingDlg::onNewClient() {
+    m_kbModel->SetSyncUrl(m_syncUrlBox->text().toStdString());
+    m_kbModel->SetEmail(m_emailBox->text().toStdString());
+    string encrypted_url;
+    uint32_t result = m_kbModel->SetupNewClient(encrypted_url);
+    if ( result != 0){
+        QMessageBox::information(nullptr, "Alert", "Register failed");
+        QDialog::reject();
+        return;
+    }
+    CPrimaryPasswordDlg dlg;
+    if (dlg.exec() ) {
+
+    }
+
+    QDialog::accept();
 }
