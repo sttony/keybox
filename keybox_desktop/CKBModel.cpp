@@ -236,3 +236,7 @@ uint32_t CKBModel::RetrieveFromRemote() {
 uint32_t CKBModel::PushToRemote() {
     return m_kbfile.PushToRemote();
 }
+
+uint32_t CKBModel::SetupNewClient(std::string &outUrl) {
+    return m_kbfile.SetupNewClient(outUrl);
+}
