@@ -62,8 +62,6 @@ public:
     uint32_t RetrieveFromRemote();
     uint32_t PushToRemote();
     uint32_t Register();
-    uint32_t FinishRegister();
-
 
 private:
     CKBFileHeader m_header;

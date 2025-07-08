@@ -516,19 +516,3 @@ uint32_t CKBFile::Register() {
     }
     return request.GetResponseCode() | ERROR_HTTP_ERROR_PREFIX;
 }
-
-/**
- *  Register 2nd step
- * @return No register is pending
- *         register is not activate
- *         0, it is done.
- */
-uint32_t CKBFile::FinishRegister() {
-    CRequest request(m_header.GetSyncUrl() + "/" + "check_status", CRequest::POST);
-    request.Send();
-
-    if (request.GetResponseCode() == 200) {
-        return 0;
-    }
-    return request.GetResponseCode() | ERROR_HTTP_ERROR_PREFIX;
-}
