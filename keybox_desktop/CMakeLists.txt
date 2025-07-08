@@ -45,6 +45,8 @@ add_executable(keyboxd main.cpp
         CSyncSettingDlg.cpp
         CSyncDlg.cpp
         CSyncDlg.h
+        CNewClientDlg.cpp
+        CNewClientDlg.h
 )
 
 target_link_libraries(
