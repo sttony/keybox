@@ -62,6 +62,7 @@ public:
     uint32_t RetrieveFromRemote();
     uint32_t PushToRemote();
     uint32_t Register();
+    uint32_t SetupNewClient(std::string& outUrl);
 
 private:
     CKBFileHeader m_header;

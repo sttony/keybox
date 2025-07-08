@@ -516,3 +516,30 @@ uint32_t CKBFile::Register() {
     }
     return request.GetResponseCode() | ERROR_HTTP_ERROR_PREFIX;
 }
+
+/**
+ * 1. send new_client api, with email
+ * 2. get encrypted presign url back
+ * @return
+ */
+uint32_t CKBFile::SetupNewClient(std::string& outUrl) {
+    uint32_t uResult = 0;
+    const string& sync_url = m_header.GetSyncUrl();
+    const string& sync_email = m_header.GetSyncEmail();
+    CRequest request(sync_url+"/" + "retrieve", CRequest::POST);
+    boost::property_tree::ptree pay_load;
+
+    pay_load.put("email", sync_email);
+    pay_load.put("client_id", to_string(m_client_uuid));
+    std::ostringstream oss;
+    boost::property_tree::write_json(oss, pay_load);
+    request.SetPayload(oss.str());
+    request.Send();
+    if (request.GetResponseCode() != 200) {
+        return ERROR_HTTP_ERROR_PREFIX | request.GetResponseCode();
+    }
+    const char *payload = reinterpret_cast<const char*>(request.GetResponsePayload().data());
+    outUrl = string(payload, payload + request.GetResponsePayload().size());
+    return 0;
+}
+
