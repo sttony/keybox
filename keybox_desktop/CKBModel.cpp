@@ -53,6 +53,12 @@ uint32_t CKBModel::LoadKBFileToBuff(const std::string &filepath) {
     return 0;
 }
 
+uint32_t CKBModel::LoadBlobToBuff(const std::vector<unsigned char>& blob) {
+    m_file_buff.resize(blob.size());
+    memcpy(m_file_buff.data(), blob.data(), blob.size());
+    return 0;
+}
+
 uint32_t CKBModel::LoadKBHeader(const std::string &filepath) {
     LoadKBFileToBuff(filepath);
     return m_kbfile.LoadHeader(m_file_buff.data(), m_file_buff.size(), m_header_size);
@@ -122,6 +128,7 @@ uint32_t CKBModel::LoadPayload() {
         return uResult;
     }
     setFilter();
+    emit layoutChanged();
     return 0;
 }
 
@@ -230,13 +237,22 @@ uint32_t CKBModel::Register() {
 }
 
 uint32_t CKBModel::RetrieveFromRemote() {
-    return m_kbfile.RetrieveFromRemote();
+    uint32_t result = m_kbfile.RetrieveFromRemote();
+    setFilter();
+    emit layoutChanged();
+    return result;
 }
 
 uint32_t CKBModel::PushToRemote() {
-    return m_kbfile.PushToRemote();
+    uint32_t result = m_kbfile.PushToRemote();
+    setFilter();
+    emit layoutChanged();
+    return result;
 }
 
-uint32_t CKBModel::SetupNewClient(std::string &outUrl) {
-    return m_kbfile.SetupNewClient(outUrl);
+uint32_t CKBModel::SetupNewClient(vector<unsigned char>& outUrl) {
+    uint32_t result = m_kbfile.SetupNewClient(outUrl);
+    setFilter();
+    emit layoutChanged();
+    return result;
 }

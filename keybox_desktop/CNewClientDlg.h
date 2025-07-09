@@ -11,7 +11,8 @@ class CNewClientDlg : public QDialog {
 Q_OBJECT
 public:
     explicit CNewClientDlg(QWidget *parent = nullptr);
-    CMaskedBlob GetPassword();
+    CMaskedBlob GetKey();
+    CMaskedBlob GetIV();
 
 private slots:
 
@@ -20,5 +21,6 @@ private slots:
 private:
     CPasswordBox *m_pwdBox;
     CMaskedBlob m_pwd;
+    CMaskedBlob m_iv;
 };
 #endif //CNEWCLIENTDLG_H

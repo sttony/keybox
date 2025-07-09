@@ -90,3 +90,16 @@ uint32_t Base64Coder::Decode(const std::string &sInput, std::vector<unsigned cha
     }
     return 0;
 }
+
+std::vector<unsigned char> hex_to_bytes(const std::string& hex) {
+    std::vector<unsigned char> bytes;
+    bytes.reserve(hex.length() / 2);
+
+    for (size_t i = 0; i < hex.length(); i += 2) {
+        std::string byteString = hex.substr(i, 2);
+        unsigned char byte = static_cast<unsigned char>(strtol(byteString.c_str(), nullptr, 16));
+        bytes.push_back(byte);
+    }
+
+    return bytes;
+}

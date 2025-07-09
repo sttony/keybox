@@ -7,7 +7,9 @@
 
 #include <QMessageBox>
 
+#include "CNewClientDlg.h"
 #include "CPrimaryPasswordDlg.h"
+#include "utilities/CRequest.h"
 
 using namespace std;
 CSyncSettingDlg::CSyncSettingDlg(CKBModel* pModel, QWidget *parent) {
@@ -62,16 +64,55 @@ void CSyncSettingDlg::onSave() {
 void CSyncSettingDlg::onNewClient() {
     m_kbModel->SetSyncUrl(m_syncUrlBox->text().toStdString());
     m_kbModel->SetEmail(m_emailBox->text().toStdString());
-    string encrypted_url;
+    vector<unsigned char> encrypted_url;
     uint32_t result = m_kbModel->SetupNewClient(encrypted_url);
     if ( result != 0){
         QMessageBox::information(nullptr, "Alert", "Register failed");
         QDialog::reject();
         return;
     }
-    CPrimaryPasswordDlg dlg;
-    if (dlg.exec() ) {
+    CNewClientDlg dlg;
+    if (!dlg.exec() ) {
+        return;
+    }
+    vector<unsigned char> decrypted_buff;
+    CCipherEngine cipherEngine;
 
+    result = cipherEngine.AES256EnDecrypt(
+        encrypted_url.data(),
+        encrypted_url.size(),
+        dlg.GetKey().ShowBin(),
+        dlg.GetIV().ShowBin(),
+        CCipherEngine::AES_CHAIN_MODE_CBC,
+        CCipherEngine::AES_PADDING_MODE_PKCS7,
+        false,
+        decrypted_buff);
+
+    if (result) {
+        QMessageBox::information(nullptr, "Alert", "Decrypt url failed");
+        QDialog::reject();
+        return;
+    }
+
+    // download url
+    CRequest request( string(reinterpret_cast<const char *>(decrypted_buff.data())));
+    request.EnableFollowRedirect();
+    request.Send();
+
+    if (request.GetResponseCode() != 200) {
+        QMessageBox::information(nullptr, "Alert", "Download url failed");
+        QDialog::reject();
+        return;
+    }
+
+    // load content into model
+    m_kbModel->LoadBlobToBuff(request.GetResponsePayload());
+    m_kbModel->LoadKBHeader();
+    CPrimaryPasswordDlg ppdlg(m_kbModel->GetKeyDerivateParameters());
+    if (ppdlg.exec() ) {
+        m_kbModel->SetPrimaryKey(ppdlg.GetPassword());
+        if (!m_kbModel->LoadPayload() ) {
+        }
     }
 
     QDialog::accept();

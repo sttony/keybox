@@ -15,6 +15,6 @@ public:
 
     uint32_t Decode(const std::string &sInput, std::vector<unsigned char> &vOutput);
 };
-
+std::vector<unsigned char> hex_to_bytes(const std::string& hex);
 
 #endif //KEYBOX_BASE64CODER_H

@@ -375,9 +375,15 @@ void MainWindow::openSyncSetting(){
     CSyncSettingDlg syncSettingDlg(m_pModel, this);
     connect(&syncSettingDlg, &CSyncSettingDlg::saveSignal, this, &MainWindow::saveFile);
     syncSettingDlg.exec();
+    m_group_list_view->update();
+    m_entry_table_view->update();
+    this->RefreshActionEnabled();
 }
 
 void MainWindow::syncRemote() {
     CSyncDlg syncDlg(m_pModel, this);
     syncDlg.exec();
+    m_group_list_view->update();
+    m_entry_table_view->update();
+    this->RefreshActionEnabled();
 }

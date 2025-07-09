@@ -27,6 +27,8 @@ public:
     uint32_t GetResponseCode();
     const std::vector<unsigned char>& GetResponsePayload();
     std::string GetResponseHeader(std::string&& key_name);
+    uint32_t EnableFollowRedirect();
+
 
 private:
     static size_t WriteCallback(void *ptr, size_t size, size_t nmemb, void *data);

@@ -32,6 +32,7 @@ public:
 
     // two step load, because payload needs header to decrypt
     uint32_t LoadKBFileToBuff(const std::string &filepath);
+    uint32_t LoadBlobToBuff(const std::vector<unsigned char>& blob);
     uint32_t LoadKBHeader(const std::string &filepath);
     uint32_t LoadKBHeader();
 
@@ -67,7 +68,7 @@ public:
 
     uint32_t RetrieveFromRemote();
     uint32_t PushToRemote();
-    uint32_t SetupNewClient(std::string& outUrl);
+    uint32_t SetupNewClient(std::vector<unsigned char>& outUrl);
 
 private:
     CKBFile m_kbfile;

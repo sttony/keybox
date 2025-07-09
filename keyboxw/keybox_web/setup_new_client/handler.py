@@ -7,6 +7,7 @@ import uuid
 
 import boto3
 import requests
+from botocore.config import Config
 
 from cryptography.hazmat.primitives import padding as ase_padding
 from cryptography.hazmat.primitives.ciphers import algorithms, Cipher, modes
@@ -41,23 +42,25 @@ def lambda_handler(event, context):
             return {"message": "user not activated"}, 403
 
     # presign a url for file.
-    expiration = datetime.datetime.now(datetime.UTC) + datetime.timedelta(seconds=600)
-    s3 = boto3.client('s3')
+    s3 = boto3.client('s3',  region_name="us-west-2")
+
     presign_url = s3.generate_presigned_url(
-        'get_object',
-        params={
+        ClientMethod='get_object',
+        Params={
             'Bucket': f"{STAGE}-keybox-user",
             'Key': user.file_path
         },
-        expires=expiration
+        ExpiresIn=600,
+        HttpMethod="GET"
     )
+    logger.info(f"presign url: {presign_url}")
     # generate a session key,
-    session_key = os.urandom(16)  # 32 bytes = 256 bits
-    iv = session_key # use key as IV
+    session_key = os.urandom(32)  # 32 bytes = 256 bits
+    iv = os.urandom(16)  # use key as IV
 
     # encrypt url.
     padder = ase_padding.PKCS7(algorithms.AES.block_size).padder()
-    padded_data = padder.update(presign_url) + padder.finalize()
+    padded_data = padder.update(presign_url.encode('utf-8')) + padder.finalize()
     cipher = Cipher(algorithms.AES(session_key), modes.CBC(iv))
     encryptor = cipher.encryptor()
 
@@ -65,6 +68,6 @@ def lambda_handler(event, context):
 
     # send key to user
     email_adapter = EmailAdapter()
-    email_adapter.send_new_client(user, session_key.hex())
+    email_adapter.send_new_client(user, session_key.hex() + iv.hex())
     # return encrypt url back.
     return {"file_url": encrypted_url.hex()}, 200

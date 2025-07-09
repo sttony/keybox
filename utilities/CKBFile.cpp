@@ -325,18 +325,6 @@ uint32_t CKBFile::SetAsymKey(unique_ptr<CAsymmetricKeyPair> _key) {
     return 0;
 }
 
-std::vector<unsigned char> hex_to_bytes(const std::string& hex) {
-    std::vector<unsigned char> bytes;
-    bytes.reserve(hex.length() / 2);
-
-    for (size_t i = 0; i < hex.length(); i += 2) {
-        std::string byteString = hex.substr(i, 2);
-        unsigned char byte = static_cast<unsigned char>(strtol(byteString.c_str(), nullptr, 16));
-        bytes.push_back(byte);
-    }
-
-    return bytes;
-}
 
 
 /**
@@ -522,11 +510,11 @@ uint32_t CKBFile::Register() {
  * 2. get encrypted presign url back
  * @return
  */
-uint32_t CKBFile::SetupNewClient(std::string& outUrl) {
+uint32_t CKBFile::SetupNewClient(vector<unsigned char>& outEncryptedUrl) {
     uint32_t uResult = 0;
     const string& sync_url = m_header.GetSyncUrl();
     const string& sync_email = m_header.GetSyncEmail();
-    CRequest request(sync_url+"/" + "retrieve", CRequest::POST);
+    CRequest request(sync_url+"/" + "setup_new_client", CRequest::POST);
     boost::property_tree::ptree pay_load;
 
     pay_load.put("email", sync_email);
@@ -538,8 +526,16 @@ uint32_t CKBFile::SetupNewClient(std::string& outUrl) {
     if (request.GetResponseCode() != 200) {
         return ERROR_HTTP_ERROR_PREFIX | request.GetResponseCode();
     }
-    const char *payload = reinterpret_cast<const char*>(request.GetResponsePayload().data());
-    outUrl = string(payload, payload + request.GetResponsePayload().size());
+
+    std::istringstream iss(reinterpret_cast<const char *>(request.GetResponsePayload().data()) );
+    boost::property_tree::ptree response;
+    try {
+        boost::property_tree::read_json(iss, response);
+    }
+    catch (exception &e) {
+        return ERROR_INVALID_JSON;
+    }
+    outEncryptedUrl = hex_to_bytes(response.get<std::string>("file_url"));
     return 0;
 }
 

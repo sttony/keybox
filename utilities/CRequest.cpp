@@ -94,6 +94,10 @@ std::string CRequest::GetResponseHeader(std::string &&key_name) {
     return "";
 }
 
+uint32_t CRequest::EnableFollowRedirect() {
+    return curl_easy_setopt(m_curl, CURLOPT_FOLLOWLOCATION, 1L);
+}
+
 
 
 
