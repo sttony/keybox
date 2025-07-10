@@ -527,7 +527,8 @@ uint32_t CKBFile::SetupNewClient(vector<unsigned char>& outEncryptedUrl) {
         return ERROR_HTTP_ERROR_PREFIX | request.GetResponseCode();
     }
 
-    std::istringstream iss(reinterpret_cast<const char *>(request.GetResponsePayload().data()) );
+    std::istringstream iss(string(reinterpret_cast<const char *>(request.GetResponsePayload().data()),
+       reinterpret_cast<const char *>(request.GetResponsePayload().data()) + request.GetResponsePayload().size()) );
     boost::property_tree::ptree response;
     try {
         boost::property_tree::read_json(iss, response);
