@@ -285,8 +285,16 @@ CCipherEngine::AES256EnDecrypt(const unsigned char *pInputBuff,
                 0,
                 &dwPlainTextLength,
                 dwPadding);
-        if (!NT_SUCCESS(status)) {
-            return status;
+        if (!NT_SUCCESS(status) ) {
+            if (status != STATUS_INVALID_BUFFER_SIZE) {
+                return status;
+            }
+            else {
+                // windows can't tolerant InputBuff is not multiple of block size 16.
+                // floor around to 16. because high likely padding or other thing is
+                // attached to the end.
+                cbInputBuff = cbInputBuff & ~15;
+            }
         }
         vOutputBuff.resize(dwPlainTextLength);
 

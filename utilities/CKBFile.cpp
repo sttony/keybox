@@ -141,7 +141,7 @@ uint32_t CKBFile::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint3
     vector<unsigned char> encrypted_buff;
     CCipherEngine cipherEngine;
     uResult = cipherEngine.AES256EnDecrypt(
-            (unsigned char *) &pay_load_json[0],
+            (unsigned char *) pay_load_json.data(),
             pay_load_json.size(),
             m_master_key.ShowBin(),
             m_header.GetIV(),
@@ -357,7 +357,8 @@ uint32_t CKBFile::RetrieveFromRemote() {
     }
 
     // load payload json
-    std::istringstream iss(reinterpret_cast<const char *>(request.GetResponsePayload().data()) );
+    std::istringstream iss(string(reinterpret_cast<const char *>(request.GetResponsePayload().data()),
+        reinterpret_cast<const char *>(request.GetResponsePayload().data()) + request.GetResponsePayload().size()));
     boost::property_tree::ptree response;
     try {
         boost::property_tree::read_json(iss, response);
