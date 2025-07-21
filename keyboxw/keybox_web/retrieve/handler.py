@@ -24,7 +24,7 @@ from utility.user_entity import User
 # Configure logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-STAGE = "beta"
+STAGE = os.environ.get('STAGE', 'beta')
 
 def generate_and_encrypt_session_key(public_key_str: str) -> tuple[bytes, bytes]:
     # Generate a random 256-bit AES key

@@ -12,6 +12,12 @@ from utility.http_parameter_helper import HttpParameterHelper
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
+STAGE = os.environ.get('STAGE', 'beta')
+
+BASE_URLS = {
+    "beta" : "https://j9gr9uiepf.execute-api.us-west-2.amazonaws.com/Prod",
+    "prod" : "https://k3ybox.us"
+}
 
 def lambda_handler(event: APIGatewayProxyEvent, context: dict):
     http_parameter_helper = HttpParameterHelper(event, context)
@@ -28,12 +34,10 @@ def lambda_handler(event: APIGatewayProxyEvent, context: dict):
     client_id = zoho_secrets['client_id']
     client_secret = zoho_secrets['client_secret']
 
-    base_url = os.environ.get("ApiEndpoint")
-    logger.info(f"base_url: {base_url}")
 
     get_auth_token_url = (f"https://accounts.zoho.com/oauth/v2/token?code={authentication_code}&"
                           f"grant_type=authorization_code&client_id={client_id}&client_secret={client_secret}&"
-                          f"redirect_uri=https://j9gr9uiepf.execute-api.us-west-2.amazonaws.com/Prod/refresh_token&scope=ZohoMail.messages.ALL")
+                          f"redirect_uri={BASE_URLS[STAGE]}/refresh_token&scope=ZohoMail.messages.ALL")
 
     response = requests.post(get_auth_token_url)
     if response.status_code != 200:

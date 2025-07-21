@@ -1,14 +1,15 @@
-import json
 import logging
-import requests
+import os
 
-from utility import secretsmanager
+
 from utility.ddb_adapter import DDBAdapter
 from utility.http_parameter_helper import HttpParameterHelper
 
 # Configure logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
+
+STAGE = os.environ.get('STAGE', 'beta')
 
 def lambda_handler(event, context):
     # the url should be  base_url/activate?email=[base64]&activate_code=[]
@@ -20,7 +21,7 @@ def lambda_handler(event, context):
     if not activate_code:
         return {"message": "no activate_code"}, 404
 
-    ddb_adapter = DDBAdapter()
+    ddb_adapter = DDBAdapter(stage=STAGE)
     user = ddb_adapter.get_user(email)
     if not user:
         logger.error("user not found")

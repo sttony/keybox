@@ -2,15 +2,11 @@ import base64
 import datetime
 import json
 import logging
-import uuid
+import os
 
 import boto3
-import requests
 
-import sys
 
-from botocore.exceptions import ClientError
-from botocore.utils import parse_to_aware_datetime
 from cryptography.exceptions import InvalidSignature
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
@@ -24,7 +20,7 @@ from utility.user_entity import User
 # Configure logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-STAGE = "beta"
+STAGE = os.environ.get('STAGE', 'beta')
 
 
 def lambda_handler(event, context):

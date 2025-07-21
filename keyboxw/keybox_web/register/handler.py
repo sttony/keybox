@@ -1,14 +1,11 @@
 import datetime
 import json
 import logging
+import os
 import uuid
 
 import requests
 
-import sys
-
-from utility import secretsmanager
-from utility.http_parameter_helper import HttpParameterHelper
 from utility.email_adapter import EmailAdapter
 from utility.http_parameter_helper import HttpParameterHelper
 from utility.ddb_adapter import DDBAdapter
@@ -17,7 +14,7 @@ from utility.user_entity import User
 # Configure logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-
+STAGE = os.environ.get('STAGE', 'beta')
 
 def lambda_handler(event, context):
     http_parameter_helper = HttpParameterHelper(event, context)
@@ -33,7 +30,7 @@ def lambda_handler(event, context):
         return {"message": "no pubkey"}, 404
 
     # check if email is ready in DDB
-    ddb_adapter = DDBAdapter()
+    ddb_adapter = DDBAdapter(stage=STAGE)
     user = ddb_adapter.get_user(email)
     if not user:
         user = User(

@@ -13,6 +13,7 @@ Resources:
     KeyboxFunction:
         Type: AWS::Serverless::Function # More info about Function Resource: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
         Properties:
+            FunctionName: !Sub ${STAGE}-keybox
             Handler: app.lambda_handler
             CodeUri: keybox_web
             Description: Keybox
@@ -31,6 +32,7 @@ Resources:
                     POWERTOOLS_SERVICE_NAME: PowertoolsHelloWorld
                     POWERTOOLS_METRICS_NAMESPACE: Powertools
                     LOG_LEVEL: INFO
+                    ENV: !Ref STAGE
 
             Tags:
                 LambdaPowertools: python
@@ -64,7 +66,7 @@ Resources:
 Outputs:
     KeyboxApi:
       Description: "API Gateway endpoint URL for Prod environment"
-      Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod"
+      Value: !Sub "https://${STAGE}.execute-api.${AWS::Region}.amazonaws.com/Prod"
 
 
     KeyboxFunction:
