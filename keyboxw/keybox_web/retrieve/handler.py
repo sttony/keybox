@@ -76,7 +76,7 @@ def lambda_handler(event, context):
         return {"message": "no email"}, 404
 
     # check if email is ready in DDB
-    ddb_adapter = DDBAdapter()
+    ddb_adapter = DDBAdapter(stage=STAGE)
     user = ddb_adapter.get_user(email)
     if not user:
         return {"message": "user not found"}, 404

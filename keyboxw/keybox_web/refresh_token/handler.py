@@ -7,6 +7,7 @@ from aws_lambda_powertools.utilities.typing import LambdaContext
 
 from utility import secretsmanager
 from utility.http_parameter_helper import HttpParameterHelper
+from utility.configs import BASE_URLS
 
 # Configure logging
 logger = logging.getLogger()
@@ -14,10 +15,6 @@ logger.setLevel(logging.INFO)
 
 STAGE = os.environ.get('STAGE', 'beta')
 
-BASE_URLS = {
-    "beta" : "https://j9gr9uiepf.execute-api.us-west-2.amazonaws.com/Prod",
-    "prod" : "https://k3ybox.us"
-}
 
 def lambda_handler(event: APIGatewayProxyEvent, context: dict):
     http_parameter_helper = HttpParameterHelper(event, context)

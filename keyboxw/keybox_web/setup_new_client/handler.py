@@ -67,7 +67,7 @@ def lambda_handler(event, context):
     encrypted_url = encryptor.update(padded_data) + encryptor.finalize()
 
     # send key to user
-    email_adapter = EmailAdapter()
+    email_adapter = EmailAdapter(stage=STAGE)
     email_adapter.send_new_client(user, session_key.hex() + iv.hex())
     # return encrypt url back.
     return {"file_url": encrypted_url.hex()}, 200

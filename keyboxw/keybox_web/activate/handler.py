@@ -1,7 +1,8 @@
 import logging
 import os
+from decimal import Decimal
 
-
+from utility.configs import USER_DEFAULT_DURATION
 from utility.ddb_adapter import DDBAdapter
 from utility.http_parameter_helper import HttpParameterHelper
 
@@ -32,6 +33,7 @@ def lambda_handler(event, context):
         return {"message": "activate failed"}, 403
 
     user.activate_status = "active"
+    user.expiring_date = user.expiring_date + int(USER_DEFAULT_DURATION[STAGE].total_seconds())
     ddb_adapter.put_user(user)
 
     return {"message": "Activate succeed"}, 200

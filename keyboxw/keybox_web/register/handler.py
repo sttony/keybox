@@ -30,8 +30,10 @@ def lambda_handler(event, context):
         return {"message": "no pubkey"}, 404
 
     # check if email is ready in DDB
+    logger.info(f"Get Stage {STAGE}")
     ddb_adapter = DDBAdapter(stage=STAGE)
     user = ddb_adapter.get_user(email)
+
     if not user:
         user = User(
             email=email,
@@ -52,7 +54,7 @@ def lambda_handler(event, context):
     ddb_adapter.put_user(user)
 
     # send email
-    email_adapter = EmailAdapter()
+    email_adapter = EmailAdapter(stage=STAGE)
     email_adapter.send_activate(user)
 
     return {"message": "Refresh succeed"}, 200

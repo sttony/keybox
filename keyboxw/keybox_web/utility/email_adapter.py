@@ -5,11 +5,11 @@ from urllib.parse import quote
 
 from utility import secretsmanager
 from utility.user_entity import User
-
+from utility.configs import BASE_URLS
 
 class EmailAdapter:
-    def __init__(self):
-
+    def __init__(self, stage = "beta"):
+        self.base_url = BASE_URLS[stage]
         pass
 
     def fetch_oAuth2_token(self):
@@ -41,7 +41,7 @@ class EmailAdapter:
             "subject": "You registered a email to k3ybox.us",
             "content": f"""
                 Please use follow url to activate your email:
-                https://j9gr9uiepf.execute-api.us-west-2.amazonaws.com/Prod/activate?activate_code={user.activate_code}&email={quote(user.email)}
+                {self.base_url}/activate?activate_code={user.activate_code}&email={quote(user.email)}
                 """,
             "askReceipt": "no"
         }

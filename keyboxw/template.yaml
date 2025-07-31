@@ -8,7 +8,15 @@ Globals: # https://docs.aws.amazon.com/serverless-application-model/latest/devel
         Timeout: 5
         MemorySize: 1024
         Runtime: python3.12
-
+Parameters:
+  STAGE:
+    Type: String
+    Description: The deployment stage (e.g., beta prod staging)
+    Default: beta
+    AllowedValues:
+      - beta
+      - prod
+      - staging
 Resources:
     KeyboxFunction:
         Type: AWS::Serverless::Function # More info about Function Resource: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
@@ -32,7 +40,7 @@ Resources:
                     POWERTOOLS_SERVICE_NAME: PowertoolsHelloWorld
                     POWERTOOLS_METRICS_NAMESPACE: Powertools
                     LOG_LEVEL: INFO
-                    ENV: !Ref STAGE
+                    STAGE: !Ref STAGE
 
             Tags:
                 LambdaPowertools: python
@@ -66,7 +74,7 @@ Resources:
 Outputs:
     KeyboxApi:
       Description: "API Gateway endpoint URL for Prod environment"
-      Value: !Sub "https://${STAGE}.execute-api.${AWS::Region}.amazonaws.com/Prod"
+      Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod"
 
 
     KeyboxFunction:
