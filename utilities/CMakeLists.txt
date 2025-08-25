@@ -32,60 +32,39 @@ set(HEADER_FILES
         CPwdGroup.h
         CRequest.h
 )
+set(COMMON_SOURCE_FILES
+        KeepassReader.cpp
+        CGZcompressor.cpp
+        Salsa20Cipher.cpp
+        CRandomGenerator.cpp
+        Base64Coder.cpp
+        CKBFileHeader.cpp
+        CKBFile.cpp
+        CPwdEntry.cpp
+        CMaskedBlob.cpp
+        CPasswordGenerator.cpp
+        CPwdGroup.cpp
+        CAsymmetricKeyPair.cpp
+        CRequest.cpp
+)
 
 IF (WIN32)
     set(SOURCE_FILES
             CipherEngine_win.cpp
-            KeepassReader.cpp
-            CGZcompressor.cpp
-            Salsa20Cipher.cpp
-            CRandomGenerator.cpp
-            Base64Coder.cpp
-            CKBFileHeader.cpp
-            CKBFile.cpp
-            CPwdEntry.cpp
-            CMaskedBlob.cpp
             InitGlobalRG_win.cpp
-            CPasswordGenerator.cpp
-            CPwdGroup.cpp
-            CAsymmetricKeyPair.cpp
-            CRequest.cpp
+            ${COMMON_SOURCE_FILES}
     )
 ELSEIF (APPLE)
     set(SOURCE_FILES
             CipherEngine_mac.cpp
-            KeepassReader.cpp
-            CGZcompressor.cpp
-            Salsa20Cipher.cpp
-            CRandomGenerator.cpp
-            Base64Coder.cpp
-            CPwdEntry.cpp
-            CMaskedBlob.cpp
-            CKBFileHeader.cpp
-            CKBFile.cpp
             InitGlobalRG_mac.cpp
-            CPasswordGenerator.cpp
-            CPwdGroup.cpp
-            CAsymmetricKeyPair.cpp
-            CRequest.cpp
+            ${COMMON_SOURCE_FILES}
     )
 ELSEIF (LINUX)
     set(SOURCE_FILES
             CipherEngine_linux.cpp
-            KeepassReader.cpp
-            CGZcompressor.cpp
-            Salsa20Cipher.cpp
-            CRandomGenerator.cpp
-            Base64Coder.cpp
-            CPwdEntry.cpp
-            CMaskedBlob.cpp
             InitGlobalRG_linux.cpp
-            CKBFileHeader.cpp
-            CKBFile.cpp
-            CPasswordGenerator.cpp
-            CPwdGroup.cpp
-            CAsymmetricKeyPair.cpp
-            CRequest.cpp
+            ${COMMON_SOURCE_FILES}
     )
 ENDIF (WIN32)
 
