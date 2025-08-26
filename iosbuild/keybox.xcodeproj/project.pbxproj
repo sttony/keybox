@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		474D282981804CE38876B6D9 /* ZERO_CHECK */ = {
+		4FF2EAF028086B1E9F810223 /* ZERO_CHECK */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 963960C536FA47D38DC70CD4 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildConfigurationList = F36A05D325224C0593CAFD96 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
 			buildPhases = (
 				B049234CAD7873C4C176E8DA /* Generate CMakeFiles/ZERO_CHECK */,
 			);
@@ -18,15 +18,15 @@
 			name = ZERO_CHECK;
 			productName = ZERO_CHECK;
 		};
-		E39271C3CC6B45B4800F7E6F /* ALL_BUILD */ = {
+		EF12FC808A70E0D1C5CE9372 /* ALL_BUILD */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 3A4A015646654AA5A3358370 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildConfigurationList = CC971DAC98B647A28D909920 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
 			buildPhases = (
 				A9E7AB0FB17F2E6934088D05 /* Generate CMakeFiles/ALL_BUILD */,
 			);
 			dependencies = (
-				56793048CF5B47BAA62091FB /* PBXTargetDependency */,
-				1E232D75BBFB4CD883BB88DB /* PBXTargetDependency */,
+				D85AC01FF67348C3A01C5091 /* PBXTargetDependency */,
+				FCD70E57D294467AACBB4E98 /* PBXTargetDependency */,
 			);
 			name = ALL_BUILD;
 			productName = ALL_BUILD;
@@ -34,74 +34,85 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		2ACBE424E34D4F7B9A71DE24 /* CMaskedBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBD06E0F8E6F4CD5A64E13F8 /* CMaskedBlob.cpp */; };
-		47F0363EDE2945EFA6CC52B4 /* KeepassReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFAD4C16F6A0420E99D5CEE7 /* KeepassReader.cpp */; };
-		4F615D4479F34B80994A06FF /* Base64Coder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE1F8EBF859E4196B45737B2 /* Base64Coder.cpp */; };
-		5EBD0C79F2534345BE0BE82D /* CipherEngine_mac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B66CFCC7746F4327989D4817 /* CipherEngine_mac.cpp */; };
-		64116363DEFC41178198D2FA /* Salsa20Cipher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E2C21B0470C4A6EB3BE4ABE /* Salsa20Cipher.cpp */; };
-		994953EA124148A395FBE8B1 /* CRandomGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C0B6A621E5E48BD99589FC3 /* CRandomGenerator.cpp */; };
-		A9775DCB72ED4116A5D32B99 /* CGZcompressor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03059330814144F6A98CCC10 /* CGZcompressor.cpp */; };
-		AE51532E290E4E0D8A5677F0 /* CPasswordGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE4A16B19B7E43EEA791EA4E /* CPasswordGenerator.cpp */; };
-		C3CBCDCCD97548C0B5E1D232 /* CKBFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A786808D6EBB4197AB438AA9 /* CKBFile.cpp */; };
-		D8FC8CDC5C9447B7BD6B4904 /* InitGlobalRG_mac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08A21D985DE4D93BFED36F1 /* InitGlobalRG_mac.cpp */; };
-		FB05CD8A05E34793B6EC6E0A /* CPwdEntry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67C914B96353446F9890D961 /* CPwdEntry.cpp */; };
+		0406B6CC108B42FF8FA106B9 /* KeepassReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A61513C5CBC643DDAF6356EA /* KeepassReader.cpp */; };
+		0528344F538B433691B09863 /* CipherEngine_mac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C19A43A56E240E7B9667A70 /* CipherEngine_mac.cpp */; };
+		09AF64C16ADD4B4880B82850 /* CKBFileHeader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9E53D0F7612B46E1871688CA /* CKBFileHeader.cpp */; };
+		120FC5700ED347C8B4EA5490 /* Salsa20Cipher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DF5F828A9A84DC7A29F5D13 /* Salsa20Cipher.cpp */; };
+		1F5BDDF8A843491CA410597D /* CMaskedBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 030CDD48AE814FB68E7AF9C6 /* CMaskedBlob.cpp */; };
+		44377548B80A4656A7614734 /* Base64Coder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 955E042879714D28BB5AB66B /* Base64Coder.cpp */; };
+		8054BC06D6284031BADA571B /* CPwdGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16FF18F4ADF54C3292453242 /* CPwdGroup.cpp */; };
+		883425E8C2984BC38337E468 /* CPwdEntry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558DD3C6CC2F4A5299AF921A /* CPwdEntry.cpp */; };
+		8E8FBA8CD3E04E76BAF6C21A /* CRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0B8C86B139E4FB2A693F02D /* CRequest.cpp */; };
+		B05A41E68A8440C5B1B6653B /* CPasswordGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A8EBD3DD6258449CB4A17784 /* CPasswordGenerator.cpp */; };
+		C80789C482E14C70B6B9CF8D /* InitGlobalRG_mac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A60C81CCDA74D98B8EEC729 /* InitGlobalRG_mac.cpp */; };
+		CC1895EEF59F40CABB32FB2B /* CRandomGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E6F14280012E4A0A90D6E66E /* CRandomGenerator.cpp */; };
+		D3BD7300F3AD4C56872B68A1 /* CAsymmetricKeyPair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E474DC450D404473A104B99D /* CAsymmetricKeyPair.cpp */; };
+		D6BC674CBEB74FFDB720F4BC /* CGZcompressor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4876FA57D574928A16784A6 /* CGZcompressor.cpp */; };
+		DD95FAC32E3A42D1A831EB95 /* CKBFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2FD089CB1F264CE7B39C64C6 /* CKBFile.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		44FF55CCABB04F7CAC0CBA2E /* PBXContainerItemProxy */ = {
+		1EF31A473DBD4E6FB40495EA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = E875D6906091484692DEB656 /* Project object */;
+			containerPortal = 9B44B37DD52E4FBFA101363F /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 474D282981804CE38876B6D9;
+			remoteGlobalIDString = 4FF2EAF028086B1E9F810223;
 			remoteInfo = ZERO_CHECK;
 		};
-		B6C7CF901B31400DBABCC385 /* PBXContainerItemProxy */ = {
+		AFE8EFA343974EA38682EB4E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = E875D6906091484692DEB656 /* Project object */;
+			containerPortal = 9B44B37DD52E4FBFA101363F /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 088612B6FE1D40AD9D851EA2;
+			remoteGlobalIDString = 4FF2EAF028086B1E9F810223;
+			remoteInfo = ZERO_CHECK;
+		};
+		DD2EB3FCF12D427DA147A441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B44B37DD52E4FBFA101363F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F5DEAE72CF04F81B7A0E42B9;
 			remoteInfo = utilities;
-		};
-		ED491430C0C2400499DFE38E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E875D6906091484692DEB656 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 474D282981804CE38876B6D9;
-			remoteInfo = ZERO_CHECK;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		03059330814144F6A98CCC10 /* CGZcompressor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CGZcompressor.cpp; sourceTree = SOURCE_ROOT; };
-		13B73329766B46FCA7E43DC6 /* Base64Coder.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = Base64Coder.h; sourceTree = SOURCE_ROOT; };
-		2E2C21B0470C4A6EB3BE4ABE /* Salsa20Cipher.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = Salsa20Cipher.cpp; sourceTree = SOURCE_ROOT; };
-		377D88881B5B40D1920408FF /* CMaskedBlob.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = CMaskedBlob.h; sourceTree = SOURCE_ROOT; };
-		4C0B6A621E5E48BD99589FC3 /* CRandomGenerator.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CRandomGenerator.cpp; sourceTree = SOURCE_ROOT; };
-		67C914B96353446F9890D961 /* CPwdEntry.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CPwdEntry.cpp; sourceTree = SOURCE_ROOT; };
-		87A1FDAD41CF4A14A54B7305 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		8A186F8283D24E5B87DB8AFC /* CipherEngine.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = CipherEngine.h; sourceTree = SOURCE_ROOT; };
-		8C8A17723769477691135F28 /* libutilities.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libutilities.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9B707E659CBF4C94BA32D566 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		A74A4E9B8A1C4F00A64D774A /* CKBFile.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = CKBFile.h; sourceTree = SOURCE_ROOT; };
-		A786808D6EBB4197AB438AA9 /* CKBFile.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CKBFile.cpp; sourceTree = SOURCE_ROOT; };
-		AA39091432D440C8928DE339 /* InitGlobalRG.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = InitGlobalRG.h; sourceTree = SOURCE_ROOT; };
-		AD0FD386669C442B90953B8A /* CPasswordGenerator.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = CPasswordGenerator.h; sourceTree = SOURCE_ROOT; };
-		B66CFCC7746F4327989D4817 /* CipherEngine_mac.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CipherEngine_mac.cpp; sourceTree = SOURCE_ROOT; };
-		B94B0F5CB2234241A782B477 /* win32_handler.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = win32_handler.h; sourceTree = SOURCE_ROOT; };
-		BE4A16B19B7E43EEA791EA4E /* CPasswordGenerator.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CPasswordGenerator.cpp; sourceTree = SOURCE_ROOT; };
-		BEB2AE894FA347FD8A14D96A /* Salsa20Cipher.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = Salsa20Cipher.h; sourceTree = SOURCE_ROOT; };
-		D08A21D985DE4D93BFED36F1 /* InitGlobalRG_mac.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = InitGlobalRG_mac.cpp; sourceTree = SOURCE_ROOT; };
-		DC81F82ED16E4FD1B014A49A /* CGZcompressor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = CGZcompressor.h; sourceTree = SOURCE_ROOT; };
-		DFAD4C16F6A0420E99D5CEE7 /* KeepassReader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = KeepassReader.cpp; sourceTree = SOURCE_ROOT; };
-		E5C80119E24348889EB44841 /* CPwdEntry.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = CPwdEntry.h; sourceTree = SOURCE_ROOT; };
-		E847AA71205C44728B9E958D /* CRandomGenerator.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = CRandomGenerator.h; sourceTree = SOURCE_ROOT; };
-		EBD06E0F8E6F4CD5A64E13F8 /* CMaskedBlob.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CMaskedBlob.cpp; sourceTree = SOURCE_ROOT; };
-		F02E5D1822E64B0AA399F9B1 /* KeepassReader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = KeepassReader.h; sourceTree = SOURCE_ROOT; };
-		FE1F8EBF859E4196B45737B2 /* Base64Coder.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = Base64Coder.cpp; sourceTree = SOURCE_ROOT; };
+		030CDD48AE814FB68E7AF9C6 /* CMaskedBlob.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CMaskedBlob.cpp; sourceTree = SOURCE_ROOT; };
+		13C302DEEB9F48AAA6D4F3E6 /* CRequest.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = CRequest.h; sourceTree = SOURCE_ROOT; };
+		15BB039578D440B4A280A977 /* CKBFileHeader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = CKBFileHeader.h; sourceTree = SOURCE_ROOT; };
+		16FF18F4ADF54C3292453242 /* CPwdGroup.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CPwdGroup.cpp; sourceTree = SOURCE_ROOT; };
+		2A2BBF64A7A94EB797A8528D /* CPwdEntry.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = CPwdEntry.h; sourceTree = SOURCE_ROOT; };
+		2FD089CB1F264CE7B39C64C6 /* CKBFile.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CKBFile.cpp; sourceTree = SOURCE_ROOT; };
+		37A0D2B41B7A4B409B33D3F1 /* CMaskedBlob.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = CMaskedBlob.h; sourceTree = SOURCE_ROOT; };
+		3A60C81CCDA74D98B8EEC729 /* InitGlobalRG_mac.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = InitGlobalRG_mac.cpp; sourceTree = SOURCE_ROOT; };
+		40D6FA2D43864F0B981111C2 /* Salsa20Cipher.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = Salsa20Cipher.h; sourceTree = SOURCE_ROOT; };
+		424FEF7AC2EB4859AC9FD2B3 /* CPasswordGenerator.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = CPasswordGenerator.h; sourceTree = SOURCE_ROOT; };
+		479CAC27776D4F0EB7327298 /* CRandomGenerator.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = CRandomGenerator.h; sourceTree = SOURCE_ROOT; };
+		4AD0B9DF22704F5F9C135449 /* KeepassReader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = KeepassReader.h; sourceTree = SOURCE_ROOT; };
+		4ECF9CB8AF7C42BDAAC3EC99 /* CGZcompressor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = CGZcompressor.h; sourceTree = SOURCE_ROOT; };
+		558DD3C6CC2F4A5299AF921A /* CPwdEntry.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CPwdEntry.cpp; sourceTree = SOURCE_ROOT; };
+		62D7E08E6D9E402F8B42C6A2 /* CKBFile.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = CKBFile.h; sourceTree = SOURCE_ROOT; };
+		6C19A43A56E240E7B9667A70 /* CipherEngine_mac.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CipherEngine_mac.cpp; sourceTree = SOURCE_ROOT; };
+		701B88733E4D4E5094E8DF93 /* InitGlobalRG.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = InitGlobalRG.h; sourceTree = SOURCE_ROOT; };
+		7BDC213B299C47A58A182DB7 /* CipherEngine.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = CipherEngine.h; sourceTree = SOURCE_ROOT; };
+		8BA3CF58E3E842C0B65F7521 /* CPwdGroup.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = CPwdGroup.h; sourceTree = SOURCE_ROOT; };
+		8DF5F828A9A84DC7A29F5D13 /* Salsa20Cipher.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = Salsa20Cipher.cpp; sourceTree = SOURCE_ROOT; };
+		955E042879714D28BB5AB66B /* Base64Coder.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = Base64Coder.cpp; sourceTree = SOURCE_ROOT; };
+		99299AF4775C43AD9B711C76 /* Base64Coder.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = Base64Coder.h; sourceTree = SOURCE_ROOT; };
+		9E53D0F7612B46E1871688CA /* CKBFileHeader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CKBFileHeader.cpp; sourceTree = SOURCE_ROOT; };
+		A61513C5CBC643DDAF6356EA /* KeepassReader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = KeepassReader.cpp; sourceTree = SOURCE_ROOT; };
+		A8EBD3DD6258449CB4A17784 /* CPasswordGenerator.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CPasswordGenerator.cpp; sourceTree = SOURCE_ROOT; };
+		C45C7747FB5C4F268FC51914 /* libutilities.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libutilities.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8483E6191D6452A947869A7 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		E0B8C86B139E4FB2A693F02D /* CRequest.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CRequest.cpp; sourceTree = SOURCE_ROOT; };
+		E474DC450D404473A104B99D /* CAsymmetricKeyPair.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CAsymmetricKeyPair.cpp; sourceTree = SOURCE_ROOT; };
+		E4876FA57D574928A16784A6 /* CGZcompressor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CGZcompressor.cpp; sourceTree = SOURCE_ROOT; };
+		E6F14280012E4A0A90D6E66E /* CRandomGenerator.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = CRandomGenerator.cpp; sourceTree = SOURCE_ROOT; };
+		F4A52796EE4D4E238D3E05B6 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		FEE1FA10783F4525A05D0B75 /* win32_handler.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = win32_handler.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3C0912DF0BA345C2BFE818FA /* Frameworks */ = {
+		E7BCAA2B64F541559D3B3436 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -111,131 +122,138 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		033BD11318C94CA992C30952 /* Header Files */ = {
+		059D3F3E2BB6460EAB8E7966 /* ALL_BUILD */ = {
 			isa = PBXGroup;
 			children = (
-				13B73329766B46FCA7E43DC6 /* Base64Coder.h */,
-				DC81F82ED16E4FD1B014A49A /* CGZcompressor.h */,
-				A74A4E9B8A1C4F00A64D774A /* CKBFile.h */,
-				377D88881B5B40D1920408FF /* CMaskedBlob.h */,
-				AD0FD386669C442B90953B8A /* CPasswordGenerator.h */,
-				E5C80119E24348889EB44841 /* CPwdEntry.h */,
-				E847AA71205C44728B9E958D /* CRandomGenerator.h */,
-				8A186F8283D24E5B87DB8AFC /* CipherEngine.h */,
-				AA39091432D440C8928DE339 /* InitGlobalRG.h */,
-				F02E5D1822E64B0AA399F9B1 /* KeepassReader.h */,
-				BEB2AE894FA347FD8A14D96A /* Salsa20Cipher.h */,
-				B94B0F5CB2234241A782B477 /* win32_handler.h */,
-			);
-			name = "Header Files";
-			sourceTree = "<group>";
-		};
-		2CB7232A69D6432AB69E06A3 /* Source Files */ = {
-			isa = PBXGroup;
-			children = (
-				FE1F8EBF859E4196B45737B2 /* Base64Coder.cpp */,
-				03059330814144F6A98CCC10 /* CGZcompressor.cpp */,
-				A786808D6EBB4197AB438AA9 /* CKBFile.cpp */,
-				EBD06E0F8E6F4CD5A64E13F8 /* CMaskedBlob.cpp */,
-				BE4A16B19B7E43EEA791EA4E /* CPasswordGenerator.cpp */,
-				67C914B96353446F9890D961 /* CPwdEntry.cpp */,
-				4C0B6A621E5E48BD99589FC3 /* CRandomGenerator.cpp */,
-				B66CFCC7746F4327989D4817 /* CipherEngine_mac.cpp */,
-				D08A21D985DE4D93BFED36F1 /* InitGlobalRG_mac.cpp */,
-				DFAD4C16F6A0420E99D5CEE7 /* KeepassReader.cpp */,
-				2E2C21B0470C4A6EB3BE4ABE /* Salsa20Cipher.cpp */,
-			);
-			name = "Source Files";
-			sourceTree = "<group>";
-		};
-		542E6ECDF4734501AE7CE971 /* ALL_BUILD */ = {
-			isa = PBXGroup;
-			children = (
-				F5A8AC5AFF9D4EF7BF78D8F5 /* CMake Rules */,
-				9B707E659CBF4C94BA32D566 /* CMakeLists.txt */,
+				DDE091D717DE451F99BE83EF /* CMake Rules */,
+				D8483E6191D6452A947869A7 /* CMakeLists.txt */,
 			);
 			name = ALL_BUILD;
 			sourceTree = "<group>";
 		};
-		88329D633EDF459CA207416A /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		8F05B7A7018B4E56B9D76754 /* Frameworks */ = {
+		10C2A533E55B4BF4A0078844 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B021421615CC458FBC1730AB /* Products */ = {
+		4C9F60ADAD68476BA55A99FF /* Header Files */ = {
 			isa = PBXGroup;
 			children = (
-				8C8A17723769477691135F28 /* libutilities.a */,
+				99299AF4775C43AD9B711C76 /* Base64Coder.h */,
+				4ECF9CB8AF7C42BDAAC3EC99 /* CGZcompressor.h */,
+				62D7E08E6D9E402F8B42C6A2 /* CKBFile.h */,
+				15BB039578D440B4A280A977 /* CKBFileHeader.h */,
+				37A0D2B41B7A4B409B33D3F1 /* CMaskedBlob.h */,
+				424FEF7AC2EB4859AC9FD2B3 /* CPasswordGenerator.h */,
+				2A2BBF64A7A94EB797A8528D /* CPwdEntry.h */,
+				8BA3CF58E3E842C0B65F7521 /* CPwdGroup.h */,
+				479CAC27776D4F0EB7327298 /* CRandomGenerator.h */,
+				13C302DEEB9F48AAA6D4F3E6 /* CRequest.h */,
+				7BDC213B299C47A58A182DB7 /* CipherEngine.h */,
+				701B88733E4D4E5094E8DF93 /* InitGlobalRG.h */,
+				4AD0B9DF22704F5F9C135449 /* KeepassReader.h */,
+				40D6FA2D43864F0B981111C2 /* Salsa20Cipher.h */,
+				FEE1FA10783F4525A05D0B75 /* win32_handler.h */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		5F8C3D6ABAB74340B4EEBC36 = {
+			isa = PBXGroup;
+			children = (
+				EA193E4FB0F0476C8B7C3397 /* utilities */,
+				059D3F3E2BB6460EAB8E7966 /* ALL_BUILD */,
+				778BE294C9E841D2BA91297D /* Products */,
+				10C2A533E55B4BF4A0078844 /* Frameworks */,
+				9ACB7288B39A401C97D89B1B /* Resources */,
+			);
+			sourceTree = "<group>";
+		};
+		778BE294C9E841D2BA91297D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C45C7747FB5C4F268FC51914 /* libutilities.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F5612CBBC9F941D6ABC48B77 /* utilities */ = {
+		9ACB7288B39A401C97D89B1B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2CB7232A69D6432AB69E06A3 /* Source Files */,
-				033BD11318C94CA992C30952 /* Header Files */,
-				87A1FDAD41CF4A14A54B7305 /* CMakeLists.txt */,
 			);
-			name = utilities;
+			name = Resources;
 			sourceTree = "<group>";
 		};
-		F5A8AC5AFF9D4EF7BF78D8F5 /* CMake Rules */ = {
+		C7C3334AD5204EA3B1B0E9E3 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				955E042879714D28BB5AB66B /* Base64Coder.cpp */,
+				E474DC450D404473A104B99D /* CAsymmetricKeyPair.cpp */,
+				E4876FA57D574928A16784A6 /* CGZcompressor.cpp */,
+				2FD089CB1F264CE7B39C64C6 /* CKBFile.cpp */,
+				9E53D0F7612B46E1871688CA /* CKBFileHeader.cpp */,
+				030CDD48AE814FB68E7AF9C6 /* CMaskedBlob.cpp */,
+				A8EBD3DD6258449CB4A17784 /* CPasswordGenerator.cpp */,
+				558DD3C6CC2F4A5299AF921A /* CPwdEntry.cpp */,
+				16FF18F4ADF54C3292453242 /* CPwdGroup.cpp */,
+				E6F14280012E4A0A90D6E66E /* CRandomGenerator.cpp */,
+				E0B8C86B139E4FB2A693F02D /* CRequest.cpp */,
+				6C19A43A56E240E7B9667A70 /* CipherEngine_mac.cpp */,
+				3A60C81CCDA74D98B8EEC729 /* InitGlobalRG_mac.cpp */,
+				A61513C5CBC643DDAF6356EA /* KeepassReader.cpp */,
+				8DF5F828A9A84DC7A29F5D13 /* Salsa20Cipher.cpp */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		DDE091D717DE451F99BE83EF /* CMake Rules */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = "CMake Rules";
 			sourceTree = "<group>";
 		};
-		FD20D933CF744EA8825471EC = {
+		EA193E4FB0F0476C8B7C3397 /* utilities */ = {
 			isa = PBXGroup;
 			children = (
-				F5612CBBC9F941D6ABC48B77 /* utilities */,
-				542E6ECDF4734501AE7CE971 /* ALL_BUILD */,
-				B021421615CC458FBC1730AB /* Products */,
-				8F05B7A7018B4E56B9D76754 /* Frameworks */,
-				88329D633EDF459CA207416A /* Resources */,
+				C7C3334AD5204EA3B1B0E9E3 /* Source Files */,
+				4C9F60ADAD68476BA55A99FF /* Header Files */,
+				F4A52796EE4D4E238D3E05B6 /* CMakeLists.txt */,
 			);
+			name = utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		088612B6FE1D40AD9D851EA2 /* utilities */ = {
+		F5DEAE72CF04F81B7A0E42B9 /* utilities */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9F627EC3E1414012A63744E0 /* Build configuration list for PBXNativeTarget "utilities" */;
+			buildConfigurationList = ABB234F07EC54D668C43842B /* Build configuration list for PBXNativeTarget "utilities" */;
 			buildPhases = (
-				0BC8203229544029B060D702 /* Sources */,
-				3C0912DF0BA345C2BFE818FA /* Frameworks */,
+				00A5D8874D0C4006B2F867E6 /* Sources */,
+				E7BCAA2B64F541559D3B3436 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				88FD89FB56F74D0B83E8C8AB /* PBXTargetDependency */,
+				D12AC921ED344E0AAB872885 /* PBXTargetDependency */,
 			);
 			name = utilities;
 			productName = utilities;
-			productReference = 8C8A17723769477691135F28 /* libutilities.a */;
+			productReference = C45C7747FB5C4F268FC51914 /* libutilities.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		E875D6906091484692DEB656 /* Project object */ = {
+		9B44B37DD52E4FBFA101363F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1640;
 			};
-			buildConfigurationList = 7110AB98DE95439B8D43C8F1 /* Build configuration list for PBXProject "keybox" */;
+			buildConfigurationList = D46D27C400414159B856D87C /* Build configuration list for PBXProject "keybox" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -243,13 +261,13 @@
 				en,
 				Base,
 			);
-			mainGroup = FD20D933CF744EA8825471EC;
+			mainGroup = 5F8C3D6ABAB74340B4EEBC36;
 			projectDirPath = /Users/tonglt/CLionProjects/keybox/utilities;
 			projectRoot = "";
 			targets = (
-				E39271C3CC6B45B4800F7E6F /* ALL_BUILD */,
-				474D282981804CE38876B6D9 /* ZERO_CHECK */,
-				088612B6FE1D40AD9D851EA2 /* utilities */,
+				EF12FC808A70E0D1C5CE9372 /* ALL_BUILD */,
+				F5DEAE72CF04F81B7A0E42B9 /* utilities */,
+				4FF2EAF028086B1E9F810223 /* ZERO_CHECK */,
 			);
 		};
 /* End PBXProject section */
@@ -292,56 +310,77 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0BC8203229544029B060D702 /* Sources */ = {
+		00A5D8874D0C4006B2F867E6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F615D4479F34B80994A06FF /* Base64Coder.cpp in Sources */,
-				A9775DCB72ED4116A5D32B99 /* CGZcompressor.cpp in Sources */,
-				C3CBCDCCD97548C0B5E1D232 /* CKBFile.cpp in Sources */,
-				2ACBE424E34D4F7B9A71DE24 /* CMaskedBlob.cpp in Sources */,
-				AE51532E290E4E0D8A5677F0 /* CPasswordGenerator.cpp in Sources */,
-				FB05CD8A05E34793B6EC6E0A /* CPwdEntry.cpp in Sources */,
-				994953EA124148A395FBE8B1 /* CRandomGenerator.cpp in Sources */,
-				5EBD0C79F2534345BE0BE82D /* CipherEngine_mac.cpp in Sources */,
-				D8FC8CDC5C9447B7BD6B4904 /* InitGlobalRG_mac.cpp in Sources */,
-				47F0363EDE2945EFA6CC52B4 /* KeepassReader.cpp in Sources */,
-				64116363DEFC41178198D2FA /* Salsa20Cipher.cpp in Sources */,
+				44377548B80A4656A7614734 /* Base64Coder.cpp in Sources */,
+				D3BD7300F3AD4C56872B68A1 /* CAsymmetricKeyPair.cpp in Sources */,
+				D6BC674CBEB74FFDB720F4BC /* CGZcompressor.cpp in Sources */,
+				DD95FAC32E3A42D1A831EB95 /* CKBFile.cpp in Sources */,
+				09AF64C16ADD4B4880B82850 /* CKBFileHeader.cpp in Sources */,
+				1F5BDDF8A843491CA410597D /* CMaskedBlob.cpp in Sources */,
+				B05A41E68A8440C5B1B6653B /* CPasswordGenerator.cpp in Sources */,
+				883425E8C2984BC38337E468 /* CPwdEntry.cpp in Sources */,
+				8054BC06D6284031BADA571B /* CPwdGroup.cpp in Sources */,
+				CC1895EEF59F40CABB32FB2B /* CRandomGenerator.cpp in Sources */,
+				8E8FBA8CD3E04E76BAF6C21A /* CRequest.cpp in Sources */,
+				0528344F538B433691B09863 /* CipherEngine_mac.cpp in Sources */,
+				C80789C482E14C70B6B9CF8D /* InitGlobalRG_mac.cpp in Sources */,
+				0406B6CC108B42FF8FA106B9 /* KeepassReader.cpp in Sources */,
+				120FC5700ED347C8B4EA5490 /* Salsa20Cipher.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		1E232D75BBFB4CD883BB88DB /* PBXTargetDependency */ = {
+		D12AC921ED344E0AAB872885 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 474D282981804CE38876B6D9 /* ZERO_CHECK */;
-			targetProxy = ED491430C0C2400499DFE38E /* PBXContainerItemProxy */;
+			target = 4FF2EAF028086B1E9F810223 /* ZERO_CHECK */;
+			targetProxy = 1EF31A473DBD4E6FB40495EA /* PBXContainerItemProxy */;
 		};
-		56793048CF5B47BAA62091FB /* PBXTargetDependency */ = {
+		D85AC01FF67348C3A01C5091 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 088612B6FE1D40AD9D851EA2 /* utilities */;
-			targetProxy = B6C7CF901B31400DBABCC385 /* PBXContainerItemProxy */;
+			target = F5DEAE72CF04F81B7A0E42B9 /* utilities */;
+			targetProxy = DD2EB3FCF12D427DA147A441 /* PBXContainerItemProxy */;
 		};
-		88FD89FB56F74D0B83E8C8AB /* PBXTargetDependency */ = {
+		FCD70E57D294467AACBB4E98 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 474D282981804CE38876B6D9 /* ZERO_CHECK */;
-			targetProxy = 44FF55CCABB04F7CAC0CBA2E /* PBXContainerItemProxy */;
+			target = 4FF2EAF028086B1E9F810223 /* ZERO_CHECK */;
+			targetProxy = AFE8EFA343974EA38682EB4E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		031BC19D383943F59CCE0EBD /* MinSizeRel */ = {
+		0E33A4EC2B314242BA38ACB5 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = arm64;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SYMROOT = /Users/tonglt/CLionProjects/keybox/iosbuild/build;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = " $(inherited)";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SDKROOT = iphoneos;
+				SECTORDER_FLAGS = "";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
 			};
 			name = MinSizeRel;
 		};
-		06394FA8EE6A47B4AED64C8F /* RelWithDebInfo */ = {
+		1DEDF9D4F45C422B9129EE80 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -360,7 +399,9 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					/opt/homebrew/include,
+					"/opt/homebrew/opt/openssl@3/include",
 					"$(inherited)",
+					/opt/homebrew/opt/curl/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -374,13 +415,14 @@
 				PRODUCT_NAME = utilities;
 				SDKROOT = iphoneos;
 				SECTORDER_FLAGS = "";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				TARGET_TEMP_DIR = "/Users/tonglt/CLionProjects/keybox/iosbuild/build/utilities.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = "$(inherited)";
 			};
 			name = RelWithDebInfo;
 		};
-		07E7B1215613408C9F3768F7 /* Release */ = {
+		3768107C8C71422F98CF1B3D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -401,38 +443,32 @@
 				PRODUCT_NAME = ALL_BUILD;
 				SDKROOT = iphoneos;
 				SECTORDER_FLAGS = "";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = "$(inherited)";
-			};
-			name = Release;
-		};
-		152866A0D3ED4AD4ABEE3F32 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = arm64;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = " $(inherited)";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SDKROOT = iphoneos;
-				SECTORDER_FLAGS = "";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = "$(inherited)";
 			};
 			name = Debug;
 		};
-		26A02FEBF2134CCC9FD9847A /* MinSizeRel */ = {
+		58E3D2146BFE40E89F2EF001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				SDKROOT = "";
+				SYMROOT = /Users/tonglt/CLionProjects/keybox/iosbuild/build;
+			};
+			name = Debug;
+		};
+		5D101BAEAF0B48939B3D0DAE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				SDKROOT = "";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SYMROOT = /Users/tonglt/CLionProjects/keybox/iosbuild/build;
+			};
+			name = Release;
+		};
+		6E0E49A6355748B5A5991891 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -453,51 +489,13 @@
 				PRODUCT_NAME = ZERO_CHECK;
 				SDKROOT = iphoneos;
 				SECTORDER_FLAGS = "";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = "$(inherited)";
 			};
-			name = MinSizeRel;
+			name = RelWithDebInfo;
 		};
-		317D00FF0E6048C090558AE7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = arm64;
-				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = /Users/tonglt/CLionProjects/keybox/iosbuild/Release;
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/opt/homebrew/include,
-					"$(inherited)",
-				);
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = (
-					"-DNDEBUG",
-					"'-std=gnu++17'",
-				);
-				OTHER_LIBTOOLFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = utilities;
-				SDKROOT = iphoneos;
-				SECTORDER_FLAGS = "";
-				TARGET_TEMP_DIR = "/Users/tonglt/CLionProjects/keybox/iosbuild/build/utilities.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = "$(inherited)";
-			};
-			name = Release;
-		};
-		3632A6291DFF44B19ABC9C15 /* MinSizeRel */ = {
+		712ECF64124B4380B3E937BA /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -518,22 +516,13 @@
 				PRODUCT_NAME = ALL_BUILD;
 				SDKROOT = iphoneos;
 				SECTORDER_FLAGS = "";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = "$(inherited)";
 			};
-			name = MinSizeRel;
-		};
-		6AD4DCEA25B54C39944C3C8D /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = arm64;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SYMROOT = /Users/tonglt/CLionProjects/keybox/iosbuild/build;
-			};
 			name = RelWithDebInfo;
 		};
-		6F50AE0D4DC641D6B8C8F885 /* Release */ = {
+		75BF178BCA08485AB0B020A3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -554,12 +543,67 @@
 				PRODUCT_NAME = ZERO_CHECK;
 				SDKROOT = iphoneos;
 				SECTORDER_FLAGS = "";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = "$(inherited)";
 			};
 			name = Release;
 		};
-		87F3E3A70E6C4F4AB6FC1FEA /* MinSizeRel */ = {
+		AE6EA75F33F04DF487884C3D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = " $(inherited)";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SDKROOT = iphoneos;
+				SECTORDER_FLAGS = "";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = Release;
+		};
+		B13149A6507F4A90A36FE0EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = " $(inherited)";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SDKROOT = iphoneos;
+				SECTORDER_FLAGS = "";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = Debug;
+		};
+		BFC6A8B941944284AE0DA654 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -578,7 +622,9 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					/opt/homebrew/include,
+					"/opt/homebrew/opt/openssl@3/include",
 					"$(inherited)",
+					/opt/homebrew/opt/curl/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -592,13 +638,51 @@
 				PRODUCT_NAME = utilities;
 				SDKROOT = iphoneos;
 				SECTORDER_FLAGS = "";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				TARGET_TEMP_DIR = "/Users/tonglt/CLionProjects/keybox/iosbuild/build/utilities.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = "$(inherited)";
 			};
 			name = MinSizeRel;
 		};
-		958D572E42684EAFB87CF8B7 /* Debug */ = {
+		C44873B741A948118F61A524 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				SDKROOT = "";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SYMROOT = /Users/tonglt/CLionProjects/keybox/iosbuild/build;
+			};
+			name = MinSizeRel;
+		};
+		C4C97F206E1C43AEACF8CC41 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = " $(inherited)";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SDKROOT = iphoneos;
+				SECTORDER_FLAGS = "";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "$(inherited)";
+			};
+			name = MinSizeRel;
+		};
+		DC7566D1E891457F94539260 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -617,7 +701,9 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					/opt/homebrew/include,
+					"/opt/homebrew/opt/openssl@3/include",
 					"$(inherited)",
+					/opt/homebrew/opt/curl/include,
 				);
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
@@ -628,157 +714,113 @@
 				PRODUCT_NAME = utilities;
 				SDKROOT = iphoneos;
 				SECTORDER_FLAGS = "";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				TARGET_TEMP_DIR = "/Users/tonglt/CLionProjects/keybox/iosbuild/build/utilities.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = "$(inherited)";
 			};
 			name = Debug;
 		};
-		AB878E366B8A4496901A503C /* RelWithDebInfo */ = {
+		E8B3C12D05B2432588305600 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = arm64;
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				CONFIGURATION_BUILD_DIR = /Users/tonglt/CLionProjects/keybox/iosbuild/Release;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = " $(inherited)";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SDKROOT = iphoneos;
-				SECTORDER_FLAGS = "";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = "$(inherited)";
-			};
-			name = RelWithDebInfo;
-		};
-		B5FFF839EC41456AB017D350 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = arm64;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+				HEADER_SEARCH_PATHS = (
+					/opt/homebrew/include,
+					"/opt/homebrew/opt/openssl@3/include",
 					"$(inherited)",
+					/opt/homebrew/opt/curl/include,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = " $(inherited)";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNDEBUG",
+					"'-std=gnu++17'",
+				);
+				OTHER_LIBTOOLFLAGS = "";
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
+				PRODUCT_NAME = utilities;
 				SDKROOT = iphoneos;
 				SECTORDER_FLAGS = "";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				TARGET_TEMP_DIR = "/Users/tonglt/CLionProjects/keybox/iosbuild/build/utilities.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = "$(inherited)";
 			};
-			name = RelWithDebInfo;
+			name = Release;
 		};
-		D39F455F0AC84ADDB16C1AD0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = arm64;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = " $(inherited)";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SDKROOT = iphoneos;
-				SECTORDER_FLAGS = "";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = "$(inherited)";
-			};
-			name = Debug;
-		};
-		EB8EB14F4E0E4887B9234648 /* Debug */ = {
+		EF6BAE1E603B4965888FCA46 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = arm64;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk;
-				SYMROOT = /Users/tonglt/CLionProjects/keybox/iosbuild/build;
-			};
-			name = Debug;
-		};
-		F875C47E874F4B8296357DB2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = arm64;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk;
+				SDKROOT = "";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SYMROOT = /Users/tonglt/CLionProjects/keybox/iosbuild/build;
 			};
-			name = Release;
+			name = RelWithDebInfo;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3A4A015646654AA5A3358370 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+		ABB234F07EC54D668C43842B /* Build configuration list for PBXNativeTarget "utilities" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				152866A0D3ED4AD4ABEE3F32 /* Debug */,
-				07E7B1215613408C9F3768F7 /* Release */,
-				3632A6291DFF44B19ABC9C15 /* MinSizeRel */,
-				AB878E366B8A4496901A503C /* RelWithDebInfo */,
+				DC7566D1E891457F94539260 /* Debug */,
+				E8B3C12D05B2432588305600 /* Release */,
+				BFC6A8B941944284AE0DA654 /* MinSizeRel */,
+				1DEDF9D4F45C422B9129EE80 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		7110AB98DE95439B8D43C8F1 /* Build configuration list for PBXProject "keybox" */ = {
+		CC971DAC98B647A28D909920 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EB8EB14F4E0E4887B9234648 /* Debug */,
-				F875C47E874F4B8296357DB2 /* Release */,
-				031BC19D383943F59CCE0EBD /* MinSizeRel */,
-				6AD4DCEA25B54C39944C3C8D /* RelWithDebInfo */,
+				3768107C8C71422F98CF1B3D /* Debug */,
+				AE6EA75F33F04DF487884C3D /* Release */,
+				0E33A4EC2B314242BA38ACB5 /* MinSizeRel */,
+				712ECF64124B4380B3E937BA /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		963960C536FA47D38DC70CD4 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+		D46D27C400414159B856D87C /* Build configuration list for PBXProject "keybox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D39F455F0AC84ADDB16C1AD0 /* Debug */,
-				6F50AE0D4DC641D6B8C8F885 /* Release */,
-				26A02FEBF2134CCC9FD9847A /* MinSizeRel */,
-				B5FFF839EC41456AB017D350 /* RelWithDebInfo */,
+				58E3D2146BFE40E89F2EF001 /* Debug */,
+				5D101BAEAF0B48939B3D0DAE /* Release */,
+				C44873B741A948118F61A524 /* MinSizeRel */,
+				EF6BAE1E603B4965888FCA46 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		9F627EC3E1414012A63744E0 /* Build configuration list for PBXNativeTarget "utilities" */ = {
+		F36A05D325224C0593CAFD96 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				958D572E42684EAFB87CF8B7 /* Debug */,
-				317D00FF0E6048C090558AE7 /* Release */,
-				87F3E3A70E6C4F4AB6FC1FEA /* MinSizeRel */,
-				06394FA8EE6A47B4AED64C8F /* RelWithDebInfo */,
+				B13149A6507F4A90A36FE0EC /* Debug */,
+				75BF178BCA08485AB0B020A3 /* Release */,
+				C4C97F206E1C43AEACF8CC41 /* MinSizeRel */,
+				6E0E49A6355748B5A5991891 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = E875D6906091484692DEB656 /* Project object */;
+	rootObject = 9B44B37DD52E4FBFA101363F /* Project object */;
 }
