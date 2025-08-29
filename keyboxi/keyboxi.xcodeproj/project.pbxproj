@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		738D2C872E5E1D60008F15A0 /* OPwdEntry.mm in Sources */ = {isa = PBXBuildFile; fileRef = 738D2C862E5E1D5D008F15A0 /* OPwdEntry.mm */; };
 		73E511602C068D91007389F8 /* libobjcWrap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E556F32BFEB3EE00733C0D /* libobjcWrap.a */; };
 		73E511622C068E41007389F8 /* libutilities.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E511612C068E41007389F8 /* libutilities.a */; };
 		73E556B92BFEAB8E00733C0D /* keyboxiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E556B82BFEAB8E00733C0D /* keyboxiApp.swift */; };
@@ -49,6 +50,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		738D2C852E5E1D43008F15A0 /* OPwdEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OPwdEntry.h; sourceTree = "<group>"; };
+		738D2C862E5E1D5D008F15A0 /* OPwdEntry.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OPwdEntry.mm; sourceTree = "<group>"; };
 		73E511612C068E41007389F8 /* libutilities.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libutilities.a; path = "../cmake-build-debug/utilities/libutilities.a"; sourceTree = "<group>"; };
 		73E556B52BFEAB8E00733C0D /* keyboxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = keyboxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E556B82BFEAB8E00733C0D /* keyboxiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboxiApp.swift; sourceTree = "<group>"; };
@@ -171,6 +174,8 @@
 		73E556F42BFEB3EE00733C0D /* objcWrap */ = {
 			isa = PBXGroup;
 			children = (
+				738D2C862E5E1D5D008F15A0 /* OPwdEntry.mm */,
+				738D2C852E5E1D43008F15A0 /* OPwdEntry.h */,
 				73E556FE2BFEBB1D00733C0D /* ORandomGenerator.mm */,
 				73E556FB2BFEBAC100733C0D /* ORandomGenerator.h */,
 			);
@@ -354,6 +359,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				738D2C872E5E1D60008F15A0 /* OPwdEntry.mm in Sources */,
 				73E556FF2BFEBB1D00733C0D /* ORandomGenerator.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -633,7 +639,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				HEADER_SEARCH_PATHS = /usr/include;
+				HEADER_SEARCH_PATHS = (
+					/usr/include,
+					"/opt/homebrew/opt/openssl@3/include",
+					/opt/homebrew/opt/boost/include,
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -646,7 +656,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				HEADER_SEARCH_PATHS = /usr/include;
+				HEADER_SEARCH_PATHS = (
+					/usr/include,
+					"/opt/homebrew/opt/openssl@3/include",
+					/opt/homebrew/opt/boost/include,
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

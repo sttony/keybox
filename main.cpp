@@ -89,9 +89,9 @@ int main() {
 
 
     CGZcompressor gzCompressor;
-    if (gzCompressor.reset()) {
-        cout << "Reset zlib failed" << endl;
-    };
+    // if (gzCompressor.reset()) {
+    //     cout << "Reset zlib failed" << endl;
+    // };
 
     vector<unsigned char> uncompressed(1024 * 1024);
 
