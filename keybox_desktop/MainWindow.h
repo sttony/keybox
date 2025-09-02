@@ -46,6 +46,8 @@ private slots:
 
     void syncRemote();
 
+    void changePassword();
+
 private:
     void CreateActions();
 
@@ -65,6 +67,7 @@ private:
     QAction *m_passwordGeneratorAction = nullptr;
     QAction *m_syncSetting = nullptr;
     QAction *m_syncRemote = nullptr;
+    QAction *m_changePassword = nullptr;
 
 
     QMenu *fileMenu = nullptr;

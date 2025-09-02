@@ -83,6 +83,7 @@ void MainWindow::CreateMenus() {
     fileMenu->addAction(m_newFileAction);
     fileMenu->addAction(m_saveFileAction);
     fileMenu->addAction(m_openFileAction);
+    fileMenu->addAction(m_changePassword);
 
     entryMenu = menuBar()->addMenu(tr("&Entry"));
     entryMenu->addAction(m_newEntryAction);
@@ -134,6 +135,9 @@ void MainWindow::CreateActions() {
 
     m_syncRemote =  new QAction(tr("Sync with remote"), this);
     connect(m_syncRemote, &QAction::triggered, this, &MainWindow::syncRemote);
+
+    m_changePassword = new QAction(tr("Change primary password"), this);
+    connect(m_changePassword, &QAction::triggered, this, &MainWindow::changePassword);
 
     this->RefreshActionEnabled();
 
@@ -386,4 +390,22 @@ void MainWindow::syncRemote() {
     m_group_list_view->update();
     m_entry_table_view->update();
     this->RefreshActionEnabled();
+}
+
+
+void MainWindow::changePassword() {
+    CPrimaryPasswordDlg ppdlg(m_pModel->GetKeyDerivateParameters());
+    ppdlg.setWindowTitle( m_pModel->GetFilePath().c_str());
+    ppdlg.setMinimumWidth(m_pModel->GetFilePath().size() * 16);
+    while (true) {
+        if (ppdlg.exec() ) {
+            m_pModel->SetPrimaryKey(ppdlg.GetPassword());
+            this->saveFile();
+            break;
+        }
+        else {
+            // clicked cancel, give up change password
+            break;
+        }
+    }
 }
