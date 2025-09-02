@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		738D2C872E5E1D60008F15A0 /* OPwdEntry.mm in Sources */ = {isa = PBXBuildFile; fileRef = 738D2C862E5E1D5D008F15A0 /* OPwdEntry.mm */; };
+		73C0D84F2E62377F00DC5181 /* PwdEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C0D84E2E62377F00DC5181 /* PwdEntryView.swift */; };
 		73E511602C068D91007389F8 /* libobjcWrap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E556F32BFEB3EE00733C0D /* libobjcWrap.a */; };
 		73E511622C068E41007389F8 /* libutilities.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E511612C068E41007389F8 /* libutilities.a */; };
 		73E556B92BFEAB8E00733C0D /* keyboxiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E556B82BFEAB8E00733C0D /* keyboxiApp.swift */; };
@@ -52,6 +53,7 @@
 /* Begin PBXFileReference section */
 		738D2C852E5E1D43008F15A0 /* OPwdEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OPwdEntry.h; sourceTree = "<group>"; };
 		738D2C862E5E1D5D008F15A0 /* OPwdEntry.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OPwdEntry.mm; sourceTree = "<group>"; };
+		73C0D84E2E62377F00DC5181 /* PwdEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdEntryView.swift; sourceTree = "<group>"; };
 		73E511612C068E41007389F8 /* libutilities.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libutilities.a; path = "../cmake-build-debug/utilities/libutilities.a"; sourceTree = "<group>"; };
 		73E556B52BFEAB8E00733C0D /* keyboxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = keyboxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E556B82BFEAB8E00733C0D /* keyboxiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboxiApp.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				73E556FA2BFEB9EB00733C0D /* objc_bridge.h */,
 				73E556B82BFEAB8E00733C0D /* keyboxiApp.swift */,
 				73E556BA2BFEAB8E00733C0D /* ContentView.swift */,
+				73C0D84E2E62377F00DC5181 /* PwdEntryView.swift */,
 				73E556BC2BFEAB9000733C0D /* Assets.xcassets */,
 				73E556BE2BFEAB9000733C0D /* Preview Content */,
 			);
@@ -333,6 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73C0D84F2E62377F00DC5181 /* PwdEntryView.swift in Sources */,
 				73E556BB2BFEAB8E00733C0D /* ContentView.swift in Sources */,
 				73E556B92BFEAB8E00733C0D /* keyboxiApp.swift in Sources */,
 			);
