@@ -17,14 +17,14 @@ CSyncSettingDlg::CSyncSettingDlg(CKBModel* pModel, QWidget *parent) {
     m_kbModel = pModel;
 
     QHBoxLayout * emailLine = new QHBoxLayout;
-    m_emailBox  = new QLineEdit(m_kbModel->GetEmail().c_str());
+    m_emailBox  = new QLineEdit(m_kbModel? m_kbModel->GetEmail().c_str(): "");
     emailLine->addWidget(new QLabel("Email"));
     emailLine->addWidget(m_emailBox);
     rootLayout->addLayout(emailLine);
 
 
     QHBoxLayout * syncUrlLine = new QHBoxLayout;
-    m_syncUrlBox= new QLineEdit(m_kbModel->GetSyncUrl().c_str());
+    m_syncUrlBox= new QLineEdit(m_kbModel? m_kbModel->GetSyncUrl().c_str() : "");
     syncUrlLine->addWidget(new QLabel("Sync server"));
     syncUrlLine->addWidget(m_syncUrlBox);
     rootLayout->addLayout(syncUrlLine);
@@ -62,6 +62,9 @@ void CSyncSettingDlg::onSave() {
 }
 
 void CSyncSettingDlg::onNewClient() {
+    if ( m_kbModel == nullptr ) {
+        m_kbModel = new CKBModel();
+    }
     m_kbModel->SetSyncUrl(m_syncUrlBox->text().toStdString());
     m_kbModel->SetEmail(m_emailBox->text().toStdString());
     vector<unsigned char> encrypted_url;

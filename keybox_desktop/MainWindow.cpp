@@ -399,7 +399,7 @@ void MainWindow::changePassword() {
     ppdlg.setMinimumWidth(m_pModel->GetFilePath().size() * 16);
     while (true) {
         if (ppdlg.exec() ) {
-            m_pModel->SetPrimaryKey(ppdlg.GetPassword());
+            m_pModel->ChangePassword(ppdlg.GetPassword());
             this->saveFile();
             break;
         }

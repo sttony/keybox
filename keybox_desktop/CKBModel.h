@@ -69,6 +69,7 @@ public:
     uint32_t RetrieveFromRemote();
     uint32_t PushToRemote();
     uint32_t SetupNewClient(std::vector<unsigned char>& outUrl);
+    uint32_t ChangePassword(CMaskedBlob);
 
 private:
     CKBFile m_kbfile;

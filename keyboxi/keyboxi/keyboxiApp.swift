@@ -4,7 +4,8 @@ import SwiftUI
 struct keyboxiApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            //ContentView()
+            PwdEntryView()
         }
     }
 }

@@ -5,10 +5,10 @@ import SwiftUI
 struct PwdEntryView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            
+            HStack{
+                Text("Password")
+                SecureField("", text: .constant(""))
+            }
             
         }
         .padding()

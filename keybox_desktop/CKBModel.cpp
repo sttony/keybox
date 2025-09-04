@@ -256,3 +256,12 @@ uint32_t CKBModel::SetupNewClient(vector<unsigned char>& outUrl) {
     emit layoutChanged();
     return result;
 }
+
+uint32_t CKBModel::ChangePassword(CMaskedBlob newPassword) {
+    uint32_t result = m_kbfile.RetrieveFromRemote();
+    m_kbfile.SetMasterKey(newPassword);
+    result = m_kbfile.PushToRemote();
+    setFilter();
+    emit layoutChanged();
+    return result;
+}
