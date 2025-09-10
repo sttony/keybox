@@ -57,7 +57,7 @@ string CMaskedBlob::Show() {
     return result;
 }
 
-boost::property_tree::ptree CMaskedBlob::toJsonObj() {
+boost::property_tree::ptree CMaskedBlob::toJsonObj() const {
     boost::property_tree::ptree root;
     Base64Coder base64Coder;
     string encoded_password;

@@ -93,7 +93,8 @@ private:
     CMaskedBlob m_password;
     CMaskedBlob m_attachment;
     boost::uuids::uuid m_group_uuid;
-    std::vector<CMaskedBlob> m_password_history;
+    long long m_nano_timestamp;
+    std::vector<std::pair<CMaskedBlob, long long>> m_password_history;
 };
 
 

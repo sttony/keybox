@@ -26,7 +26,7 @@ public:
 
     uint32_t Set(std::vector<unsigned char> &plainPassword, std::vector<unsigned char>&& onepad);
 
-    boost::property_tree::ptree toJsonObj();
+    boost::property_tree::ptree toJsonObj() const;
 
     uint32_t fromJsonObj(const boost::property_tree::ptree &);
 

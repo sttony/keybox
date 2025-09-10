@@ -16,6 +16,18 @@ boost::property_tree::ptree CPwdEntry::toJsonObj() {
     root.add_child("note", m_note.toJsonObj());
     root.add_child("password", m_password.toJsonObj());
     root.add_child("attachment", m_attachment.toJsonObj());
+    root.put("nano_timestamp", m_nano_timestamp);
+    {
+        boost::property_tree::ptree histArray;
+        for (const auto& [blob, ts] : m_password_history) {
+            boost::property_tree::ptree node;
+            node.add_child("blob", blob.toJsonObj());
+            node.put<long long>("timestamp", ts);
+            histArray.push_back(std::make_pair("", node));
+        }
+        root.add_child("password_history", histArray);
+    }
+
 
     return root;
 }
@@ -55,6 +67,31 @@ uint32_t CPwdEntry::fromJsonObj(const boost::property_tree::ptree &jsonObj) {
 
     boost::property_tree::ptree attachmentJsonObj = jsonObj.get_child("attachment");
     m_attachment.fromJsonObj(attachmentJsonObj);
+
+    // Deserialize entry-level nano timestamp if present
+    if (auto ts = jsonObj.get_optional<decltype(m_nano_timestamp)>("nano_timestamp")) {
+        m_nano_timestamp = *ts;
+    }
+
+    // Deserialize password history if present
+    if (auto histOpt = jsonObj.get_child_optional("password_history")) {
+        m_password_history.clear();
+        for (const auto& kv : *histOpt) {
+            const auto& node = kv.second;
+
+            CMaskedBlob blob;
+            if (auto blobChild = node.get_child_optional("blob")) {
+                blob.fromJsonObj(*blobChild);
+            } else {
+                // Fallback if the node itself is a CMaskedBlob object
+                blob.fromJsonObj(node);
+            }
+
+            long long item_ts = node.get<long long>("timestamp", node.get<long long>("ts", 0));
+            m_password_history.emplace_back(std::move(blob), item_ts);
+        }
+    }
+
 
     return 0;
 }
