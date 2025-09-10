@@ -84,6 +84,14 @@ public:
     boost::uuids::uuid GetGroup() const;
     void SetGroup(boost::uuids::uuid uuid);
 
+    long long GetNanoTimestamp() const;
+    void SetNanoTimestamp(long long ts);
+
+    const std::vector<std::pair<CMaskedBlob, long long>>& GetPasswordHistory() const;
+    void SetPasswordHistory(const std::vector<std::pair<CMaskedBlob, long long>>& hist);
+    void SetPasswordHistory(std::vector<std::pair<CMaskedBlob, long long>>&& hist);
+
+
 private:
     boost::uuids::uuid m_uuid;
     std::string m_title;

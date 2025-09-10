@@ -103,3 +103,23 @@ boost::uuids::uuid CPwdEntry::GetGroup() const {
 void CPwdEntry::SetGroup(boost::uuids::uuid uuid) {
     m_group_uuid = uuid;
 }
+
+long long CPwdEntry::GetNanoTimestamp() const {
+    return m_nano_timestamp;
+}
+
+void CPwdEntry::SetNanoTimestamp(long long ts) {
+    m_nano_timestamp = ts;
+}
+
+const std::vector<std::pair<CMaskedBlob, long long>>& CPwdEntry::GetPasswordHistory() const {
+    return m_password_history;
+}
+
+void CPwdEntry::SetPasswordHistory(const std::vector<std::pair<CMaskedBlob, long long>>& hist) {
+    m_password_history = hist;
+}
+
+void CPwdEntry::SetPasswordHistory(std::vector<std::pair<CMaskedBlob, long long>>&& hist) {
+    m_password_history = std::move(hist);
+}

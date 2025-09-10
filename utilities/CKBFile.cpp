@@ -18,9 +18,9 @@
 #include "Base64Coder.h"
 #include "CRequest.h"
 #include "InitGlobalRG.h"
+#include "CMaskedBlob.h"
 
 using namespace std;
-
 
 CPwdEntry CKBFile::QueryEntryByTitle(const string &_title) {
     for (const auto &entry: m_entries) {
@@ -67,9 +67,37 @@ CKBFileHeader &CKBFile::GetHeader() {
 }
 
 uint32_t CKBFile::AddEntry(CPwdEntry _entry) {
-    for (const auto &entry: m_entries) {
+    for (auto &entry: m_entries) {
         if (entry.GetID() == _entry.GetID()) {
-            return ERROR_DUPLICATE_KEY;
+            // Determine which entry is more recent
+            const auto existingTs = entry.GetNanoTimestamp();
+            const auto incomingTs = _entry.GetNanoTimestamp();
+            const bool incomingIsNewer = incomingTs >= existingTs;
+
+            // Snapshot histories before replacing anything
+            auto existingHist = entry.GetPasswordHistory();
+            auto incomingHist = _entry.GetPasswordHistory();
+
+            // Merge histories and keep only the 10 most recent
+            std::vector<std::pair<CMaskedBlob, long long>> merged;
+            merged.reserve(existingHist.size() + incomingHist.size());
+            merged.insert(merged.end(), existingHist.begin(), existingHist.end());
+            merged.insert(merged.end(), incomingHist.begin(), incomingHist.end());
+
+            std::stable_sort(merged.begin(), merged.end(),
+                             [](const auto &a, const auto &b) {
+                                 return a.second > b.second; // newer first
+                             });
+
+            if (merged.size() > 10) {
+                merged.resize(10);
+            }
+            // Use the most recent entry as the base
+            if (incomingIsNewer) {
+                entry = _entry;
+            }
+            entry.SetPasswordHistory(std::move(merged));
+
         }
     }
     m_entries.push_back(_entry);
@@ -540,4 +568,3 @@ uint32_t CKBFile::SetupNewClient(vector<unsigned char>& outEncryptedUrl) {
     outEncryptedUrl = hex_to_bytes(response.get<std::string>("file_url"));
     return 0;
 }
-
