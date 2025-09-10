@@ -1,5 +1,8 @@
 
 #include "CPwdEntry.h"
+
+#include <chrono>
+
 #include "CPwdGroup.h"
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
@@ -16,6 +19,11 @@ boost::property_tree::ptree CPwdEntry::toJsonObj() {
     root.add_child("note", m_note.toJsonObj());
     root.add_child("password", m_password.toJsonObj());
     root.add_child("attachment", m_attachment.toJsonObj());
+
+    m_nano_timestamp = static_cast<long long>(
+        std::chrono::duration_cast<std::chrono::nanoseconds>(
+            std::chrono::system_clock::now().time_since_epoch()).count());
+
     root.put("nano_timestamp", m_nano_timestamp);
     {
         boost::property_tree::ptree histArray;
