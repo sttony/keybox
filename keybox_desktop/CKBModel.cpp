@@ -86,6 +86,11 @@ void CKBModel::AddEntry(const CPwdEntry &pe) {
     emit layoutChanged();
 }
 
+void CKBModel::RemoveEntry(const boost::uuids::uuid &id) {
+    m_kbfile.RemoveEntry(id);
+    emit layoutChanged();
+}
+
 CKBModel::CKBModel(QObject *parent) : QAbstractTableModel(parent) {
 }
 
