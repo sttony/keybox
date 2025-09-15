@@ -304,6 +304,16 @@ uint32_t CKBFile::SetEntry(const CPwdEntry& _entry) {
     return ERROR_ENTRY_NOT_FOUND;
 }
 
+uint32_t CKBFile::RemoveEntry(boost::uuids::uuid _entryId) {
+    for (auto it = m_entries.begin(); it != m_entries.end(); ++it) {
+        if (it->GetID() == _entryId) {
+            m_entries.erase(it);
+            return 0;
+        }
+    }
+    return ERROR_ENTRY_NOT_FOUND;
+}
+
 const std::vector<CPwdGroup> &CKBFile::GetGroups() const {
     return m_groups;
 }

@@ -33,6 +33,7 @@ public:
     uint32_t AddEntry(CPwdEntry _entry);
     CPwdEntry GetEntry(int idx);
     uint32_t SetEntry(const CPwdEntry& _entry);
+    uint32_t RemoveEntry(boost::uuids::uuid _entryId);
 
     // TODO: for testing, expose them.
     const std::vector<CPwdEntry> &GetEntries() const;
