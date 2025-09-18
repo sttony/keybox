@@ -97,10 +97,10 @@ uint32_t CKBFile::AddEntry(CPwdEntry _entry) {
                 entry = _entry;
             }
             entry.SetPasswordHistory(std::move(merged));
-
+            return 0;
         }
     }
-    m_entries.push_back(_entry);
+    m_entries.push_back(std::move(_entry));
     return 0;
 }
 

@@ -81,8 +81,8 @@ void CKBModel::SetPrimaryKey(CMaskedBlob p) {
 }
 
 void CKBModel::AddEntry(const CPwdEntry &pe) {
-    m_filtered_entries.push_back(pe);
     m_kbfile.AddEntry(pe);
+    this->setFilter();
     emit layoutChanged();
 }
 
