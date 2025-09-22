@@ -263,7 +263,7 @@ uint32_t CKBFile::LoadPayload(const unsigned char *pBuffer, uint32_t cbBufferSiz
         for (const auto &kv: entries.get()) {
             CPwdEntry entry;
             entry.fromJsonObj(kv.second);
-            m_entries.push_back(std::move(entry));
+            this->AddEntry(entry);
         }
     }
 
