@@ -33,6 +33,7 @@ MainWindow::MainWindow() {
     connect(m_entry_table_view, &QTableView::doubleClicked, this, &MainWindow::onTableRowDoubleClicked);
     m_entry_table_view->setSortingEnabled(true);
 
+
     m_group_list_view = new CPwdGroupListView;
     m_group_model = new QStringListModel;
     m_group_list_view->setModel(m_group_model);
@@ -260,6 +261,7 @@ void MainWindow::newFile() {
     if (ppdlg.exec()) {
         newModel->SetPrimaryKey(ppdlg.GetPassword());
         m_entry_table_view->setModel(newModel);
+        m_entry_table_view->resizeColumnsToContents();
         ResetGroup(newModel);
         delete m_pModel;
         m_pModel = newModel;
@@ -328,6 +330,7 @@ int MainWindow::OpenFile(const std::string &file_path) {
             }
         };
         m_entry_table_view->setModel(newModel);
+        m_entry_table_view->resizeColumnsToContents();
         ResetGroup(newModel);
         delete m_pModel;
         m_pModel = newModel;
