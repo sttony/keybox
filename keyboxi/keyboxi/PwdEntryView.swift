@@ -1,18 +1,65 @@
 import SwiftUI
+import Foundation
 
 struct PwdGroup: Identifiable, Hashable {
     var id: String    // UUID string
     var name: String
 }
 
-struct PwdEntry: Identifiable, Hashable {
-    var id: String = UUID().uuidString
-    var title: String = ""
-    var url: String = ""
-    var userName: String = ""
-    var password: String = ""
-    var note: String = ""
-    var groupId: String = ""
+// Swift wrapper that reuses Objective-C OPwdEntry (which wraps C++ CPwdEntry)
+final class PwdEntry: Identifiable, Hashable {
+    let id: String = UUID().uuidString
+    let backing: OPwdEntry
+
+    init(backing: OPwdEntry = OPwdEntry()) {
+        self.backing = backing
+    }
+
+    // Hashable & Equatable
+    static func == (lhs: PwdEntry, rhs: PwdEntry) -> Bool { lhs.id == rhs.id }
+    func hash(into hasher: inout Hasher) { hasher.combine(id) }
+
+    // Bridged properties
+    var title: String {
+        get { backing.getTitle() }
+        set { backing.setTitle(newValue) }
+    }
+    var url: String {
+        get { backing.getUrl() }
+        set { backing.setUrl(newValue) }
+    }
+    var userName: String {
+        get { backing.getUsername() }
+        set { backing.setUsername(newValue) }
+    }
+    var password: String {
+        get { backing.getPassword() }
+        set { setPasswordWithPad(newValue) }
+    }
+    var note: String {
+        get { backing.getNote() }
+        set { setNoteWithPad(newValue) }
+    }
+    var groupId: String {
+        get { backing.getGroupUUID().uuidString }
+        set {
+            if let nsuuid = NSUUID(uuidString: newValue) {
+                backing.setGroupUUID(nsuuid)
+            }
+        }
+    }
+
+    private func setPasswordWithPad(_ plain: String) {
+        // Minimal one-time pad: zeros matching length of UTF8 bytes
+        let count = plain.lengthOfBytes(using: .utf8)
+        let pad = Data(count: count)
+        backing.setPassword(plain, onePad: pad)
+    }
+    private func setNoteWithPad(_ plain: String) {
+        let count = plain.lengthOfBytes(using: .utf8)
+        let pad = Data(count: count)
+        backing.setNote(plain, onePad: pad)
+    }
 }
 
 struct PwdEntryView: View {
@@ -40,7 +87,8 @@ struct PwdEntryView: View {
         self._password = State(initialValue: entryValue.password)
         self._note = State(initialValue: entryValue.note)
         // default to first group if not set
-        let defaultGroupId = entryValue.groupId.isEmpty ? (groups.first?.id ?? "") : entryValue.groupId
+        let gid = entryValue.groupId
+        let defaultGroupId = gid.isEmpty ? (groups.first?.id ?? "") : gid
         self._selectedGroupId = State(initialValue: defaultGroupId)
         self.onSave = onSave
         self.onCancel = onCancel
@@ -132,13 +180,26 @@ struct PwdEntryView: View {
 
 #Preview {
     NavigationView {
-        PwdEntryView(
-            groups: [
-                PwdGroup(id: "grp-1", name: "General"),
-                PwdGroup(id: "grp-2", name: "Work"),
-                PwdGroup(id: "grp-3", name: "Personal")
-            ],
-            entry: PwdEntry(title: "Example", url: "https://example.com", userName: "alice", password: "secret", note: "Some notes", groupId: "grp-2"),
+        // Sample groups with real UUIDs
+        let g1 = PwdGroup(id: UUID().uuidString, name: "General")
+        let g2 = PwdGroup(id: UUID().uuidString, name: "Work")
+        let g3 = PwdGroup(id: UUID().uuidString, name: "Personal")
+        let groups = [g1, g2, g3]
+
+        // Prepare an OPwdEntry for preview
+        let o = OPwdEntry()
+        o.setTitle("Example")
+        o.setUrl("https://example.com")
+        o.setUsername("alice")
+        let pwdPad = Data(count: "secret".lengthOfBytes(using: .utf8))
+        o.setPassword("secret", onePad: pwdPad)
+        let noteText = "Some notes"
+        o.setNote(noteText, onePad: Data(count: noteText.lengthOfBytes(using: .utf8)))
+        if let gid = NSUUID(uuidString: g2.id) { o.setGroupUUID(gid) }
+
+        return PwdEntryView(
+            groups: groups,
+            entry: PwdEntry(backing: o),
             onSave: { _ in },
             onCancel: {}
         )
