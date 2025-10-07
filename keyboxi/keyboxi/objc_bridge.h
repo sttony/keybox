@@ -5,6 +5,7 @@
 
 #import "../objcWrap/ORandomGenerator.h"
 #import "../objcWrap/OPwdEntry.h"
+#import "../objcWrap/OPasswordGenerator.h"
 
 
 #endif /* objc_bridge_h */
