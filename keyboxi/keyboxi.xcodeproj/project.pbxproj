@@ -19,6 +19,7 @@
 		73E556D42BFEAB9000733C0D /* keyboxiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E556D32BFEAB9000733C0D /* keyboxiUITests.swift */; };
 		73E556D62BFEAB9000733C0D /* keyboxiUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E556D52BFEAB9000733C0D /* keyboxiUITestsLaunchTests.swift */; };
 		73E556FF2BFEBB1D00733C0D /* ORandomGenerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 73E556FE2BFEBB1D00733C0D /* ORandomGenerator.mm */; };
+		9D0FBC3E2EBC620300FBC50F /* PwdEntryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0FBC3D2EBC620300FBC50F /* PwdEntryTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		73E556FA2BFEB9EB00733C0D /* objc_bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = objc_bridge.h; sourceTree = "<group>"; };
 		73E556FB2BFEBAC100733C0D /* ORandomGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORandomGenerator.h; sourceTree = "<group>"; };
 		73E556FE2BFEBB1D00733C0D /* ORandomGenerator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ORandomGenerator.mm; sourceTree = "<group>"; };
+		9D0FBC3D2EBC620300FBC50F /* PwdEntryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdEntryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 				73C0D84E2E62377F00DC5181 /* PwdEntryView.swift */,
 				73E556BC2BFEAB9000733C0D /* Assets.xcassets */,
 				73E556BE2BFEAB9000733C0D /* Preview Content */,
+				9D0FBC3D2EBC620300FBC50F /* PwdEntryTests.swift */,
 			);
 			path = keyboxi;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 			files = (
 				73C0D84F2E62377F00DC5181 /* PwdEntryView.swift in Sources */,
 				73E556BB2BFEAB8E00733C0D /* ContentView.swift in Sources */,
+				9D0FBC3E2EBC620300FBC50F /* PwdEntryTests.swift in Sources */,
 				73E556B92BFEAB8E00733C0D /* keyboxiApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

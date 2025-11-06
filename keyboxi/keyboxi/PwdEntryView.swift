@@ -44,13 +44,16 @@ final class PwdEntry: Identifiable, Hashable {
         get { backing.getGroupUUID().uuidString }
         set {
             if let nsuuid = NSUUID(uuidString: newValue) {
-                backing.setGroupUUID(nsuuid)
+                backing.setGroupUUID(nsuuid as UUID)
             }
         }
     }
 
     private func setPasswordWithPad(_ plain: String) {
         // Minimal one-time pad: zeros matching length of UTF8 bytes
+        let rnd = ORandomGenerator.shared()
+        let bytes = rnd?.getNextBytes(32)
+
         let count = plain.lengthOfBytes(using: .utf8)
         let pad = Data(count: count)
         backing.setPassword(plain, onePad: pad)
@@ -177,31 +180,31 @@ struct PwdEntryView: View {
         onSave(entry)
     }
 }
-
-#Preview {
-    NavigationView {
-        // Sample groups with real UUIDs
-        let g1 = PwdGroup(id: UUID().uuidString, name: "General")
-        let g2 = PwdGroup(id: UUID().uuidString, name: "Work")
-        let g3 = PwdGroup(id: UUID().uuidString, name: "Personal")
-        let groups = [g1, g2, g3]
-
-        // Prepare an OPwdEntry for preview
-        let o = OPwdEntry()
-        o.setTitle("Example")
-        o.setUrl("https://example.com")
-        o.setUsername("alice")
-        let pwdPad = Data(count: "secret".lengthOfBytes(using: .utf8))
-        o.setPassword("secret", onePad: pwdPad)
-        let noteText = "Some notes"
-        o.setNote(noteText, onePad: Data(count: noteText.lengthOfBytes(using: .utf8)))
-        if let gid = NSUUID(uuidString: g2.id) { o.setGroupUUID(gid) }
-
-        return PwdEntryView(
-            groups: groups,
-            entry: PwdEntry(backing: o),
-            onSave: { _ in },
-            onCancel: {}
-        )
-    }
-}
+//
+//#Preview {
+//    NavigationView {
+//        // Sample groups with real UUIDs
+//        let g1 = PwdGroup(id: UUID().uuidString, name: "General")
+//        let g2 = PwdGroup(id: UUID().uuidString, name: "Work")
+//        let g3 = PwdGroup(id: UUID().uuidString, name: "Personal")
+//        let groups = [g1, g2, g3]
+//
+//        // Prepare an OPwdEntry for preview
+//        let o = OPwdEntry()
+//        o.setTitle("Example")
+//        o.setUrl("https://example.com")
+//        o.setUsername("alice")
+//        let pwdPad = Data(count: "secret".lengthOfBytes(using: .utf8))
+//        o.setPassword("secret", onePad: pwdPad)
+//        let noteText = "Some notes"
+//        o.setNote(noteText, onePad: Data(count: noteText.lengthOfBytes(using: .utf8)))
+//        if let gid = NSUUID(uuidString: g2.id) { o.setGroupUUID(gid) }
+//
+//        return PwdEntryView(
+//            groups: groups,
+//            entry: PwdEntry(backing: o),
+//            onSave: { _ in },
+//            onCancel: {}
+//        )
+//    }
+//}
