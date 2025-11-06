@@ -95,7 +95,7 @@ int main() {
 
     vector<unsigned char> uncompressed(1024 * 1024);
 
-    gzCompressor.decompressData(&decrypted[sizeof(Block) + 32], block1->block_size, &uncompressed[0], 1024 * 1024);
+    gzCompressor.decompressData(&decrypted[sizeof(Block) + 32], block1->block_size, uncompressed);
 
     FILE *fp2 = fopen("c:\\ttt\\block_aaa", "wb");
     fprintf(fp2, "%s", &uncompressed[0]);
