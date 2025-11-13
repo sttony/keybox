@@ -99,18 +99,28 @@ void CSyncDlg::syncThreadFunction() {
         updateProgress(10);
         updateStatus("Retrieving data from remote server...");
 
-        uint32_t result = m_pModel->RetrieveFromRemote();
+        std::string retrieveMsg;
+        uint32_t result = m_pModel->RetrieveFromRemote(retrieveMsg);
         if (result != 0) {
-            emit syncError(QString("Failed to retrieve remote data (error code: %1)").arg(result));
+            QString err = QString("Failed to retrieve remote data (error code: %1)").arg(result);
+            if (!retrieveMsg.empty()) {
+                err += QString("\nServer message: %1").arg(QString::fromStdString(retrieveMsg));
+            }
+            emit syncError(err);
             m_isSyncing = false;
             return;
         }
         updateProgress(50);
 
         updateStatus("Pushing data to remote server...");
-        result = m_pModel->PushToRemote();
+        std::string pushMsg;
+        result = m_pModel->PushToRemote(pushMsg);
         if (result != 0) {
-            emit syncError(QString("Failed to pushing remote data (error code: %1)").arg(result));
+            QString err = QString("Failed to pushing remote data (error code: %1)").arg(result);
+            if (!pushMsg.empty()) {
+                err += QString("\nServer message: %1").arg(QString::fromStdString(pushMsg));
+            }
+            emit syncError(err);
             m_isSyncing = false;
             return;
         }

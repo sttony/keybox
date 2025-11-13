@@ -241,18 +241,28 @@ uint32_t CKBModel::Register() {
     return m_kbfile.Register();
 }
 
+uint32_t CKBModel::RetrieveFromRemote(std::string& outMessage) {
+    uint32_t result = m_kbfile.RetrieveFromRemote(outMessage);
+    setFilter();
+    emit layoutChanged();
+    return result;
+}
+
 uint32_t CKBModel::RetrieveFromRemote() {
-    uint32_t result = m_kbfile.RetrieveFromRemote();
+    std::string ignored;
+    return RetrieveFromRemote(ignored);
+}
+
+uint32_t CKBModel::PushToRemote(std::string& outMessage) {
+    uint32_t result = m_kbfile.PushToRemote(outMessage);
     setFilter();
     emit layoutChanged();
     return result;
 }
 
 uint32_t CKBModel::PushToRemote() {
-    uint32_t result = m_kbfile.PushToRemote();
-    setFilter();
-    emit layoutChanged();
-    return result;
+    std::string ignored;
+    return PushToRemote(ignored);
 }
 
 uint32_t CKBModel::SetupNewClient(vector<unsigned char>& outUrl) {

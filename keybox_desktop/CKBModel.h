@@ -67,6 +67,10 @@ public:
     void Lock();
     uint32_t Register();
 
+    // Message-aware sync methods that surface server-provided messages
+    uint32_t RetrieveFromRemote(std::string& outMessage);
+    uint32_t PushToRemote(std::string& outMessage);
+    // Backward-compatible wrappers
     uint32_t RetrieveFromRemote();
     uint32_t PushToRemote();
     uint32_t SetupNewClient(std::vector<unsigned char>& outUrl);

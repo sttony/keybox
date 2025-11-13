@@ -377,7 +377,8 @@ uint32_t CKBFile::SetAsymKey(unique_ptr<CAsymmetricKeyPair> _key) {
  *      4. Merge the remote CKBFile with local
  * @return
  */
-uint32_t CKBFile::RetrieveFromRemote() {
+uint32_t CKBFile::RetrieveFromRemote(std::string& outMessage) {
+    outMessage.clear();
     uint32_t uResult = 0;
     const string& sync_url = m_header.GetSyncUrl();
     const string& sync_email = m_header.GetSyncEmail();
@@ -390,11 +391,8 @@ uint32_t CKBFile::RetrieveFromRemote() {
     boost::property_tree::write_json(oss, pay_load);
     request.SetPayload(oss.str());
     request.Send();
-    if (request.GetResponseCode() != 200) {
-        return ERROR_HTTP_ERROR_PREFIX | request.GetResponseCode();
-    }
 
-    // load payload json
+    // load payload json (even on non-200, we want the message)
     std::istringstream iss(string(reinterpret_cast<const char *>(request.GetResponsePayload().data()),
         reinterpret_cast<const char *>(request.GetResponsePayload().data()) + request.GetResponsePayload().size()));
     boost::property_tree::ptree response;
@@ -403,6 +401,16 @@ uint32_t CKBFile::RetrieveFromRemote() {
     }
     catch (exception &e) {
         return ERROR_INVALID_JSON;
+    }
+
+    // capture optional server message if any
+    auto msgOpt = response.get_optional<std::string>("message");
+    if (msgOpt) {
+        outMessage = *msgOpt;
+    }
+
+    if (request.GetResponseCode() != 200) {
+        return ERROR_HTTP_ERROR_PREFIX | request.GetResponseCode();
     }
 
     string encrypted_file_content = response.get<std::string>("encrypted_file_content");
@@ -455,6 +463,11 @@ uint32_t CKBFile::RetrieveFromRemote() {
     return 0;
 }
 
+uint32_t CKBFile::RetrieveFromRemote() {
+    std::string ignored;
+    return RetrieveFromRemote(ignored);
+}
+
 /**
  *  serialize the file,
  *  Sign with prv key
@@ -464,7 +477,8 @@ uint32_t CKBFile::RetrieveFromRemote() {
  *
  * @return
  */
-uint32_t CKBFile::PushToRemote() {
+uint32_t CKBFile::PushToRemote(std::string& outMessage) {
+    outMessage.clear();
     vector<unsigned char> buff;
     uint32_t cbRealsize = 0;
     uint32_t result = this->Serialize(nullptr, 0, cbRealsize);
@@ -499,6 +513,20 @@ uint32_t CKBFile::PushToRemote() {
     auto private_key = m_pAsymmetric_key_pair->GetPrivateKey(vector<unsigned char>(m_pAsymmetric_key_pair->GetPrivateKeyLength()));
     string private_key_string = private_key.Show();
     request.Send();
+
+    // Parse response JSON to capture optional message regardless of status
+    std::istringstream iss(string(reinterpret_cast<const char *>(request.GetResponsePayload().data()),
+        reinterpret_cast<const char *>(request.GetResponsePayload().data()) + request.GetResponsePayload().size()));
+    boost::property_tree::ptree response;
+    try {
+        boost::property_tree::read_json(iss, response);
+        auto msgOpt = response.get_optional<std::string>("message");
+        if (msgOpt) outMessage = *msgOpt;
+    }
+    catch (exception &e) {
+        // ignore JSON errors; maintain previous behavior
+    }
+
     if (request.GetResponseCode() == 200) {
         return 0;
     }
@@ -507,13 +535,19 @@ uint32_t CKBFile::PushToRemote() {
     }
 }
 
+uint32_t CKBFile::PushToRemote() {
+    std::string ignored;
+    return PushToRemote(ignored);
+}
+
 /**
  * 1. generate asymm pair
  * 3. send pubkey, email to url
  *
  * @return
  */
-uint32_t CKBFile::Register() {
+uint32_t CKBFile::Register(std::string& outMessage) {
+    outMessage.clear();
     // 1. re generate asymmetric key
     m_pAsymmetric_key_pair = std::make_unique<CAsymmetricKeyPair>();
 
@@ -538,10 +572,28 @@ uint32_t CKBFile::Register() {
         return result;
     };
 
+    // Parse response JSON to capture optional message regardless of status
+    try {
+        std::istringstream iss(string(reinterpret_cast<const char *>(request.GetResponsePayload().data()),
+            reinterpret_cast<const char *>(request.GetResponsePayload().data()) + request.GetResponsePayload().size()));
+        boost::property_tree::ptree response;
+        boost::property_tree::read_json(iss, response);
+        auto msgOpt = response.get_optional<std::string>("message");
+        if (msgOpt) outMessage = *msgOpt;
+    }
+    catch (exception &e) {
+        // ignore JSON errors; maintain previous behavior
+    }
+
     if (request.GetResponseCode() == 200) {
         return 0;
     }
     return request.GetResponseCode() | ERROR_HTTP_ERROR_PREFIX;
+}
+
+uint32_t CKBFile::Register() {
+    std::string ignored;
+    return Register(ignored);
 }
 
 /**
@@ -549,7 +601,8 @@ uint32_t CKBFile::Register() {
  * 2. get encrypted presign url back
  * @return
  */
-uint32_t CKBFile::SetupNewClient(vector<unsigned char>& outEncryptedUrl) {
+uint32_t CKBFile::SetupNewClient(vector<unsigned char>& outEncryptedUrl, std::string& outMessage) {
+    outMessage.clear();
     uint32_t uResult = 0;
     const string& sync_url = m_header.GetSyncUrl();
     const string& sync_email = m_header.GetSyncEmail();
@@ -562,19 +615,28 @@ uint32_t CKBFile::SetupNewClient(vector<unsigned char>& outEncryptedUrl) {
     boost::property_tree::write_json(oss, pay_load);
     request.SetPayload(oss.str());
     request.Send();
-    if (request.GetResponseCode() != 200) {
-        return ERROR_HTTP_ERROR_PREFIX | request.GetResponseCode();
-    }
 
     std::istringstream iss(string(reinterpret_cast<const char *>(request.GetResponsePayload().data()),
        reinterpret_cast<const char *>(request.GetResponsePayload().data()) + request.GetResponsePayload().size()) );
     boost::property_tree::ptree response;
     try {
         boost::property_tree::read_json(iss, response);
+        auto msgOpt = response.get_optional<std::string>("message");
+        if (msgOpt) outMessage = *msgOpt;
     }
     catch (exception &e) {
         return ERROR_INVALID_JSON;
     }
+
+    if (request.GetResponseCode() != 200) {
+        return ERROR_HTTP_ERROR_PREFIX | request.GetResponseCode();
+    }
+
     outEncryptedUrl = hex_to_bytes(response.get<std::string>("file_url"));
     return 0;
+}
+
+uint32_t CKBFile::SetupNewClient(vector<unsigned char>& outEncryptedUrl) {
+    std::string ignored;
+    return SetupNewClient(outEncryptedUrl, ignored);
 }

@@ -60,9 +60,21 @@ public:
 
 
     // Sync related code
+    // Retrieve from remote; if server responds with a JSON {"message": "..."}, it will be returned via outMessage.
+    uint32_t RetrieveFromRemote(std::string& outMessage);
+    // Backward-compatible wrapper that ignores the returned message.
     uint32_t RetrieveFromRemote();
+    // Push to remote; returns server message if present.
+    uint32_t PushToRemote(std::string& outMessage);
+    // Backward-compatible wrapper.
     uint32_t PushToRemote();
+    // Register; returns server message if present.
+    uint32_t Register(std::string& outMessage);
+    // Backward-compatible wrapper.
     uint32_t Register();
+    // Setup a new client; returns encrypted URL and optional message.
+    uint32_t SetupNewClient(std::vector<unsigned char>& outUrl, std::string& outMessage);
+    // Backward-compatible wrapper.
     uint32_t SetupNewClient(std::vector<unsigned char>& outUrl);
 
 private:
