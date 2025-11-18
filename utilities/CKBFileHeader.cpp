@@ -225,7 +225,7 @@ CKBFileHeader::CKBFileHeader() : m_encryption_iv(16), m_hmac_sha256_signature(32
 
     m_signature = 0x0BAD19840BAD1984;
     m_version = 1 << 16 | 0;
-    m_sync_url = "https://k3ybox.us/";
+    m_sync_url = "https://api.k3ybox.us/";
 
 }
 
