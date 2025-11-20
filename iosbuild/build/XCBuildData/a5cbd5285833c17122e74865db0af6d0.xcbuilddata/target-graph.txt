@@ -1,7 +1,0 @@
-Target dependency graph (3 targets)
-Target 'ALL_BUILD' in project 'keybox'
-➜ Explicit dependency on target 'utilities' in project 'keybox'
-➜ Explicit dependency on target 'ZERO_CHECK' in project 'keybox'
-Target 'utilities' in project 'keybox'
-➜ Explicit dependency on target 'ZERO_CHECK' in project 'keybox'
-Target 'ZERO_CHECK' in project 'keybox' (no dependencies)
