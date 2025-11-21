@@ -64,6 +64,7 @@ void MainWindow::CreateToolbar() {// toolbar
     AddToolBarButton(m_saveFileAction);
     AddToolBarButton(m_newGroupAction);
     AddToolBarButton(m_lockAction);
+    AddToolBarButton(m_syncRemote);
 
 
     m_searchBox = new QLineEdit(this);
@@ -134,7 +135,7 @@ void MainWindow::CreateActions() {
     m_syncSetting =  new QAction(tr("Open Sync Setting"), this);
     connect(m_syncSetting, &QAction::triggered, this, &MainWindow::openSyncSetting);
 
-    m_syncRemote =  new QAction(tr("Sync with remote"), this);
+    m_syncRemote =  new QAction(QIcon(":img/img/arrow.triangle.2.circlepath.svg"), tr("Sync with remote"), this);
     connect(m_syncRemote, &QAction::triggered, this, &MainWindow::syncRemote);
 
     m_changePassword = new QAction(tr("Change primary password"), this);
@@ -356,6 +357,8 @@ void MainWindow::RefreshActionEnabled() {
         m_newEntryAction->setEnabled(m_pModel != nullptr);
     if (m_lockAction)
         m_lockAction->setEnabled(m_pModel != nullptr);
+    if (m_syncRemote)
+        m_syncRemote->setEnabled(m_pModel != nullptr);
     if (m_searchBox) {
         m_searchBox->setEnabled(m_pModel != nullptr);
     }
