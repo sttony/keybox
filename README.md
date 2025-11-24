@@ -14,7 +14,26 @@ Keypass is good, except it is a little bit complex for me, and it doesn't have t
 ## macOS
 
 ## iOS
-TBD
+1. Build utilities iOS
+    - install pkg-config  ``` brew install pkg-config ```
+    - clone https://github.com/microsoft/vcpkg/
+    - ```./bootstrap-vcpkg.sh```
+    - ```./vcpkg install openssl --triplet arm64-ios```
+   - ```./vcpkg install curl --triplet arm64-ios```
+   - ```bash
+      # replace vcpkg to your vcpkg root
+      cmake -S ../utilities -B utilities-ios-device -G Xcode \
+      -DCMAKE_SYSTEM_NAME=iOS \
+      -DCMAKE_OSX_SYSROOT=iphoneos \
+      -DCMAKE_OSX_ARCHITECTURES=arm64 \
+      -DCMAKE_OSX_DEPLOYMENT_TARGET=13.0 \
+      -DOPENSSL_ROOT_DIR=/Users/litong/gitlocal/vcpkg/packages/openssl_arm64-ios \
+      -DCMAKE_FIND_ROOT_PATH=/Users/litong/gitlocal/vcpkg/packages/openssl_arm64-ios \
+      -DCURL_ROOT=/Users/litong/gitlocal/vcpkg/packages/curl_arm64-ios \
+      -DCMAKE_FIND_ROOT_PATH="/Users/litong/gitlocal/vcpkg/packages/openssl_arm64-ios;/Users/litong/gitlocal/vcpkg/packages/curl_arm64-ios" \
+      -DOPENSSL_USE_STATIC_LIBS=TRUE \
+      -DVCPKG_TARGET_TRIPLET=arm64-iphoneos
+     ```
 
 ## android
 TBD
