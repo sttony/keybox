@@ -34,6 +34,8 @@ Keypass is good, except it is a little bit complex for me, and it doesn't have t
       -DOPENSSL_USE_STATIC_LIBS=TRUE \
       -DVCPKG_TARGET_TRIPLET=arm64-iphoneos
      ```
+2. create xcode workspace,  put keyboxi and generated utilities-ios-device/keybox.xcodeproj into the workspace
+3. build keyboxi.
 
 ## android
 TBD
