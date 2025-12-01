@@ -12,6 +12,15 @@ class EmailAdapter:
         self.base_url = BASE_URLS[stage]
         pass
 
+    @staticmethod
+    def _format_code_multiline(code: str, width: int = 32) -> str:
+        """
+        Split the new client code into multiple lines to make manual entry easier.
+        Default width=32 results in 3 lines for a 96-char hex string.
+        """
+        code = code.strip()
+        return "\n".join(code[i:i+width] for i in range(0, len(code), width))
+
     def fetch_oAuth2_token(self):
         access_token = secretsmanager.get_secret('zoho_mail_token')['access_token']
         refresh_token = secretsmanager.get_secret('zoho_mail_token')['refresh_token']
@@ -63,13 +72,16 @@ class EmailAdapter:
         account_id = secretsmanager.get_secret('prod_zoho')['account_id']
         url = f'https://mail.zoho.com/api/accounts/{account_id}/messages'
 
+        # Present the code in multiple lines so users can enter it line-by-line in the client
+        formatted_code = self._format_code_multiline(code, 8)
+
         body = {
             "fromAddress": "admin@k3ybox.us",
             "toAddress": f"{user.email}",
             "subject": "Someone try to install a new client for this email",
             "content": f"""
                 Please fill the following code into your client:
-                {code}
+                {formatted_code}
                 """,
             "askReceipt": "no"
         }

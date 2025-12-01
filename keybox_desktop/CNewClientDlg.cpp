@@ -2,6 +2,8 @@
 #include "CNewClientDlg.h"
 
 #include <QMessageBox>
+#include <algorithm>
+#include <cctype>
 
 #include "utilities/Base64Coder.h"
 
@@ -12,7 +14,9 @@ using namespace std;
 CNewClientDlg::CNewClientDlg(QWidget *parent) {
     QVBoxLayout *rootLayout = new QVBoxLayout(this);
 
-    m_pwdBox = new CPasswordBox(nullptr, "New client code", g_RG, false, false);
+    // Allow multi-line input so users can paste UUID-like grouped codes across lines
+    // Set doesShow=true so the field is editable without toggling visibility first
+    m_pwdBox = new CPasswordBox(nullptr, "New client code", g_RG, true, true);
 
     rootLayout->addWidget(m_pwdBox);
     QHBoxLayout *buttonLine = new QHBoxLayout();
@@ -39,7 +43,12 @@ CMaskedBlob CNewClientDlg::GetIV() {
 }
 
 void CNewClientDlg::onOK() {
-    vector<unsigned char> code = hex_to_bytes(m_pwdBox->GetPassword().Show());
+    // Normalize input: remove whitespace and dashes so users can enter UUID-style chunks
+    std::string raw = m_pwdBox->GetPassword().Show();
+    raw.erase(std::remove_if(raw.begin(), raw.end(), [](unsigned char ch){
+        return std::isspace(ch) || ch=='-';
+    }), raw.end());
+    vector<unsigned char> code = hex_to_bytes(raw);
     if ( code.size() != 32 + 16 ) {
         QMessageBox::information(nullptr, "Alert", "Code is not 96 chars");
         QDialog::reject();
