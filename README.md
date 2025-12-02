@@ -8,11 +8,14 @@ Keypass is good, except it is a little bit complex for me, and it doesn't have t
 
 # How to build
 ## Windows 
-
+1. vcpkg install openssl curl boost zlib 
+2. vcpkg install pugixml  // which is only used to dump keypass db file. 
 ## Linux 
-
+1. install openssl curl boost zlib with apt or pacman or what else pkg manager on your linux
+2. install pugixml  // which is only used to dump keypass db file.
 ## macOS
-
+1. install openssl curl boost zlib with brew
+2. install pugixml  // which is only used to dump keypass db file.
 ## iOS
 1. Build utilities iOS
     - install pkg-config  ``` brew install pkg-config ```
