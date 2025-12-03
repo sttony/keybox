@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		73006C7C2ED7CC7500AA44D6 /* libutilities.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73006C5D2ED7CBAE00AA44D6 /* libutilities.a */; };
+		73006C7F2EE0F98C00AA44D6 /* OPwdGroup.mm in Sources */ = {isa = PBXBuildFile; fileRef = 73006C7E2EE0F98C00AA44D6 /* OPwdGroup.mm */; };
 		738D2C872E5E1D60008F15A0 /* OPwdEntry.mm in Sources */ = {isa = PBXBuildFile; fileRef = 738D2C862E5E1D5D008F15A0 /* OPwdEntry.mm */; };
 		73C0D84F2E62377F00DC5181 /* PwdEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C0D84E2E62377F00DC5181 /* PwdEntryView.swift */; };
 		73E511602C068D91007389F8 /* libobjcWrap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E556F32BFEB3EE00733C0D /* libobjcWrap.a */; };
@@ -74,6 +75,8 @@
 
 /* Begin PBXFileReference section */
 		73006C742ED7CC6300AA44D6 /* keybox.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = keybox.xcodeproj; path = "../iosbuild/utilities-ios-device/keybox.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		73006C7D2EE0F98C00AA44D6 /* OPwdGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OPwdGroup.h; sourceTree = "<group>"; };
+		73006C7E2EE0F98C00AA44D6 /* OPwdGroup.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OPwdGroup.mm; sourceTree = "<group>"; };
 		738D2C852E5E1D43008F15A0 /* OPwdEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OPwdEntry.h; sourceTree = "<group>"; };
 		738D2C862E5E1D5D008F15A0 /* OPwdEntry.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OPwdEntry.mm; sourceTree = "<group>"; };
 		73B9B56A2ED7CA9000C137E5 /* keybox.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = keybox.xcodeproj; path = "../iosbuild/utilities-ios-device/keybox.xcodeproj"; sourceTree = SOURCE_ROOT; };
@@ -213,6 +216,8 @@
 			children = (
 				738D2C862E5E1D5D008F15A0 /* OPwdEntry.mm */,
 				738D2C852E5E1D43008F15A0 /* OPwdEntry.h */,
+				73006C7D2EE0F98C00AA44D6 /* OPwdGroup.h */,
+				73006C7E2EE0F98C00AA44D6 /* OPwdGroup.mm */,
 				73E556FE2BFEBB1D00733C0D /* ORandomGenerator.mm */,
 				73E556FB2BFEBAC100733C0D /* ORandomGenerator.h */,
 			);
@@ -418,6 +423,7 @@
 			files = (
 				738D2C872E5E1D60008F15A0 /* OPwdEntry.mm in Sources */,
 				73E556FF2BFEBB1D00733C0D /* ORandomGenerator.mm in Sources */,
+				73006C7F2EE0F98C00AA44D6 /* OPwdGroup.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

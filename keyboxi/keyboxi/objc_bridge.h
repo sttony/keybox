@@ -7,6 +7,7 @@
 #import "../objcWrap/OPwdEntry.h"
 #import "../objcWrap/OPasswordGenerator.h"
 #import "../objcWrap/OCKBFile.h"
+#import "../objcWrap/OPwdGroup.h"
 
 
 #endif /* objc_bridge_h */
