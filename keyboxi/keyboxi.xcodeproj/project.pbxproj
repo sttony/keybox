@@ -38,6 +38,13 @@
 			remoteGlobalIDString = F5DEAE72CF04F81B7A0E42B9;
 			remoteInfo = utilities;
 		};
+		73006C872EE0FA0E00AA44D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 73006C742ED7CC6300AA44D6 /* keybox.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D9BFE63B012140FB97A300D1;
+			remoteInfo = utilities;
+		};
 		73B9B5682ED7CA3000C137E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 73E556AD2BFEAB8E00733C0D /* Project object */;
@@ -136,6 +143,14 @@
 			isa = PBXGroup;
 			children = (
 				73006C5D2ED7CBAE00AA44D6 /* libutilities.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		73006C822EE0FA0E00AA44D6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				73006C882EE0FA0E00AA44D6 /* libutilities.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -338,6 +353,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 73006C822EE0FA0E00AA44D6 /* Products */;
+					ProjectRef = 73006C742ED7CC6300AA44D6 /* keybox.xcodeproj */;
+				},
+				{
 					ProductGroup = 73006C572ED7CBAE00AA44D6 /* Products */;
 					ProjectRef = 73B9B56A2ED7CA9000C137E5 /* keybox.xcodeproj */;
 				},
@@ -358,6 +377,13 @@
 			fileType = archive.ar;
 			path = libutilities.a;
 			remoteRef = 73006C5C2ED7CBAE00AA44D6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		73006C882EE0FA0E00AA44D6 /* libutilities.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libutilities.a;
+			remoteRef = 73006C872EE0FA0E00AA44D6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

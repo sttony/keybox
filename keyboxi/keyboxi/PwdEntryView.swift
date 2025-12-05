@@ -180,31 +180,14 @@ struct PwdEntryView: View {
         onSave(entry)
     }
 }
-//
-//#Preview {
-//    NavigationView {
-//        // Sample groups with real UUIDs
-//        let g1 = PwdGroup(id: UUID().uuidString, name: "General")
-//        let g2 = PwdGroup(id: UUID().uuidString, name: "Work")
-//        let g3 = PwdGroup(id: UUID().uuidString, name: "Personal")
-//        let groups = [g1, g2, g3]
-//
-//        // Prepare an OPwdEntry for preview
-//        let o = OPwdEntry()
-//        o.setTitle("Example")
-//        o.setUrl("https://example.com")
-//        o.setUsername("alice")
-//        let pwdPad = Data(count: "secret".lengthOfBytes(using: .utf8))
-//        o.setPassword("secret", onePad: pwdPad)
-//        let noteText = "Some notes"
-//        o.setNote(noteText, onePad: Data(count: noteText.lengthOfBytes(using: .utf8)))
-//        if let gid = NSUUID(uuidString: g2.id) { o.setGroupUUID(gid) }
-//
-//        return PwdEntryView(
-//            groups: groups,
-//            entry: PwdEntry(backing: o),
-//            onSave: { _ in },
-//            onCancel: {}
-//        )
-//    }
-//}
+
+#Preview {
+    NavigationView {
+        let groups = [
+            PwdGroup(id: UUID().uuidString, name: "General"),
+            PwdGroup(id: UUID().uuidString, name: "Work"),
+            PwdGroup(id: UUID().uuidString, name: "Personal")
+        ]
+        return PwdEntryView(groups: groups)
+    }
+}
