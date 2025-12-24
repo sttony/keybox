@@ -81,6 +81,24 @@ The first command will build the source of your application. The second command 
 - **Allow SAM CLI IAM role creation**: Many AWS SAM templates, including this example, create AWS IAM roles required for the AWS Lambda function(s) included to access AWS services. By default, these are scoped down to minimum required permissions. To deploy an AWS CloudFormation stack which creates or modifies IAM roles, the `CAPABILITY_IAM` value for `capabilities` must be provided. If permission isn't provided through this prompt, to deploy this example you must explicitly pass `--capabilities CAPABILITY_IAM` to the `sam deploy` command.
 - **Save arguments to samconfig.toml**: If set to yes, your choices will be saved to a configuration file inside the project, so that in the future you can just re-run `sam deploy` without parameters to deploy changes to your application.
 
+### Multi-stage Deployment
+
+You can deploy the application to different stages (e.g., beta, prod) by using the `STAGE` parameter.
+
+#### Deploy to Beta Stage
+
+```bash
+sam build --use-container
+sam deploy --stack-name keybox-beta --parameter-overrides STAGE=beta --capabilities CAPABILITY_IAM
+```
+
+#### Deploy to Prod Stage
+
+```bash
+sam build --use-container
+sam deploy --stack-name keybox-prod --parameter-overrides STAGE=prod --capabilities CAPABILITY_IAM
+```
+
 You can find your API Gateway Endpoint URL in the output values displayed after deployment.
 
 ### Use the SAM CLI to build and test locally
@@ -155,6 +173,23 @@ To delete the sample application that you created, use the AWS CLI. Assuming you
 ```bash
 sam delete --stack-name "keyboxw"
 ```
+
+## Static Site with AWS Amplify
+
+This project now includes an AWS Amplify resource to host a static landing page.
+
+### How to use Amplify for the Static Page:
+
+1.  **Static Files**: The static site content is located in the `keyboxw/static_site/` directory.
+2.  **Deployment via Git**:
+    *   Initialize a Git repository in this folder (or use your existing project repo).
+    *   Push your code to a Git provider (e.g., GitHub, GitLab, Bitbucket).
+    *   When deploying the SAM template (`sam deploy`), provide the `RepositoryURL` and `GitHubToken` (if using a private GitHub repo) parameters.
+    *   Amplify will automatically build and deploy your static site whenever you push to the `main` branch.
+3.  **Manual Deployment (Alternative)**:
+    *   You can also use the [Amplify Console](https://console.aws.amazon.com/amplify/home) to manually connect your repository or upload the `static_site` folder directly.
+
+The Amplify App URL will be available in the CloudFormation outputs as `AmplifyAppUrl`.
 
 ## Resources
 

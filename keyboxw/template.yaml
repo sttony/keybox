@@ -17,7 +17,30 @@ Parameters:
       - beta
       - prod
       - staging
+  RepositoryURL:
+    Type: String
+    Description: URL for the repository containing the static site
+    Default: ""
+  GitHubToken:
+    Type: String
+    NoEcho: true
+    Description: GitHub personal access token for Amplify to access the repository
+    Default: ""
 Resources:
+    AmplifyApp:
+        Type: AWS::Amplify::App
+        Properties:
+            Name: !Sub ${STAGE}-keybox-static
+            Description: Static site for Keybox
+            Repository: !Ref RepositoryURL # Optional: if you want to link a repo
+            AccessToken: !Ref GitHubToken # Optional: for private repos
+
+    AmplifyBranch:
+        Type: AWS::Amplify::Branch
+        Properties:
+            AppId: !GetAtt AmplifyApp.AppId
+            BranchName: main # Or your default branch
+
     KeyboxFunction:
         Type: AWS::Serverless::Function # More info about Function Resource: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
         Properties:
@@ -80,4 +103,8 @@ Outputs:
     KeyboxFunction:
       Description: "Lambda Function ARN"
       Value: !GetAtt KeyboxFunction.Arn
+
+    AmplifyAppUrl:
+      Description: "Amplify App URL"
+      Value: !Sub "https://main.${AmplifyApp.DefaultDomain}"
 
