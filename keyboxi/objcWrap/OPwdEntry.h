@@ -10,6 +10,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// Initialize the wrapper
 - (instancetype)init;
 
+/// Initialize with existing C++ CPwdEntry pointer
+- (instancetype)initWithCppEntry:(void *)cppEntry;
+
+/// Get and  the ID
+- (NSUUID*) getID;
+
 /// Get and set the title
 - (NSString *)getTitle;
 - (void)setTitle:(NSString *)title;

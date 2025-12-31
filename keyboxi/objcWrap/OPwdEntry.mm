@@ -16,10 +16,26 @@
     return self;
 }
 
+- (instancetype)initWithCppEntry:(void *)cppEntry {
+    self = [super init];
+    if (self) {
+        _entry = (CPwdEntry*)cppEntry;
+    }
+    return self;
+}
+
 /// Deallocate the C++ object when the Objective-C object is destroyed
 - (void)dealloc {
     delete _entry;
 }
+
+/// Get ID
+- (NSUUID*) getID {
+    auto id = _entry->GetID();
+    NSUUID *nsUuid = [[NSUUID alloc] initWithUUIDBytes:id.data];
+    return nsUuid;
+}
+
 
 /// Get and set the title
 - (NSString *)getTitle {
