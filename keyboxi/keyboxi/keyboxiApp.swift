@@ -17,12 +17,7 @@ struct keyboxiApp: App {
 
     var body: some Scene {
         WindowGroup {
-            let groups = [
-                PwdGroup(id: UUID().uuidString, name: "General"),
-                PwdGroup(id: UUID().uuidString, name: "Work"),
-                PwdGroup(id: UUID().uuidString, name: "Personal")
-            ]
-            PwdEntryView(groups: groups)
+           
         }
     }
 

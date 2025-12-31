@@ -1,73 +1,10 @@
 import SwiftUI
 import Foundation
 
-struct PwdGroup: Identifiable, Hashable {
-    var id: String    // UUID string
-    var name: String
-}
-
-// Swift wrapper that reuses Objective-C OPwdEntry (which wraps C++ CPwdEntry)
-final class PwdEntry: Identifiable, Hashable {
-    let id: String = UUID().uuidString
-    let backing: OPwdEntry
-
-    init(backing: OPwdEntry = OPwdEntry()) {
-        self.backing = backing
-    }
-
-    // Hashable & Equatable
-    static func == (lhs: PwdEntry, rhs: PwdEntry) -> Bool { lhs.id == rhs.id }
-    func hash(into hasher: inout Hasher) { hasher.combine(id) }
-
-    // Bridged properties
-    var title: String {
-        get { backing.getTitle() }
-        set { backing.setTitle(newValue) }
-    }
-    var url: String {
-        get { backing.getUrl() }
-        set { backing.setUrl(newValue) }
-    }
-    var userName: String {
-        get { backing.getUsername() }
-        set { backing.setUsername(newValue) }
-    }
-    var password: String {
-        get { backing.getPassword() }
-        set { setPasswordWithPad(newValue) }
-    }
-    var note: String {
-        get { backing.getNote() }
-        set { setNoteWithPad(newValue) }
-    }
-    var groupId: String {
-        get { backing.getGroupUUID().uuidString }
-        set {
-            if let nsuuid = NSUUID(uuidString: newValue) {
-                backing.setGroupUUID(nsuuid as UUID)
-            }
-        }
-    }
-
-    private func setPasswordWithPad(_ plain: String) {
-        // Minimal one-time pad: zeros matching length of UTF8 bytes
-        let rnd = ORandomGenerator.shared()
-        let bytes = rnd?.getNextBytes(32)
-
-        let count = plain.lengthOfBytes(using: .utf8)
-        let pad = Data(count: count)
-        backing.setPassword(plain, onePad: pad)
-    }
-    private func setNoteWithPad(_ plain: String) {
-        let count = plain.lengthOfBytes(using: .utf8)
-        let pad = Data(count: count)
-        backing.setNote(plain, onePad: pad)
-    }
-}
 
 struct PwdEntryView: View {
     // Input data
-    var groups: [PwdGroup]
+    var groups: PwdGroups
     var initialEntry: PwdEntry
     var onSave: (PwdEntry) -> Void
     var onCancel: () -> Void
@@ -80,7 +17,7 @@ struct PwdEntryView: View {
     @State private var note: String
     @State private var selectedGroupId: String
 
-    init(groups: [PwdGroup], entry: PwdEntry? = nil, onSave: @escaping (PwdEntry) -> Void = { _ in }, onCancel: @escaping () -> Void = {}) {
+    init(groups: PwdGroups, entry: PwdEntry? = nil, onSave: @escaping (PwdEntry) -> Void = { _ in }, onCancel: @escaping () -> Void = {}) {
         self.groups = groups
         let entryValue = entry ?? PwdEntry()
         self.initialEntry = entryValue
@@ -170,7 +107,7 @@ struct PwdEntryView: View {
     }
 
     private func saveTapped() {
-        var entry = initialEntry
+        let entry = initialEntry
         entry.title = title
         entry.url = url
         entry.userName = userName
@@ -183,11 +120,20 @@ struct PwdEntryView: View {
 
 #Preview {
     NavigationView {
-        let groups = [
-            PwdGroup(id: UUID().uuidString, name: "General"),
-            PwdGroup(id: UUID().uuidString, name: "Work"),
-            PwdGroup(id: UUID().uuidString, name: "Personal")
-        ]
+        let groups = PwdGroups()
+        
+        // Create fake test groups
+        let generalGroup = groups.addNewGroup()
+        generalGroup.name = "General"
+        
+        let workGroup = groups.addNewGroup()
+        workGroup.name = "Work"
+        
+        let personalGroup = groups.addNewGroup()
+        personalGroup.name = "Personal"
+        
+       
+        
         return PwdEntryView(groups: groups)
     }
 }
