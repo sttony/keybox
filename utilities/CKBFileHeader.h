@@ -54,12 +54,25 @@ public:
 
     uint32_t Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint32_t &cbRealSize);
 
+    uint32_t GetCompressFlag() const {
+        return m_compress_flag;
+    }
+
+    uint32_t SetCompressFlag(uint32_t flag) {
+        m_compress_flag = flag;
+        return 0;
+    }
+
     PBKDF2_256_PARAMETERS &GetDerivativeParameters() {
         return m_key_derivative_parameters;
     }
 
     const std::vector<unsigned char> &GetIV() {
         return m_encryption_iv;
+    }
+
+    void SetIV(const std::vector<unsigned char> &iv) {
+        m_encryption_iv = iv;
     }
 
     const std::vector<unsigned char>& GetHMACSignature(){

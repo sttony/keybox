@@ -12,6 +12,7 @@ uint32_t CGZcompressor::decompressData(const unsigned char *pCompressedData,
                                        size_t cbCompressedDataSize,
                                        vector<unsigned char> &vUnCompressedData) {
     vector<unsigned char> vBuffer( 4096);
+    memset(&m_zs, 0, sizeof(m_zs));
     auto status = inflateInit2(&m_zs, 16 + MAX_WBITS);
     if (status) {
        return status;
@@ -29,7 +30,9 @@ uint32_t CGZcompressor::decompressData(const unsigned char *pCompressedData,
             return status;
         }
         vUnCompressedData.insert(vUnCompressedData.end(), vBuffer.begin(), vBuffer.begin() + 4096 - m_zs.avail_out);
-
+        if (status == Z_STREAM_END) {
+            break;
+        }
     } while ( m_zs.avail_in > 0);
 
     inflateEnd(&m_zs);
@@ -41,6 +44,7 @@ uint32_t CGZcompressor::compressData(const unsigned char *pUncompressedData, siz
     const size_t worstCaseSize = compressBound(cbUncompressedData) + 16;
     vCompressedData.resize(worstCaseSize);
 
+    memset(&m_zs, 0, sizeof(m_zs));
     auto status = deflateInit2(&m_zs,
                                Z_DEFAULT_COMPRESSION,
                                Z_DEFLATED,
@@ -54,16 +58,16 @@ uint32_t CGZcompressor::compressData(const unsigned char *pUncompressedData, siz
     m_zs.next_in = (Bytef *) pUncompressedData;
     m_zs.avail_in = static_cast<uInt>(cbUncompressedData);
     m_zs.next_out = (Bytef *) (vCompressedData.data());
-    m_zs.avail_out =worstCaseSize;
+    m_zs.avail_out = worstCaseSize;
 
     do {
-        status = deflate(&m_zs, (m_zs.avail_in == 0 ? Z_FINISH : Z_SYNC_FLUSH));
+        status = deflate(&m_zs, Z_FINISH);
         if (status != Z_OK && status != Z_STREAM_END) {
             deflateEnd(&m_zs);
             vCompressedData.clear();
             return status;
         }
-    } while (m_zs.avail_out == 0 && status != Z_STREAM_END);
+    } while (status != Z_STREAM_END && m_zs.avail_out == 0);
     vCompressedData.resize(m_zs.total_out);
     deflateEnd(&m_zs);
     return 0;

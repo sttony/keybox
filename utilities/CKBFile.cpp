@@ -19,6 +19,7 @@
 #include "CRequest.h"
 #include "InitGlobalRG.h"
 #include "CMaskedBlob.h"
+#include "CGZcompressor.h"
 
 using namespace std;
 
@@ -147,6 +148,7 @@ uint32_t CKBFile::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint3
     boost::property_tree::write_json(oss, pay_load);
     string pay_load_json = oss.str();
 
+    m_header.SetCompressFlag(1); // 1 for GZIP
     uint32_t uResult = 0;
     if(pBuffer != nullptr) {
         uResult = m_header.CalculateHMAC(m_master_key.ShowBin(),
@@ -166,11 +168,18 @@ uint32_t CKBFile::Serialize(unsigned char *pBuffer, uint32_t cbBufferSize, uint3
         }
     }
 
+    vector<unsigned char> data_to_encrypt;
+    CGZcompressor compressor;
+    uResult = compressor.compressData(reinterpret_cast<const unsigned char *>(pay_load_json.data()), pay_load_json.size(), data_to_encrypt);
+    if (uResult) {
+        return uResult;
+    }
+
     vector<unsigned char> encrypted_buff;
     CCipherEngine cipherEngine;
     uResult = cipherEngine.AES256EnDecrypt(
-            (unsigned char *) pay_load_json.data(),
-            pay_load_json.size(),
+            data_to_encrypt.data(),
+            data_to_encrypt.size(),
             m_master_key.ShowBin(),
             m_header.GetIV(),
             CCipherEngine::AES_CHAIN_MODE_CBC,
@@ -228,6 +237,16 @@ uint32_t CKBFile::LoadPayload(const unsigned char *pBuffer, uint32_t cbBufferSiz
     );
     if (uResult) {
         return uResult;
+    }
+
+    if (m_header.GetCompressFlag() == 1) { // 1 for GZIP
+        CGZcompressor compressor;
+        vector<unsigned char> uncompressed_buff;
+        uResult = compressor.decompressData(decrypted_buff.data(), decrypted_buff.size(), uncompressed_buff);
+        if (uResult) {
+            return uResult;
+        }
+        decrypted_buff = std::move(uncompressed_buff);
     }
 
     // load json from decrypted_buff
