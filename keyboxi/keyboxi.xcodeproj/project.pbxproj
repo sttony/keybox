@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		73006C7C2ED7CC7500AA44D6 /* libutilities.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73006C5D2ED7CBAE00AA44D6 /* libutilities.a */; };
 		73006C7F2EE0F98C00AA44D6 /* OPwdGroup.mm in Sources */ = {isa = PBXBuildFile; fileRef = 73006C7E2EE0F98C00AA44D6 /* OPwdGroup.mm */; };
 		73006C8C2EE39C2A00AA44D6 /* PwdEntryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73006C8B2EE39C2A00AA44D6 /* PwdEntryListView.swift */; };
 		73006C8E2EE7A52400AA44D6 /* PwdEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73006C8D2EE7A52400AA44D6 /* PwdEntry.swift */; };
@@ -24,30 +23,13 @@
 		73E556D62BFEAB9000733C0D /* keyboxiUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E556D52BFEAB9000733C0D /* keyboxiUITestsLaunchTests.swift */; };
 		73E556FF2BFEBB1D00733C0D /* ORandomGenerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 73E556FE2BFEBB1D00733C0D /* ORandomGenerator.mm */; };
 		9D0FBC3E2EBC620300FBC50F /* PwdEntryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0FBC3D2EBC620300FBC50F /* PwdEntryTests.swift */; };
+		9D8670052F1F26EF0023B366 /* OCKBFileHeader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8670042F1F26EF0023B366 /* OCKBFileHeader.mm */; };
+		9D86700D2F1F28D60023B366 /* OCKBFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D86700C2F1F28D60023B366 /* OCKBFile.mm */; };
+		9DB9A2812F1F234700FAB1B3 /* OPasswordGenerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DB9A27E2F1F234700FAB1B3 /* OPasswordGenerator.mm */; };
+		9DEE498E2F1F103700D37869 /* libutilities.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DEE498D2F1F0F2000D37869 /* libutilities.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		73006C5C2ED7CBAE00AA44D6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 73B9B56A2ED7CA9000C137E5 /* keybox.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D9BFE63B012140FB97A300D1;
-			remoteInfo = utilities;
-		};
-		73006C7A2ED7CC6F00AA44D6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 73B9B56A2ED7CA9000C137E5 /* keybox.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = F5DEAE72CF04F81B7A0E42B9;
-			remoteInfo = utilities;
-		};
-		73006C872EE0FA0E00AA44D6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 73006C742ED7CC6300AA44D6 /* keybox.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D9BFE63B012140FB97A300D1;
-			remoteInfo = utilities;
-		};
 		73B9B5682ED7CA3000C137E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 73E556AD2BFEAB8E00733C0D /* Project object */;
@@ -69,6 +51,13 @@
 			remoteGlobalIDString = 73E556B42BFEAB8E00733C0D;
 			remoteInfo = keyboxi;
 		};
+		9DEE498C2F1F0F2000D37869 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9DEE49842F1F0F2000D37869 /* keybox.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8F0D29307BEB4934A7DE3594;
+			remoteInfo = utilities;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -84,7 +73,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		73006C742ED7CC6300AA44D6 /* keybox.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = keybox.xcodeproj; path = "../iosbuild/utilities-ios-device/keybox.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		73006C7D2EE0F98C00AA44D6 /* OPwdGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OPwdGroup.h; sourceTree = "<group>"; };
 		73006C7E2EE0F98C00AA44D6 /* OPwdGroup.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OPwdGroup.mm; sourceTree = "<group>"; };
 		73006C8B2EE39C2A00AA44D6 /* PwdEntryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdEntryListView.swift; sourceTree = "<group>"; };
@@ -92,7 +80,6 @@
 		738D2C852E5E1D43008F15A0 /* OPwdEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OPwdEntry.h; sourceTree = "<group>"; };
 		738D2C862E5E1D5D008F15A0 /* OPwdEntry.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OPwdEntry.mm; sourceTree = "<group>"; };
 		73A3CCD32F05CDA700BAE133 /* PwdGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdGroup.swift; sourceTree = "<group>"; };
-		73B9B56A2ED7CA9000C137E5 /* keybox.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = keybox.xcodeproj; path = "../iosbuild/utilities-ios-device/keybox.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		73C0D84E2E62377F00DC5181 /* PwdEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdEntryView.swift; sourceTree = "<group>"; };
 		73E556B52BFEAB8E00733C0D /* keyboxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = keyboxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E556B82BFEAB8E00733C0D /* keyboxiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboxiApp.swift; sourceTree = "<group>"; };
@@ -109,6 +96,13 @@
 		73E556FB2BFEBAC100733C0D /* ORandomGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORandomGenerator.h; sourceTree = "<group>"; };
 		73E556FE2BFEBB1D00733C0D /* ORandomGenerator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ORandomGenerator.mm; sourceTree = "<group>"; };
 		9D0FBC3D2EBC620300FBC50F /* PwdEntryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdEntryTests.swift; sourceTree = "<group>"; };
+		9D8670032F1F26EF0023B366 /* OCKBFileHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCKBFileHeader.h; sourceTree = "<group>"; };
+		9D8670042F1F26EF0023B366 /* OCKBFileHeader.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OCKBFileHeader.mm; sourceTree = "<group>"; };
+		9D86700B2F1F28D60023B366 /* OCKBFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCKBFile.h; sourceTree = "<group>"; };
+		9D86700C2F1F28D60023B366 /* OCKBFile.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OCKBFile.mm; sourceTree = "<group>"; };
+		9DB9A27D2F1F234700FAB1B3 /* OPasswordGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OPasswordGenerator.h; sourceTree = "<group>"; };
+		9DB9A27E2F1F234700FAB1B3 /* OPasswordGenerator.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OPasswordGenerator.mm; sourceTree = "<group>"; };
+		9DEE49842F1F0F2000D37869 /* keybox.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = keybox.xcodeproj; path = "../iosbuild/iosbuild/utilities-ios-device/keybox.xcodeproj"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73006C7C2ED7CC7500AA44D6 /* libutilities.a in Frameworks */,
+				9DEE498E2F1F103700D37869 /* libutilities.a in Frameworks */,
 				73E511602C068D91007389F8 /* libobjcWrap.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -145,22 +139,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		73006C572ED7CBAE00AA44D6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				73006C5D2ED7CBAE00AA44D6 /* libutilities.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		73006C822EE0FA0E00AA44D6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				73006C882EE0FA0E00AA44D6 /* libutilities.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		73E5115F2C068D91007389F8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,14 +149,13 @@
 		73E556AC2BFEAB8E00733C0D = {
 			isa = PBXGroup;
 			children = (
-				73006C742ED7CC6300AA44D6 /* keybox.xcodeproj */,
+				9DEE49842F1F0F2000D37869 /* keybox.xcodeproj */,
 				73E556B72BFEAB8E00733C0D /* keyboxi */,
 				73E556C82BFEAB9000733C0D /* keyboxiTests */,
 				73E556D22BFEAB9000733C0D /* keyboxiUITests */,
 				73E556F42BFEB3EE00733C0D /* objcWrap */,
 				73E556B62BFEAB8E00733C0D /* Products */,
 				73E5115F2C068D91007389F8 /* Frameworks */,
-				73B9B56A2ED7CA9000C137E5 /* keybox.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -238,6 +215,12 @@
 		73E556F42BFEB3EE00733C0D /* objcWrap */ = {
 			isa = PBXGroup;
 			children = (
+				9D86700B2F1F28D60023B366 /* OCKBFile.h */,
+				9D86700C2F1F28D60023B366 /* OCKBFile.mm */,
+				9D8670032F1F26EF0023B366 /* OCKBFileHeader.h */,
+				9D8670042F1F26EF0023B366 /* OCKBFileHeader.mm */,
+				9DB9A27D2F1F234700FAB1B3 /* OPasswordGenerator.h */,
+				9DB9A27E2F1F234700FAB1B3 /* OPasswordGenerator.mm */,
 				738D2C862E5E1D5D008F15A0 /* OPwdEntry.mm */,
 				738D2C852E5E1D43008F15A0 /* OPwdEntry.h */,
 				73006C7D2EE0F98C00AA44D6 /* OPwdGroup.h */,
@@ -246,6 +229,14 @@
 				73E556FB2BFEBAC100733C0D /* ORandomGenerator.h */,
 			);
 			path = objcWrap;
+			sourceTree = "<group>";
+		};
+		9DEE49872F1F0F2000D37869 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9DEE498D2F1F0F2000D37869 /* libutilities.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,7 +253,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				73006C7B2ED7CC6F00AA44D6 /* PBXTargetDependency */,
 				73B9B5692ED7CA3000C137E5 /* PBXTargetDependency */,
 			);
 			name = keyboxi;
@@ -362,12 +352,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 73006C822EE0FA0E00AA44D6 /* Products */;
-					ProjectRef = 73006C742ED7CC6300AA44D6 /* keybox.xcodeproj */;
-				},
-				{
-					ProductGroup = 73006C572ED7CBAE00AA44D6 /* Products */;
-					ProjectRef = 73B9B56A2ED7CA9000C137E5 /* keybox.xcodeproj */;
+					ProductGroup = 9DEE49872F1F0F2000D37869 /* Products */;
+					ProjectRef = 9DEE49842F1F0F2000D37869 /* keybox.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -381,18 +367,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		73006C5D2ED7CBAE00AA44D6 /* libutilities.a */ = {
+		9DEE498D2F1F0F2000D37869 /* libutilities.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libutilities.a;
-			remoteRef = 73006C5C2ED7CBAE00AA44D6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		73006C882EE0FA0E00AA44D6 /* libutilities.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libutilities.a;
-			remoteRef = 73006C872EE0FA0E00AA44D6 /* PBXContainerItemProxy */;
+			remoteRef = 9DEE498C2F1F0F2000D37869 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -460,7 +439,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				738D2C872E5E1D60008F15A0 /* OPwdEntry.mm in Sources */,
+				9DB9A2812F1F234700FAB1B3 /* OPasswordGenerator.mm in Sources */,
+				9D8670052F1F26EF0023B366 /* OCKBFileHeader.mm in Sources */,
 				73E556FF2BFEBB1D00733C0D /* ORandomGenerator.mm in Sources */,
+				9D86700D2F1F28D60023B366 /* OCKBFile.mm in Sources */,
 				73006C7F2EE0F98C00AA44D6 /* OPwdGroup.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -468,11 +450,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		73006C7B2ED7CC6F00AA44D6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = utilities;
-			targetProxy = 73006C7A2ED7CC6F00AA44D6 /* PBXContainerItemProxy */;
-		};
 		73B9B5692ED7CA3000C137E5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 73E556F22BFEB3EE00733C0D /* objcWrap */;
@@ -615,9 +592,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"keyboxi/Preview Content\"";
+				DEVELOPMENT_TEAM = J55RY3ZLFC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "";
@@ -634,6 +613,7 @@
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = com.k3ybox.keyboxi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = keyboxi/objc_bridge.h;
 				SWIFT_VERSION = 5.0;
@@ -646,9 +626,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"keyboxi/Preview Content\"";
+				DEVELOPMENT_TEAM = J55RY3ZLFC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "";
@@ -666,6 +648,7 @@
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = com.k3ybox.keyboxi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = keyboxi/objc_bridge.h;
 				SWIFT_VERSION = 5.0;

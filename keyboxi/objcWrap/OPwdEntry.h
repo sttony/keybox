@@ -13,6 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// Initialize with existing C++ CPwdEntry pointer
 - (instancetype)initWithCppEntry:(void *)cppEntry;
 
+/**
+ * Get the underlying C++ CPwdEntry object
+ * @return Copy of the C++ CPwdEntry object
+ */
+
+- (void*)getCppEntry;
+
 /// Get and  the ID
 - (NSUUID*) getID;
 
@@ -39,6 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Get and set the group UUID
 - (NSUUID*) getGroupUUID;
 - (void)setGroupUUID:(NSUUID*)uuid;
+
+
 
 @end
 

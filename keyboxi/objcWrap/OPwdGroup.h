@@ -8,6 +8,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OPwdGroup : NSObject
 
+/**
+ * Initialize with an existing C++ CPwdGroup pointer
+ * @param cppGroup Pointer to an existing CPwdGroup object
+ * @return Initialized OPwdGroup instance
+ */
+- (instancetype)initWithCppGroup:(void *)cppGroup;
+
 /// Initialize with a name (a new UUID will be generated in C++)
 - (instancetype)initWithName:(NSString *)name;
 

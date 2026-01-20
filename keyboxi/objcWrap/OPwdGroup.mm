@@ -33,6 +33,15 @@
     return self;
 }
 
+// Initialize with an existing C++ CPwdGroup pointer
+- (instancetype)initWithCppGroup:(void *)cppGroup {
+    self = [super init];
+    if (self) {
+        _group = (CPwdGroup *)cppGroup;
+    }
+    return self;
+}
+
 - (void)dealloc {
     delete _group;
 }

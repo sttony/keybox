@@ -96,4 +96,10 @@
     _entry->SetGroup(bUuid);
 }
 
+/// Get the underlying C++ CPwdEntry object
+- (CPwdEntry*)getCppEntry {
+    return _entry;
+}
+
+
 @end
