@@ -3,37 +3,72 @@
 import SwiftUI
 
 struct ContentView: View {
-    var m_rg = ORandomGenerator(1)
-    @State var te = ""
+    @EnvironmentObject var appState: AppState
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            
-            TextField("test", text:$te)
-            Button(action: {
-                te = "hello \(m_rg!.getNextInt())"
-            }){
-                Text("Generate")
+        Group {
+            if let error = appState.loadError {
+                VStack(spacing: 20) {
+                    Image(systemName: "exclamationmark.triangle")
+                        .font(.system(size: 50))
+                        .foregroundColor(.orange)
+
+                    Text("Error Loading Keybox")
+                        .font(.headline)
+
+                    Text(error)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                }
+            } else if !appState.isFileLoaded {
+                VStack(spacing: 20) {
+                    ProgressView()
+                        .scaleEffect(1.5)
+
+                    Text("Loading keybox.kbx...")
+                        .font(.headline)
+                }
+            } else if !appState.isUnlocked {
+                VStack(spacing: 20) {
+                    Image(systemName: "lock.fill")
+                        .font(.system(size: 50))
+                        .foregroundColor(.blue)
+
+                    Text("Keybox Loaded")
+                        .font(.headline)
+
+                    Button("Unlock with Test Password") {
+                        // For testing: simulate unlock
+                        appState.loadPayloadAfterUnlock()
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+            } else {
+                PwdEntryListView(entries: appState.entries, groups: appState.groups)
             }
-            
-        }
-        .padding()
-        .onAppear(){
-            let keys: [UInt8] = [0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
-                                0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18,
-                                0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28,
-                                0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38]
-           
-            let key = Data(bytes:keys)
-            let ivs: [UInt8] = [0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08]
-            let iv = Data(bytes: ivs)
-            m_rg?.initWithKey(key, iv: iv)
         }
     }
 }
 
 #Preview {
-    ContentView()
+    let appState = AppState()
+
+    // Add test data for preview
+    let entry1 = appState.entries.addNew()
+    entry1.title = "Gmail"
+    entry1.url = "https://mail.google.com"
+    entry1.userName = "user@gmail.com"
+
+    let entry2 = appState.entries.addNew()
+    entry2.title = "GitHub"
+    entry2.url = "https://github.com"
+    entry2.userName = "john_doe"
+
+    appState.isFileLoaded = true
+    appState.isUnlocked = true
+
+    return ContentView()
+        .environmentObject(appState)
 }

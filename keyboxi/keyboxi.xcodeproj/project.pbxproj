@@ -12,6 +12,11 @@
 		73006C8E2EE7A52400AA44D6 /* PwdEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73006C8D2EE7A52400AA44D6 /* PwdEntry.swift */; };
 		738D2C872E5E1D60008F15A0 /* OPwdEntry.mm in Sources */ = {isa = PBXBuildFile; fileRef = 738D2C862E5E1D5D008F15A0 /* OPwdEntry.mm */; };
 		73A3CCD42F05CDA700BAE133 /* PwdGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3CCD32F05CDA700BAE133 /* PwdGroup.swift */; };
+		73B016502F2D2F510062C06D /* libutilities.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B0164F2F2D2EBF0062C06D /* libutilities.a */; };
+		73B0165F2F2D37C40062C06D /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B0165E2F2D37C40062C06D /* libz.a */; };
+		73B016612F2D37C60062C06D /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B016602F2D37C60062C06D /* libssl.a */; };
+		73B016622F2D37C80062C06D /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B0165C2F2D37BA0062C06D /* libcurl.a */; };
+		73B016632F2D37CA0062C06D /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B0165A2F2D37B80062C06D /* libcrypto.a */; };
 		73C0D84F2E62377F00DC5181 /* PwdEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C0D84E2E62377F00DC5181 /* PwdEntryView.swift */; };
 		73E511602C068D91007389F8 /* libobjcWrap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E556F32BFEB3EE00733C0D /* libobjcWrap.a */; };
 		73E556B92BFEAB8E00733C0D /* keyboxiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E556B82BFEAB8E00733C0D /* keyboxiApp.swift */; };
@@ -26,10 +31,16 @@
 		9D8670052F1F26EF0023B366 /* OCKBFileHeader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8670042F1F26EF0023B366 /* OCKBFileHeader.mm */; };
 		9D86700D2F1F28D60023B366 /* OCKBFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D86700C2F1F28D60023B366 /* OCKBFile.mm */; };
 		9DB9A2812F1F234700FAB1B3 /* OPasswordGenerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DB9A27E2F1F234700FAB1B3 /* OPasswordGenerator.mm */; };
-		9DEE498E2F1F103700D37869 /* libutilities.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DEE498D2F1F0F2000D37869 /* libutilities.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		73B0164E2F2D2EBF0062C06D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 73B016452F2D2EBF0062C06D /* keybox.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D9BFE63B012140FB97A300D1;
+			remoteInfo = utilities;
+		};
 		73B9B5682ED7CA3000C137E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 73E556AD2BFEAB8E00733C0D /* Project object */;
@@ -50,13 +61,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 73E556B42BFEAB8E00733C0D;
 			remoteInfo = keyboxi;
-		};
-		9DEE498C2F1F0F2000D37869 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9DEE49842F1F0F2000D37869 /* keybox.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8F0D29307BEB4934A7DE3594;
-			remoteInfo = utilities;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -80,6 +84,15 @@
 		738D2C852E5E1D43008F15A0 /* OPwdEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OPwdEntry.h; sourceTree = "<group>"; };
 		738D2C862E5E1D5D008F15A0 /* OPwdEntry.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OPwdEntry.mm; sourceTree = "<group>"; };
 		73A3CCD32F05CDA700BAE133 /* PwdGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdGroup.swift; sourceTree = "<group>"; };
+		73B016452F2D2EBF0062C06D /* keybox.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = keybox.xcodeproj; path = "../iosbuild/utilities-ios-device/keybox.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		73B016512F2D31E10062C06D /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = "../../../githublocal/vcpkg/installed/arm64-ios/lib/libz.a"; sourceTree = "<group>"; };
+		73B016532F2D31E60062C06D /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "../../../githublocal/vcpkg/installed/arm64-ios/lib/libssl.a"; sourceTree = "<group>"; };
+		73B016552F2D31ED0062C06D /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "../../../githublocal/vcpkg/installed/arm64-ios/lib/libcurl.a"; sourceTree = "<group>"; };
+		73B016572F2D31F00062C06D /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../../../githublocal/vcpkg/installed/arm64-ios/lib/libcrypto.a"; sourceTree = "<group>"; };
+		73B0165A2F2D37B80062C06D /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../../../githublocal/vcpkg/installed/arm64-ios-simulator/lib/libcrypto.a"; sourceTree = "<group>"; };
+		73B0165C2F2D37BA0062C06D /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "../../../githublocal/vcpkg/installed/arm64-ios-simulator/lib/libcurl.a"; sourceTree = "<group>"; };
+		73B0165E2F2D37C40062C06D /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = "../../../githublocal/vcpkg/installed/arm64-ios-simulator/lib/libz.a"; sourceTree = "<group>"; };
+		73B016602F2D37C60062C06D /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "../../../githublocal/vcpkg/installed/arm64-ios-simulator/lib/libssl.a"; sourceTree = "<group>"; };
 		73C0D84E2E62377F00DC5181 /* PwdEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdEntryView.swift; sourceTree = "<group>"; };
 		73E556B52BFEAB8E00733C0D /* keyboxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = keyboxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E556B82BFEAB8E00733C0D /* keyboxiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboxiApp.swift; sourceTree = "<group>"; };
@@ -102,7 +115,6 @@
 		9D86700C2F1F28D60023B366 /* OCKBFile.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OCKBFile.mm; sourceTree = "<group>"; };
 		9DB9A27D2F1F234700FAB1B3 /* OPasswordGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OPasswordGenerator.h; sourceTree = "<group>"; };
 		9DB9A27E2F1F234700FAB1B3 /* OPasswordGenerator.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OPasswordGenerator.mm; sourceTree = "<group>"; };
-		9DEE49842F1F0F2000D37869 /* keybox.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = keybox.xcodeproj; path = "../iosbuild/iosbuild/utilities-ios-device/keybox.xcodeproj"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,8 +122,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DEE498E2F1F103700D37869 /* libutilities.a in Frameworks */,
+				73B016502F2D2F510062C06D /* libutilities.a in Frameworks */,
 				73E511602C068D91007389F8 /* libobjcWrap.a in Frameworks */,
+				73B016632F2D37CA0062C06D /* libcrypto.a in Frameworks */,
+				73B016622F2D37C80062C06D /* libcurl.a in Frameworks */,
+				73B016612F2D37C60062C06D /* libssl.a in Frameworks */,
+				73B0165F2F2D37C40062C06D /* libz.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,9 +155,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		73B016492F2D2EBF0062C06D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				73B0164F2F2D2EBF0062C06D /* libutilities.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		73E5115F2C068D91007389F8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				73B016602F2D37C60062C06D /* libssl.a */,
+				73B0165E2F2D37C40062C06D /* libz.a */,
+				73B0165C2F2D37BA0062C06D /* libcurl.a */,
+				73B016572F2D31F00062C06D /* libcrypto.a */,
+				73B0165A2F2D37B80062C06D /* libcrypto.a */,
+				73B016552F2D31ED0062C06D /* libcurl.a */,
+				73B016532F2D31E60062C06D /* libssl.a */,
+				73B016512F2D31E10062C06D /* libz.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -149,13 +181,13 @@
 		73E556AC2BFEAB8E00733C0D = {
 			isa = PBXGroup;
 			children = (
-				9DEE49842F1F0F2000D37869 /* keybox.xcodeproj */,
 				73E556B72BFEAB8E00733C0D /* keyboxi */,
 				73E556C82BFEAB9000733C0D /* keyboxiTests */,
 				73E556D22BFEAB9000733C0D /* keyboxiUITests */,
 				73E556F42BFEB3EE00733C0D /* objcWrap */,
 				73E556B62BFEAB8E00733C0D /* Products */,
 				73E5115F2C068D91007389F8 /* Frameworks */,
+				73B016452F2D2EBF0062C06D /* keybox.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -229,14 +261,6 @@
 				73E556FB2BFEBAC100733C0D /* ORandomGenerator.h */,
 			);
 			path = objcWrap;
-			sourceTree = "<group>";
-		};
-		9DEE49872F1F0F2000D37869 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9DEE498D2F1F0F2000D37869 /* libutilities.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,8 +376,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 9DEE49872F1F0F2000D37869 /* Products */;
-					ProjectRef = 9DEE49842F1F0F2000D37869 /* keybox.xcodeproj */;
+					ProductGroup = 73B016492F2D2EBF0062C06D /* Products */;
+					ProjectRef = 73B016452F2D2EBF0062C06D /* keybox.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -367,11 +391,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		9DEE498D2F1F0F2000D37869 /* libutilities.a */ = {
+		73B0164F2F2D2EBF0062C06D /* libutilities.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libutilities.a;
-			remoteRef = 9DEE498C2F1F0F2000D37869 /* PBXContainerItemProxy */;
+			remoteRef = 73B0164E2F2D2EBF0062C06D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -609,6 +633,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "/Users/tonglt/githublocal/vcpkg/installed/arm64-ios-simulator/lib";
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = com.k3ybox.keyboxi;
@@ -643,7 +668,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = ../iosbuild/Release;
+				LIBRARY_SEARCH_PATHS = "/Users/tonglt/githublocal/vcpkg/installed/arm64-ios-simulator/lib";
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = com.k3ybox.keyboxi;

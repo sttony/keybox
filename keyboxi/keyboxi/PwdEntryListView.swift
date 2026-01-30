@@ -59,15 +59,25 @@ struct PwdRow: View {
 
 
 struct PwdEntryListView: View {
-    @StateObject public var entries: PwdEntries
-    @ObservedObject public var groups: PwdGroups
-    
+    @ObservedObject var entries: PwdEntries
+    @ObservedObject var groups: PwdGroups
+
     var body: some View {
         NavigationView {
             List {
                 ForEach(entries.entries) { entry in
                     NavigationLink(destination: PwdEntryView(groups: groups, entry: entry)) {
                         PwdRow(entry: entry, store: entries)
+                    }
+                }
+            }
+            .navigationTitle("Passwords")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        _ = entries.addNew()
+                    }) {
+                        Image(systemName: "plus")
                     }
                 }
             }
