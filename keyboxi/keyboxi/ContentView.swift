@@ -4,6 +4,9 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var appState: AppState
+    @State private var newMasterPassword: String = ""
+    @State private var confirmMasterPassword: String = ""
+    @State private var passwordError: String?
 
     var body: some View {
         Group {
@@ -44,6 +47,39 @@ struct ContentView: View {
                         appState.loadPayloadAfterUnlock()
                     }
                     .buttonStyle(.borderedProminent)
+                }
+                .sheet(isPresented: $appState.needsMasterPassword) {
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text("Create Master Password")
+                            .font(.headline)
+                        SecureField("Enter master password", text: $newMasterPassword)
+                        SecureField("Confirm master password", text: $confirmMasterPassword)
+                        if let err = passwordError {
+                            Text(err)
+                                .foregroundColor(.red)
+                                .font(.caption)
+                        }
+                        HStack {
+                            Spacer()
+                            Button("Create") {
+                                guard !newMasterPassword.isEmpty else {
+                                    passwordError = "Password cannot be empty"
+                                    return
+                                }
+                                guard newMasterPassword == confirmMasterPassword else {
+                                    passwordError = "Passwords do not match"
+                                    return
+                                }
+                                passwordError = nil
+                                appState.finalizeNewFile(withMasterPassword: newMasterPassword)
+                                newMasterPassword = ""
+                                confirmMasterPassword = ""
+                            }
+                            .buttonStyle(.borderedProminent)
+                        }
+                    }
+                    .padding()
+                    .presentationDetents([.medium])
                 }
             } else {
                 PwdEntryListView(entries: appState.entries, groups: appState.groups)

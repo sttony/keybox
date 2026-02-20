@@ -125,7 +125,7 @@ typedef NS_ENUM(NSInteger, OCKBFileHeaderErrorCode) {
     return [NSData dataWithBytes:signature.data() length:signature.size()];
 }
 
-- (BOOL)setDerivativeParametersWithSalt:(NSData *)salt
+- (BOOL)setDerivativeParameters:(NSData *)salt
                                   rounds:(int)numRounds
                                   error:(NSError **)error {
     if (!salt || salt.length == 0) {

@@ -13,6 +13,7 @@
 #import "../../utilities/CPwdEntry.h"
 #import "../../utilities/CPwdGroup.h"
 #import "../../utilities/CMaskedBlob.h"
+#import "../../utilities/error_code.h"
 
 NSString *const OCKBFileErrorDomain = @"OCKBFileErrorDomain";
 
@@ -139,12 +140,22 @@ typedef NS_ENUM(NSInteger, OCKBFileErrorCode) {
 }
 
 - (NSData *)serializeWithError:(NSError **)error {
-    // Estimate buffer size - adjust if needed
-    uint32_t bufferSize = 65536;
+    uint32_t realSize = 0;
+    uint32_t result = _cppFile->Serialize(nullptr, 0, realSize);
+    
+    if (result != 0 && result != ERROR_BUFFER_TOO_SMALL) {
+        if (error) {
+            *error = [NSError errorWithDomain:OCKBFileErrorDomain
+                                        code:OCKBFileErrorSerializationFailed
+                                    userInfo:@{NSLocalizedDescriptionKey: @"Failed to calculate serialization size"}];
+        }
+        return nil;
+    }
+    
+    uint32_t bufferSize = realSize + 32;
     unsigned char *buffer = new unsigned char[bufferSize];
     
-    uint32_t realSize = 0;
-    uint32_t result = _cppFile->Serialize(buffer, bufferSize, realSize);
+    result = _cppFile->Serialize(buffer, bufferSize, realSize);
     
     NSData *resultData = nil;
     
@@ -163,11 +174,22 @@ typedef NS_ENUM(NSInteger, OCKBFileErrorCode) {
 }
 
 - (NSData *)lockWithError:(NSError **)error {
-    uint32_t bufferSize = 65536;
+    uint32_t realSize = 0;
+    uint32_t result = _cppFile->Lock(nullptr, 0, realSize);
+    
+    if (result != 0 && result != ERROR_BUFFER_TOO_SMALL) {
+        if (error) {
+            *error = [NSError errorWithDomain:OCKBFileErrorDomain
+                                        code:OCKBFileErrorOperationFailed
+                                    userInfo:@{NSLocalizedDescriptionKey: @"Failed to calculate lock size"}];
+        }
+        return nil;
+    }
+    
+    uint32_t bufferSize = realSize + 32;
     unsigned char *buffer = new unsigned char[bufferSize];
     
-    uint32_t realSize = 0;
-    uint32_t result = _cppFile->Lock(buffer, bufferSize, realSize);
+    result = _cppFile->Lock(buffer, bufferSize, realSize);
     
     NSData *resultData = nil;
     
@@ -309,20 +331,27 @@ typedef NS_ENUM(NSInteger, OCKBFileErrorCode) {
     return _header;
 }
 
-- (void)setMasterKeyWithKey:(NSData *)key onePad:(NSData *)onePad {
-    if (!key || !onePad) {
+- (void)setMasterKey:(NSData *)password onePad:(NSData *)onePad {
+    if (!password || !onePad) {
         return;
     }
     
-    std::vector<unsigned char> cppKey((const unsigned char *)key.bytes,
-                                      (const unsigned char *)key.bytes + key.length);
-    std::vector<unsigned char> cppOnePad((const unsigned char *)onePad.bytes,
-                                         (const unsigned char *)onePad.bytes + onePad.length);
+    std::string rawPassword((const char *)password.bytes, password.length);
+    CCipherEngine cipherEngine;
+    std::vector<unsigned char> derivedKey;
     
-    _cppFile->SetMasterKey(cppKey, std::move(cppOnePad));
+    uint32_t result = cipherEngine.PBKDF2DerivativeKey(rawPassword, _cppFile->GetHeader().GetDerivativeParameters(), derivedKey);
+    
+    if (result == 0) {
+        std::vector<unsigned char> cppOnePad((const unsigned char *)onePad.bytes,
+                                             (const unsigned char *)onePad.bytes + onePad.length);
+        _cppFile->SetMasterKey(derivedKey, std::move(cppOnePad));
+    }
+    
+    cipherEngine.CleanString(rawPassword);
 }
 
-- (BOOL)setDerivativeParametersWithSalt:(NSData *)salt
+- (BOOL)setDerivativeParameters:(NSData *)salt
                                   rounds:(int)numRounds
                                   error:(NSError **)error {
     if (!salt || salt.length == 0) {

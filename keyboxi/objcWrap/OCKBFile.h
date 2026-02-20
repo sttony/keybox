@@ -112,7 +112,7 @@
  * @param key NSData containing the master key
  * @param onePad NSData containing the one-time pad
  */
-- (void)setMasterKeyWithKey:(NSData *)key onePad:(NSData *)onePad;
+- (void)setMasterKey:(NSData *)key onePad:(NSData *)onePad;
 
 /**
  * Set derivative parameters for key derivation
@@ -121,7 +121,7 @@
  * @param error Pointer to NSError for error information
  * @return YES if successful, NO otherwise
  */
-- (BOOL)setDerivativeParametersWithSalt:(NSData *)salt
+- (BOOL)setDerivativeParameters:(NSData *)salt
                                   rounds:(int)numRounds
                                   error:(NSError **)error;
 

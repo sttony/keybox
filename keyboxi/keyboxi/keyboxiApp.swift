@@ -45,6 +45,10 @@ class AppState: ObservableObject {
     @Published var groups = PwdGroups()
     @Published var isUnlocked: Bool = false
 
+    // UI state for creating a new file
+    @Published var needsMasterPassword: Bool = false
+    @Published var pendingNewFile: Bool = false
+
     private let keyboxFileName = "keybox.kbx"
 
     func loadKeyboxFile() {
@@ -80,39 +84,81 @@ class AppState: ObservableObject {
         } else {
             // File doesn't exist, create new empty KBFile like MainWindow::newFile
             print("keybox.kbx not found, creating new empty KBFile")
-            //createNewKBFile()
+            createNewKBFile()
         }
     }
 
-//     func createNewKBFile() {
-//         // Create new OCKBFile instance
-//         let ockbFile = OCKBFile()
-//
-//         // Generate random 32-byte salt for key derivation (like g_RG.GetNextBytes(32, randomv32))
-//         var saltBytes = [UInt8](repeating: 0, count: 32)
-//         let result = SecRandomCopyBytes(kSecRandomDefault, saltBytes.count, &saltBytes)
-//
-//         guard result == errSecSuccess else {
-//             loadError = "Failed to generate random salt"
-//             return
-//         }
-//
-//         let salt = Data(saltBytes)
-//
-//         // Set derivative parameters with the random salt and default rounds (60000)
-//         do {
-//             try ockbFile.setDerivativeParameters(withSalt: salt, rounds: 60000)
-//         } catch {
-//             loadError = "Failed to set derivative parameters: \(error.localizedDescription)"
-//             return
-//         }
-//
-//         // Store the file instance
-//         self.kbFile = ockbFile
-//         self.isFileLoaded = true
-//
-//         print("Created new empty KBFile")
-//     }
+    func createNewKBFile() {
+        // Create new OCKBFile instance
+        let ockbFile = OCKBFile()
+
+        // Generate random 32-byte salt for key derivation (like g_RG.GetNextBytes(32, randomv32))
+        var saltBytes = [UInt8](repeating: 0, count: 32)
+        let result = SecRandomCopyBytes(kSecRandomDefault, saltBytes.count, &saltBytes)
+
+        guard result == errSecSuccess else {
+            loadError = "Failed to generate random salt"
+            return
+        }
+
+        let salt = Data(saltBytes)
+
+        // Set derivative parameters with the random salt and default rounds (60000)
+        do {
+            try ockbFile.setDerivativeParameters(salt, rounds: 60000)
+        } catch {
+            loadError = "Failed to set derivative parameters: \(error.localizedDescription)"
+            return
+        }
+
+        // Keep the file instance and trigger password prompt
+        self.kbFile = ockbFile
+        self.isFileLoaded = true
+        self.pendingNewFile = true
+        self.needsMasterPassword = true
+
+        print("Created new empty KBFile; awaiting master password")
+    }
+
+    // Called by UI after user enters a master password to finalize and save the new file
+    func finalizeNewFile(withMasterPassword password: String) {
+        guard let ockbFile = kbFile else {
+            loadError = "Internal error: KB file not initialized"
+            return
+        }
+
+        // Convert password to UTF-8 bytes and generate a 32-byte one-time pad (for derived key size)
+        let passwordData = Data(password.utf8)
+        var onePad = Data(count: 32)
+        let genResult = onePad.withUnsafeMutableBytes { ptr in
+            SecRandomCopyBytes(kSecRandomDefault, 32, ptr.baseAddress!)
+        }
+        guard genResult == errSecSuccess else {
+            loadError = "Failed to generate one-time pad"
+            return
+        }
+
+        // Set the master key (now handles derivation internally)
+        ockbFile.setMasterKey(passwordData, onePad: onePad)
+
+        // Serialize and write to Documents/keybox.kbx
+        do {
+            guard let documentsPath = getDocumentsPath() else {
+                loadError = "Unable to access documents directory"
+                return
+            }
+            let fileURL = documentsPath.appendingPathComponent(keyboxFileName)
+
+            let data = try ockbFile.serialize()
+            try data.write(to: fileURL, options: .atomic)
+            print("New keybox.kbx created at: \(fileURL.path)")
+            // Now we have a saved file; remain locked until user unlocks explicitly in UI flow
+            self.needsMasterPassword = false
+            self.pendingNewFile = false
+        } catch {
+            loadError = "Failed to save new keybox.kbx: \(error.localizedDescription)"
+        }
+    }
 
     func loadPayloadAfterUnlock() {
         guard let ockbFile = kbFile else {
