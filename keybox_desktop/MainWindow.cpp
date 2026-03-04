@@ -16,6 +16,9 @@
 #include "CPwdGroupDlg.h"
 #include "CSyncDlg.h"
 #include "CSyncSettingDlg.h"
+#include <QEvent>
+#include <QMouseEvent>
+#include <QKeyEvent>
 #include "utilities/error_code.h"
 
 using namespace std;
@@ -50,11 +53,16 @@ MainWindow::MainWindow() {
     resize(800, 600);
     CreateToolbar();
 
+    m_inactivityTimer = new QTimer(this);
+    m_inactivityTimer->setSingleShot(true);
+    connect(m_inactivityTimer, &QTimer::timeout, this, &MainWindow::lockFile);
+
     RefreshActionEnabled();
     string last_file_path = g_Settings.GetLastKeyboxFilepath();
     if (!last_file_path.empty()) {
         while(OpenFile(last_file_path));
     }
+    restartInactivityTimer();
 }
 
 void MainWindow::CreateToolbar() {// toolbar
@@ -146,6 +154,9 @@ void MainWindow::CreateActions() {
 }
 
 void MainWindow::lockFile() {
+    if (m_inactivityTimer) {
+        m_inactivityTimer->stop();
+    }
     m_pModel->Lock();
     m_entry_table_view->hide();
     repaint();
@@ -160,6 +171,7 @@ void MainWindow::lockFile() {
             if (!m_pModel->LoadPayload() ) {
                 this->RefreshActionEnabled();
                 m_entry_table_view->show();
+                restartInactivityTimer();
                 break;
             }
         }
@@ -173,6 +185,7 @@ void MainWindow::lockFile() {
             msgBox.exec();
             if (msgBox.clickedButton() == customProceedButton) {
                 newFile();
+                // newFile will call restartInactivityTimer internally on success
                 break;
             }
         }
@@ -267,6 +280,7 @@ void MainWindow::newFile() {
         delete m_pModel;
         m_pModel = newModel;
         this->RefreshActionEnabled();
+        restartInactivityTimer();
     }
     else {
         delete newModel;
@@ -338,6 +352,7 @@ int MainWindow::OpenFile(const std::string &file_path) {
         m_entry_table_view->repaint();
         RefreshActionEnabled();
         setWindowTitle(file_path.c_str());
+        restartInactivityTimer();
     }
     else{
         delete newModel;
@@ -407,6 +422,7 @@ void MainWindow::changePassword() {
         if (ppdlg.exec() ) {
             m_pModel->ChangePassword(ppdlg.GetPassword());
             this->saveFile();
+            restartInactivityTimer();
             break;
         }
         else {
@@ -414,4 +430,19 @@ void MainWindow::changePassword() {
             break;
         }
     }
+}
+
+void MainWindow::restartInactivityTimer() {
+    if (m_inactivityTimer && m_pModel) {
+        m_inactivityTimer->start(10 * 60 * 1000); // 10 minutes
+    }
+}
+
+bool MainWindow::event(QEvent *event) {
+    if (event->type() == QEvent::MouseMove ||
+        event->type() == QEvent::MouseButtonPress ||
+        event->type() == QEvent::KeyPress) {
+        restartInactivityTimer();
+    }
+    return QMainWindow::event(event);
 }

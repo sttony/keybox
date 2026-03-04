@@ -9,6 +9,7 @@
 #include <QMainWindow>
 #include <QMenuBar>
 #include <QToolBar>
+#include <QTimer>
 #include <QStringListModel>
 #include "CKBModel.h"
 #include "CPwdEntryTableView.h"
@@ -21,6 +22,8 @@ public:
     MainWindow();
 
 private slots:
+
+    void restartInactivityTimer();
 
     void newFile();
 
@@ -89,6 +92,11 @@ private:
     void RefreshActionEnabled();
 
     int OpenFile(const std::string&);
+
+    QTimer *m_inactivityTimer = nullptr;
+
+protected:
+    bool event(QEvent *event) override;
 };
 
 
