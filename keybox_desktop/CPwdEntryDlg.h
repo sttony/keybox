@@ -10,6 +10,8 @@
 #include <QLineEdit>
 #include <QTextEdit>
 #include <QComboBox>
+#include <QPushButton>
+#include <QLabel>
 #include "CPasswordBox.h"
 #include "utilities/CPwdEntry.h"
 #include "utilities/CPwdGroup.h"
@@ -25,6 +27,9 @@ public:
 private slots:
 
     void onOK();
+    void onAttach();
+    void onOpenAttachment();
+    void onSaveAttachment();
 
 private:
     QLineEdit *m_title_box;
@@ -33,6 +38,12 @@ private:
 
     QPushButton *m_ok_button;
     QPushButton *m_cancel_button;
+
+    QLabel *m_attachment_status_label;
+    QPushButton *m_attach_button;
+    QPushButton *m_open_attachment_button;
+    QPushButton *m_save_attachment_button;
+
     CPasswordBox *m_pwd_box;
     CPasswordBox *m_note_box;
 

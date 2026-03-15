@@ -7,6 +7,11 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QLineEdit>
+#include <QFileDialog>
+#include <QDesktopServices>
+#include <QUrl>
+#include <QTemporaryFile>
+#include <QFileInfo>
 #include "CPwdEntryDlg.h"
 #include "../utilities/InitGlobalRG.h"
 
@@ -38,6 +43,51 @@ void CPwdEntryDlg::onOK() {
     m_PwdEntry.SetGroup(m_groups.at(m_group_box->currentIndex()).GetUUID());
 
     QDialog::accept();
+}
+
+void CPwdEntryDlg::onAttach() {
+    QString fileName = QFileDialog::getOpenFileName(this, "Attach File");
+    if (!fileName.isEmpty()) {
+        QFile file(fileName);
+        if (file.open(QIODevice::ReadOnly)) {
+            QByteArray data = file.readAll();
+            std::vector<unsigned char> blob(data.begin(), data.end());
+            m_PwdEntry.SetAttachment(blob, g_RG.GetNextBytes(blob.size()));
+            m_attachment_status_label->setText("Attached: " + QFileInfo(fileName).fileName());
+            m_open_attachment_button->setEnabled(true);
+            m_save_attachment_button->setEnabled(true);
+        }
+    }
+}
+
+void CPwdEntryDlg::onOpenAttachment() {
+    std::vector<unsigned char> blob = m_PwdEntry.GetAttachment();
+    if (blob.empty()) return;
+
+    QTemporaryFile* tempFile = new QTemporaryFile(this);
+    // Since we don't have the original filename, we just use a generic one or maybe we could have stored it.
+    // For now, let's use "attachment"
+    tempFile->setFileTemplate(QDir::tempPath() + "/keybox_attach_XXXXXX");
+    if (tempFile->open()) {
+        tempFile->write(reinterpret_cast<const char*>(blob.data()), blob.size());
+        tempFile->close();
+        tempFile->setAutoRemove(true);
+        QDesktopServices::openUrl(QUrl::fromLocalFile(tempFile->fileName()));
+    }
+}
+
+void CPwdEntryDlg::onSaveAttachment() {
+    std::vector<unsigned char> blob = m_PwdEntry.GetAttachment();
+    if (blob.empty()) return;
+
+    QString fileName = QFileDialog::getSaveFileName(this, "Save Attachment As");
+    if (!fileName.isEmpty()) {
+        QFile file(fileName);
+        if (file.open(QIODevice::WriteOnly)) {
+            file.write(reinterpret_cast<const char*>(blob.data()), blob.size());
+            file.close();
+        }
+    }
 }
 
 const CPwdEntry &CPwdEntryDlg::GetPwdEntry() {
@@ -86,6 +136,26 @@ void CPwdEntryDlg::init(const std::vector<CPwdGroup>& groups, QWidget *parent) {
     m_group_box->setCurrentIndex(group_idx);
     rootLayout->addWidget(m_group_box);
 
+    QHBoxLayout *attachmentLine = new QHBoxLayout;
+    m_attachment_status_label = new QLabel;
+    if (m_PwdEntry.GetAttachment().empty()) {
+        m_attachment_status_label->setText("No attachment");
+    } else {
+        m_attachment_status_label->setText("Has attachment");
+    }
+    m_attach_button = new QPushButton("Attach");
+    m_open_attachment_button = new QPushButton("Open");
+    m_save_attachment_button = new QPushButton("Save As");
+
+    m_open_attachment_button->setEnabled(!m_PwdEntry.GetAttachment().empty());
+    m_save_attachment_button->setEnabled(!m_PwdEntry.GetAttachment().empty());
+
+    attachmentLine->addWidget(m_attachment_status_label);
+    attachmentLine->addWidget(m_attach_button);
+    attachmentLine->addWidget(m_open_attachment_button);
+    attachmentLine->addWidget(m_save_attachment_button);
+    rootLayout->addLayout(attachmentLine);
+
     QHBoxLayout *buttonLine = new QHBoxLayout;
     buttonLine->addWidget(m_ok_button);
     buttonLine->addWidget(m_cancel_button);
@@ -93,5 +163,8 @@ void CPwdEntryDlg::init(const std::vector<CPwdGroup>& groups, QWidget *parent) {
 
     QObject::connect(m_ok_button, &QPushButton::clicked, this, &CPwdEntryDlg::onOK);
     QObject::connect(m_cancel_button, &QPushButton::clicked, this, &QDialog::reject);
+    QObject::connect(m_attach_button, &QPushButton::clicked, this, &CPwdEntryDlg::onAttach);
+    QObject::connect(m_open_attachment_button, &QPushButton::clicked, this, &CPwdEntryDlg::onOpenAttachment);
+    QObject::connect(m_save_attachment_button, &QPushButton::clicked, this, &CPwdEntryDlg::onSaveAttachment);
     this->setLayout(rootLayout);
 }
