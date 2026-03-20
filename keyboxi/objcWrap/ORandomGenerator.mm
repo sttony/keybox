@@ -4,6 +4,8 @@
 
 using namespace std;
 
+const int kSalsa20Type = 0x01;
+
 @implementation ORandomGenerator {
     CRandomGenerator* m_rg;
     BOOL _configured;

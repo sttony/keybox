@@ -32,7 +32,7 @@ struct GroupToEntryView: View {
                 NavigationLink(value: group) {
                     HStack {
                         Image(systemName: "folder")
-                            .foregroundStyle(.accent)
+                            .foregroundStyle(.blue)
                         Text(group.name)
                         Spacer()
                         let count = (entriesByGroup[group.id] ?? []).count
@@ -99,9 +99,7 @@ private struct EntriesListView: View {
                 ContentUnavailableView("No Entries", systemImage: "list.bullet", description: Text("Tap + to create a new entry."))
             } else {
                 ForEach(entries) { entry in
-                    NavigationLink(destination: PwdEntryView(groups: [group], entry: entry, onSave: { updated in
-                        onUpdate(updated)
-                    }, onCancel: {})) {
+                    NavigationLink(destination: entryViewFor(entry: entry, group: group, onUpdate: onUpdate)) {
                         VStack(alignment: .leading) {
                             Text(entry.title.isEmpty ? "(untitled)" : entry.title)
                                 .font(.headline)
@@ -138,48 +136,32 @@ private struct EntriesListView: View {
         }
         .sheet(isPresented: $showingNew) {
             NavigationStack {
-                PwdEntryView(groups: [group], entry: nil, onSave: { newEntry in
-                    // Ensure the new entry carries the group id
-                    newEntry.groupId = group.id
-                    onCreate(newEntry)
-                    showingNew = false
-                }, onCancel: {
-                    showingNew = false
-                })
+                newEntryView(group: group, onCreate: onCreate, onDismiss: { showingNew = false })
             }
         }
     }
-}
 
-#Preview {
-    // Sample groups
-    let g1 = PwdGroup(id: UUID().uuidString, name: "General")
-    let g2 = PwdGroup(id: UUID().uuidString, name: "Work")
-    let g3 = PwdGroup(id: UUID().uuidString, name: "Personal")
-    let groups = [g1, g2, g3]
-
-    // Sample entries leveraging OPwdEntry wrapper
-    func makeEntry(title: String, user: String, url: String, groupId: String) -> PwdEntry {
-        let o = OPwdEntry()
-        o.setTitle(title)
-        o.setUsername(user)
-        o.setUrl(url)
-        if let gid = NSUUID(uuidString: groupId) { o.setGroupUUID(gid) }
-        // minimal pad for demo
-        let pwd = "secret-\(Int.random(in: 100...999))"
-        o.setPassword(pwd, onePad: Data(count: pwd.lengthOfBytes(using: .utf8)))
-        return PwdEntry(backing: o)
+    private func entryViewFor(entry: PwdEntry, group: PwdGroup, onUpdate: @escaping (PwdEntry) -> Void) -> some View {
+        let pwdGroups = PwdGroups()
+        pwdGroups.groups = [group]
+        return PwdEntryView(groups: pwdGroups, entry: entry, onSave: { updated in
+            onUpdate(updated)
+        }, onCancel: {})
     }
 
-    let e1 = makeEntry(title: "Email", user: "alice", url: "mail.example.com", groupId: g1.id)
-    let e2 = makeEntry(title: "Forum", user: "bob", url: "forum.example.com", groupId: g1.id)
-    let e3 = makeEntry(title: "Corp VPN", user: "carol", url: "vpn.company.com", groupId: g2.id)
+    private func newEntryView(group: PwdGroup, onCreate: @escaping (PwdEntry) -> Void, onDismiss: @escaping () -> Void) -> some View {
+        let pwdGroups = PwdGroups()
+        pwdGroups.groups = [group]
+        return PwdEntryView(groups: pwdGroups, entry: nil, onSave: { newEntry in
+            newEntry.groupId = group.id
+            onCreate(newEntry)
+            onDismiss()
+        }, onCancel: {
+            onDismiss()
+        })
+    }
+}
 
-    let map: [String: [PwdEntry]] = [
-        g1.id: [e1, e2],
-        g2.id: [e3],
-        g3.id: []
-    ]
-
-    return GroupToEntryView(groups: groups, entriesByGroup: map)
+#Preview("Group to Entry View") {
+    GroupToEntryView(groups: [], entriesByGroup: [:])
 }

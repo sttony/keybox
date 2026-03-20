@@ -61,59 +61,121 @@ struct PwdRow: View {
 struct PwdEntryListView: View {
     @ObservedObject var entries: PwdEntries
     @ObservedObject var groups: PwdGroups
+    @EnvironmentObject var appState: AppState
+
+    @State private var selectedEntry: PwdEntry?
+    @State private var showingAddEntry = false
+    @State private var showingSyncSettings = false
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(entries.entries) { entry in
-                    NavigationLink(destination: PwdEntryView(groups: groups, entry: entry)) {
-                        PwdRow(entry: entry, store: entries)
+            ZStack {
+                // Background NavigationLink for programmatic navigation
+                if let entry = selectedEntry {
+                    NavigationLink(
+                        destination: PwdEntryView(groups: groups, entry: entry, onSave: { _ in
+                            entries.persistAll()
+                            selectedEntry = nil
+                        }, onCancel: {
+                            // If it was a new entry and we cancel, delete it
+                            if entry.title.isEmpty && entry.userName.isEmpty && entry.url.isEmpty {
+                                entries.delete(entry)
+                            }
+                            selectedEntry = nil
+                        }),
+                        isActive: Binding(
+                            get: { selectedEntry != nil },
+                            set: { if !$0 { selectedEntry = nil } }
+                        )
+                    ) {
+                        EmptyView()
+                    }
+                }
+
+                if entries.entries.isEmpty {
+                    VStack(spacing: 16) {
+                        Image(systemName: "key.fill")
+                            .font(.system(size: 60))
+                            .foregroundColor(.gray)
+                        Text("you don't have any password,  can click + to add one")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
+                    }
+                } else {
+                    List {
+                        ForEach(entries.entries) { entry in
+                            NavigationLink(destination: PwdEntryView(groups: groups, entry: entry, onSave: { _ in
+                                entries.persistAll()
+                            })) {
+                                PwdRow(entry: entry, store: entries)
+                            }
+                        }
                     }
                 }
             }
             .navigationTitle("Passwords")
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        showingSyncSettings = true
+                    }) {
+                        Image(systemName: "gear")
+                    }
+                }
+
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        _ = entries.addNew()
+                        let newEntry = entries.addNew()
+                        selectedEntry = newEntry
                     }) {
                         Image(systemName: "plus")
                     }
                 }
+            }
+            .sheet(isPresented: $showingSyncSettings) {
+                SyncSettingsView()
+                    .environmentObject(appState)
             }
         }
     }
 }
 
 #Preview {
+    let appState = AppState()
     let entries = PwdEntries()
     let groups = PwdGroups()
-    
+
     // Add test groups
     let group1 = groups.addNewGroup()
     group1.name = "Work Accounts"
-    
+
     let group2 = groups.addNewGroup()
     group2.name = "Personal Accounts"
-    
+
     let group3 = groups.addNewGroup()
     group3.name = "Finance"
-    
+
     // Add test entries
     let entry1 = entries.addNew()
     entry1.title = "Gmail"
     entry1.url = "https://mail.google.com"
     entry1.userName = "user@gmail.com"
-    
+
     let entry2 = entries.addNew()
     entry2.title = "GitHub"
     entry2.url = "https://github.com"
     entry2.userName = "john_doe"
-    
+
     let entry3 = entries.addNew()
     entry3.title = "Apple ID"
     entry3.url = "https://appleid.apple.com"
     entry3.userName = "user@icloud.com"
-    
+
+    appState.isFileLoaded = true
+    appState.isUnlocked = true
+
     return PwdEntryListView(entries: entries, groups: groups)
+        .environmentObject(appState)
 }

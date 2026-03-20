@@ -3,6 +3,7 @@ import Foundation
 
 
 struct PwdEntryView: View {
+    @Environment(\.dismiss) var dismiss
     // Input data
     var groups: PwdGroups
     var initialEntry: PwdEntry
@@ -84,6 +85,7 @@ struct PwdEntryView: View {
             HStack {
                 Button(role: .cancel) {
                     onCancel()
+                    dismiss()
                 } label: {
                     Text("Cancel")
                         .frame(maxWidth: .infinity)
@@ -115,6 +117,7 @@ struct PwdEntryView: View {
         entry.note = note
         entry.groupId = selectedGroupId
         onSave(entry)
+        dismiss()
     }
 }
 

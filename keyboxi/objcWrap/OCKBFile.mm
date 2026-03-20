@@ -8,6 +8,7 @@
 #import "OPwdEntry.h"
 #import "OPwdGroup.h"
 #import "OCKBFileHeader.h"
+#import "ORandomGenerator.h"
 
 #import "../../utilities/CKBFile.h"
 #import "../../utilities/CPwdEntry.h"
@@ -31,6 +32,7 @@ typedef NS_ENUM(NSInteger, OCKBFileErrorCode) {
 
 @property (nonatomic, assign) CKBFile *cppFile;
 @property (nonatomic, strong) OCKBFileHeader *header;
+@property (nonatomic, assign) uint32_t headerSize;
 
 @end
 
@@ -90,14 +92,14 @@ typedef NS_ENUM(NSInteger, OCKBFileErrorCode) {
         }
         return NO;
     }
-    
+
     uint32_t realSize = 0;
     uint32_t result = _cppFile->LoadHeader(
         (const unsigned char *)buffer.bytes,
         (uint32_t)buffer.length,
         realSize
     );
-    
+
     if (result != 0) {
         if (error) {
             *error = [NSError errorWithDomain:OCKBFileErrorDomain
@@ -106,7 +108,10 @@ typedef NS_ENUM(NSInteger, OCKBFileErrorCode) {
         }
         return NO;
     }
-    
+
+    // Store the header size so loadPayload can skip it
+    _headerSize = realSize;
+
     return YES;
 }
 
@@ -119,11 +124,24 @@ typedef NS_ENUM(NSInteger, OCKBFileErrorCode) {
         }
         return NO;
     }
-    
+
+    // Skip the header portion - LoadPayload expects only the payload data
+    if (_headerSize >= buffer.length) {
+        if (error) {
+            *error = [NSError errorWithDomain:OCKBFileErrorDomain
+                                        code:OCKBFileErrorInvalidInput
+                                    userInfo:@{NSLocalizedDescriptionKey: @"Header size exceeds buffer length"}];
+        }
+        return NO;
+    }
+
+    const unsigned char *payloadStart = (const unsigned char *)buffer.bytes + _headerSize;
+    uint32_t payloadLength = (uint32_t)buffer.length - _headerSize;
+
     uint32_t realSize = 0;
     uint32_t result = _cppFile->LoadPayload(
-        (const unsigned char *)buffer.bytes,
-        (uint32_t)buffer.length,
+        payloadStart,
+        payloadLength,
         realSize
     );
     
@@ -329,6 +347,30 @@ typedef NS_ENUM(NSInteger, OCKBFileErrorCode) {
         _header = [[OCKBFileHeader alloc] initWithCppHeader:&(_cppFile->GetHeader())];
     }
     return _header;
+}
+
+- (BOOL)setMasterPassword:(NSString *)password {
+    if (!password) {
+        return NO;
+    }
+
+    std::string rawPassword([password UTF8String]);
+    CCipherEngine cipherEngine;
+    std::vector<unsigned char> derivedKey;
+
+    uint32_t result = cipherEngine.PBKDF2DerivativeKey(rawPassword, _cppFile->GetHeader().GetDerivativeParameters(), derivedKey);
+    cipherEngine.CleanString(rawPassword);
+
+    if (result == 0) {
+        NSData *onePad = [[ORandomGenerator shared] getNextBytes:(uint32_t)derivedKey.size()];
+        std::vector<unsigned char> cppOnePad((const unsigned char *)onePad.bytes,
+                                             (const unsigned char *)onePad.bytes + onePad.length);
+        // Move the derived key into C++ layer to avoid extra copies; it will be masked and zeroed there.
+        _cppFile->SetMasterKey(std::move(derivedKey), std::move(cppOnePad));
+        return YES;
+    }
+
+    return NO;
 }
 
 - (void)setMasterKey:(NSData *)password onePad:(NSData *)onePad {
@@ -596,6 +638,121 @@ typedef NS_ENUM(NSInteger, OCKBFileErrorCode) {
             *error = [NSError errorWithDomain:OCKBFileErrorDomain
                                         code:OCKBFileErrorRemoteSyncFailed
                                     userInfo:@{NSLocalizedDescriptionKey: @"Failed to setup new client"}];
+        }
+        return NO;
+    }
+
+    return YES;
+}
+
+- (NSString *)getSyncUrl {
+    std::string syncUrl = _cppFile->GetHeader().GetSyncUrl();
+    return [NSString stringWithUTF8String:syncUrl.c_str()];
+}
+
+- (BOOL)setSyncUrl:(NSString *)syncUrl error:(NSError **)error {
+    if (!syncUrl) {
+        if (error) {
+            *error = [NSError errorWithDomain:OCKBFileErrorDomain
+                                        code:OCKBFileErrorInvalidInput
+                                    userInfo:@{NSLocalizedDescriptionKey: @"Invalid sync URL"}];
+        }
+        return NO;
+    }
+
+    uint32_t result = _cppFile->GetHeader().SetSyncUrl([syncUrl UTF8String]);
+
+    if (result != 0) {
+        if (error) {
+            *error = [NSError errorWithDomain:OCKBFileErrorDomain
+                                        code:OCKBFileErrorOperationFailed
+                                    userInfo:@{NSLocalizedDescriptionKey: @"Failed to set sync URL"}];
+        }
+        return NO;
+    }
+
+    return YES;
+}
+
+- (NSString *)getEmail {
+    std::string email = _cppFile->GetHeader().GetSyncEmail();
+    return [NSString stringWithUTF8String:email.c_str()];
+}
+
+- (BOOL)setEmail:(NSString *)email error:(NSError **)error {
+    if (!email) {
+        if (error) {
+            *error = [NSError errorWithDomain:OCKBFileErrorDomain
+                                        code:OCKBFileErrorInvalidInput
+                                    userInfo:@{NSLocalizedDescriptionKey: @"Invalid email"}];
+        }
+        return NO;
+    }
+
+    uint32_t result = _cppFile->GetHeader().SetSyncEmail([email UTF8String]);
+
+    if (result != 0) {
+        if (error) {
+            *error = [NSError errorWithDomain:OCKBFileErrorDomain
+                                        code:OCKBFileErrorOperationFailed
+                                    userInfo:@{NSLocalizedDescriptionKey: @"Failed to set email"}];
+        }
+        return NO;
+    }
+
+    return YES;
+}
+
+- (BOOL)changePassword:(NSString *)newPassword error:(NSError **)error {
+    if (!newPassword) {
+        if (error) {
+            *error = [NSError errorWithDomain:OCKBFileErrorDomain
+                                        code:OCKBFileErrorInvalidInput
+                                    userInfo:@{NSLocalizedDescriptionKey: @"Invalid password"}];
+        }
+        return NO;
+    }
+
+    // First retrieve from remote to get latest data
+    uint32_t result = _cppFile->RetrieveFromRemote();
+    if (result != 0) {
+        if (error) {
+            *error = [NSError errorWithDomain:OCKBFileErrorDomain
+                                        code:OCKBFileErrorRemoteSyncFailed
+                                    userInfo:@{NSLocalizedDescriptionKey: @"Failed to retrieve from remote before password change"}];
+        }
+        return NO;
+    }
+
+    // Set the new master password
+    std::string rawPassword([newPassword UTF8String]);
+    CCipherEngine cipherEngine;
+    std::vector<unsigned char> derivedKey;
+
+    result = cipherEngine.PBKDF2DerivativeKey(rawPassword, _cppFile->GetHeader().GetDerivativeParameters(), derivedKey);
+    cipherEngine.CleanString(rawPassword);
+
+    if (result != 0) {
+        if (error) {
+            *error = [NSError errorWithDomain:OCKBFileErrorDomain
+                                        code:OCKBFileErrorOperationFailed
+                                    userInfo:@{NSLocalizedDescriptionKey: @"Failed to derive key from new password"}];
+        }
+        return NO;
+    }
+
+    NSData *onePad = [[ORandomGenerator shared] getNextBytes:(uint32_t)derivedKey.size()];
+    std::vector<unsigned char> cppOnePad((const unsigned char *)onePad.bytes,
+                                         (const unsigned char *)onePad.bytes + onePad.length);
+    _cppFile->SetMasterKey(std::move(derivedKey), std::move(cppOnePad));
+
+    // Push to remote with new password
+    result = _cppFile->PushToRemote();
+    if (result != 0) {
+        if (error) {
+            *error = [NSError errorWithDomain:OCKBFileErrorDomain
+                                        code:OCKBFileErrorRemoteSyncFailed
+                                    userInfo:@{NSLocalizedDescriptionKey: @"Failed to push to remote after password change"}];
         }
         return NO;
     }

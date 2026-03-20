@@ -4,6 +4,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var appState: AppState
+    @State private var masterPassword: String = ""
     @State private var newMasterPassword: String = ""
     @State private var confirmMasterPassword: String = ""
     @State private var passwordError: String?
@@ -42,11 +43,45 @@ struct ContentView: View {
                     Text("Keybox Loaded")
                         .font(.headline)
 
-                    Button("Unlock with Test Password") {
-                        // For testing: simulate unlock
-                        appState.loadPayloadAfterUnlock()
+                    if !appState.pendingNewFile {
+                        Button("unlock") {
+                            appState.unlockError = nil
+                            appState.needsUnlockPassword = true
+                        }
+                        .buttonStyle(.borderedProminent)
                     }
-                    .buttonStyle(.borderedProminent)
+                }
+                .sheet(isPresented: $appState.needsUnlockPassword) {
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text("Unlock Keybox")
+                            .font(.headline)
+                        SecureField("Enter master password", text: $masterPassword)
+                        if let err = appState.unlockError {
+                            Text(err)
+                                .foregroundColor(.red)
+                                .font(.caption)
+                        } else if let err = passwordError {
+                            Text(err)
+                                .foregroundColor(.red)
+                                .font(.caption)
+                        }
+                        HStack {
+                            Spacer()
+                            Button("Unlock") {
+                                guard !masterPassword.isEmpty else {
+                                    passwordError = "Password cannot be empty"
+                                    appState.unlockError = nil
+                                    return
+                                }
+                                passwordError = nil
+                                appState.unlock(withMasterPassword: masterPassword)
+                                masterPassword = ""
+                            }
+                            .buttonStyle(.borderedProminent)
+                        }
+                    }
+                    .padding()
+                    .presentationDetents([.medium])
                 }
                 .sheet(isPresented: $appState.needsMasterPassword) {
                     VStack(alignment: .leading, spacing: 16) {

@@ -108,6 +108,14 @@
 - (OCKBFileHeader *)getHeader;
 
 /**
+ * Set master password (raw password) for encryption/decryption
+ * This will perform key derivation using PBKDF2 parameters from the header
+ * @param password NSString containing the raw master password
+ * @return YES if password set successfully, NO otherwise
+ */
+- (BOOL)setMasterPassword:(NSString *)password;
+
+/**
  * Set master key for encryption/decryption
  * @param key NSData containing the master key
  * @param onePad NSData containing the one-time pad
@@ -211,6 +219,43 @@
  * @return YES if setup succeeded, NO otherwise
  */
 - (BOOL)setupNewClientWithUrl:(NSData **)outUrl error:(NSError **)error;
+
+/**
+ * Get sync URL from file header
+ * @return NSString containing the sync URL
+ */
+- (NSString *)getSyncUrl;
+
+/**
+ * Set sync URL in file header
+ * @param syncUrl The sync URL to set
+ * @param error Pointer to NSError for error information
+ * @return YES if successful, NO otherwise
+ */
+- (BOOL)setSyncUrl:(NSString *)syncUrl error:(NSError **)error;
+
+/**
+ * Get email from file header
+ * @return NSString containing the email
+ */
+- (NSString *)getEmail;
+
+/**
+ * Set email in file header
+ * @param email The email to set
+ * @param error Pointer to NSError for error information
+ * @return YES if successful, NO otherwise
+ */
+- (BOOL)setEmail:(NSString *)email error:(NSError **)error;
+
+/**
+ * Change master password
+ * This will retrieve from remote, set new password, and push to remote
+ * @param newPassword The new master password
+ * @param error Pointer to NSError for error information
+ * @return YES if successful, NO otherwise
+ */
+- (BOOL)changePassword:(NSString *)newPassword error:(NSError **)error;
 
 @end
 

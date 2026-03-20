@@ -2,7 +2,7 @@
 #define ORandomGenerator_h
 #import <Foundation/Foundation.h>
 
-const int kSalsa20Type = 0x01;
+extern const int kSalsa20Type;
 
 @protocol IRandomGeneratorProtocol <NSObject>
 @required

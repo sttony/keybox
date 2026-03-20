@@ -27,6 +27,10 @@
 		73E556D42BFEAB9000733C0D /* keyboxiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E556D32BFEAB9000733C0D /* keyboxiUITests.swift */; };
 		73E556D62BFEAB9000733C0D /* keyboxiUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E556D52BFEAB9000733C0D /* keyboxiUITestsLaunchTests.swift */; };
 		73E556FF2BFEBB1D00733C0D /* ORandomGenerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 73E556FE2BFEBB1D00733C0D /* ORandomGenerator.mm */; };
+		73F0FA232F6E057C002281E2 /* SyncSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F0FA222F6E057C002281E2 /* SyncSettingsView.swift */; };
+		73F0FA2A2F6E058C002281E2 /* GroupToEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F0FA282F6E058C002281E2 /* GroupToEntryView.swift */; };
+		73F0FA2B2F6E058C002281E2 /* PwdGeneratorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F0FA292F6E058C002281E2 /* PwdGeneratorView.swift */; };
+		73F0FA2C2F6E058C002281E2 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F0FA272F6E058C002281E2 /* ChangePasswordView.swift */; };
 		9D0FBC3E2EBC620300FBC50F /* PwdEntryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0FBC3D2EBC620300FBC50F /* PwdEntryTests.swift */; };
 		9D8670052F1F26EF0023B366 /* OCKBFileHeader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8670042F1F26EF0023B366 /* OCKBFileHeader.mm */; };
 		9D86700D2F1F28D60023B366 /* OCKBFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D86700C2F1F28D60023B366 /* OCKBFile.mm */; };
@@ -108,6 +112,10 @@
 		73E556FA2BFEB9EB00733C0D /* objc_bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = objc_bridge.h; sourceTree = "<group>"; };
 		73E556FB2BFEBAC100733C0D /* ORandomGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORandomGenerator.h; sourceTree = "<group>"; };
 		73E556FE2BFEBB1D00733C0D /* ORandomGenerator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ORandomGenerator.mm; sourceTree = "<group>"; };
+		73F0FA222F6E057C002281E2 /* SyncSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncSettingsView.swift; sourceTree = "<group>"; };
+		73F0FA272F6E058C002281E2 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		73F0FA282F6E058C002281E2 /* GroupToEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupToEntryView.swift; sourceTree = "<group>"; };
+		73F0FA292F6E058C002281E2 /* PwdGeneratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdGeneratorView.swift; sourceTree = "<group>"; };
 		9D0FBC3D2EBC620300FBC50F /* PwdEntryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdEntryTests.swift; sourceTree = "<group>"; };
 		9D8670032F1F26EF0023B366 /* OCKBFileHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCKBFileHeader.h; sourceTree = "<group>"; };
 		9D8670042F1F26EF0023B366 /* OCKBFileHeader.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OCKBFileHeader.mm; sourceTree = "<group>"; };
@@ -205,6 +213,10 @@
 		73E556B72BFEAB8E00733C0D /* keyboxi */ = {
 			isa = PBXGroup;
 			children = (
+				73F0FA272F6E058C002281E2 /* ChangePasswordView.swift */,
+				73F0FA282F6E058C002281E2 /* GroupToEntryView.swift */,
+				73F0FA292F6E058C002281E2 /* PwdGeneratorView.swift */,
+				73F0FA222F6E057C002281E2 /* SyncSettingsView.swift */,
 				73E556FA2BFEB9EB00733C0D /* objc_bridge.h */,
 				73E556B82BFEAB8E00733C0D /* keyboxiApp.swift */,
 				73E556BA2BFEAB8E00733C0D /* ContentView.swift */,
@@ -433,6 +445,10 @@
 			files = (
 				73C0D84F2E62377F00DC5181 /* PwdEntryView.swift in Sources */,
 				73E556BB2BFEAB8E00733C0D /* ContentView.swift in Sources */,
+				73F0FA2A2F6E058C002281E2 /* GroupToEntryView.swift in Sources */,
+				73F0FA2B2F6E058C002281E2 /* PwdGeneratorView.swift in Sources */,
+				73F0FA2C2F6E058C002281E2 /* ChangePasswordView.swift in Sources */,
+				73F0FA232F6E057C002281E2 /* SyncSettingsView.swift in Sources */,
 				9D0FBC3E2EBC620300FBC50F /* PwdEntryTests.swift in Sources */,
 				73006C8C2EE39C2A00AA44D6 /* PwdEntryListView.swift in Sources */,
 				73006C8E2EE7A52400AA44D6 /* PwdEntry.swift in Sources */,
