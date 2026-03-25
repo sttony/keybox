@@ -185,6 +185,9 @@ class AppState: ObservableObject {
             return
         }
 
+        // Set kbFile reference for PwdEntries
+        self.entries.kbFile = ockbFile
+
         // Load all groups
         if let groupsArray = ockbFile.getAllGroups() {
             self.groups = PwdGroups(wrapping: groupsArray)
@@ -194,7 +197,7 @@ class AppState: ObservableObject {
         if let entriesArray = ockbFile.getAllEntries() {
             // Convert OPwdEntry objects to PwdEntry and populate entries
             self.entries.entries = entriesArray.map { oPwdEntry in
-                PwdEntry(backing: oPwdEntry)
+                PwdEntry(backing: oPwdEntry, kbFile: ockbFile)
             }
         }
 

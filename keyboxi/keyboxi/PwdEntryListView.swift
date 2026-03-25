@@ -8,10 +8,11 @@ import SwiftUI
 
 final class PwdEntries: ObservableObject {
     @Published var entries: [PwdEntry] = []
-    
+    weak var kbFile: OCKBFile?
+
     func addNew() -> PwdEntry {
         let newBacking = OPwdEntry()
-        let newEntry  = PwdEntry(backing: newBacking)
+        let newEntry  = PwdEntry(backing: newBacking, kbFile: kbFile)
         entries.append(newEntry)
         return newEntry
     }
