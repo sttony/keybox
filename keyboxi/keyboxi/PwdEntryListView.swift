@@ -1,3 +1,5 @@
+
+
 //
 //  PwdEntryListView.swift
 //  keyboxi
@@ -69,28 +71,16 @@ struct PwdEntryListView: View {
     @State private var showingSyncSettings = false
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 // Background NavigationLink for programmatic navigation
                 if let entry = selectedEntry {
                     NavigationLink(
-                        destination: PwdEntryView(groups: groups, entry: entry, onSave: { _ in
-                            entries.persistAll()
-                            selectedEntry = nil
-                        }, onCancel: {
-                            // If it was a new entry and we cancel, delete it
-                            if entry.title.isEmpty && entry.userName.isEmpty && entry.url.isEmpty {
-                                entries.delete(entry)
-                            }
-                            selectedEntry = nil
-                        }),
-                        isActive: Binding(
-                            get: { selectedEntry != nil },
-                            set: { if !$0 { selectedEntry = nil } }
-                        )
-                    ) {
-                        EmptyView()
-                    }
+                        value: entry,
+                        label: {
+                            EmptyView()
+                        }
+                    )
                 }
 
                 if entries.entries.isEmpty {
