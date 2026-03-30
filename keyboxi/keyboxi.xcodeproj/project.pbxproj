@@ -10,7 +10,6 @@
 		73006C7F2EE0F98C00AA44D6 /* OPwdGroup.mm in Sources */ = {isa = PBXBuildFile; fileRef = 73006C7E2EE0F98C00AA44D6 /* OPwdGroup.mm */; };
 		73006C8C2EE39C2A00AA44D6 /* PwdEntryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73006C8B2EE39C2A00AA44D6 /* PwdEntryListView.swift */; };
 		73006C8E2EE7A52400AA44D6 /* PwdEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73006C8D2EE7A52400AA44D6 /* PwdEntry.swift */; };
-		731F37182F7B026E004F1BE5 /* PwdEntryListView.swift ...``` containing revised code with adjustments. in Resources */ = {isa = PBXBuildFile; fileRef = 731F37172F7B026E004F1BE5 /* PwdEntryListView.swift ...``` containing revised code with adjustments. */; };
 		738D2C872E5E1D60008F15A0 /* OPwdEntry.mm in Sources */ = {isa = PBXBuildFile; fileRef = 738D2C862E5E1D5D008F15A0 /* OPwdEntry.mm */; };
 		73A3CCD42F05CDA700BAE133 /* PwdGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3CCD32F05CDA700BAE133 /* PwdGroup.swift */; };
 		73B016502F2D2F510062C06D /* libutilities.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B0164F2F2D2EBF0062C06D /* libutilities.a */; };
@@ -87,7 +86,6 @@
 		73006C7E2EE0F98C00AA44D6 /* OPwdGroup.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OPwdGroup.mm; sourceTree = "<group>"; };
 		73006C8B2EE39C2A00AA44D6 /* PwdEntryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdEntryListView.swift; sourceTree = "<group>"; };
 		73006C8D2EE7A52400AA44D6 /* PwdEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdEntry.swift; sourceTree = "<group>"; };
-		731F37172F7B026E004F1BE5 /* PwdEntryListView.swift ...``` containing revised code with adjustments. */ = {isa = PBXFileReference; lastKnownFileType = text; path = "PwdEntryListView.swift ...``` containing revised code with adjustments."; sourceTree = "<group>"; };
 		738D2C852E5E1D43008F15A0 /* OPwdEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OPwdEntry.h; sourceTree = "<group>"; };
 		738D2C862E5E1D5D008F15A0 /* OPwdEntry.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OPwdEntry.mm; sourceTree = "<group>"; };
 		73A3CCD32F05CDA700BAE133 /* PwdGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdGroup.swift; sourceTree = "<group>"; };
@@ -232,7 +230,6 @@
 				73006C8B2EE39C2A00AA44D6 /* PwdEntryListView.swift */,
 				73A3CCD32F05CDA700BAE133 /* PwdGroup.swift */,
 				73F0FA3E2F75E7F2002281E2 /* UnlockView.swift */,
-				731F37172F7B026E004F1BE5 /* PwdEntryListView.swift ...``` containing revised code with adjustments. */,
 			);
 			path = keyboxi;
 			sourceTree = "<group>";
@@ -423,7 +420,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				731F37182F7B026E004F1BE5 /* PwdEntryListView.swift ...``` containing revised code with adjustments. in Resources */,
 				73E556C02BFEAB9000733C0D /* Preview Assets.xcassets in Resources */,
 				73E556BD2BFEAB9000733C0D /* Assets.xcassets in Resources */,
 			);
