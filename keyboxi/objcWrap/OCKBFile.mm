@@ -288,7 +288,7 @@ typedef NS_ENUM(NSInteger, OCKBFileErrorCode) {
     }
     
     CPwdEntry* cppEntry = (CPwdEntry*)[entry getCppEntry];
-    uint32_t result = _cppFile->SetEntry(*cppEntry);
+    uint32_t result = _cppFile->AddEntry(*cppEntry);
     
     if (result != 0) {
         if (error) {

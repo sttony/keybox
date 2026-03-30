@@ -72,63 +72,62 @@ struct PwdEntryListView: View {
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                // Background NavigationLink for programmatic navigation
-                if let entry = selectedEntry {
-                    NavigationLink(
-                        value: entry,
-                        label: {
-                            EmptyView()
-                        }
-                    )
-                }
+            if let entry = selectedEntry {
+                // Navigate to the existing entry (for editing)
+                NavigationLink(
+                    value: entry,
+                    label: {
+                        EmptyView()
+                    }
+                )
+            }
 
-                if entries.entries.isEmpty {
-                    VStack(spacing: 16) {
-                        Image(systemName: "key.fill")
-                            .font(.system(size: 60))
-                            .foregroundColor(.gray)
-                        Text("you don't have any password,  can click + to add one")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal)
-                    }
-                } else {
-                    List {
-                        ForEach(entries.entries) { entry in
-                            NavigationLink(destination: PwdEntryView(groups: groups, entry: entry, onSave: { _ in
-                                entries.persistAll()
-                            })) {
-                                PwdRow(entry: entry, store: entries)
-                            }
+            if entries.entries.isEmpty {
+                VStack(spacing: 16) {
+                    Image(systemName: "key.fill")
+                        .font(.system(size: 60))
+                        .foregroundColor(.gray)
+                    Text("you don't have any password,  can click + to add one")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                }
+            } else {
+                List {
+                    ForEach(entries.entries) { entry in
+                        NavigationLink(destination: PwdEntryView(groups: groups, entry: entry, onSave: { updated in
+                            entries.persistAll()
+                            selectedEntry = nil
+                        })) {
+                            PwdRow(entry: entry, store: entries)
                         }
                     }
                 }
             }
-            .navigationTitle("Passwords")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        showingSyncSettings = true
-                    }) {
-                        Image(systemName: "gear")
-                    }
+        }
+        .navigationTitle("Passwords")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    showingSyncSettings = true
+                }) {
+                    Image(systemName: "gear")
                 }
+            }
 
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        let newEntry = entries.addNew()
-                        selectedEntry = newEntry
-                    }) {
-                        Image(systemName: "plus")
-                    }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    let newEntry = entries.addNew()
+                    selectedEntry = newEntry
+                }) {
+                    Image(systemName: "plus")
                 }
             }
-            .sheet(isPresented: $showingSyncSettings) {
-                SyncSettingsView()
-                    .environmentObject(appState)
-            }
+        }
+        .sheet(isPresented: $showingSyncSettings) {
+            SyncSettingsView()
+                .environmentObject(appState)
         }
     }
 }
