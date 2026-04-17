@@ -317,9 +317,17 @@ void MainWindow::openFile() {
 }
 
 int MainWindow::OpenFile(const std::string &file_path) {
+    uint32_t uResult = 0;
     auto newModel = new CKBModel;
     newModel->SetFilePath(file_path);
-    newModel->LoadKBHeader(file_path);
+    uResult  = newModel->LoadKBHeader(file_path);
+    if (uResult == ERROR_FILE_IO) {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Open file failed");
+        msgBox.setText(("Can't read " + file_path).data());
+        msgBox.exec();
+        return 0;
+    }
     CPrimaryPasswordDlg ppdlg(newModel->GetKeyDerivateParameters());
     ppdlg.setWindowTitle( file_path.c_str());
     ppdlg.setMinimumWidth(file_path.size() * 16);

@@ -60,7 +60,11 @@ uint32_t CKBModel::LoadBlobToBuff(const std::vector<unsigned char>& blob) {
 }
 
 uint32_t CKBModel::LoadKBHeader(const std::string &filepath) {
-    LoadKBFileToBuff(filepath);
+    uint32_t uResult = 0;
+    uResult = LoadKBFileToBuff(filepath);
+    if (uResult  != 0 ) {
+        return uResult;
+    }
     return m_kbfile.LoadHeader(m_file_buff.data(), m_file_buff.size(), m_header_size);
 }
 
