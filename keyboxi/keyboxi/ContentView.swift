@@ -100,7 +100,7 @@ struct SideMenuView: View {
                 isMenuOpen = false
             }
             .padding(.leading)
-            c
+            
             Button("Sync Now") {
                 isMenuOpen = false
             }
