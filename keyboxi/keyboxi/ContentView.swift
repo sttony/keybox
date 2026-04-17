@@ -3,6 +3,7 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var appState: AppState
     @State private var isMenuOpen: Bool = false
+    @State private var showingSyncSettings: Bool = false
     @State private var masterPassword: String = ""
     @State private var newMasterPassword: String = ""
     @State private var confirmMasterPassword: String = ""
@@ -70,7 +71,7 @@ struct ContentView: View {
             // Side Menu Overlay
             HStack {
                 if isMenuOpen {
-                    SideMenuView(isMenuOpen: $isMenuOpen)
+                    SideMenuView(isMenuOpen: $isMenuOpen, showingSyncSettings: $showingSyncSettings)
                         .transition(.move(edge: .leading))
                         .zIndex(1)
                 }
@@ -78,12 +79,18 @@ struct ContentView: View {
             }
             .ignoresSafeArea()
         }
+        .sheet(isPresented: $showingSyncSettings) {
+            SyncSettingsView()
+                .environmentObject(appState)
+        }
     }
 }
 
 // A simple implementation of the Side Menu for now
 struct SideMenuView: View {
+    @EnvironmentObject var appState: AppState
     @Binding var isMenuOpen: Bool
+    @Binding var showingSyncSettings: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -106,11 +113,15 @@ struct SideMenuView: View {
             }
             .padding(.leading)
 
-            Spacer()
-
-            
+            Button(" Sync Setting") {
+                isMenuOpen = false
+                showingSyncSettings = true
+            }
             .padding(.leading)
-            .padding(.bottom)
+            .disabled(!appState.isUnlocked)
+            .opacity(appState.isUnlocked ? 1.0 : 0.5)
+
+            Spacer()
         }
         .frame(width: 280)
         .background(Color(UIColor.systemBackground))
