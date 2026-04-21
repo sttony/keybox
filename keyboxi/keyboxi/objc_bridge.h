@@ -9,5 +9,6 @@
 #import "../objcWrap/OPwdGroup.h"
 #import "../objcWrap/OCKBFileHeader.h"
 #import "../objcWrap/OCKBFile.h"
+#import "../../utilities/InitGlobalRG.h"
 
 #endif /* objc_bridge_h */

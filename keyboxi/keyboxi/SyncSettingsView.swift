@@ -15,7 +15,6 @@ struct SyncSettingsView: View {
     @State private var showingAlert = false
     @State private var alertTitle = ""
     @State private var alertMessage = ""
-    @State private var showingChangePassword = false
 
     var body: some View {
         NavigationView {
@@ -49,12 +48,8 @@ struct SyncSettingsView: View {
                     }
                     .disabled(email.isEmpty || syncUrl.isEmpty)
                 }
-
-                Section(header: Text("Security")) {
-                    Button("Change Master Password") {
-                        showingChangePassword = true
-                    }
-                }
+                
+                // Security section moved out to the main SlideDrawer menu
             }
             .navigationTitle("Sync Settings")
             .navigationBarItems(
@@ -70,10 +65,6 @@ struct SyncSettingsView: View {
                 Button("OK", role: .cancel) { }
             } message: {
                 Text(alertMessage)
-            }
-            .sheet(isPresented: $showingChangePassword) {
-                ChangePasswordView()
-                    .environmentObject(appState)
             }
         }
         .onAppear {

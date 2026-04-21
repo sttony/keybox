@@ -29,7 +29,7 @@ struct PwdGeneratorView: View {
         self.onUse = onUse
         self.onCancel = onCancel
         // Construct generator using global g_RG behind the wrapper
-        let g = OPasswordGenerator(random: ORandomGenerator(NSNumber(value: kSalsa20Type).uint32Value))
+        let g = OPasswordGenerator(random: ORandomGenerator.shared())
         self.gen = g
         // Seed initial state from generator defaults
         _needLower = State(initialValue: g.getLower())

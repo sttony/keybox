@@ -4,6 +4,7 @@ struct ContentView: View {
     @EnvironmentObject var appState: AppState
     @State private var isMenuOpen: Bool = false
     @State private var showingSyncSettings: Bool = false
+    @State private var showingChangePassword: Bool = false // Added state for the drawer button
     @State private var masterPassword: String = ""
     @State private var newMasterPassword: String = ""
     @State private var confirmMasterPassword: String = ""
@@ -71,7 +72,7 @@ struct ContentView: View {
             // Side Menu Overlay
             HStack {
                 if isMenuOpen {
-                    SideMenuView(isMenuOpen: $isMenuOpen, showingSyncSettings: $showingSyncSettings)
+                    SideMenuView(isMenuOpen: $isMenuOpen, showingSyncSettings: $showingSyncSettings, showingChangePassword: $showingChangePassword)
                         .transition(.move(edge: .leading))
                         .zIndex(1)
                 }
@@ -83,6 +84,10 @@ struct ContentView: View {
             SyncSettingsView()
                 .environmentObject(appState)
         }
+        .sheet(isPresented: $showingChangePassword) {
+            ChangePasswordView()
+                .environmentObject(appState)
+        }
     }
 }
 
@@ -91,6 +96,7 @@ struct SideMenuView: View {
     @EnvironmentObject var appState: AppState
     @Binding var isMenuOpen: Bool
     @Binding var showingSyncSettings: Bool
+    @Binding var showingChangePassword: Bool // Added binding
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -113,9 +119,18 @@ struct SideMenuView: View {
             }
             .padding(.leading)
 
-            Button(" Sync Setting") {
+            Button("Sync Settings") {
                 isMenuOpen = false
                 showingSyncSettings = true
+            }
+            .padding(.leading)
+            .disabled(!appState.isUnlocked)
+            .opacity(appState.isUnlocked ? 1.0 : 0.5)
+            
+            // New Security button added to the drawer
+            Button("Security") {
+                isMenuOpen = false
+                showingChangePassword = true
             }
             .padding(.leading)
             .disabled(!appState.isUnlocked)

@@ -1,6 +1,11 @@
 #import <Foundation/Foundation.h>
 #include "ORandomGenerator.h"
 #import "../../utilities/CRandomGenerator.h"
+#import "../../utilities/InitGlobalRG.h"
+
+// Ensure InitGlobalRG is compiled into this translation unit if needed, 
+// or at least available to the linker.
+#include "../../utilities/InitGlobalRG_mac.cpp"
 
 using namespace std;
 
@@ -10,16 +15,27 @@ const int kSalsa20Type = 0x01;
     CRandomGenerator* m_rg;
     BOOL _configured;
     uint32_t _configuredType;
+    BOOL _isShared;
 }
 
 + (instancetype)shared {
     static ORandomGenerator *instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        // Default construct with a sensible type; you can change via -configureWithType:
-        instance = [[self alloc] init:kSalsa20Type];
+        instance = [[self alloc] initShared];
     });
     return instance;
+}
+
+- (instancetype)initShared {
+    self = [super init];
+    if (self) {
+        m_rg = &g_RG;
+        _configured = YES;
+        _configuredType = kSalsa20Type;
+        _isShared = YES;
+    }
+    return self;
 }
 
 - (NSMutableData *)getNextBytes:(uint32_t)num {
@@ -36,6 +52,11 @@ const int kSalsa20Type = 0x01;
 // MARK: - Configuration
 
 - (BOOL)configureWithType:(uint32_t)type {
+    // If it's the shared instance, we don't allow changing the type for now as g_RG is already initialized.
+    if (_isShared) {
+        return type == kSalsa20Type;
+    }
+
     // If already configured with the same type, treat as success.
     if (_configured && _configuredType == type) {
         return YES;
@@ -81,6 +102,7 @@ const int kSalsa20Type = 0x01;
         m_rg = new CRandomGenerator(_type);
         _configured = YES;
         _configuredType = _type;
+        _isShared = NO;
     }
     return self;
 }
@@ -106,7 +128,9 @@ const int kSalsa20Type = 0x01;
 }
 
 - (void)dealloc {
-    delete m_rg;
+    if (!_isShared && m_rg != nullptr) {
+        delete m_rg;
+    }
     m_rg = nullptr;
 }
 
