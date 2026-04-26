@@ -8,6 +8,7 @@
 
 #include <QTableView>
 #include <QKeyEvent>
+#include <QContextMenuEvent>
 
 class CPwdEntryTableView : public QTableView {
 public:
@@ -15,6 +16,10 @@ public:
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
+    void contextMenuEvent(QContextMenuEvent *event) override;
+
+private:
+    void copySelectedEntryPassword() const;
 };
 
 
