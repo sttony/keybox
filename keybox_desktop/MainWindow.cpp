@@ -42,6 +42,7 @@ MainWindow::MainWindow() {
     m_group_list_view->setModel(m_group_model);
     connect(m_group_list_view, &QListView::clicked, this, &MainWindow::onClickGroup);
     connect(m_group_list_view, &CPwdGroupListView::entryDropped, this, &MainWindow::onEntryDropped);
+    connect(m_entry_table_view, &CPwdEntryTableView::deleteEntry, this, &MainWindow::deleteEntry);
 
     splitter->addWidget(m_group_list_view);
     splitter->addWidget(m_entry_table_view);
@@ -456,6 +457,18 @@ void MainWindow::onEntryDropped(int row, const QModelIndex &groupIndex) {
     
     // Refresh to reflect changes (though SetEntry might already trigger it)
     m_entry_table_view->update();
+}
+
+void MainWindow::deleteEntry(int row) {
+    if (!m_pModel)
+        return;
+
+    CPwdEntry entry = m_pModel->GetEntry(row);
+    QString msg = QString("Are you sure you want to delete the entry '%1'?").arg(entry.GetTitle().c_str());
+    auto result = QMessageBox::question(this, "Confirm Deletion", msg, QMessageBox::Yes | QMessageBox::No);
+    if (result == QMessageBox::Yes) {
+        m_pModel->RemoveEntry(entry.GetID());
+    }
 }
 
 void MainWindow::restartInactivityTimer() {

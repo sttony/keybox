@@ -49,6 +49,9 @@ protected:
 private:
     void copySelectedEntryPassword() const;
     QPoint m_dragStartPosition;
+
+signals:
+    void deleteEntry(int row);
 };
 
 

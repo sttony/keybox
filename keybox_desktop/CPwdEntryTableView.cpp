@@ -13,16 +13,29 @@ using namespace std;
 void CPwdEntryTableView::keyPressEvent(QKeyEvent *event) {
     if (event->matches(QKeySequence::Copy)) {
         copySelectedEntryPassword();
-    }
-    else {
+    } else if (event->key() == Qt::Key_Delete) {
+        if (!this->selectedIndexes().empty()) {
+            auto selectedIdx = *(this->selectedIndexes().begin());
+            emit deleteEntry(selectedIdx.row());
+        }
+    } else {
         QTableView::keyPressEvent(event);
     }
 }
 
 void CPwdEntryTableView::contextMenuEvent(QContextMenuEvent *event) {
     QMenu menu(this);
-    QAction *copyAction = menu.addAction("CopyPassword");
+    QAction *copyAction = menu.addAction("Copy Password");
     connect(copyAction, &QAction::triggered, this, &CPwdEntryTableView::copySelectedEntryPassword);
+
+    QAction *deleteAction = menu.addAction("Delete Entry");
+    connect(deleteAction, &QAction::triggered, this, [this]() {
+        if (!this->selectedIndexes().empty()) {
+            auto selectedIdx = *(this->selectedIndexes().begin());
+            emit deleteEntry(selectedIdx.row());
+        }
+    });
+
     menu.exec(event->globalPos());
 }
 

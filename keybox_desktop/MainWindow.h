@@ -53,6 +53,8 @@ private slots:
 
     void onEntryDropped(int row, const QModelIndex& groupIndex);
 
+    void deleteEntry(int row);
+
 private:
     void CreateActions();
 
