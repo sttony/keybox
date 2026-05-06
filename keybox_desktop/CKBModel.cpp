@@ -92,6 +92,7 @@ void CKBModel::AddEntry(const CPwdEntry &pe) {
 
 void CKBModel::RemoveEntry(const boost::uuids::uuid &id) {
     m_kbfile.RemoveEntry(id);
+    this->setFilter();
     emit layoutChanged();
 }
 
@@ -142,7 +143,10 @@ uint32_t CKBModel::LoadPayload() {
 }
 
 CPwdEntry CKBModel::GetEntry(int index) {
-    return m_kbfile.GetEntry(index);
+    if (index >= 0 && index < m_filtered_entries.size()) {
+        return m_filtered_entries[index];
+    }
+    return CPwdEntry();
 }
 
 uint32_t CKBModel::SetEntry(const CPwdEntry &pe, int idx) {
