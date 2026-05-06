@@ -38,9 +38,10 @@ MainWindow::MainWindow() {
 
 
     m_group_list_view = new CPwdGroupListView;
-    m_group_model = new QStringListModel;
+    m_group_model = new QStandardItemModel(this);
     m_group_list_view->setModel(m_group_model);
     connect(m_group_list_view, &QListView::clicked, this, &MainWindow::onClickGroup);
+    connect(m_group_list_view, &CPwdGroupListView::entryDropped, this, &MainWindow::onEntryDropped);
 
     splitter->addWidget(m_group_list_view);
     splitter->addWidget(m_entry_table_view);
@@ -288,12 +289,12 @@ void MainWindow::newFile() {
 }
 
 void MainWindow::ResetGroup(CKBModel *newModel) {
-    QStringList groupList;
+    m_group_model->clear();
     for (const auto &group: newModel->GetGroups()) {
-        groupList << group.GetName().c_str();
-
+        auto *item = new QStandardItem(QIcon(":img/img/folder.svg"), group.GetName().c_str());
+        item->setEditable(false);
+        m_group_model->appendRow(item);
     }
-    this->m_group_model->setStringList(groupList);
     this->m_group_list_view->repaint();
 }
 
@@ -438,6 +439,23 @@ void MainWindow::changePassword() {
             break;
         }
     }
+}
+
+void MainWindow::onEntryDropped(int row, const QModelIndex &groupIndex) {
+    if (!m_pModel || !groupIndex.isValid())
+        return;
+
+    auto groups = m_pModel->GetGroups();
+    if (groupIndex.row() < 0 || groupIndex.row() >= groups.size())
+        return;
+
+    auto targetGroup = groups.at(groupIndex.row());
+    CPwdEntry entry = m_pModel->GetEntry(row);
+    entry.SetGroup(targetGroup.GetUUID());
+    m_pModel->SetEntry(entry, row);
+    
+    // Refresh to reflect changes (though SetEntry might already trigger it)
+    m_entry_table_view->update();
 }
 
 void MainWindow::restartInactivityTimer() {

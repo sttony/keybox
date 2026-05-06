@@ -10,7 +10,7 @@
 #include <QMenuBar>
 #include <QToolBar>
 #include <QTimer>
-#include <QStringListModel>
+#include <QStandardItemModel>
 #include "CKBModel.h"
 #include "CPwdEntryTableView.h"
 #include "CPwdGroupListView.h"
@@ -51,6 +51,8 @@ private slots:
 
     void changePassword();
 
+    void onEntryDropped(int row, const QModelIndex& groupIndex);
+
 private:
     void CreateActions();
 
@@ -83,7 +85,7 @@ private:
 
     CPwdEntryTableView *m_entry_table_view = nullptr ;
     CPwdGroupListView *m_group_list_view = nullptr;
-    QStringListModel *m_group_model = nullptr;
+    QStandardItemModel *m_group_model = nullptr;
 
     CKBModel *m_pModel = nullptr;
 
