@@ -10,5 +10,24 @@ class NativeBridge {
     external fun createCKBFile(): Long
     external fun destroyCKBFile(handle: Long)
     external fun deserialize(handle: Long, data: ByteArray): Int
+    external fun loadHeader(handle: Long, data: ByteArray): Int
+    external fun loadPayload(handle: Long, data: ByteArray): Int
+    external fun serialize(handle: Long): ByteArray?
+    external fun lock(handle: Long): ByteArray?
     external fun getEntries(handle: Long): Array<Entry>?
+    external fun addEntry(handle: Long, entry: Entry): Int
+    external fun updateEntry(handle: Long, entry: Entry): Int
+    external fun removeEntry(handle: Long, entryId: String): Int
+    external fun setMasterPassword(handle: Long, password: String): Int
+    external fun setDerivativeParameters(handle: Long, salt: ByteArray, rounds: Int): Int
+    external fun getGroups(handle: Long): Array<Group>?
+    external fun removeGroup(handle: Long, groupId: String): Int
+    external fun updateGroup(handle: Long, groupId: String, name: String): Int
+    external fun retrieveFromRemote(handle: Long): String?
+    external fun pushToRemote(handle: Long): String?
+    external fun register(handle: Long): String?
+    external fun getSyncUrl(handle: Long): String?
+    external fun setSyncUrl(handle: Long, url: String): Int
+    external fun getEmail(handle: Long): String?
+    external fun setEmail(handle: Long, email: String): Int
 }

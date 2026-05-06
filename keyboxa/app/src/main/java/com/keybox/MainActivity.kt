@@ -15,8 +15,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
-    private val nativeBridge = NativeBridge()
-    private var fileHandle: Long = 0
+    private val kbFile = KBFile()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +33,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         binding.navView.setNavigationItemSelectedListener(this)
-
-        fileHandle = nativeBridge.createCKBFile()
 
         // Set initial fragment
         if (savedInstanceState == null) {
@@ -55,8 +52,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun loadMockEntries() {
         val mockEntries = listOf(
-            Entry("Gmail", "https://mail.google.com", "user@gmail.com"),
-            Entry("GitHub", "https://github.com", "john_doe")
+            Entry("", "Gmail", "user@gmail.com", "https://mail.google.com", "password", "note", ""),
+            Entry("", "GitHub", "john_doe", "https://github.com", "password", "note", "")
         )
         viewModel.setEntries(mockEntries)
         viewModel.setFileLoaded(true)
@@ -91,9 +88,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onDestroy() {
         super.onDestroy()
-        if (fileHandle != 0L) {
-            nativeBridge.destroyCKBFile(fileHandle)
-            fileHandle = 0
-        }
+        kbFile.destroy()
     }
 }

@@ -28,6 +28,10 @@ class EntryAdapter(private var entries: List<Entry> = emptyList()) :
         holder.titleText.text = if (entry.title.isEmpty()) "(no title)" else entry.title
         holder.urlText.text = entry.url
         holder.usernameText.text = entry.username
+        
+        // Ensure visibility of fields even if empty (for better layout stability)
+        holder.urlText.visibility = if (entry.url.isEmpty()) View.GONE else View.VISIBLE
+        holder.usernameText.visibility = if (entry.username.isEmpty()) View.GONE else View.VISIBLE
     }
 
     override fun getItemCount() = entries.size
