@@ -9,13 +9,14 @@ import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
 import com.keybox.databinding.ActivityMainBinding
 import com.keybox.ui.EntryListFragment
+import com.keybox.ui.SyncSettingsFragment
 import com.keybox.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
-    private val kbFile = KBFile()
+    internal val kbFile = KBFile()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +69,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .commit()
             }
             R.id.nav_sync_settings -> {
-                // TODO: Open Sync Settings Fragment
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.nav_host_fragment, SyncSettingsFragment())
+                    .addToBackStack(null)
+                    .commit()
             }
             R.id.nav_security -> {
                 // TODO: Open Security Fragment

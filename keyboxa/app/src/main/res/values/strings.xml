@@ -2,4 +2,15 @@
     <string name="app_name">Keybox</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="sync_settings">Sync Settings</string>
+    <string name="sync_configuration">Sync Configuration</string>
+    <string name="email">Email</string>
+    <string name="sync_server_url">Sync Server URL</string>
+    <string name="register_new_email">Register New Email</string>
+    <string name="setup_new_client">Setup New Client</string>
+    <string name="save">Save</string>
+    <string name="success">Success</string>
+    <string name="not_implemented">Not Implemented</string>
+    <string name="register_success_default">Register success, please check your email to activate</string>
+    <string name="setup_new_client_not_implemented">Setup new client feature is not yet implemented</string>
 </resources>
