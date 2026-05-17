@@ -59,6 +59,7 @@ class AppState: ObservableObject {
     @Published var groups = PwdGroups()
     @Published var isUnlocked: Bool = false
     @Published var loadedFileData: Data?
+    @Published var isSyncing: Bool = false
 
     // UI state for creating a new file
     @Published var needsMasterPassword: Bool = false
@@ -251,6 +252,33 @@ class AppState: ObservableObject {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
     }
 
+    func syncNow(completion: @escaping (Result<String, Error>) -> Void) {
+        guard let kbFile = kbFile else {
+            completion(.failure(NSError(domain: "Keybox", code: 0,
+                userInfo: [NSLocalizedDescriptionKey: "No keybox file loaded"])))
+            return
+        }
+
+        isSyncing = true
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                var message: NSString?
+                try kbFile.pushToRemote(withMessage: &message)
+                let successMsg = message as String? ?? "Sync completed successfully"
+                DispatchQueue.main.async {
+                    self.isSyncing = false
+                    self.saveFile()
+                    completion(.success(successMsg))
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.isSyncing = false
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+
     func saveFile() {
         guard let ockbFile = kbFile else {
             loadError = "No keybox file loaded"
@@ -269,6 +297,28 @@ class AppState: ObservableObject {
             print("Keybox file saved at: \(fileURL.path)")
         } catch {
             loadError = "Failed to save keybox.kbx: \(error.localizedDescription)"
+        }
+    }
+
+    func loadDownloadedKeybox(data: Data, password: String, completion: @escaping (Bool) -> Void) {
+        let ockbFile = OCKBFile()
+        do {
+            try ockbFile.loadHeader(fromBuffer: data)
+            if ockbFile.setMasterPassword(password) {
+                try ockbFile.loadPayload(fromBuffer: data)
+                
+                // Successfully loaded
+                self.kbFile = ockbFile
+                self.loadedFileData = data
+                self.loadPayloadAfterUnlock()
+                self.saveFile()
+                completion(true)
+            } else {
+                completion(false)
+            }
+        } catch {
+            print("Failed to load downloaded keybox: \(error.localizedDescription)")
+            completion(false)
         }
     }
 }

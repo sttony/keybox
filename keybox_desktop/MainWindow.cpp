@@ -409,7 +409,14 @@ void MainWindow::onSearchTextChange(const QString &_filter) {
 void MainWindow::openSyncSetting(){
     CSyncSettingDlg syncSettingDlg(m_pModel, this);
     connect(&syncSettingDlg, &CSyncSettingDlg::saveSignal, this, &MainWindow::saveFile);
-    syncSettingDlg.exec();
+    if (syncSettingDlg.exec() == QDialog::Accepted) {
+        if (syncSettingDlg.GetModel() != m_pModel) {
+            delete m_pModel;
+            m_pModel = syncSettingDlg.GetModel();
+            m_entry_table_view->setModel(m_pModel);
+            ResetGroup(m_pModel);
+        }
+    }
     m_group_list_view->update();
     m_entry_table_view->update();
     this->RefreshActionEnabled();

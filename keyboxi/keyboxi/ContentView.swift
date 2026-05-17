@@ -4,11 +4,14 @@ struct ContentView: View {
     @EnvironmentObject var appState: AppState
     @State private var isMenuOpen: Bool = false
     @State private var showingSyncSettings: Bool = false
-    @State private var showingChangePassword: Bool = false // Added state for the drawer button
+    @State private var showingChangePassword: Bool = false
     @State private var masterPassword: String = ""
     @State private var newMasterPassword: String = ""
     @State private var confirmMasterPassword: String = ""
     @State private var passwordError: String?
+    @State private var showingSyncAlert: Bool = false
+    @State private var syncAlertTitle: String = ""
+    @State private var syncAlertMessage: String = ""
 
     var body: some View {
         ZStack {
@@ -56,7 +59,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .disabled(isMenuOpen) // Disable interaction with main content when menu is open
+            .disabled(isMenuOpen)
 
             // Dimming Overlay
             if isMenuOpen {
@@ -72,13 +75,37 @@ struct ContentView: View {
             // Side Menu Overlay
             HStack {
                 if isMenuOpen {
-                    SideMenuView(isMenuOpen: $isMenuOpen, showingSyncSettings: $showingSyncSettings, showingChangePassword: $showingChangePassword)
-                        .transition(.move(edge: .leading))
-                        .zIndex(1)
+                    SideMenuView(
+                        isMenuOpen: $isMenuOpen,
+                        showingSyncSettings: $showingSyncSettings,
+                        showingChangePassword: $showingChangePassword,
+                        onSyncNow: performSync
+                    )
+                    .transition(.move(edge: .leading))
+                    .zIndex(1)
                 }
                 Spacer()
             }
             .ignoresSafeArea()
+
+            // Sync progress overlay
+            if appState.isSyncing {
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
+                VStack(spacing: 16) {
+                    ProgressView()
+                        .scaleEffect(1.5)
+                        .tint(.white)
+                    Text("Syncing...")
+                        .foregroundColor(.white)
+                        .font(.headline)
+                }
+            }
+        }
+        .alert(syncAlertTitle, isPresented: $showingSyncAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(syncAlertMessage)
         }
         .sheet(isPresented: $showingSyncSettings) {
             SyncSettingsView()
@@ -89,14 +116,28 @@ struct ContentView: View {
                 .environmentObject(appState)
         }
     }
+
+    private func performSync() {
+        appState.syncNow { result in
+            switch result {
+            case .success(let message):
+                syncAlertTitle = "Sync Successful"
+                syncAlertMessage = message
+            case .failure(let error):
+                syncAlertTitle = "Sync Failed"
+                syncAlertMessage = error.localizedDescription
+            }
+            showingSyncAlert = true
+        }
+    }
 }
 
-// A simple implementation of the Side Menu for now
 struct SideMenuView: View {
     @EnvironmentObject var appState: AppState
     @Binding var isMenuOpen: Bool
     @Binding var showingSyncSettings: Bool
-    @Binding var showingChangePassword: Bool // Added binding
+    @Binding var showingChangePassword: Bool
+    var onSyncNow: () -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -113,11 +154,23 @@ struct SideMenuView: View {
                 isMenuOpen = false
             }
             .padding(.leading)
-            
-            Button("Sync Now") {
+
+            Button {
                 isMenuOpen = false
+                onSyncNow()
+            } label: {
+                HStack(spacing: 8) {
+                    if appState.isSyncing {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .scaleEffect(0.8)
+                    }
+                    Text(appState.isSyncing ? "Syncing..." : "Sync Now")
+                }
             }
             .padding(.leading)
+            .disabled(!appState.isUnlocked || appState.isSyncing)
+            .opacity(appState.isUnlocked && !appState.isSyncing ? 1.0 : 0.5)
 
             Button("Sync Settings") {
                 isMenuOpen = false
@@ -126,8 +179,7 @@ struct SideMenuView: View {
             .padding(.leading)
             .disabled(!appState.isUnlocked)
             .opacity(appState.isUnlocked ? 1.0 : 0.5)
-            
-            // New Security button added to the drawer
+
             Button("Security") {
                 isMenuOpen = false
                 showingChangePassword = true
@@ -146,7 +198,6 @@ struct SideMenuView: View {
 #Preview {
     let appState = AppState()
 
-    // Add test data for preview
     let entry1 = appState.entries.addNew()
     entry1.title = "Gmail"
     entry1.url = "https://mail.google.com"

@@ -84,6 +84,8 @@ private:
 
     boost::uuids::uuid m_filter_group = g_RootGroupId;
     std::string m_filter_text;
+    int m_sort_column = -1;
+    Qt::SortOrder m_sort_order = Qt::AscendingOrder;
     void setFilter();
     std::vector<CPwdEntry> m_filtered_entries;
 

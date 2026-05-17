@@ -15,6 +15,9 @@ struct SyncSettingsView: View {
     @State private var showingAlert = false
     @State private var alertTitle = ""
     @State private var alertMessage = ""
+    @State private var isSettingUp: Bool = false
+    @State private var showingSetupSheet: Bool = false
+    @State private var encryptedUrlData: Data?
 
     var body: some View {
         NavigationView {
@@ -43,10 +46,18 @@ struct SyncSettingsView: View {
                     }
                     .disabled(email.isEmpty || syncUrl.isEmpty)
 
-                    Button("Setup New Client") {
-                        setupNewClient()
+                    Button(action: setupNewClient) {
+                        if isSettingUp {
+                            HStack {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle())
+                                Text("Setting Up...")
+                            }
+                        } else {
+                            Text("Setup New Client")
+                        }
                     }
-                    .disabled(email.isEmpty || syncUrl.isEmpty)
+                    .disabled(email.isEmpty || syncUrl.isEmpty || isSettingUp)
                 }
                 
                 // Security section moved out to the main SlideDrawer menu
@@ -65,6 +76,12 @@ struct SyncSettingsView: View {
                 Button("OK", role: .cancel) { }
             } message: {
                 Text(alertMessage)
+            }
+        }
+        .sheet(isPresented: $showingSetupSheet) {
+            if let data = encryptedUrlData {
+                NewClientSetupView(isPresented: $showingSetupSheet, encryptedUrlData: data)
+                    .environmentObject(appState)
             }
         }
         .onAppear {
@@ -126,7 +143,46 @@ struct SyncSettingsView: View {
     }
 
     private func setupNewClient() {
-        showAlert(title: "Not Implemented", message: "Setup new client feature is not yet implemented in iOS version")
+        guard let kbFile = appState.kbFile else {
+            showAlert(title: "Error", message: "No keybox file loaded")
+            return
+        }
+
+        do {
+            try kbFile.setSyncUrl(syncUrl)
+            try kbFile.setEmail(email)
+        } catch {
+            showAlert(title: "Error", message: "Failed to save settings: \(error.localizedDescription)")
+            return
+        }
+
+        isSettingUp = true
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                var url: NSData?
+                var message: NSString?
+                try kbFile.setupNewClient(withUrl: &url, message: &message)
+                
+                DispatchQueue.main.async {
+                    isSettingUp = false
+                    appState.saveFile()
+                    
+                    if let urlData = url as Data? {
+                        self.encryptedUrlData = urlData
+                        self.showingSetupSheet = true
+                    } else {
+                        let msg = message as String? ?? "New client setup successfully, but no URL received."
+                        showAlert(title: "Success", message: msg)
+                    }
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    isSettingUp = false
+                    showAlert(title: "Error", message: "Failed to setup new client: \(error.localizedDescription)")
+                }
+            }
+        }
     }
 
     private func showAlert(title: String, message: String) {

@@ -15,6 +15,7 @@ class CSyncSettingDlg : public QDialog {
 Q_OBJECT
 public:
     explicit CSyncSettingDlg(CKBModel* pModel, QWidget *parent = nullptr);
+    CKBModel* GetModel() { return m_kbModel; }
 
 private slots:
     void onSave();

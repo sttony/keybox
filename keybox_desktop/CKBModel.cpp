@@ -150,14 +150,14 @@ CPwdEntry CKBModel::GetEntry(int index) {
 }
 
 uint32_t CKBModel::SetEntry(const CPwdEntry &pe, int idx) {
-    beginResetModel();
     uint32_t result = m_kbfile.SetEntry(pe);
-    m_filtered_entries[idx] =pe;
-    endResetModel();
+    setFilter();
     return result;
 }
 
 void CKBModel::sort(int column, Qt::SortOrder order) {
+    m_sort_column = column;
+    m_sort_order = order;
     switch(column){
         case 0:
             std::sort(m_filtered_entries.begin(), m_filtered_entries.end(), [order](const auto& _l, const auto& _r){
@@ -199,7 +199,12 @@ void CKBModel::setFilter() {
             m_filtered_entries.emplace_back(pe);
         }
     }
-    emit layoutChanged();
+    
+    if (m_sort_column != -1) {
+        sort(m_sort_column, m_sort_order);
+    } else {
+        emit layoutChanged();
+    }
 }
 
 void CKBModel::SetFilter(const QString& filterText){
