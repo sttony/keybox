@@ -67,56 +67,55 @@ struct PwdEntryListView: View {
     @State private var selectedEntry: PwdEntry?
     @State private var showingSyncSettings = false
 
+    var filteredEntries: [PwdEntry] {
+        if let selectedGroup = appState.selectedGroup {
+            return entries.entries.filter { $0.groupId == selectedGroup.id }
+        } else {
+            return entries.entries
+        }
+    }
+
     var body: some View {
-        NavigationStack {
-            Group {
-                if entries.entries.isEmpty {
-                    VStack(spacing: 16) {
-                        Image(systemName: "key.fill")
-                            .font(.system(size: 60))
-                            .foregroundColor(.gray)
-                        Text("You don't have any passwords.\nClick + to add one.")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal)
-                    }
-                } else {
-                    List {
-                        ForEach(entries.entries) { entry in
-                            NavigationLink(destination: PwdEntryView(groups: groups, entry: entry, onSave: { _ in
-                                entries.persistAll()
-                            })) {
-                                PwdRow(entry: entry, store: entries)
-                            }
+        Group {
+            if filteredEntries.isEmpty {
+                VStack(spacing: 16) {
+                    Image(systemName: appState.selectedGroup == nil ? "key.fill" : "folder.badge.questionmark")
+                        .font(.system(size: 60))
+                        .foregroundColor(.gray)
+                    Text(appState.selectedGroup == nil ? "You don't have any passwords.\nClick + to add one." : "No passwords in this group.")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                }
+            } else {
+                List {
+                    ForEach(filteredEntries) { entry in
+                        NavigationLink(destination: PwdEntryView(groups: groups, entry: entry, onSave: { _ in
+                            entries.persistAll()
+                        })) {
+                            PwdRow(entry: entry, store: entries)
                         }
                     }
                 }
             }
-            // MODIFIERS MUST BE ATTACHED TO THE CONTENT INSIDE THE STACK
-            .navigationTitle("Passwords")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: { showingSyncSettings = true }) {
-                        Image(systemName: "gear")
+        }
+        .navigationTitle(appState.selectedGroup?.name ?? "Passwords")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    // Create a new entry and trigger the sheet
+                    let newEntry = entries.addNew()
+                    if let group = appState.selectedGroup {
+                        newEntry.groupId = group.id
                     }
-                }
-
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        // Create a new entry and trigger the sheet
-                        selectedEntry = entries.addNew()
-                    }) {
-                        Image(systemName: "plus")
-                    }
+                    selectedEntry = newEntry
+                }) {
+                    Image(systemName: "plus")
                 }
             }
         }
         // MODALS ATTACHED TO THE OUTERMOST CONTAINER
-        .sheet(isPresented: $showingSyncSettings) {
-            SyncSettingsView()
-                .environmentObject(appState)
-        }
         .sheet(item: $selectedEntry) { entry in
             NavigationStack {
                 PwdEntryView(groups: groups, entry: entry, onSave: { _ in

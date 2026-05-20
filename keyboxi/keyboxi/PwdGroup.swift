@@ -21,7 +21,7 @@ final class PwdGroup: Identifiable, Hashable, ObservableObject {
     let backing: OPwdGroup
 
     // Identifiable conformance
-    var id: String { backing.getID() }
+    var id: String { backing.getUUID().uuidString }
 
     // Designated initializer using an existing backing object
     init(backing: OPwdGroup) {
@@ -36,7 +36,7 @@ final class PwdGroup: Identifiable, Hashable, ObservableObject {
     }
 
     // Hashable & Equatable via stable backing ID
-    static func == (lhs: PwdGroup, rhs: PwdGroup) -> Bool { lhs.backing.getID() == rhs.backing.getID() }
+    static func == (lhs: PwdGroup, rhs: PwdGroup) -> Bool { lhs.id == rhs.id }
     func hash(into hasher: inout Hasher) { hasher.combine(id) }
 
     // Persist current state back into the backing object

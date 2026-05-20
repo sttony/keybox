@@ -183,6 +183,54 @@ struct SideMenuView: View {
             .disabled(!appState.isUnlocked)
             .opacity(appState.isUnlocked ? 1.0 : 0.5)
 
+            Divider()
+                .padding(.horizontal)
+
+            Text("Groups")
+                .font(.headline)
+                .padding(.leading)
+
+            ScrollView {
+                VStack(alignment: .leading, spacing: 15) {
+                    Button {
+                        appState.selectedGroup = nil
+                        isMenuOpen = false
+                    } label: {
+                        HStack {
+                            Image(systemName: "list.bullet")
+                            Text("All Passwords")
+                            Spacer()
+                            if appState.selectedGroup == nil {
+                                Image(systemName: "checkmark")
+                                    .font(.caption)
+                            }
+                        }
+                    }
+                    .padding(.leading)
+                    .foregroundColor(appState.selectedGroup == nil ? .accentColor : .primary)
+
+                    ForEach(appState.groups.groups) { group in
+                        Button {
+                            appState.selectedGroup = group
+                            isMenuOpen = false
+                        } label: {
+                            HStack {
+                                Image(systemName: "folder")
+                                Text(group.name)
+                                Spacer()
+                                if appState.selectedGroup?.id == group.id {
+                                    Image(systemName: "checkmark")
+                                        .font(.caption)
+                                }
+                            }
+                        }
+                        .padding(.leading)
+                        .foregroundColor(appState.selectedGroup?.id == group.id ? .accentColor : .primary)
+                    }
+                }
+                .padding(.vertical, 5)
+            }
+
             Spacer()
         }
         .frame(width: 280)

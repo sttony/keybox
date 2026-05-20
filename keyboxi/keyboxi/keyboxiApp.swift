@@ -57,6 +57,7 @@ class AppState: ObservableObject {
     @Published var unlockError: String?
     @Published var entries = PwdEntries()
     @Published var groups = PwdGroups()
+    @Published var selectedGroup: PwdGroup? = nil
     @Published var isUnlocked: Bool = false
     @Published var loadedFileData: Data?
     @Published var isSyncing: Bool = false
