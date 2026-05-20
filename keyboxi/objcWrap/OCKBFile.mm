@@ -42,7 +42,7 @@ typedef NS_ENUM(NSInteger, OCKBFileErrorCode) {
     self = [super init];
     if (self) {
         _cppFile = new CKBFile();
-        _header = [[OCKBFileHeader alloc] initWithCppHeader:&(_cppFile->GetHeader())];
+        _header = [[OCKBFileHeader alloc] initWithCppHeader:&(_cppFile->GetHeader()) owner:self];
     }
     return self;
 }
@@ -344,7 +344,7 @@ typedef NS_ENUM(NSInteger, OCKBFileErrorCode) {
 
 - (OCKBFileHeader *)getHeader {
     if (!_header) {
-        _header = [[OCKBFileHeader alloc] initWithCppHeader:&(_cppFile->GetHeader())];
+        _header = [[OCKBFileHeader alloc] initWithCppHeader:&(_cppFile->GetHeader()) owner:self];
     }
     return _header;
 }

@@ -89,7 +89,7 @@ struct NewClientSetupView: View {
         raw = raw.replacingOccurrences(of: "\n", with: "")
         
         let cipher = OCipherEngine()
-        guard let codeData = cipher.dataFromHexString(raw), codeData.count == 48 else {
+        guard let codeData = cipher.data(fromHexString: raw), codeData.count == 48 else {
             errorMessage = "Invalid code. Must be 96 hex characters."
             return
         }

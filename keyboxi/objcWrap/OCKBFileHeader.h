@@ -102,11 +102,15 @@
 - (void)setSyncEmail:(NSString *)syncEmail;
 
 /**
- * Initialize with an existing C++ CKBFileHeader pointer
+ * Initialize with an existing C++ CKBFileHeader pointer and its owner
  * @param cppHeader Pointer to an existing CKBFileHeader object
+ * @param owner The object that owns the C++ header (to ensure lifetime)
  * @return Initialized OCKBFileHeader instance
  */
-- (instancetype)initWithCppHeader:(void *)cppHeader;
+- (instancetype)initWithCppHeader:(void *)cppHeader owner:(id)owner;
+
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
 
 @end
 

@@ -18,32 +18,23 @@ typedef NS_ENUM(NSInteger, OCKBFileHeaderErrorCode) {
 @interface OCKBFileHeader ()
 
 @property (nonatomic, assign) CKBFileHeader *cppHeader;
+@property (nonatomic, strong) id owner;
 
 @end
 
 @implementation OCKBFileHeader
 
-- (instancetype)initWithCppHeader:(void *)cppHeader {
+- (instancetype)initWithCppHeader:(void *)cppHeader owner:(id)owner {
     self = [super init];
     if (self) {
         _cppHeader = (CKBFileHeader *)cppHeader;
-    }
-    return self;
-}
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        _cppHeader = new CKBFileHeader();
+        _owner = owner;
     }
     return self;
 }
 
 - (void)dealloc {
-    if (_cppHeader != nullptr) {
-        delete _cppHeader;
-        _cppHeader = nullptr;
-    }
+    _cppHeader = nullptr;
 }
 
 - (BOOL)deserializeFromBuffer:(NSData *)buffer error:(NSError **)error {
