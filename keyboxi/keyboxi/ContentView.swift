@@ -150,11 +150,6 @@ struct SideMenuView: View {
             Divider()
                 .padding(.horizontal)
 
-            Button("Settings") {
-                isMenuOpen = false
-            }
-            .padding(.leading)
-
             Button {
                 isMenuOpen = false
                 onSyncNow()
