@@ -203,6 +203,9 @@ CKBFileHeader::CKBFileHeader() : m_encryption_iv(16), m_hmac_sha256_signature(32
     m_fields2handler[KEYBOX_SYNC_URL] = [this](const unsigned char *p, uint32_t &offset, uint16_t cbSize) {
         m_sync_url.resize(cbSize);
         m_sync_url = std::string(p + offset, p + offset + cbSize);
+        while (!m_sync_url.empty() && m_sync_url.back() == '/') {
+            m_sync_url.pop_back();
+        }
         offset += cbSize;
         return 0u;
     };
@@ -225,7 +228,7 @@ CKBFileHeader::CKBFileHeader() : m_encryption_iv(16), m_hmac_sha256_signature(32
 
     m_signature = 0x0BAD19840BAD1984;
     m_version = 1 << 16 | 0;
-    m_sync_url = "https://api.k3ybox.us/";
+    m_sync_url = "https://api.k3ybox.us";
 
 }
 

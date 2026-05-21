@@ -250,8 +250,13 @@ void CKBModel::Lock() {
     emit layoutChanged();
 }
 
+uint32_t CKBModel::Register(std::string& outMessage) {
+    return m_kbfile.Register(outMessage);
+}
+
 uint32_t CKBModel::Register() {
-    return m_kbfile.Register();
+    std::string ignored;
+    return Register(ignored);
 }
 
 uint32_t CKBModel::RetrieveFromRemote(std::string& outMessage) {
@@ -278,11 +283,16 @@ uint32_t CKBModel::PushToRemote() {
     return PushToRemote(ignored);
 }
 
-uint32_t CKBModel::SetupNewClient(vector<unsigned char>& outUrl) {
-    uint32_t result = m_kbfile.SetupNewClient(outUrl);
+uint32_t CKBModel::SetupNewClient(vector<unsigned char>& outUrl, std::string& outMessage) {
+    uint32_t result = m_kbfile.SetupNewClient(outUrl, outMessage);
     setFilter();
     emit layoutChanged();
     return result;
+}
+
+uint32_t CKBModel::SetupNewClient(vector<unsigned char>& outUrl) {
+    std::string ignored;
+    return SetupNewClient(outUrl, ignored);
 }
 
 uint32_t CKBModel::ChangePassword(CMaskedBlob newPassword) {

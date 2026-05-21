@@ -65,6 +65,7 @@ public:
     uint32_t SetSyncUrl(const std::string syncUrl);
 
     void Lock();
+    uint32_t Register(std::string& outMessage);
     uint32_t Register();
 
     // Message-aware sync methods that surface server-provided messages
@@ -73,6 +74,7 @@ public:
     // Backward-compatible wrappers
     uint32_t RetrieveFromRemote();
     uint32_t PushToRemote();
+    uint32_t SetupNewClient(std::vector<unsigned char>& outUrl, std::string& outMessage);
     uint32_t SetupNewClient(std::vector<unsigned char>& outUrl);
     uint32_t ChangePassword(CMaskedBlob);
 

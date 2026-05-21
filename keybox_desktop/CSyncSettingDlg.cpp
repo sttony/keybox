@@ -49,14 +49,19 @@ void CSyncSettingDlg::onSave() {
     m_kbModel->SetSyncUrl(m_syncUrlBox->text().toStdString());
     m_kbModel->SetEmail(m_emailBox->text().toStdString());
 
-    uint32_t result = m_kbModel->Register();
+    string outMessage;
+    uint32_t result = m_kbModel->Register(outMessage);
     if ( result == 0){
         QMessageBox::information(nullptr, "Alert", "Register success, please check your email to activate");
         QDialog::accept();
         emit saveSignal();
     }
     else {
-        QMessageBox::information(nullptr, "Alert", "Register failed");
+        QString alertMsg = "Register failed";
+        if (!outMessage.empty()) {
+            alertMsg += ": " + QString::fromStdString(outMessage);
+        }
+        QMessageBox::information(nullptr, "Alert", alertMsg);
         QDialog::reject();
     }
 }
@@ -68,9 +73,14 @@ void CSyncSettingDlg::onNewClient() {
     m_kbModel->SetSyncUrl(m_syncUrlBox->text().toStdString());
     m_kbModel->SetEmail(m_emailBox->text().toStdString());
     vector<unsigned char> encrypted_url;
-    uint32_t result = m_kbModel->SetupNewClient(encrypted_url);
+    string outMessage;
+    uint32_t result = m_kbModel->SetupNewClient(encrypted_url, outMessage);
     if ( result != 0){
-        QMessageBox::information(nullptr, "Alert", "Register failed");
+        QString alertMsg = "Setup new client failed";
+        if (!outMessage.empty()) {
+            alertMsg += ": " + QString::fromStdString(outMessage);
+        }
+        QMessageBox::information(nullptr, "Alert", alertMsg);
         QDialog::reject();
         return;
     }

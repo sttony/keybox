@@ -82,11 +82,18 @@ public:
     uint32_t SetDerivativeParameters(const std::vector<unsigned char> &_salt, int num_round = 60000);
 
     std::string GetSyncUrl() {
-        return m_sync_url;
+        std::string url = m_sync_url;
+        while (!url.empty() && url.back() == '/') {
+            url.pop_back();
+        }
+        return url;
     }
 
     uint32_t SetSyncUrl(const std::string& sync_url) {
         m_sync_url = sync_url;
+        while (!m_sync_url.empty() && m_sync_url.back() == '/') {
+            m_sync_url.pop_back();
+        }
         return 0;
     }
 
