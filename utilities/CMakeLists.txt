@@ -89,4 +89,7 @@ target_link_libraries(utilities PRIVATE ${CURL_LIBRARIES})
 IF (WIN32)
     target_link_libraries(utilities
             PRIVATE Bcrypt)
+ELSEIF (APPLE)
+    target_link_libraries(utilities
+            PRIVATE "-framework Security")
 ENDIF (WIN32)
