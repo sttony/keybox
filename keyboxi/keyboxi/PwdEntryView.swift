@@ -17,6 +17,8 @@ struct PwdEntryView: View {
     @State private var password: String
     @State private var note: String
     @State private var selectedGroupId: String
+    @State private var attachmentData: Data
+    @State private var showingAttachment = false
 
     init(groups: PwdGroups, entry: PwdEntry? = nil, onSave: @escaping (PwdEntry) -> Void = { _ in }, onCancel: @escaping () -> Void = {}) {
         self.groups = groups
@@ -27,6 +29,7 @@ struct PwdEntryView: View {
         self._userName = State(initialValue: entryValue.userName)
         self._password = State(initialValue: entryValue.password)
         self._note = State(initialValue: entryValue.note)
+        self._attachmentData = State(initialValue: entryValue.backing.getAttachment() as Data)
         // default to first group if not set
         let gid = entryValue.groupId
         let defaultGroupId = gid.isEmpty ? (groups.first?.id ?? "") : gid
@@ -78,6 +81,19 @@ struct PwdEntryView: View {
                         }
                     }
                 }
+
+                Section(header: Text("Attachment")) {
+                    if attachmentData.isEmpty {
+                        Text("No attachment")
+                            .foregroundColor(.secondary)
+                    } else {
+                        Text("Size: \(attachmentData.count) bytes")
+                            .foregroundColor(.secondary)
+                        Button("Read Attachment") {
+                            showingAttachment = true
+                        }
+                    }
+                }
             }
 
             Divider()
@@ -102,6 +118,17 @@ struct PwdEntryView: View {
             .padding()
         }
         .navigationTitle(initialEntry.title.isEmpty ? "New Entry" : "Edit Entry")
+        .sheet(isPresented: $showingAttachment) {
+            NavigationStack {
+                ScrollView {
+                    Text(readableAttachmentText())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
+                        .textSelection(.enabled)
+                }
+                .navigationTitle("Attachment")
+            }
+        }
     }
 
     private var canSave: Bool {
@@ -118,6 +145,13 @@ struct PwdEntryView: View {
         entry.groupId = selectedGroupId
         onSave(entry)
         dismiss()
+    }
+
+    private func readableAttachmentText() -> String {
+        if let text = String(data: attachmentData, encoding: .utf8) {
+            return text
+        }
+        return "Binary attachment (\(attachmentData.count) bytes).\n\nBase64:\n\(attachmentData.base64EncodedString())"
     }
 }
 

@@ -96,6 +96,14 @@
     _entry->SetGroup(bUuid);
 }
 
+- (NSData *)getAttachment {
+    std::vector<unsigned char> attachment = _entry->GetAttachment();
+    if (attachment.empty()) {
+        return [NSData data];
+    }
+    return [NSData dataWithBytes:attachment.data() length:attachment.size()];
+}
+
 /// Get the underlying C++ CPwdEntry object
 - (CPwdEntry*)getCppEntry {
     return _entry;

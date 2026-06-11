@@ -47,6 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSUUID*) getGroupUUID;
 - (void)setGroupUUID:(NSUUID*)uuid;
 
+/// Get attachment bytes
+- (NSData *)getAttachment;
+
 
 
 @end
