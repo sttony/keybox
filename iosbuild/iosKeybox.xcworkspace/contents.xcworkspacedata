@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "container:../keyboxi/keyboxi.xcodeproj">
+      location = "group:../keyboxi/keyboxi.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:iosbuild/utilities-ios-device/keybox.xcodeproj">
    </FileRef>
 </Workspace>

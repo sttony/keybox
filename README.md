@@ -21,15 +21,26 @@ Keypass is good, except it is a little bit complex for me, and it doesn't have t
 2. Use CMake to generate and build the project.
 
 ## iOS
-1. Build utilities for iOS:
+1. Configure the local vcpkg path for Xcode:
+    - The committed project uses `$(VCPKG_ROOT)` from `keyboxi/Config/Paths.xcconfig`.
+    - Create `keyboxi/Config/LocalPaths.xcconfig` on each machine. This file is ignored by git:
+      ```xcconfig
+      VCPKG_ROOT = /path/to/vcpkg
+      ```
+    - If you keep vcpkg at `keyboxi/../vcpkg`, the committed default works and this file is optional.
+2. Build utilities for iOS:
     - install pkg-config: `brew install pkg-config`
     - clone vcpkg: `git clone https://github.com/microsoft/vcpkg/`
     - `./bootstrap-vcpkg.sh`
-    - `./vcpkg install openssl curl --triplet arm64-ios`
+    - Install vcpkg dependencies for device and simulator builds:
+      ```bash
+      ./vcpkg install openssl curl --triplet arm64-ios
+      ./vcpkg install openssl curl --triplet arm64-ios-simulator
+      ```
     - Use CMake to generate the Xcode project for `utilities`:
       ```bash
-      # replace VCPKG_ROOT to your vcpkg path
-      cmake -S utilities -B utilities-ios-device -G Xcode \
+      # replace VCPKG_ROOT with your vcpkg path, or export it first
+      cmake -S utilities -B iosbuild/iosbuild/utilities-ios-device -G Xcode \
       -DCMAKE_SYSTEM_NAME=iOS \
       -DCMAKE_OSX_SYSROOT=iphoneos \
       -DCMAKE_OSX_ARCHITECTURES=arm64 \
@@ -40,8 +51,8 @@ Keypass is good, except it is a little bit complex for me, and it doesn't have t
       -DOPENSSL_USE_STATIC_LIBS=TRUE \
       -DVCPKG_TARGET_TRIPLET=arm64-ios
       ```
-2. Create an Xcode workspace, add `keyboxi` and the generated `utilities-ios-device/keybox.xcodeproj`.
-3. Build `keyboxi`.
+3. Open `iosbuild/iosKeybox.xcworkspace` in Xcode.
+4. Build `keyboxi`.
 
 ## android
 TBD

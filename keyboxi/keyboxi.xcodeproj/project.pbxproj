@@ -45,7 +45,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 73B016452F2D2EBF0062C06D /* keybox.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D9BFE63B012140FB97A300D1;
+			remoteGlobalIDString = 854679A2B3BF49F487E4238B;
+			remoteInfo = utilities;
+		};
+		73B016642F2D3A000062C06D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 73B016452F2D2EBF0062C06D /* keybox.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F5DEAE72CF04F81B7A0E42B9;
 			remoteInfo = utilities;
 		};
 		73B9B5682ED7CA3000C137E5 /* PBXContainerItemProxy */ = {
@@ -94,15 +101,16 @@
 		738D2C852E5E1D43008F15A0 /* OPwdEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OPwdEntry.h; sourceTree = "<group>"; };
 		738D2C862E5E1D5D008F15A0 /* OPwdEntry.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OPwdEntry.mm; sourceTree = "<group>"; };
 		73A3CCD32F05CDA700BAE133 /* PwdGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdGroup.swift; sourceTree = "<group>"; };
-		73B016452F2D2EBF0062C06D /* keybox.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = keybox.xcodeproj; path = "../iosbuild/utilities-ios-device/keybox.xcodeproj"; sourceTree = SOURCE_ROOT; };
-		73B016512F2D31E10062C06D /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = "../../../githublocal/vcpkg/installed/arm64-ios/lib/libz.a"; sourceTree = "<group>"; };
-		73B016532F2D31E60062C06D /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "../../../githublocal/vcpkg/installed/arm64-ios/lib/libssl.a"; sourceTree = "<group>"; };
-		73B016552F2D31ED0062C06D /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "../../../githublocal/vcpkg/installed/arm64-ios/lib/libcurl.a"; sourceTree = "<group>"; };
-		73B016572F2D31F00062C06D /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../../../githublocal/vcpkg/installed/arm64-ios/lib/libcrypto.a"; sourceTree = "<group>"; };
-		73B0165A2F2D37B80062C06D /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../../../githublocal/vcpkg/installed/arm64-ios-simulator/lib/libcrypto.a"; sourceTree = "<group>"; };
-		73B0165C2F2D37BA0062C06D /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "../../../githublocal/vcpkg/installed/arm64-ios-simulator/lib/libcurl.a"; sourceTree = "<group>"; };
-		73B0165E2F2D37C40062C06D /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = "../../../githublocal/vcpkg/installed/arm64-ios-simulator/lib/libz.a"; sourceTree = "<group>"; };
-		73B016602F2D37C60062C06D /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "../../../githublocal/vcpkg/installed/arm64-ios-simulator/lib/libssl.a"; sourceTree = "<group>"; };
+		73B016452F2D2EBF0062C06D /* keybox.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = keybox.xcodeproj; path = "../iosbuild/iosbuild/utilities-ios-device/keybox.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		73B016512F2D31E10062C06D /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = "$(VCPKG_LIBRARY_DIR)/libz.a"; sourceTree = "<group>"; };
+		73B016532F2D31E60062C06D /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "$(VCPKG_LIBRARY_DIR)/libssl.a"; sourceTree = "<group>"; };
+		73B016552F2D31ED0062C06D /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "$(VCPKG_LIBRARY_DIR)/libcurl.a"; sourceTree = "<group>"; };
+		73B016572F2D31F00062C06D /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "$(VCPKG_LIBRARY_DIR)/libcrypto.a"; sourceTree = "<group>"; };
+		73B0165A2F2D37B80062C06D /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "$(VCPKG_LIBRARY_DIR)/libcrypto.a"; sourceTree = "<group>"; };
+		73B0165C2F2D37BA0062C06D /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "$(VCPKG_LIBRARY_DIR)/libcurl.a"; sourceTree = "<group>"; };
+		73B0165E2F2D37C40062C06D /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = "$(VCPKG_LIBRARY_DIR)/libz.a"; sourceTree = "<group>"; };
+		73B016602F2D37C60062C06D /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "$(VCPKG_LIBRARY_DIR)/libssl.a"; sourceTree = "<group>"; };
+		73B016662F2D3B620062C06D /* Paths.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Paths.xcconfig; sourceTree = "<group>"; };
 		73C0D84E2E62377F00DC5181 /* PwdEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdEntryView.swift; sourceTree = "<group>"; };
 		73E556B52BFEAB8E00733C0D /* keyboxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = keyboxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E556B82BFEAB8E00733C0D /* keyboxiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboxiApp.swift; sourceTree = "<group>"; };
@@ -196,6 +204,7 @@
 		73E556AC2BFEAB8E00733C0D = {
 			isa = PBXGroup;
 			children = (
+				73B016672F2D3B620062C06D /* Config */,
 				73E556B72BFEAB8E00733C0D /* keyboxi */,
 				73E556C82BFEAB9000733C0D /* keyboxiTests */,
 				73E556D22BFEAB9000733C0D /* keyboxiUITests */,
@@ -215,6 +224,14 @@
 				73E556F32BFEB3EE00733C0D /* libobjcWrap.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		73B016672F2D3B620062C06D /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				73B016662F2D3B620062C06D /* Paths.xcconfig */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 		73E556B72BFEAB8E00733C0D /* keyboxi */ = {
@@ -300,6 +317,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				73B016652F2D3A000062C06D /* PBXTargetDependency */,
 				73B9B5692ED7CA3000C137E5 /* PBXTargetDependency */,
 			);
 			name = keyboxi;
@@ -509,6 +527,11 @@
 			target = 73E556F22BFEB3EE00733C0D /* objcWrap */;
 			targetProxy = 73B9B5682ED7CA3000C137E5 /* PBXContainerItemProxy */;
 		};
+		73B016652F2D3A000062C06D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = utilities;
+			targetProxy = 73B016642F2D3A000062C06D /* PBXContainerItemProxy */;
+		};
 		73E556C72BFEAB9000733C0D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 73E556B42BFEAB8E00733C0D /* keyboxi */;
@@ -524,6 +547,7 @@
 /* Begin XCBuildConfiguration section */
 		73E556D72BFEAB9000733C0D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73B016662F2D3B620062C06D /* Paths.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -587,6 +611,7 @@
 		};
 		73E556D82BFEAB9000733C0D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73B016662F2D3B620062C06D /* Paths.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -653,7 +678,10 @@
 				DEVELOPMENT_TEAM = J55RY3ZLFC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(VCPKG_INCLUDE_DIR)",
+				);
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -663,7 +691,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "/Users/tonglt/githublocal/vcpkg/installed/arm64-ios-simulator/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/../iosbuild/iosbuild/utilities-ios-device/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(VCPKG_LIBRARY_DIR)",
+				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = com.k3ybox.keyboxi;
@@ -688,7 +719,10 @@
 				DEVELOPMENT_TEAM = J55RY3ZLFC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(VCPKG_INCLUDE_DIR)",
+				);
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -698,7 +732,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "/Users/tonglt/githublocal/vcpkg/installed/arm64-ios-simulator/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/../iosbuild/iosbuild/utilities-ios-device/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(VCPKG_LIBRARY_DIR)",
+				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = com.k3ybox.keyboxi;
@@ -789,7 +826,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = (
 					/usr/include,
-					"/opt/homebrew/opt/openssl@3/include",
+					"$(VCPKG_INCLUDE_DIR)",
 					/opt/homebrew/opt/boost/include,
 				);
 				OTHER_LDFLAGS = "-ObjC";
@@ -806,7 +843,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = (
 					/usr/include,
-					"/opt/homebrew/opt/openssl@3/include",
+					"$(VCPKG_INCLUDE_DIR)",
 					/opt/homebrew/opt/boost/include,
 				);
 				OTHER_LDFLAGS = "-ObjC";
