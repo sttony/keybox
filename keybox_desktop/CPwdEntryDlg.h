@@ -52,7 +52,7 @@ private:
     CPwdEntry m_PwdEntry;
     std::vector<CPwdGroup> m_groups;
     QHBoxLayout *createInputLine(const QString &label, QLineEdit *inputWidget);
-    void init(const std::vector<CPwdGroup>& groups, QWidget *parent = nullptr);
+    void init(const std::vector<CPwdGroup>& groups);
 };
 
 

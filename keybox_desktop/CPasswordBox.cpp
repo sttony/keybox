@@ -37,10 +37,10 @@ CPasswordBox::CPasswordBox(QWidget *parent,
 void CPasswordBox::onShowClickedOneline() {
     m_doesShow = !m_doesShow;
     if (m_doesShow) {
-        m_showButton->setIcon(*m_showIcon);
+        m_showButton->setIcon(m_showIcon);
         m_textInput_oneline->setEchoMode(QLineEdit::Normal);
     } else {
-        m_showButton->setIcon(*m_hideIcon);
+        m_showButton->setIcon(m_hideIcon);
         m_textInput_oneline->setEchoMode(QLineEdit::Password);
     }
 }
@@ -48,11 +48,11 @@ void CPasswordBox::onShowClickedOneline() {
 void CPasswordBox::onShowClickedMultipleline() {
     m_doesShow = !m_doesShow;
     if (m_doesShow) {
-        m_showButton->setIcon(*m_showIcon);
+        m_showButton->setIcon(m_showIcon);
         m_textInput_multipleline->setDisabled(false);
         m_textInput_multipleline->setText(m_masked_blob.Show().c_str());
     } else {
-        m_showButton->setIcon(*m_hideIcon);
+        m_showButton->setIcon(m_hideIcon);
         m_textInput_multipleline->setDisabled(true);
         string text = m_masked_blob.Show();
         m_masked_blob.Set(text, m_randomGenerator.GetNextBytes(text.size()));
@@ -86,8 +86,8 @@ void CPasswordBox::onFocusOut() {
 }
 
 void CPasswordBox::init(bool multipleLine, bool _doesShow) {
-    m_hideIcon = new QIcon(":img/img/eye.slash.svg");
-    m_showIcon = new QIcon(":img/img/eye.svg");
+    m_hideIcon = QIcon(":img/img/eye.slash.svg");
+    m_showIcon = QIcon(":img/img/eye.svg");
 
     QLabel *label = new QLabel(m_label.c_str());
     if (!multipleLine) {
@@ -110,9 +110,9 @@ void CPasswordBox::init(bool multipleLine, bool _doesShow) {
     }
     m_showButton = new QPushButton();
     if (m_doesShow) {
-        m_showButton->setIcon(*m_showIcon);
+        m_showButton->setIcon(m_showIcon);
     } else {
-        m_showButton->setIcon(*m_hideIcon);
+        m_showButton->setIcon(m_hideIcon);
     }
     m_showButton->setIconSize(QSize(24, 24));
     m_showButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);

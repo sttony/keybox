@@ -15,7 +15,8 @@ class CSyncSettingDlg : public QDialog {
 Q_OBJECT
 public:
     explicit CSyncSettingDlg(CKBModel* pModel, QWidget *parent = nullptr);
-    CKBModel* GetModel() { return m_kbModel; }
+    ~CSyncSettingDlg() override;
+    CKBModel* GetModel();
 
 private slots:
     void onSave();
@@ -26,6 +27,7 @@ signals:
 
 private:
     CKBModel* m_kbModel = nullptr;
+    bool m_ownsModel = false;
 
     QLineEdit * m_emailBox = nullptr;
     QLineEdit * m_syncUrlBox = nullptr;

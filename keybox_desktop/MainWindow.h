@@ -20,6 +20,7 @@ Q_OBJECT
 
 public:
     MainWindow();
+    ~MainWindow() override;
 
 private slots:
 

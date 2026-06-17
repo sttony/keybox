@@ -264,6 +264,22 @@ uint32_t CKBModel::Register() {
     return Register(ignored);
 }
 
+uint32_t CKBModel::RetrieveRemoteData(std::vector<CPwdGroup>& outGroups, std::vector<CPwdEntry>& outEntries, std::string& outMessage) {
+    return m_kbfile.RetrieveRemoteData(outGroups, outEntries, outMessage);
+}
+
+void CKBModel::ApplyRemoteData(const std::vector<CPwdGroup>& groups, const std::vector<CPwdEntry>& entries) {
+    for (const auto &grp : groups) {
+        m_kbfile.UpdateGroup(grp.GetID(), grp.GetName());
+    }
+
+    for (const auto &entry : entries) {
+        m_kbfile.AddEntry(entry);
+    }
+
+    resetFilteredEntries();
+}
+
 uint32_t CKBModel::RetrieveFromRemote(std::string& outMessage) {
     uint32_t result = m_kbfile.RetrieveFromRemote(outMessage);
     resetFilteredEntries();
@@ -277,7 +293,6 @@ uint32_t CKBModel::RetrieveFromRemote() {
 
 uint32_t CKBModel::PushToRemote(std::string& outMessage) {
     uint32_t result = m_kbfile.PushToRemote(outMessage);
-    resetFilteredEntries();
     return result;
 }
 

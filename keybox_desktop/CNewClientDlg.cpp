@@ -11,7 +11,7 @@ extern CRandomGenerator g_RG;
 
 using namespace std;
 
-CNewClientDlg::CNewClientDlg(QWidget *parent) {
+CNewClientDlg::CNewClientDlg(QWidget *parent) : QDialog(parent) {
     QVBoxLayout *rootLayout = new QVBoxLayout(this);
 
     // Allow multi-line input so users can paste UUID-like grouped codes across lines

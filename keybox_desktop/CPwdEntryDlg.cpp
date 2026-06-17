@@ -30,8 +30,9 @@ QHBoxLayout *CPwdEntryDlg::createInputLine(const QString &label, QLineEdit *inpu
 }
 
 
-CPwdEntryDlg::CPwdEntryDlg(const std::vector<CPwdGroup>& groups, QWidget *parent) {
-    init(groups, parent);
+CPwdEntryDlg::CPwdEntryDlg(const std::vector<CPwdGroup>& groups, QWidget *parent)
+    : QDialog(parent) {
+    init(groups);
 }
 
 void CPwdEntryDlg::onOK() {
@@ -94,12 +95,13 @@ const CPwdEntry &CPwdEntryDlg::GetPwdEntry() {
     return m_PwdEntry;
 }
 
-CPwdEntryDlg::CPwdEntryDlg(const std::vector<CPwdGroup>& groups, const CPwdEntry& pwdEntry, QWidget *parent) {
+CPwdEntryDlg::CPwdEntryDlg(const std::vector<CPwdGroup>& groups, const CPwdEntry& pwdEntry, QWidget *parent)
+    : QDialog(parent) {
     m_PwdEntry = pwdEntry;
-    init(groups, parent);
+    init(groups);
 }
 
-void CPwdEntryDlg::init(const std::vector<CPwdGroup>& groups, QWidget *parent) {
+void CPwdEntryDlg::init(const std::vector<CPwdGroup>& groups) {
     QVBoxLayout *rootLayout = new QVBoxLayout(this);
 
     m_title_box = new QLineEdit;

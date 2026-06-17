@@ -396,8 +396,10 @@ uint32_t CKBFile::SetAsymKey(unique_ptr<CAsymmetricKeyPair> _key) {
  *      4. Merge the remote CKBFile with local
  * @return
  */
-uint32_t CKBFile::RetrieveFromRemote(std::string& outMessage) {
+uint32_t CKBFile::RetrieveRemoteData(std::vector<CPwdGroup>& outGroups, std::vector<CPwdEntry>& outEntries, std::string& outMessage) {
     outMessage.clear();
+    outGroups.clear();
+    outEntries.clear();
     uint32_t uResult = 0;
     const string& sync_url = m_header.GetSyncUrl();
     const string& sync_email = m_header.GetSyncEmail();
@@ -471,11 +473,25 @@ uint32_t CKBFile::RetrieveFromRemote(std::string& outMessage) {
         return uResult;
     }
 
-    for (const auto &grp  : remote_ckb_file.GetGroups()) {
+    outGroups = remote_ckb_file.GetGroups();
+    outEntries = remote_ckb_file.GetEntries();
+
+    return 0;
+}
+
+uint32_t CKBFile::RetrieveFromRemote(std::string& outMessage) {
+    std::vector<CPwdGroup> remoteGroups;
+    std::vector<CPwdEntry> remoteEntries;
+    uint32_t uResult = RetrieveRemoteData(remoteGroups, remoteEntries, outMessage);
+    if (uResult) {
+        return uResult;
+    }
+
+    for (const auto &grp  : remoteGroups) {
         this->UpdateGroup(grp.GetID(), grp.GetName());
     }
 
-    for (const auto &entry : remote_ckb_file.GetEntries()) {
+    for (const auto &entry : remoteEntries) {
         this->AddEntry(entry);
     }
 

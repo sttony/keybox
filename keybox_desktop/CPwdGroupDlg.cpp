@@ -7,12 +7,12 @@
 
 using namespace std;
 
-CPwdGroupDlg::CPwdGroupDlg(CKBModel *pModel, QWidget *parent) {
+CPwdGroupDlg::CPwdGroupDlg(CKBModel *pModel, QWidget *parent) : QDialog(parent) {
     assert(pModel);
     resize(400, 600);
     m_kbModel = pModel;
     // name and uuid
-    m_table_model = new QStandardItemModel(0, 2);
+    m_table_model = new QStandardItemModel(0, 2, this);
     for(const auto& group : m_kbModel->GetGroups()){
         QList<QStandardItem*> groupItem;
         groupItem.append(new QStandardItem(group.GetName().c_str()));

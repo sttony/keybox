@@ -69,6 +69,8 @@ public:
     uint32_t Register();
 
     // Message-aware sync methods that surface server-provided messages
+    uint32_t RetrieveRemoteData(std::vector<CPwdGroup>& outGroups, std::vector<CPwdEntry>& outEntries, std::string& outMessage);
+    void ApplyRemoteData(const std::vector<CPwdGroup>& groups, const std::vector<CPwdEntry>& entries);
     uint32_t RetrieveFromRemote(std::string& outMessage);
     uint32_t PushToRemote(std::string& outMessage);
     // Backward-compatible wrappers

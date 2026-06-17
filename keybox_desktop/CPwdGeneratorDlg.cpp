@@ -9,7 +9,8 @@ extern CRandomGenerator g_RG;
 
 using namespace std;
 
-CPwdGeneratorDlg::CPwdGeneratorDlg(QWidget *parent): m_pwdGenerator(g_RG) {
+CPwdGeneratorDlg::CPwdGeneratorDlg(QWidget *parent)
+    : QDialog(parent), m_pwdGenerator(g_RG) {
     QVBoxLayout *rootLayout = new QVBoxLayout(this);
 
     m_chkboxUpper = new QCheckBox("Upper case A-Z");

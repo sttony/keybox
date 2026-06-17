@@ -60,6 +60,7 @@ public:
 
 
     // Sync related code
+    uint32_t RetrieveRemoteData(std::vector<CPwdGroup>& outGroups, std::vector<CPwdEntry>& outEntries, std::string& outMessage);
     // Retrieve from remote; if server responds with a JSON {"message": "..."}, it will be returned via outMessage.
     uint32_t RetrieveFromRemote(std::string& outMessage);
     // Backward-compatible wrapper that ignores the returned message.

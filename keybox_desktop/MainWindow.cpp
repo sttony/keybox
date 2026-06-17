@@ -67,6 +67,13 @@ MainWindow::MainWindow() {
     restartInactivityTimer();
 }
 
+MainWindow::~MainWindow() {
+    if (m_entry_table_view) {
+        m_entry_table_view->setModel(nullptr);
+    }
+    delete m_pModel;
+}
+
 void MainWindow::CreateToolbar() {// toolbar
     m_toolbar = addToolBar("toolbar");
     AddToolBarButton(m_newFileAction);

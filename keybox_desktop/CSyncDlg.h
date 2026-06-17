@@ -4,11 +4,16 @@
 #include <QDialog>
 #include <QProgressBar>
 #include <QLabel>
+#include <QMetaType>
+#include <atomic>
 #include <thread>
+#include <vector>
 
 
 #include "CKBModel.h"
 
+Q_DECLARE_METATYPE(std::vector<CPwdGroup>)
+Q_DECLARE_METATYPE(std::vector<CPwdEntry>)
 
 class CSyncDlg final : public QDialog {
 Q_OBJECT
@@ -21,11 +26,13 @@ private slots:
     void startSync();
     void cancelSync();
     void syncThreadFunction();
+    void applyRemoteData(std::vector<CPwdGroup> groups, std::vector<CPwdEntry> entries);
 
 
 signals:
     void syncCompleted(bool success);
     void syncError(const QString& error);
+    void remoteDataReady(std::vector<CPwdGroup> groups, std::vector<CPwdEntry> entries);
 
 private:
     CKBModel* m_pModel = nullptr;

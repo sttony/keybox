@@ -8,8 +8,10 @@
 #include "utilities/CRequest.h"
 using namespace std;
 
-CSyncDlg::CSyncDlg(CKBModel *pModel, QWidget *parent) {
+CSyncDlg::CSyncDlg(CKBModel *pModel, QWidget *parent) : QDialog(parent) {
     m_pModel = pModel;
+    qRegisterMetaType<std::vector<CPwdGroup>>("std::vector<CPwdGroup>");
+    qRegisterMetaType<std::vector<CPwdEntry>>("std::vector<CPwdEntry>");
     setWindowTitle("Synchronization");
     setFixedSize(400, 200);
 
@@ -58,6 +60,9 @@ CSyncDlg::CSyncDlg(CKBModel *pModel, QWidget *parent) {
         QMessageBox::critical(this, "Sync Error", error);
     });
 
+    connect(this, &CSyncDlg::remoteDataReady,
+            this, &CSyncDlg::applyRemoteData,
+            Qt::BlockingQueuedConnection);
 
 }
 
@@ -99,8 +104,10 @@ void CSyncDlg::syncThreadFunction() {
         updateProgress(10);
         updateStatus("Retrieving data from remote server...");
 
+        std::vector<CPwdGroup> groups;
+        std::vector<CPwdEntry> entries;
         std::string retrieveMsg;
-        uint32_t result = m_pModel->RetrieveFromRemote(retrieveMsg);
+        uint32_t result = m_pModel->RetrieveRemoteData(groups, entries, retrieveMsg);
         if (result != 0) {
             QString err = QString("Failed to retrieve remote data (error code: %1)").arg(result);
             if (!retrieveMsg.empty()) {
@@ -110,6 +117,7 @@ void CSyncDlg::syncThreadFunction() {
             m_isSyncing = false;
             return;
         }
+        emit remoteDataReady(groups, entries);
         updateProgress(50);
 
         updateStatus("Pushing data to remote server...");
@@ -132,6 +140,10 @@ void CSyncDlg::syncThreadFunction() {
     }
 
     m_isSyncing = false;
+}
+
+void CSyncDlg::applyRemoteData(std::vector<CPwdGroup> groups, std::vector<CPwdEntry> entries) {
+    m_pModel->ApplyRemoteData(groups, entries);
 }
 
 

@@ -11,6 +11,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QHBoxLayout>
+#include <QIcon>
 #include <memory>
 #include "../utilities/CMaskedBlob.h"
 
@@ -18,8 +19,8 @@ class CPasswordBox : public QWidget {
 Q_OBJECT
 private:
     std::string m_label;
-    QIcon *m_showIcon = nullptr;
-    QIcon *m_hideIcon = nullptr;
+    QIcon m_showIcon;
+    QIcon m_hideIcon;
     QLineEdit *m_textInput_oneline = nullptr;
     QTextEdit *m_textInput_multipleline = nullptr;
     QPushButton *m_showButton = nullptr;

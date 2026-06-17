@@ -8,7 +8,8 @@
 using namespace std;
 extern CRandomGenerator g_RG;
 
-CPrimaryPasswordDlg::CPrimaryPasswordDlg(PBKDF2_256_PARAMETERS _pbkdf2, QWidget *parent) : m_pbkdf2_paras(_pbkdf2) {
+CPrimaryPasswordDlg::CPrimaryPasswordDlg(PBKDF2_256_PARAMETERS _pbkdf2, QWidget *parent)
+    : QDialog(parent), m_pbkdf2_paras(_pbkdf2) {
     QVBoxLayout *rootLayout = new QVBoxLayout(this);
 
     m_pwdBox = new CPasswordBox(nullptr, "password", g_RG, false, false);

@@ -12,7 +12,7 @@
 #include "utilities/CRequest.h"
 
 using namespace std;
-CSyncSettingDlg::CSyncSettingDlg(CKBModel* pModel, QWidget *parent) {
+CSyncSettingDlg::CSyncSettingDlg(CKBModel* pModel, QWidget *parent) : QDialog(parent) {
     QVBoxLayout *rootLayout = new QVBoxLayout(this);
     m_kbModel = pModel;
 
@@ -45,6 +45,17 @@ CSyncSettingDlg::CSyncSettingDlg(CKBModel* pModel, QWidget *parent) {
     QObject::connect(m_cancelBtn, &QPushButton::clicked, this, &QDialog::reject);
 }
 
+CSyncSettingDlg::~CSyncSettingDlg() {
+    if (m_ownsModel) {
+        delete m_kbModel;
+    }
+}
+
+CKBModel* CSyncSettingDlg::GetModel() {
+    m_ownsModel = false;
+    return m_kbModel;
+}
+
 void CSyncSettingDlg::onSave() {
     m_kbModel->SetSyncUrl(m_syncUrlBox->text().toStdString());
     m_kbModel->SetEmail(m_emailBox->text().toStdString());
@@ -69,6 +80,7 @@ void CSyncSettingDlg::onSave() {
 void CSyncSettingDlg::onNewClient() {
     if ( m_kbModel == nullptr ) {
         m_kbModel = new CKBModel();
+        m_ownsModel = true;
     }
     m_kbModel->SetSyncUrl(m_syncUrlBox->text().toStdString());
     m_kbModel->SetEmail(m_emailBox->text().toStdString());
