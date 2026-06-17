@@ -88,7 +88,9 @@ private:
     std::string m_filter_text;
     int m_sort_column = -1;
     Qt::SortOrder m_sort_order = Qt::AscendingOrder;
-    void setFilter();
+    void refreshFilteredEntries();
+    void resetFilteredEntries();
+    void sortFilteredEntries();
     std::vector<CPwdEntry> m_filtered_entries;
 
 };

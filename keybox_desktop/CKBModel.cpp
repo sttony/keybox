@@ -86,14 +86,12 @@ void CKBModel::SetPrimaryKey(CMaskedBlob p) {
 
 void CKBModel::AddEntry(const CPwdEntry &pe) {
     m_kbfile.AddEntry(pe);
-    this->setFilter();
-    emit layoutChanged();
+    resetFilteredEntries();
 }
 
 void CKBModel::RemoveEntry(const boost::uuids::uuid &id) {
     m_kbfile.RemoveEntry(id);
-    this->setFilter();
-    emit layoutChanged();
+    resetFilteredEntries();
 }
 
 CKBModel::CKBModel(QObject *parent) : QAbstractTableModel(parent) {
@@ -137,8 +135,7 @@ uint32_t CKBModel::LoadPayload() {
     if(uResult){
         return uResult;
     }
-    setFilter();
-    emit layoutChanged();
+    resetFilteredEntries();
     return 0;
 }
 
@@ -151,33 +148,39 @@ CPwdEntry CKBModel::GetEntry(int index) {
 
 uint32_t CKBModel::SetEntry(const CPwdEntry &pe, int idx) {
     uint32_t result = m_kbfile.SetEntry(pe);
-    setFilter();
+    resetFilteredEntries();
     return result;
 }
 
 void CKBModel::sort(int column, Qt::SortOrder order) {
     m_sort_column = column;
     m_sort_order = order;
-    switch(column){
+    emit layoutAboutToBeChanged();
+    sortFilteredEntries();
+    emit layoutChanged();
+}
+
+void CKBModel::sortFilteredEntries() {
+    switch(m_sort_column){
         case 0:
-            std::sort(m_filtered_entries.begin(), m_filtered_entries.end(), [order](const auto& _l, const auto& _r){
-                return order == Qt::SortOrder::AscendingOrder ?
+            std::sort(m_filtered_entries.begin(), m_filtered_entries.end(), [this](const auto& _l, const auto& _r){
+                return m_sort_order == Qt::SortOrder::AscendingOrder ?
                     _l.GetTitle() < _r.GetTitle() :
                     _l.GetTitle() > _r.GetTitle();
 
             });
             break;
         case 1:
-            std::sort(m_filtered_entries.begin(), m_filtered_entries.end(), [order](const auto& _l, const auto& _r){
-                return order == Qt::SortOrder::AscendingOrder ?
+            std::sort(m_filtered_entries.begin(), m_filtered_entries.end(), [this](const auto& _l, const auto& _r){
+                return m_sort_order == Qt::SortOrder::AscendingOrder ?
                        _l.GetUserName() < _r.GetUserName() :
                        _l.GetUserName() > _r.GetUserName();
 
             });
             break;
         case 3:
-            std::sort(m_filtered_entries.begin(), m_filtered_entries.end(), [order](const auto& _l, const auto& _r){
-                return order == Qt::SortOrder::AscendingOrder ?
+            std::sort(m_filtered_entries.begin(), m_filtered_entries.end(), [this](const auto& _l, const auto& _r){
+                return m_sort_order == Qt::SortOrder::AscendingOrder ?
                        _l.GetUrl() < _r.GetUrl() :
                        _l.GetUrl() > _r.GetUrl();
             });
@@ -185,11 +188,9 @@ void CKBModel::sort(int column, Qt::SortOrder order) {
         default:
             break;
     }
-
-    emit layoutChanged();
 }
 
-void CKBModel::setFilter() {
+void CKBModel::refreshFilteredEntries() {
     m_filtered_entries.clear();
     for(const auto& pe: m_kbfile.GetEntries()){
         if( (pe.GetUserName().find( m_filter_text) != string::npos ||
@@ -201,20 +202,24 @@ void CKBModel::setFilter() {
     }
     
     if (m_sort_column != -1) {
-        sort(m_sort_column, m_sort_order);
-    } else {
-        emit layoutChanged();
+        sortFilteredEntries();
     }
+}
+
+void CKBModel::resetFilteredEntries() {
+    beginResetModel();
+    refreshFilteredEntries();
+    endResetModel();
 }
 
 void CKBModel::SetFilter(const QString& filterText){
     m_filter_text = filterText.toStdString();
-    this->setFilter();
+    resetFilteredEntries();
 }
 
 void CKBModel::SetFilter(const boost::uuids::uuid group){
     m_filter_group = group;
-    this->setFilter();
+    resetFilteredEntries();
 }
 
 const std::vector<CPwdGroup> &CKBModel::GetGroups() const {
@@ -247,7 +252,7 @@ void CKBModel::Lock() {
     m_kbfile.Lock(nullptr, 0, cbRealSize);
     m_file_buff.resize(cbRealSize);
     m_kbfile.Lock(m_file_buff.data(), m_file_buff.size(), cbRealSize);
-    emit layoutChanged();
+    resetFilteredEntries();
 }
 
 uint32_t CKBModel::Register(std::string& outMessage) {
@@ -261,8 +266,7 @@ uint32_t CKBModel::Register() {
 
 uint32_t CKBModel::RetrieveFromRemote(std::string& outMessage) {
     uint32_t result = m_kbfile.RetrieveFromRemote(outMessage);
-    setFilter();
-    emit layoutChanged();
+    resetFilteredEntries();
     return result;
 }
 
@@ -273,8 +277,7 @@ uint32_t CKBModel::RetrieveFromRemote() {
 
 uint32_t CKBModel::PushToRemote(std::string& outMessage) {
     uint32_t result = m_kbfile.PushToRemote(outMessage);
-    setFilter();
-    emit layoutChanged();
+    resetFilteredEntries();
     return result;
 }
 
@@ -285,8 +288,7 @@ uint32_t CKBModel::PushToRemote() {
 
 uint32_t CKBModel::SetupNewClient(vector<unsigned char>& outUrl, std::string& outMessage) {
     uint32_t result = m_kbfile.SetupNewClient(outUrl, outMessage);
-    setFilter();
-    emit layoutChanged();
+    resetFilteredEntries();
     return result;
 }
 
@@ -299,7 +301,6 @@ uint32_t CKBModel::ChangePassword(CMaskedBlob newPassword) {
     uint32_t result = m_kbfile.RetrieveFromRemote();
     m_kbfile.SetMasterKey(newPassword);
     result = m_kbfile.PushToRemote();
-    setFilter();
-    emit layoutChanged();
+    resetFilteredEntries();
     return result;
 }
