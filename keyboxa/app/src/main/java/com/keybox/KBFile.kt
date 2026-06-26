@@ -17,6 +17,7 @@ class KBFile(private val bridge: NativeBridge = NativeBridge()) {
     fun lock(): ByteArray? = bridge.lock(handle)
 
     fun getEntries(): List<Entry> = bridge.getEntries(handle)?.toList() ?: emptyList()
+    fun getEntryAttachment(entryId: String): ByteArray? = bridge.getEntryAttachment(handle, entryId)
     fun addEntry(entry: Entry): Int = bridge.addEntry(handle, entry)
     fun updateEntry(entry: Entry): Int = bridge.updateEntry(handle, entry)
     fun removeEntry(entryId: String): Int = bridge.removeEntry(handle, entryId)
@@ -32,6 +33,8 @@ class KBFile(private val bridge: NativeBridge = NativeBridge()) {
     fun retrieveFromRemote(): String? = bridge.retrieveFromRemote(handle)
     fun pushToRemote(): String? = bridge.pushToRemote(handle)
     fun register(): String? = bridge.register(handle)
+    fun setupNewClient(): ByteArray? = bridge.setupNewClient(handle)
+    fun changePassword(password: String): Int = bridge.changePassword(handle, password)
 
     fun getSyncUrl(): String? = bridge.getSyncUrl(handle)
     fun setSyncUrl(url: String): Int = bridge.setSyncUrl(handle, url)

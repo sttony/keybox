@@ -4,8 +4,8 @@
 
 #include <openssl/ec.h>
 #include <openssl/evp.h>
-#include <openssl/core_names.h>
 #include <openssl/pem.h>
+#include <openssl/rsa.h>
 #include <openssl/err.h>
 #include "CAsymmetricKeyPair.h"
 #include "error_code.h"

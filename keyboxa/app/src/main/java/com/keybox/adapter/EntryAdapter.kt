@@ -8,7 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.keybox.Entry
 import com.keybox.R
 
-class EntryAdapter(private var entries: List<Entry> = emptyList()) :
+class EntryAdapter(
+    private var entries: List<Entry> = emptyList(),
+    private val onEntryClick: (Entry) -> Unit = {},
+    private val onEntryLongClick: (Entry) -> Unit = {}
+) :
     RecyclerView.Adapter<EntryAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -32,6 +36,13 @@ class EntryAdapter(private var entries: List<Entry> = emptyList()) :
         // Ensure visibility of fields even if empty (for better layout stability)
         holder.urlText.visibility = if (entry.url.isEmpty()) View.GONE else View.VISIBLE
         holder.usernameText.visibility = if (entry.username.isEmpty()) View.GONE else View.VISIBLE
+        holder.itemView.setOnLongClickListener {
+            onEntryLongClick(entry)
+            true
+        }
+        holder.itemView.setOnClickListener {
+            onEntryClick(entry)
+        }
     }
 
     override fun getItemCount() = entries.size

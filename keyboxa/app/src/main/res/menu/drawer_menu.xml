@@ -4,11 +4,31 @@
         <item
             android:id="@+id/nav_passwords"
             android:icon="@android:drawable/ic_lock_lock"
-            android:title="Passwords" />
+            android:title="@string/passwords" />
         <item
             android:id="@+id/nav_sync_settings"
             android:icon="@android:drawable/ic_menu_rotate"
             android:title="Sync Settings" />
+        <item
+            android:id="@+id/nav_sync_now"
+            android:icon="@android:drawable/ic_popup_sync"
+            android:title="@string/sync_now" />
+        <item
+            android:id="@+id/nav_password_generator"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="@string/password_generator" />
+        <item
+            android:id="@+id/nav_manage_groups"
+            android:icon="@android:drawable/ic_menu_agenda"
+            android:title="@string/manage_groups" />
+        <item
+            android:id="@+id/nav_import_keybox"
+            android:icon="@android:drawable/ic_menu_upload"
+            android:title="@string/import_keybox" />
+        <item
+            android:id="@+id/nav_export_keybox"
+            android:icon="@android:drawable/ic_menu_save"
+            android:title="@string/export_keybox" />
         <item
             android:id="@+id/nav_security"
             android:icon="@android:drawable/ic_lock_idle_lock"

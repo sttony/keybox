@@ -7,6 +7,14 @@ set(KEYBOX_ANDROID_CURL_ROOT "" CACHE PATH "Android ABI-specific libcurl install
 option(KEYBOX_ALLOW_ANDROID_STUB_NATIVE "Build a stub JNI library when Android OpenSSL/libcurl are not configured" ON)
 
 if(ANDROID)
+    set(KEYBOX_ANDROID_DEPS_DIR "${KEYBOX_UTILITIES_DIR}/../android_deps")
+    if(NOT KEYBOX_ANDROID_OPENSSL_ROOT)
+        set(KEYBOX_ANDROID_OPENSSL_ROOT "${KEYBOX_ANDROID_DEPS_DIR}/build/openssl/${ANDROID_ABI}")
+    endif()
+    if(NOT KEYBOX_ANDROID_CURL_ROOT)
+        set(KEYBOX_ANDROID_CURL_ROOT "${KEYBOX_ANDROID_DEPS_DIR}/build/curl/${ANDROID_ABI}")
+    endif()
+
     if(NOT KEYBOX_ANDROID_OPENSSL_ROOT OR NOT KEYBOX_ANDROID_CURL_ROOT)
         if(KEYBOX_ALLOW_ANDROID_STUB_NATIVE)
             message(WARNING
@@ -66,6 +74,10 @@ add_library(keyboxa SHARED
 )
 
 target_include_directories(keyboxa PRIVATE "${KEYBOX_UTILITIES_DIR}")
+
+target_link_options(keyboxa PRIVATE
+        LINKER:-z,max-page-size=16384
+)
 
 target_link_libraries(keyboxa
         utilities

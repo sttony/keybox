@@ -4,7 +4,7 @@
 #define KEYBOX_CASYMMETRICKEYPAIR_H
 
 #include <vector>
-#include <openssl/types.h>
+#include <openssl/ossl_typ.h>
 #include "CMaskedBlob.h"
 
 class CAsymmetricKeyPair {

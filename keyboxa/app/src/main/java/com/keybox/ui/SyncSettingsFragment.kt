@@ -79,6 +79,7 @@ class SyncSettingsFragment : Fragment(), MenuProvider {
 
         if (url.isNotEmpty()) kbFile.setSyncUrl(url)
         if (email.isNotEmpty()) kbFile.setEmail(email)
+        (requireActivity() as MainActivity).saveKeyboxFile()
 
         binding.textError.visibility = View.GONE
         parentFragmentManager.popBackStack()
@@ -93,14 +94,43 @@ class SyncSettingsFragment : Fragment(), MenuProvider {
         kbFile.setEmail(email)
 
         val message = kbFile.register() ?: getString(R.string.register_success_default)
+        (requireActivity() as MainActivity).saveKeyboxFile()
         showAlert(getString(R.string.success), message)
         parentFragmentManager.popBackStack()
     }
 
     private fun setupNewClient() {
-        showAlert(
-            getString(R.string.not_implemented),
-            getString(R.string.setup_new_client_not_implemented)
+        val activity = requireActivity() as MainActivity
+        val kbFile = activity.kbFile
+        val email = binding.editEmail.text?.toString().orEmpty()
+        val url = binding.editSyncUrl.text?.toString().orEmpty()
+
+        kbFile.setSyncUrl(url)
+        kbFile.setEmail(email)
+        activity.saveKeyboxFile()
+
+        setSetupInProgress(true)
+        Thread {
+            val encryptedUrl = kbFile.setupNewClient()
+            activity.runOnUiThread {
+                setSetupInProgress(false)
+                if (encryptedUrl == null) {
+                    showAlert(getString(R.string.error), getString(R.string.setup_new_client_request_failed))
+                } else {
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.nav_host_fragment, NewClientSetupFragment.newInstance(encryptedUrl))
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
+        }.start()
+    }
+
+    private fun setSetupInProgress(inProgress: Boolean) {
+        binding.btnSetupNewClient.isEnabled = !inProgress
+        binding.btnRegisterEmail.isEnabled = !inProgress
+        binding.btnSetupNewClient.text = getString(
+            if (inProgress) R.string.setting_up else R.string.setup_new_client
         )
     }
 

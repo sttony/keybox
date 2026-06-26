@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.26)
+cmake_minimum_required(VERSION 3.22.1)
 project(keybox)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -11,11 +11,26 @@ if(APPLE AND IOS)
     set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY BOTH)
     set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE BOTH)
     set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE BOTH)
+elseif(ANDROID)
+    set(KEYBOX_ANDROID_DEPS_DIR "${CMAKE_CURRENT_LIST_DIR}/../android_deps")
+    set(Boost_INCLUDE_DIRS "${KEYBOX_ANDROID_DEPS_DIR}")
+    set(Boost_FOUND TRUE)
+    set(OPENSSL_ROOT_DIR "${KEYBOX_ANDROID_DEPS_DIR}/build/openssl/${ANDROID_ABI}")
+    set(OPENSSL_USE_STATIC_LIBS TRUE)
+    set(CURL_ROOT "${KEYBOX_ANDROID_DEPS_DIR}/build/curl/${ANDROID_ABI}")
+    set(CURL_USE_STATIC_LIBS TRUE)
+    set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY BOTH)
+    set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE BOTH)
+    set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE BOTH)
 endif()
 
+if(ANDROID)
+    # Boost is header-only, no find_package needed
+else()
+    set(Boost_USE_STATIC_LIBS ON)
+    find_package(Boost REQUIRED)
+endif()
 find_package(OpenSSL REQUIRED)
-set(Boost_USE_STATIC_LIBS ON)
-find_package(Boost REQUIRED)
 find_package(CURL REQUIRED)
 
 include_directories(${Boost_INCLUDE_DIRS})
@@ -69,7 +84,7 @@ ELSEIF (APPLE)
             InitGlobalRG_mac.cpp
             ${COMMON_SOURCE_FILES}
     )
-ELSEIF (LINUX)
+ELSEIF (LINUX OR ANDROID)
     set(SOURCE_FILES
             CipherEngine_linux.cpp
             InitGlobalRG_linux.cpp
@@ -80,6 +95,16 @@ ENDIF (WIN32)
 
 
 add_library(utilities STATIC ${SOURCE_FILES} ${HEADER_FILES})
+
+target_include_directories(utilities
+        PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${Boost_INCLUDE_DIRS}
+        ${OPENSSL_INCLUDE_DIR}
+        PRIVATE
+        ${ZLIB_INCLUDE_DIRS}
+        ${CURL_INCLUDE_DIRS}
+)
 
 target_link_libraries(utilities PRIVATE ${OPENSSL_LIBRARIES})
 

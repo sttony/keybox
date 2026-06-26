@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "CKBFile.h"
+#include "CPasswordGenerator.h"
 #include "CPwdGroup.h"
 #include "InitGlobalRG.h"
 #include <android/log.h>
@@ -175,6 +176,38 @@ Java_com_keybox_NativeBridge_getEntries(JNIEnv *env, jobject thiz, jlong handle)
 }
 
 extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_keybox_NativeBridge_getEntryAttachment(JNIEnv *env, jobject thiz, jlong handle, jstring entryId) {
+    auto *file = reinterpret_cast<CKBFile *>(handle);
+    const char *idChars = env->GetStringUTFChars(entryId, nullptr);
+    boost::uuids::uuid uuid;
+    try {
+        uuid = boost::lexical_cast<boost::uuids::uuid>(idChars);
+    } catch (...) {
+        env->ReleaseStringUTFChars(entryId, idChars);
+        return nullptr;
+    }
+    env->ReleaseStringUTFChars(entryId, idChars);
+
+    for (const auto &entry: file->GetEntries()) {
+        if (entry.GetID() == uuid) {
+            std::vector<unsigned char> attachment = const_cast<CPwdEntry &>(entry).GetAttachment();
+            jbyteArray array = env->NewByteArray(attachment.size());
+            if (!attachment.empty()) {
+                env->SetByteArrayRegion(
+                        array,
+                        0,
+                        attachment.size(),
+                        reinterpret_cast<const jbyte *>(attachment.data())
+                );
+            }
+            return array;
+        }
+    }
+    return nullptr;
+}
+
+extern "C"
 JNIEXPORT jint JNICALL
 Java_com_keybox_NativeBridge_addEntry(JNIEnv *env, jobject thiz, jlong handle, jobject entryObj) {
     auto *file = reinterpret_cast<CKBFile *>(handle);
@@ -312,6 +345,58 @@ Java_com_keybox_NativeBridge_register(JNIEnv *env, jobject thiz, jlong handle) {
 }
 
 extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_keybox_NativeBridge_setupNewClient(JNIEnv *env, jobject thiz, jlong handle) {
+    auto *file = reinterpret_cast<CKBFile *>(handle);
+    std::vector<unsigned char> encryptedUrl;
+    std::string message;
+    uint32_t result = file->SetupNewClient(encryptedUrl, message);
+    if (result != 0 || encryptedUrl.empty()) {
+        return nullptr;
+    }
+
+    jbyteArray array = env->NewByteArray(encryptedUrl.size());
+    env->SetByteArrayRegion(
+            array,
+            0,
+            encryptedUrl.size(),
+            reinterpret_cast<const jbyte *>(encryptedUrl.data())
+    );
+    return array;
+}
+
+extern "C"
+JNIEXPORT jint JNICALL
+Java_com_keybox_NativeBridge_changePassword(JNIEnv *env, jobject thiz, jlong handle, jstring password) {
+    auto *file = reinterpret_cast<CKBFile *>(handle);
+    uint32_t result = file->RetrieveFromRemote();
+    if (result != 0) {
+        return static_cast<jint>(result);
+    }
+
+    const char *passwordChars = env->GetStringUTFChars(password, nullptr);
+    std::string rawPassword(passwordChars);
+    env->ReleaseStringUTFChars(password, passwordChars);
+
+    CCipherEngine cipherEngine;
+    std::vector<unsigned char> derivedKey;
+    result = cipherEngine.PBKDF2DerivativeKey(
+            rawPassword,
+            file->GetDerivativeParameters(),
+            derivedKey
+    );
+    cipherEngine.CleanString(rawPassword);
+    if (result != 0) {
+        return static_cast<jint>(result);
+    }
+
+    file->SetMasterKey(std::move(derivedKey), g_RG.GetNextBytes(32));
+
+    result = file->PushToRemote();
+    return static_cast<jint>(result);
+}
+
+extern "C"
 JNIEXPORT jstring JNICALL
 Java_com_keybox_NativeBridge_getSyncUrl(JNIEnv *env, jobject thiz, jlong handle) {
     auto *file = reinterpret_cast<CKBFile *>(handle);
@@ -343,4 +428,41 @@ Java_com_keybox_NativeBridge_setEmail(JNIEnv *env, jobject thiz, jlong handle, j
     std::string e(emailChars);
     env->ReleaseStringUTFChars(email, emailChars);
     return file->GetHeader().SetSyncEmail(e);
+}
+
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_keybox_NativeBridge_generatePassword(
+        JNIEnv *env,
+        jobject thiz,
+        jint length,
+        jboolean lower,
+        jboolean upper,
+        jboolean digit,
+        jboolean minus,
+        jboolean add,
+        jboolean shift18,
+        jboolean brace,
+        jboolean space,
+        jboolean question,
+        jboolean slash,
+        jboolean greaterLess) {
+    InitGlobalRG();
+
+    CPasswordGenerator generator(g_RG);
+    generator.SetLength(length);
+    generator.SetLower(lower == JNI_TRUE);
+    generator.SetUpper(upper == JNI_TRUE);
+    generator.SetDigit(digit == JNI_TRUE);
+    generator.SetMinus(minus == JNI_TRUE);
+    generator.SetAdd(add == JNI_TRUE);
+    generator.SetShift1_8(shift18 == JNI_TRUE);
+    generator.SetBrace(brace == JNI_TRUE);
+    generator.SetSpace(space == JNI_TRUE);
+    generator.SetQuestion(question == JNI_TRUE);
+    generator.SetSlash(slash == JNI_TRUE);
+    generator.SetGreaterLess(greaterLess == JNI_TRUE);
+
+    const std::string password = generator.GeneratePassword();
+    return env->NewStringUTF(password.c_str());
 }
