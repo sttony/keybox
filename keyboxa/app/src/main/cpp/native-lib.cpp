@@ -5,6 +5,7 @@
 #include "CPasswordGenerator.h"
 #include "CPwdGroup.h"
 #include "InitGlobalRG.h"
+#include "error_code.h"
 #include <android/log.h>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/lexical_cast.hpp>
@@ -59,7 +60,23 @@ Java_com_keybox_NativeBridge_loadPayload(JNIEnv *env, jobject thiz, jlong handle
     jbyte *bufferPtr = env->GetByteArrayElements(data, nullptr);
     jsize length = env->GetArrayLength(data);
     uint32_t realSize = 0;
-    uint32_t result = file->LoadPayload(reinterpret_cast<const unsigned char *>(bufferPtr), length, realSize);
+    uint32_t headerSize = 0;
+    uint32_t result = file->LoadHeader(
+            reinterpret_cast<const unsigned char *>(bufferPtr),
+            length,
+            headerSize
+    );
+    if (result == 0) {
+        if (headerSize >= static_cast<uint32_t>(length)) {
+            result = ERROR_BUFFER_TOO_SMALL;
+        } else {
+            result = file->LoadPayload(
+                    reinterpret_cast<const unsigned char *>(bufferPtr) + headerSize,
+                    static_cast<uint32_t>(length) - headerSize,
+                    realSize
+            );
+        }
+    }
     env->ReleaseByteArrayElements(data, bufferPtr, JNI_ABORT);
     return static_cast<jint>(result);
 }
@@ -253,9 +270,19 @@ Java_com_keybox_NativeBridge_setMasterPassword(JNIEnv *env, jobject thiz, jlong 
     std::string pwd(pwdChars);
     env->ReleaseStringUTFChars(password, pwdChars);
 
-    CMaskedBlob masterKey;
-    masterKey.Set(pwd, g_RG.GetNextBytes(32));
-    file->SetMasterKey(masterKey);
+    CCipherEngine cipherEngine;
+    std::vector<unsigned char> derivedKey;
+    uint32_t result = cipherEngine.PBKDF2DerivativeKey(
+            pwd,
+            file->GetDerivativeParameters(),
+            derivedKey
+    );
+    cipherEngine.CleanString(pwd);
+    if (result != 0) {
+        return static_cast<jint>(result);
+    }
+
+    file->SetMasterKey(std::move(derivedKey), g_RG.GetNextBytes(32));
     return 0;
 }
 
@@ -336,33 +363,73 @@ Java_com_keybox_NativeBridge_pushToRemote(JNIEnv *env, jobject thiz, jlong handl
 }
 
 extern "C"
-JNIEXPORT jstring JNICALL
+JNIEXPORT jobject JNICALL
 Java_com_keybox_NativeBridge_register(JNIEnv *env, jobject thiz, jlong handle) {
     auto *file = reinterpret_cast<CKBFile *>(handle);
     std::string message;
-    file->Register(message);
-    return env->NewStringUTF(message.c_str());
+    uint32_t result = file->Register(message);
+
+    jclass resultClass = env->FindClass("com/keybox/NativeOperationResult");
+    if (resultClass == nullptr) {
+        return nullptr;
+    }
+    jmethodID constructor = env->GetMethodID(resultClass, "<init>", "(ILjava/lang/String;)V");
+    if (constructor == nullptr) {
+        return nullptr;
+    }
+
+    jstring messageString = env->NewStringUTF(message.c_str());
+    jobject resultObject = env->NewObject(
+            resultClass,
+            constructor,
+            static_cast<jint>(result),
+            messageString
+    );
+    env->DeleteLocalRef(messageString);
+    return resultObject;
 }
 
 extern "C"
-JNIEXPORT jbyteArray JNICALL
+JNIEXPORT jobject JNICALL
 Java_com_keybox_NativeBridge_setupNewClient(JNIEnv *env, jobject thiz, jlong handle) {
     auto *file = reinterpret_cast<CKBFile *>(handle);
     std::vector<unsigned char> encryptedUrl;
     std::string message;
     uint32_t result = file->SetupNewClient(encryptedUrl, message);
-    if (result != 0 || encryptedUrl.empty()) {
+
+    jclass resultClass = env->FindClass("com/keybox/SetupNewClientResult");
+    if (resultClass == nullptr) {
+        return nullptr;
+    }
+    jmethodID constructor = env->GetMethodID(resultClass, "<init>", "(ILjava/lang/String;[B)V");
+    if (constructor == nullptr) {
         return nullptr;
     }
 
-    jbyteArray array = env->NewByteArray(encryptedUrl.size());
-    env->SetByteArrayRegion(
-            array,
-            0,
-            encryptedUrl.size(),
-            reinterpret_cast<const jbyte *>(encryptedUrl.data())
+    jbyteArray array = nullptr;
+    if (!encryptedUrl.empty()) {
+        array = env->NewByteArray(encryptedUrl.size());
+        env->SetByteArrayRegion(
+                array,
+                0,
+                encryptedUrl.size(),
+                reinterpret_cast<const jbyte *>(encryptedUrl.data())
+        );
+    }
+
+    jstring messageString = env->NewStringUTF(message.c_str());
+    jobject resultObject = env->NewObject(
+            resultClass,
+            constructor,
+            static_cast<jint>(result),
+            messageString,
+            array
     );
-    return array;
+    env->DeleteLocalRef(messageString);
+    if (array != nullptr) {
+        env->DeleteLocalRef(array);
+    }
+    return resultObject;
 }
 
 extern "C"

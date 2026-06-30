@@ -58,12 +58,16 @@
     <string name="setup_new_client">Setup New Client</string>
     <string name="save">Save</string>
     <string name="success">Success</string>
+    <string name="registering">Registering...</string>
     <string name="not_implemented">Not Implemented</string>
     <string name="register_success_default">Register success, please check your email to activate</string>
+    <string name="register_failed_with_detail">Failed to register email: %1$s</string>
     <string name="setup_new_client_not_implemented">Setup new client feature is not yet implemented</string>
     <string name="error">Error</string>
     <string name="setting_up">Setting Up...</string>
     <string name="setup_new_client_request_failed">Failed to start new client setup.</string>
+    <string name="setup_new_client_request_failed_with_detail">Failed to start new client setup: %1$s</string>
+    <string name="error_code">Error code: %1$d</string>
     <string name="setup_new_client_instructions">Enter the 96-character setup code from your other device. The code decrypts a one-time download URL for the keybox file.</string>
     <string name="setup_code">Setup Code</string>
     <string name="finalize_setup">Finalize Setup</string>

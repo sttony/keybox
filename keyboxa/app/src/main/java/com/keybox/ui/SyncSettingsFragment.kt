@@ -86,17 +86,41 @@ class SyncSettingsFragment : Fragment(), MenuProvider {
     }
 
     private fun registerEmail() {
-        val kbFile = (requireActivity() as MainActivity).kbFile
+        val activity = requireActivity() as MainActivity
+        val kbFile = activity.kbFile
         val email = binding.editEmail.text?.toString().orEmpty()
         val url = binding.editSyncUrl.text?.toString().orEmpty()
 
         kbFile.setSyncUrl(url)
         kbFile.setEmail(email)
 
-        val message = kbFile.register() ?: getString(R.string.register_success_default)
-        (requireActivity() as MainActivity).saveKeyboxFile()
-        showAlert(getString(R.string.success), message)
-        parentFragmentManager.popBackStack()
+        setRegisterInProgress(true)
+        Thread {
+            val registerResult = kbFile.register()
+            activity.runOnUiThread {
+                if (!isAdded || _binding == null) return@runOnUiThread
+                setRegisterInProgress(false)
+                if (!registerResult.isSuccess) {
+                    val detail = registerResult.message.ifBlank {
+                        getString(R.string.error_code, registerResult.resultCode)
+                    }
+                    showAlert(
+                        getString(R.string.error),
+                        getString(R.string.register_failed_with_detail, detail)
+                    )
+                    return@runOnUiThread
+                }
+
+                if (!activity.saveKeyboxFile()) {
+                    showAlert(getString(R.string.error), getString(R.string.save_keybox_failed))
+                    return@runOnUiThread
+                }
+
+                val message = registerResult.message.ifBlank { getString(R.string.register_success_default) }
+                showAlert(getString(R.string.success), message)
+                parentFragmentManager.popBackStack()
+            }
+        }.start()
     }
 
     private fun setupNewClient() {
@@ -107,15 +131,26 @@ class SyncSettingsFragment : Fragment(), MenuProvider {
 
         kbFile.setSyncUrl(url)
         kbFile.setEmail(email)
-        activity.saveKeyboxFile()
+        if (!activity.saveKeyboxFile()) {
+            showAlert(getString(R.string.error), getString(R.string.save_keybox_failed))
+            return
+        }
 
         setSetupInProgress(true)
         Thread {
-            val encryptedUrl = kbFile.setupNewClient()
+            val setupResult = kbFile.setupNewClient()
             activity.runOnUiThread {
+                if (!isAdded || _binding == null) return@runOnUiThread
                 setSetupInProgress(false)
-                if (encryptedUrl == null) {
-                    showAlert(getString(R.string.error), getString(R.string.setup_new_client_request_failed))
+                val encryptedUrl = setupResult.encryptedUrl
+                if (!setupResult.isSuccess || encryptedUrl == null) {
+                    val detail = setupResult.message.ifBlank {
+                        getString(R.string.error_code, setupResult.resultCode)
+                    }
+                    showAlert(
+                        getString(R.string.error),
+                        getString(R.string.setup_new_client_request_failed_with_detail, detail)
+                    )
                 } else {
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.nav_host_fragment, NewClientSetupFragment.newInstance(encryptedUrl))
@@ -131,6 +166,14 @@ class SyncSettingsFragment : Fragment(), MenuProvider {
         binding.btnRegisterEmail.isEnabled = !inProgress
         binding.btnSetupNewClient.text = getString(
             if (inProgress) R.string.setting_up else R.string.setup_new_client
+        )
+    }
+
+    private fun setRegisterInProgress(inProgress: Boolean) {
+        binding.btnRegisterEmail.isEnabled = !inProgress
+        binding.btnSetupNewClient.isEnabled = !inProgress
+        binding.btnRegisterEmail.text = getString(
+            if (inProgress) R.string.registering else R.string.register_new_email
         )
     }
 

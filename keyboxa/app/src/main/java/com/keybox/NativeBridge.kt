@@ -26,8 +26,8 @@ class NativeBridge {
     external fun updateGroup(handle: Long, groupId: String, name: String): Int
     external fun retrieveFromRemote(handle: Long): String?
     external fun pushToRemote(handle: Long): String?
-    external fun register(handle: Long): String?
-    external fun setupNewClient(handle: Long): ByteArray?
+    external fun register(handle: Long): NativeOperationResult
+    external fun setupNewClient(handle: Long): SetupNewClientResult
     external fun changePassword(handle: Long, password: String): Int
     external fun getSyncUrl(handle: Long): String?
     external fun setSyncUrl(handle: Long, url: String): Int
