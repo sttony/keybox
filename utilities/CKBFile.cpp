@@ -648,18 +648,43 @@ uint32_t CKBFile::SetupNewClient(vector<unsigned char>& outEncryptedUrl, std::st
     pay_load.put("client_id", to_string(m_client_uuid));
     std::ostringstream oss;
     boost::property_tree::write_json(oss, pay_load);
-    request.SetPayload(oss.str());
-    request.Send();
+    uint32_t payloadResult = request.SetPayload(oss.str());
+    if (payloadResult != 0) {
+        outMessage = "Failed to set setup_new_client request payload. Curl detail: " +
+                     request.GetLastError();
+        return payloadResult;
+    }
 
-    std::istringstream iss(string(reinterpret_cast<const char *>(request.GetResponsePayload().data()),
-       reinterpret_cast<const char *>(request.GetResponsePayload().data()) + request.GetResponsePayload().size()) );
+    uint32_t sendResult = request.Send();
+    if (sendResult != 0) {
+        outMessage = "Failed to send setup_new_client request. Curl code " +
+                     std::to_string(sendResult & 0xff) + ": " + request.GetLastError();
+        return sendResult;
+    }
+
+    const auto &responsePayload = request.GetResponsePayload();
+    std::string responseText(
+            reinterpret_cast<const char *>(responsePayload.data()),
+            reinterpret_cast<const char *>(responsePayload.data()) + responsePayload.size()
+    );
+
     boost::property_tree::ptree response;
     try {
+        std::istringstream iss(responseText);
         boost::property_tree::read_json(iss, response);
         auto msgOpt = response.get_optional<std::string>("message");
         if (msgOpt) outMessage = *msgOpt;
     }
     catch (exception &e) {
+        if (responseText.empty()) {
+            outMessage = "Empty response from setup_new_client. HTTP " + std::to_string(request.GetResponseCode());
+        } else {
+            if (responseText.size() > 200) {
+                responseText.resize(200);
+            }
+            outMessage = "Invalid JSON from setup_new_client. HTTP " +
+                         std::to_string(request.GetResponseCode()) + ": " + responseText;
+        }
         return ERROR_INVALID_JSON;
     }
 
@@ -667,7 +692,13 @@ uint32_t CKBFile::SetupNewClient(vector<unsigned char>& outEncryptedUrl, std::st
         return ERROR_HTTP_ERROR_PREFIX | request.GetResponseCode();
     }
 
-    outEncryptedUrl = hex_to_bytes(response.get<std::string>("file_url"));
+    auto fileUrlOpt = response.get_optional<std::string>("file_url");
+    if (!fileUrlOpt || fileUrlOpt->empty()) {
+        outMessage = "setup_new_client response did not contain file_url";
+        return ERROR_INVALID_JSON;
+    }
+
+    outEncryptedUrl = hex_to_bytes(*fileUrlOpt);
     return 0;
 }
 

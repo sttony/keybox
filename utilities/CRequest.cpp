@@ -10,23 +10,34 @@ const string CRequest::GET = "GET";
 const string CRequest::POST = "POST";
 
 CurlInitiator g_curl;
+static std::string g_curl_ca_bundle_path;
 
 CurlInitiator::CurlInitiator() {
     curl_global_init(CURL_GLOBAL_DEFAULT);
+}
+
+void SetCurlCaBundlePath(std::string path) {
+    g_curl_ca_bundle_path = std::move(path);
 }
 
 CRequest::CRequest(string &&url, string method) {
     m_curl = curl_easy_init();
     m_method = std::move(method);
     m_url = std::move(url);
-    CURLcode res = curl_easy_setopt(m_curl, CURLOPT_URL, m_url.c_str());
+    CURLcode res = curl_easy_setopt(m_curl, CURLOPT_ERRORBUFFER, m_error_buffer);
     if (res != CURLE_OK) {
+        m_last_error = curl_easy_strerror(res);
+    }
+    res = curl_easy_setopt(m_curl, CURLOPT_URL, m_url.c_str());
+    if (res != CURLE_OK) {
+        m_last_error = curl_easy_strerror(res);
         curl_easy_cleanup(m_curl);
         m_url.clear();
     }
 
     res = curl_easy_setopt(m_curl, CURLOPT_CUSTOMREQUEST, m_method.c_str());
     if (res != CURLE_OK) {
+        m_last_error = curl_easy_strerror(res);
         curl_easy_cleanup(m_curl);
         m_url.clear();
     }
@@ -53,16 +64,32 @@ size_t CRequest::WriteCallback(void *ptr, size_t size, size_t nmemb, void *data)
 
 uint32_t CRequest::Send() {
     CURLcode res;
+    m_last_error.clear();
+    m_error_buffer[0] = '\0';
     res = curl_easy_setopt(m_curl, CURLOPT_WRITEFUNCTION, WriteCallback);
     if (res != CURLE_OK) {
+        m_last_error = curl_easy_strerror(res);
         return ERROR_CURL_ERROR_PREFIX | res;
     }
     res = curl_easy_setopt(m_curl, CURLOPT_WRITEDATA, this);
     if (res != CURLE_OK) {
+        m_last_error = curl_easy_strerror(res);
         return ERROR_CURL_ERROR_PREFIX | res;
+    }
+    if (!g_curl_ca_bundle_path.empty()) {
+        res = curl_easy_setopt(m_curl, CURLOPT_CAINFO, g_curl_ca_bundle_path.c_str());
+        if (res != CURLE_OK) {
+            m_last_error = curl_easy_strerror(res);
+            return ERROR_CURL_ERROR_PREFIX | res;
+        }
     }
     res = curl_easy_perform(m_curl);
     if (res != CURLE_OK) {
+        if (m_error_buffer[0] != '\0') {
+            m_last_error = m_error_buffer;
+        } else {
+            m_last_error = curl_easy_strerror(res);
+        }
         return ERROR_CURL_ERROR_PREFIX | res;
     }
     return 0;
@@ -72,6 +99,7 @@ uint32_t CRequest::SetPayload(std::string &&payload) {
     m_payLoadBuff = payload;
     CURLcode res = curl_easy_setopt(m_curl, CURLOPT_POSTFIELDS, m_payLoadBuff.c_str());
     if (res != CURLE_OK) {
+        m_last_error = curl_easy_strerror(res);
         return ERROR_CURL_ERROR_PREFIX | res;
     }
     return 0;
@@ -90,6 +118,10 @@ const vector<unsigned char>& CRequest::GetResponsePayload() {
     return m_response_payload;
 }
 
+const std::string& CRequest::GetLastError() const {
+    return m_last_error;
+}
+
 std::string CRequest::GetResponseHeader(std::string &&key_name) {
     return "";
 }
@@ -97,7 +129,5 @@ std::string CRequest::GetResponseHeader(std::string &&key_name) {
 uint32_t CRequest::EnableFollowRedirect() {
     return curl_easy_setopt(m_curl, CURLOPT_FOLLOWLOCATION, 1L);
 }
-
-
 
 

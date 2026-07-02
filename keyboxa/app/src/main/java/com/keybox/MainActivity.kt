@@ -84,7 +84,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
 
+        configureNativeCaBundle()
         initializeKeyboxFile()
+    }
+
+    private fun configureNativeCaBundle() {
+        val caBundleFile = File(filesDir, CA_BUNDLE_FILE_NAME)
+        if (!caBundleFile.exists()) {
+            resources.openRawResource(R.raw.cacert).use { input ->
+                caBundleFile.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+        }
+        kbFile.setCurlCaBundlePath(caBundleFile.absolutePath)
     }
 
     private fun initializeKeyboxFile() {
@@ -377,6 +390,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private companion object {
         const val KEYBOX_FILE_NAME = "keybox.kbx"
+        const val CA_BUNDLE_FILE_NAME = "cacert.pem"
         const val KEY_DERIVATION_SALT_BYTES = 32
         const val KEY_DERIVATION_ROUNDS = 60000
         const val DRAWER_GROUP_MENU_GROUP_ID = 10

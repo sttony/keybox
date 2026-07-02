@@ -5,6 +5,7 @@
 #include "CPasswordGenerator.h"
 #include "CPwdGroup.h"
 #include "InitGlobalRG.h"
+#include "CRequest.h"
 #include "error_code.h"
 #include <android/log.h>
 #include <boost/uuid/uuid_io.hpp>
@@ -25,6 +26,15 @@ extern "C"
 JNIEXPORT void JNICALL
 Java_com_keybox_NativeBridge_destroyCKBFile(JNIEnv *env, jobject thiz, jlong handle) {
     delete reinterpret_cast<CKBFile *>(handle);
+}
+
+extern "C"
+JNIEXPORT jint JNICALL
+Java_com_keybox_NativeBridge_setCurlCaBundlePath(JNIEnv *env, jobject thiz, jstring path) {
+    const char *pathChars = env->GetStringUTFChars(path, nullptr);
+    SetCurlCaBundlePath(pathChars);
+    env->ReleaseStringUTFChars(path, pathChars);
+    return 0;
 }
 
 extern "C"

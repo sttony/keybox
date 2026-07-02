@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.22.1)
 project("keyboxa")
 
-set(KEYBOX_UTILITIES_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../../utilities")
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(KEYBOX_UTILITIES_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../../../utilities")
 set(KEYBOX_ANDROID_OPENSSL_ROOT "" CACHE PATH "Android ABI-specific OpenSSL install root")
 set(KEYBOX_ANDROID_CURL_ROOT "" CACHE PATH "Android ABI-specific libcurl install root")
 option(KEYBOX_ALLOW_ANDROID_STUB_NATIVE "Build a stub JNI library when Android OpenSSL/libcurl are not configured" ON)
@@ -15,7 +18,13 @@ if(ANDROID)
         set(KEYBOX_ANDROID_CURL_ROOT "${KEYBOX_ANDROID_DEPS_DIR}/build/curl/${ANDROID_ABI}")
     endif()
 
-    if(NOT KEYBOX_ANDROID_OPENSSL_ROOT OR NOT KEYBOX_ANDROID_CURL_ROOT)
+    set(OPENSSL_SSL_LIBRARY "${KEYBOX_ANDROID_OPENSSL_ROOT}/lib/libssl.a")
+    set(OPENSSL_CRYPTO_LIBRARY "${KEYBOX_ANDROID_OPENSSL_ROOT}/lib/libcrypto.a")
+    set(CURL_LIBRARY "${KEYBOX_ANDROID_CURL_ROOT}/lib/libcurl.a")
+
+    if(NOT EXISTS "${OPENSSL_SSL_LIBRARY}" OR
+            NOT EXISTS "${OPENSSL_CRYPTO_LIBRARY}" OR
+            NOT EXISTS "${CURL_LIBRARY}")
         if(KEYBOX_ALLOW_ANDROID_STUB_NATIVE)
             message(WARNING
                 "Building stub keyboxa JNI library because Android OpenSSL/libcurl are not configured. "
@@ -33,9 +42,6 @@ if(ANDROID)
         endif()
     endif()
 
-    find_library(OPENSSL_SSL_LIBRARY ssl PATHS "${KEYBOX_ANDROID_OPENSSL_ROOT}/lib" NO_DEFAULT_PATH REQUIRED)
-    find_library(OPENSSL_CRYPTO_LIBRARY crypto PATHS "${KEYBOX_ANDROID_OPENSSL_ROOT}/lib" NO_DEFAULT_PATH REQUIRED)
-    find_library(CURL_LIBRARY curl PATHS "${KEYBOX_ANDROID_CURL_ROOT}/lib" NO_DEFAULT_PATH REQUIRED)
     find_library(ZLIB_LIBRARY z REQUIRED)
 
     add_library(utilities STATIC
@@ -57,6 +63,7 @@ if(ANDROID)
 
     target_include_directories(utilities PUBLIC
             "${KEYBOX_UTILITIES_DIR}"
+            "${KEYBOX_ANDROID_DEPS_DIR}"
             "${KEYBOX_ANDROID_OPENSSL_ROOT}/include"
             "${KEYBOX_ANDROID_CURL_ROOT}/include")
 

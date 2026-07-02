@@ -11,6 +11,7 @@ class KBFile(private val bridge: NativeBridge = NativeBridge()) {
     }
 
     fun deserialize(data: ByteArray): Int = bridge.deserialize(handle, data)
+    fun setCurlCaBundlePath(path: String): Int = bridge.setCurlCaBundlePath(path)
     fun loadHeader(data: ByteArray): Int = bridge.loadHeader(handle, data)
     fun loadPayload(data: ByteArray): Int = bridge.loadPayload(handle, data)
     fun serialize(): ByteArray? = bridge.serialize(handle)

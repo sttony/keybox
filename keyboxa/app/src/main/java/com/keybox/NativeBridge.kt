@@ -9,6 +9,7 @@ class NativeBridge {
 
     external fun createCKBFile(): Long
     external fun destroyCKBFile(handle: Long)
+    external fun setCurlCaBundlePath(path: String): Int
     external fun deserialize(handle: Long, data: ByteArray): Int
     external fun loadHeader(handle: Long, data: ByteArray): Int
     external fun loadPayload(handle: Long, data: ByteArray): Int

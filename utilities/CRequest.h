@@ -13,6 +13,7 @@ public:
     CurlInitiator();
 };
 
+void SetCurlCaBundlePath(std::string path);
 
 class CRequest {
 public:
@@ -26,6 +27,7 @@ public:
     uint32_t Send();
     uint32_t GetResponseCode();
     const std::vector<unsigned char>& GetResponsePayload();
+    const std::string& GetLastError() const;
     std::string GetResponseHeader(std::string&& key_name);
     uint32_t EnableFollowRedirect();
 
@@ -37,6 +39,8 @@ private:
     std::string m_method;
     CURL *m_curl;
     std::vector<unsigned char> m_response_payload;
+    std::string m_last_error;
+    char m_error_buffer[CURL_ERROR_SIZE] = {};
     int m_response_code;
 };
 
