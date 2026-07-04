@@ -1,6 +1,7 @@
 #include <iostream>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
+#include <QtGui/QIcon>
 #include "MainWindow.h"
 #include "CPwdEntryDlg.h"
 #include "../utilities/CRandomGenerator.h"
@@ -14,6 +15,7 @@ CSettings g_Settings;
 int main(int argc, char *argv[]) {
     // Create a Qt application
     QApplication app(argc, argv);
+    app.setWindowIcon(QIcon(":img/img/app_icon_lock.svg"));
     InitGlobalRG();
     g_Settings.Load();
 
@@ -28,6 +30,7 @@ int main(int argc, char *argv[]) {
 //    }
     // Create a main window
     MainWindow mainWindow;
+    mainWindow.setWindowIcon(QIcon(":img/img/app_icon_lock.svg"));
     // Show the main window
     mainWindow.show();
 

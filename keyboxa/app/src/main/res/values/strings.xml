@@ -5,8 +5,11 @@
     <string name="passwords">Passwords</string>
     <string name="sync_settings">Sync Settings</string>
     <string name="sync_now">Sync Now</string>
+    <string name="syncing">Syncing...</string>
+    <string name="sync_progress">Sync progress</string>
     <string name="sync_complete">Sync Complete</string>
     <string name="sync_complete_default">Sync completed successfully.</string>
+    <string name="sync_failed_default">Sync failed.</string>
     <string name="import_keybox">Import Keybox</string>
     <string name="export_keybox">Export Keybox</string>
     <string name="export_keybox_success">keybox.kbx exported successfully.</string>

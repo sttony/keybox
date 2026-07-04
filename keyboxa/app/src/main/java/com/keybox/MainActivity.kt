@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
 import com.keybox.databinding.ActivityMainBinding
@@ -65,6 +66,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+        val toolbarForeground = ContextCompat.getColor(this, R.color.toolbar_foreground)
+        binding.toolbar.setTitleTextColor(toolbarForeground)
+        toggle.drawerArrowDrawable.color = toolbarForeground
 
         binding.navView.setNavigationItemSelectedListener(this)
 
@@ -420,22 +424,37 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun syncNow() {
         if (isSyncing) return
-        isSyncing = true
-        binding.navView.menu.findItem(R.id.nav_sync_now)?.isEnabled = false
+        setSyncInProgress(true)
 
         Thread {
-            val message = kbFile.pushToRemote()
+            val result = runCatching { kbFile.pushToRemote() }
             runOnUiThread {
-                isSyncing = false
-                binding.navView.menu.findItem(R.id.nav_sync_now)?.isEnabled = true
-                saveKeyboxFile()
-                AlertDialog.Builder(this)
-                    .setTitle(R.string.sync_complete)
-                    .setMessage(message?.takeIf { it.isNotBlank() } ?: getString(R.string.sync_complete_default))
-                    .setPositiveButton(android.R.string.ok, null)
-                    .show()
+                setSyncInProgress(false)
+                result.onSuccess { message ->
+                    saveKeyboxFile()
+                    AlertDialog.Builder(this)
+                        .setTitle(R.string.sync_complete)
+                        .setMessage(message?.takeIf { it.isNotBlank() } ?: getString(R.string.sync_complete_default))
+                        .setPositiveButton(android.R.string.ok, null)
+                        .show()
+                }.onFailure {
+                    AlertDialog.Builder(this)
+                        .setTitle(R.string.error)
+                        .setMessage(it.localizedMessage ?: getString(R.string.sync_failed_default))
+                        .setPositiveButton(android.R.string.ok, null)
+                        .show()
+                }
             }
         }.start()
+    }
+
+    private fun setSyncInProgress(inProgress: Boolean) {
+        isSyncing = inProgress
+        binding.syncProgressContainer.visibility = if (inProgress) View.VISIBLE else View.GONE
+        binding.navView.menu.findItem(R.id.nav_sync_now)?.apply {
+            isEnabled = !inProgress
+            title = getString(if (inProgress) R.string.syncing else R.string.sync_now)
+        }
     }
 
     private fun exportKeybox() {

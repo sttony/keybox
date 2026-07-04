@@ -5,6 +5,7 @@
 #include "CGZcompressor.h"
 
 #include "error_code.h"
+#include <cstring>
 
 using namespace std;
 
