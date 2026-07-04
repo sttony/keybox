@@ -430,11 +430,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val result = runCatching { kbFile.pushToRemote() }
             runOnUiThread {
                 setSyncInProgress(false)
-                result.onSuccess { message ->
+                result.onSuccess { syncResult ->
+                    if (!syncResult.isSuccess) {
+                        val detail = syncResult.message.ifBlank {
+                            getString(R.string.error_code, syncResult.resultCode)
+                        }
+                        AlertDialog.Builder(this)
+                            .setTitle(R.string.error)
+                            .setMessage(detail)
+                            .setPositiveButton(android.R.string.ok, null)
+                            .show()
+                        return@onSuccess
+                    }
+
                     saveKeyboxFile()
                     AlertDialog.Builder(this)
                         .setTitle(R.string.sync_complete)
-                        .setMessage(message?.takeIf { it.isNotBlank() } ?: getString(R.string.sync_complete_default))
+                        .setMessage(syncResult.message.takeIf { it.isNotBlank() } ?: getString(R.string.sync_complete_default))
                         .setPositiveButton(android.R.string.ok, null)
                         .show()
                 }.onFailure {

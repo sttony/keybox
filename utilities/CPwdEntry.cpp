@@ -9,7 +9,7 @@
 #include <boost/lexical_cast.hpp>
 
 
-boost::property_tree::ptree CPwdEntry::toJsonObj() {
+boost::property_tree::ptree CPwdEntry::toJsonObj() const {
     boost::property_tree::ptree root;
     root.put("uuid", boost::uuids::to_string(m_uuid));
     root.put("title", m_title);
@@ -19,10 +19,6 @@ boost::property_tree::ptree CPwdEntry::toJsonObj() {
     root.add_child("note", m_note.toJsonObj());
     root.add_child("password", m_password.toJsonObj());
     root.add_child("attachment", m_attachment.toJsonObj());
-
-    m_nano_timestamp = static_cast<long long>(
-        std::chrono::duration_cast<std::chrono::nanoseconds>(
-            std::chrono::system_clock::now().time_since_epoch()).count());
 
     root.put("nano_timestamp", m_nano_timestamp);
     {
@@ -46,17 +42,20 @@ const std::string &CPwdEntry::GetTitle() const {
 
 void CPwdEntry::SetTitle(const std::string &_title) {
     m_title = _title;
+    Touch();
 };
 
 
 CPwdEntry::CPwdEntry() {
     m_uuid = boost::uuids::random_generator()();
     m_group_uuid = g_RootGroupId;
+    m_nano_timestamp = CurrentNanoTimestamp();
 }
 
 CPwdEntry::CPwdEntry(boost::uuids::uuid _uuid) {
     m_uuid = _uuid;
     m_group_uuid = g_RootGroupId;
+    m_nano_timestamp = CurrentNanoTimestamp();
 }
 
 uint32_t CPwdEntry::fromJsonObj(const boost::property_tree::ptree &jsonObj) {
@@ -79,6 +78,8 @@ uint32_t CPwdEntry::fromJsonObj(const boost::property_tree::ptree &jsonObj) {
     // Deserialize entry-level nano timestamp if present
     if (auto ts = jsonObj.get_optional<decltype(m_nano_timestamp)>("nano_timestamp")) {
         m_nano_timestamp = *ts;
+    } else {
+        m_nano_timestamp = 0;
     }
 
     // Deserialize password history if present
@@ -110,6 +111,7 @@ boost::uuids::uuid CPwdEntry::GetGroup() const {
 
 void CPwdEntry::SetGroup(boost::uuids::uuid uuid) {
     m_group_uuid = uuid;
+    Touch();
 }
 
 long long CPwdEntry::GetNanoTimestamp() const {
@@ -130,4 +132,14 @@ void CPwdEntry::SetPasswordHistory(const std::vector<std::pair<CMaskedBlob, long
 
 void CPwdEntry::SetPasswordHistory(std::vector<std::pair<CMaskedBlob, long long>>&& hist) {
     m_password_history = std::move(hist);
+}
+
+long long CPwdEntry::CurrentNanoTimestamp() {
+    return static_cast<long long>(
+        std::chrono::duration_cast<std::chrono::nanoseconds>(
+            std::chrono::system_clock::now().time_since_epoch()).count());
+}
+
+void CPwdEntry::Touch() {
+    m_nano_timestamp = CurrentNanoTimestamp();
 }

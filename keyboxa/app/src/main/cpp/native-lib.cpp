@@ -151,7 +151,28 @@ jobject createJavaEntry(JNIEnv *env, const CPwdEntry &entry) {
     return entryObj;
 }
 
-void fillCppEntry(JNIEnv *env, jobject entryObj, CPwdEntry &entry) {
+jobject createNativeOperationResult(JNIEnv *env, uint32_t result, const std::string &message) {
+    jclass resultClass = env->FindClass("com/keybox/NativeOperationResult");
+    if (resultClass == nullptr) {
+        return nullptr;
+    }
+    jmethodID constructor = env->GetMethodID(resultClass, "<init>", "(ILjava/lang/String;)V");
+    if (constructor == nullptr) {
+        return nullptr;
+    }
+
+    jstring messageString = env->NewStringUTF(message.c_str());
+    jobject resultObject = env->NewObject(
+            resultClass,
+            constructor,
+            static_cast<jint>(result),
+            messageString
+    );
+    env->DeleteLocalRef(messageString);
+    return resultObject;
+}
+
+uint32_t fillCppEntry(JNIEnv *env, jobject entryObj, CPwdEntry &entry) {
     jclass entryClass = env->GetObjectClass(entryObj);
 
     auto getStringField = [&](const char* fieldName) -> std::string {
@@ -169,10 +190,12 @@ void fillCppEntry(JNIEnv *env, jobject entryObj, CPwdEntry &entry) {
     entry.SetUrl(getStringField("url"));
     
     std::string password = getStringField("password");
-    entry.SetPassword(password, g_RG.GetNextBytes(32));
+    uint32_t result = entry.SetPassword(password, g_RG.GetNextBytes(password.size()));
+    if (result != 0) return result;
 
     std::string note = getStringField("note");
-    entry.SetNote(note, g_RG.GetNextBytes(32));
+    result = entry.SetNote(note, g_RG.GetNextBytes(note.size()));
+    if (result != 0) return result;
 
     std::string groupUuidStr = getStringField("groupUuid");
     if (!groupUuidStr.empty()) {
@@ -180,6 +203,7 @@ void fillCppEntry(JNIEnv *env, jobject entryObj, CPwdEntry &entry) {
             entry.SetGroup(boost::lexical_cast<boost::uuids::uuid>(groupUuidStr));
         } catch (...) {}
     }
+    return 0;
 }
 
 extern "C"
@@ -239,7 +263,8 @@ JNIEXPORT jint JNICALL
 Java_com_keybox_NativeBridge_addEntry(JNIEnv *env, jobject thiz, jlong handle, jobject entryObj) {
     auto *file = reinterpret_cast<CKBFile *>(handle);
     CPwdEntry entry;
-    fillCppEntry(env, entryObj, entry);
+    uint32_t result = fillCppEntry(env, entryObj, entry);
+    if (result != 0) return result;
     return file->AddEntry(entry);
 }
 
@@ -258,7 +283,8 @@ Java_com_keybox_NativeBridge_updateEntry(JNIEnv *env, jobject thiz, jlong handle
     env->ReleaseStringUTFChars(jid, idChars);
 
     CPwdEntry entry(uuid);
-    fillCppEntry(env, entryObj, entry);
+    uint32_t result = fillCppEntry(env, entryObj, entry);
+    if (result != 0) return result;
     return file->SetEntry(entry);
 }
 
@@ -355,21 +381,21 @@ Java_com_keybox_NativeBridge_updateGroup(JNIEnv *env, jobject thiz, jlong handle
 }
 
 extern "C"
-JNIEXPORT jstring JNICALL
+JNIEXPORT jobject JNICALL
 Java_com_keybox_NativeBridge_retrieveFromRemote(JNIEnv *env, jobject thiz, jlong handle) {
     auto *file = reinterpret_cast<CKBFile *>(handle);
     std::string message;
-    file->RetrieveFromRemote(message);
-    return env->NewStringUTF(message.c_str());
+    uint32_t result = file->RetrieveFromRemote(message);
+    return createNativeOperationResult(env, result, message);
 }
 
 extern "C"
-JNIEXPORT jstring JNICALL
+JNIEXPORT jobject JNICALL
 Java_com_keybox_NativeBridge_pushToRemote(JNIEnv *env, jobject thiz, jlong handle) {
     auto *file = reinterpret_cast<CKBFile *>(handle);
     std::string message;
-    file->PushToRemote(message);
-    return env->NewStringUTF(message.c_str());
+    uint32_t result = file->PushToRemote(message);
+    return createNativeOperationResult(env, result, message);
 }
 
 extern "C"
@@ -378,25 +404,7 @@ Java_com_keybox_NativeBridge_register(JNIEnv *env, jobject thiz, jlong handle) {
     auto *file = reinterpret_cast<CKBFile *>(handle);
     std::string message;
     uint32_t result = file->Register(message);
-
-    jclass resultClass = env->FindClass("com/keybox/NativeOperationResult");
-    if (resultClass == nullptr) {
-        return nullptr;
-    }
-    jmethodID constructor = env->GetMethodID(resultClass, "<init>", "(ILjava/lang/String;)V");
-    if (constructor == nullptr) {
-        return nullptr;
-    }
-
-    jstring messageString = env->NewStringUTF(message.c_str());
-    jobject resultObject = env->NewObject(
-            resultClass,
-            constructor,
-            static_cast<jint>(result),
-            messageString
-    );
-    env->DeleteLocalRef(messageString);
-    return resultObject;
+    return createNativeOperationResult(env, result, message);
 }
 
 extern "C"

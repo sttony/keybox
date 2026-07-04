@@ -8,6 +8,22 @@ std::string g_email;
 jstring to_jstring(JNIEnv *env, const std::string &value) {
     return env->NewStringUTF(value.c_str());
 }
+
+jobject native_operation_result(JNIEnv *env, jint result_code, const std::string &message) {
+    jclass resultClass = env->FindClass("com/keybox/NativeOperationResult");
+    if (resultClass == nullptr) {
+        return nullptr;
+    }
+    jmethodID constructor = env->GetMethodID(resultClass, "<init>", "(ILjava/lang/String;)V");
+    if (constructor == nullptr) {
+        return nullptr;
+    }
+
+    jstring messageString = to_jstring(env, message);
+    jobject resultObject = env->NewObject(resultClass, constructor, result_code, messageString);
+    env->DeleteLocalRef(messageString);
+    return resultObject;
+}
 }
 
 extern "C" JNIEXPORT jlong JNICALL
@@ -88,19 +104,19 @@ Java_com_keybox_NativeBridge_updateGroup(JNIEnv *, jobject, jlong, jstring, jstr
     return 0;
 }
 
-extern "C" JNIEXPORT jstring JNICALL
+extern "C" JNIEXPORT jobject JNICALL
 Java_com_keybox_NativeBridge_retrieveFromRemote(JNIEnv *env, jobject, jlong) {
-    return to_jstring(env, "Sync backend is not configured in this Android build.");
+    return native_operation_result(env, 1, "Sync backend is not configured in this Android build.");
 }
 
-extern "C" JNIEXPORT jstring JNICALL
+extern "C" JNIEXPORT jobject JNICALL
 Java_com_keybox_NativeBridge_pushToRemote(JNIEnv *env, jobject, jlong) {
-    return to_jstring(env, "Sync backend is not configured in this Android build.");
+    return native_operation_result(env, 1, "Sync backend is not configured in this Android build.");
 }
 
-extern "C" JNIEXPORT jstring JNICALL
+extern "C" JNIEXPORT jobject JNICALL
 Java_com_keybox_NativeBridge_register(JNIEnv *env, jobject, jlong) {
-    return to_jstring(env, "Sync backend is not configured in this Android build.");
+    return native_operation_result(env, 1, "Sync backend is not configured in this Android build.");
 }
 
 extern "C" JNIEXPORT jstring JNICALL

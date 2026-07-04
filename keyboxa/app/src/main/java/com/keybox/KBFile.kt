@@ -31,8 +31,8 @@ class KBFile(private val bridge: NativeBridge = NativeBridge()) {
     fun removeGroup(groupId: String): Int = bridge.removeGroup(handle, groupId)
     fun updateGroup(groupId: String, name: String): Int = bridge.updateGroup(handle, groupId, name)
 
-    fun retrieveFromRemote(): String? = bridge.retrieveFromRemote(handle)
-    fun pushToRemote(): String? = bridge.pushToRemote(handle)
+    fun retrieveFromRemote(): NativeOperationResult = bridge.retrieveFromRemote(handle)
+    fun pushToRemote(): NativeOperationResult = bridge.pushToRemote(handle)
     fun register(): NativeOperationResult = bridge.register(handle)
     fun setupNewClient(): SetupNewClientResult = bridge.setupNewClient(handle)
     fun changePassword(password: String): Int = bridge.changePassword(handle, password)

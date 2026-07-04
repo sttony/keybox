@@ -25,8 +25,8 @@ class NativeBridge {
     external fun getGroups(handle: Long): Array<Group>?
     external fun removeGroup(handle: Long, groupId: String): Int
     external fun updateGroup(handle: Long, groupId: String, name: String): Int
-    external fun retrieveFromRemote(handle: Long): String?
-    external fun pushToRemote(handle: Long): String?
+    external fun retrieveFromRemote(handle: Long): NativeOperationResult
+    external fun pushToRemote(handle: Long): NativeOperationResult
     external fun register(handle: Long): NativeOperationResult
     external fun setupNewClient(handle: Long): SetupNewClientResult
     external fun changePassword(handle: Long, password: String): Int
