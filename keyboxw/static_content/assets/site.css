@@ -1,0 +1,254 @@
+:root {
+    color-scheme: light;
+    --bg: #f6f7f9;
+    --panel: #ffffff;
+    --text: #17202a;
+    --muted: #5e6a75;
+    --line: #d7dde3;
+    --primary: #16634f;
+    --primary-hover: #104a3b;
+    --result: #101820;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+.shell {
+    width: min(1040px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 56px 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 440px);
+    gap: 40px;
+    align-items: start;
+}
+
+.intro {
+    padding-top: 24px;
+}
+
+.eyebrow {
+    margin: 0 0 14px;
+    color: var(--primary);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+    margin-top: 0;
+}
+
+a {
+    color: var(--primary);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+
+h1 {
+    max-width: 720px;
+    margin-bottom: 20px;
+    font-size: clamp(2.25rem, 7vw, 5.2rem);
+    line-height: 0.98;
+    letter-spacing: 0;
+}
+
+.summary {
+    max-width: 620px;
+    color: var(--muted);
+    font-size: 1.12rem;
+    line-height: 1.6;
+}
+
+.lookup {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 12px 36px rgba(23, 32, 42, 0.08);
+}
+
+.lookup h2 {
+    margin-bottom: 20px;
+    font-size: 1.25rem;
+}
+
+.lookup-form {
+    display: grid;
+    gap: 10px;
+}
+
+label {
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    min-width: 0;
+    flex: 1;
+    height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0 12px;
+    color: var(--text);
+    font: inherit;
+}
+
+button {
+    height: 44px;
+    border: 0;
+    border-radius: 6px;
+    padding: 0 18px;
+    background: var(--primary);
+    color: #ffffff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--primary-hover);
+}
+
+.result {
+    min-height: 160px;
+    margin: 20px 0 0;
+    overflow: auto;
+    border-radius: 6px;
+    padding: 16px;
+    background: var(--result);
+    color: #dfe8ef;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.result.error {
+    background: #3a1717;
+    color: #ffd8d8;
+}
+
+.site-footer {
+    grid-column: 1 / -1;
+    padding-top: 10px;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.document-shell {
+    width: min(900px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 42px 0 64px;
+}
+
+.document-header {
+    padding: 16px 0 30px;
+}
+
+.brand-link {
+    display: inline-flex;
+    margin-bottom: 32px;
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.document-header h1 {
+    max-width: 760px;
+    margin-bottom: 18px;
+    font-size: clamp(2.4rem, 8vw, 4.8rem);
+}
+
+.document-meta {
+    margin: 22px 0 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.policy-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: clamp(24px, 5vw, 48px);
+    box-shadow: 0 12px 36px rgba(23, 32, 42, 0.08);
+}
+
+.policy-card section + section {
+    margin-top: 34px;
+    padding-top: 30px;
+    border-top: 1px solid var(--line);
+}
+
+.policy-card h2 {
+    margin-bottom: 12px;
+    font-size: 1.28rem;
+    line-height: 1.25;
+}
+
+.policy-card p {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.policy-card p:last-child {
+    margin-bottom: 0;
+}
+
+code {
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 0.1rem 0.32rem;
+    background: #f1f4f6;
+    color: var(--text);
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: 0.92em;
+}
+
+@media (max-width: 760px) {
+    .shell {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 32px 0;
+    }
+
+    .intro {
+        padding-top: 0;
+    }
+
+    .input-row {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .document-shell {
+        padding: 28px 0 44px;
+    }
+
+    .brand-link {
+        margin-bottom: 24px;
+    }
+}

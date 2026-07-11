@@ -30,7 +30,7 @@ def hello():
     # structured log
     # See: https://awslabs.github.io/aws-lambda-powertools-python/latest/core/logger/
     logger.info("Hello world API - HTTP 200")
-    return {"message": "hello world"}, 404
+    return {"message": "hello world"}, 200
 
 
 @app.get("/refresh_token")

@@ -27,19 +27,35 @@ The first command will build the source of your application. The second command 
 
 You can deploy the application to different stages (e.g., beta, prod) by using the `STAGE` parameter.
 
-#### Deploy to Beta Stage
+#### Deploy Beta
 
 ```bash
-sam build --use-container
-sam deploy --stack-name keybox-beta --parameter-overrides STAGE=beta --capabilities CAPABILITY_IAM
+scripts/deploy_beta.sh
 ```
 
-#### Deploy to Prod Stage
+#### Deploy Product
 
 ```bash
-sam build --use-container
-sam deploy --stack-name keybox-prod --parameter-overrides STAGE=prod --capabilities CAPABILITY_IAM
+scripts/deploy_prod.sh
 ```
+
+Both scripts deploy from this local repository checkout. The SAM/Lambda stack is built from `keybox_web/`, and static content is uploaded from `static_content/`. The beta script uses stack `keyboxw-beta`, Lambda stage `beta`, Lambda function `keyboxw-beta-keybox`, and static bucket `beta-keybox-static`. The product script uses stack `keyboxw-prod`, Lambda stage `prod`, Lambda function `keyboxw-prod-keybox`, and static bucket `prod-keybox-static`. Static buckets are created automatically when they do not exist.
+
+After deploy, the script validates `https://api.k3ybox.us/hello` and `https://www.k3ybox.us/privacy` with HTTPS requests. Use `--validation-url` or `--static-validation-url` to check different endpoints, or `--skip-validation` to disable the checks.
+
+Use `scripts/deploy.sh` directly when you need overrides:
+
+```bash
+scripts/deploy.sh --stage prod --static-bucket prod-keybox-static --distribution-id E1234567890
+```
+
+Create or reuse a CloudFront distribution for the static site with:
+
+```bash
+scripts/deploy.sh --stage prod --ensure-cloudfront --certificate-arn arn:aws:acm:us-east-1:123456789012:certificate/example
+```
+
+The certificate must be an ACM certificate in `us-east-1` that covers `www.k3ybox.us`. The script configures the static S3 bucket for private CloudFront access with Origin Access Control, creates a CloudFront Function for extensionless paths such as `/privacy`, and prints the CloudFront domain name to use for Route 53 `A` and `AAAA` alias records.
 
 You can find your API Gateway Endpoint URL in the output values displayed after deployment.
 
@@ -116,22 +132,16 @@ To delete the sample application that you created, use the AWS CLI. Assuming you
 sam delete --stack-name "keyboxw"
 ```
 
-## Static Site with AWS Amplify
+## Static Content Deployment Script
 
-This project now includes an AWS Amplify resource to host a static landing page.
+Static web assets for direct S3 hosting are in `static_content/`. Deploy only the static content with:
 
-### How to use Amplify for the Static Page:
+```bash
+cd keyboxw
+scripts/deploy_static_site.sh --bucket beta-keybox-static --region us-west-2 --profile default
+```
 
-1.  **Static Files**: The static site content is located in the `keyboxw/static_site/` directory.
-2.  **Deployment via Git**:
-    *   Initialize a Git repository in this folder (or use your existing project repo).
-    *   Push your code to a Git provider (e.g., GitHub, GitLab, Bitbucket).
-    *   When deploying the SAM template (`sam deploy`), provide the `RepositoryURL` and `GitHubToken` (if using a private GitHub repo) parameters.
-    *   Amplify will automatically build and deploy your static site whenever you push to the `main` branch.
-3.  **Manual Deployment (Alternative)**:
-    *   You can also use the [Amplify Console](https://console.aws.amazon.com/amplify/home) to manually connect your repository or upload the `static_site` folder directly.
-
-The Amplify App URL will be available in the CloudFormation outputs as `AmplifyAppUrl`.
+The script creates the bucket when it does not exist. It precompresses HTML, CSS, JavaScript, JSON, SVG, and text files with gzip, sets conservative cache headers for HTML, sets long cache headers for versioned assets, and can invalidate CloudFront when `--distribution-id` is provided.
 
 ## Resources
 

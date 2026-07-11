@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keybox Web</title>
+    <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+    <main class="shell">
+        <section class="intro" aria-labelledby="page-title">
+            <p class="eyebrow">Keybox Web</p>
+            <h1 id="page-title">Secure password sync for Keybox clients.</h1>
+            <p class="summary">
+                Register a client, retrieve public keys, and keep encrypted vault
+                data moving through the serverless Keybox API.
+            </p>
+        </section>
+
+        <section class="lookup" aria-labelledby="lookup-title">
+            <h2 id="lookup-title">Public Key Lookup</h2>
+            <form id="publicKeyForm" class="lookup-form">
+                <label for="emailInput">Email address</label>
+                <div class="input-row">
+                    <input type="email" id="emailInput" name="email" placeholder="name@example.com" required>
+                    <button type="submit">Search</button>
+                </div>
+            </form>
+            <pre id="result" class="result" aria-live="polite">Ready</pre>
+        </section>
+
+        <footer class="site-footer">
+            <a href="/privacy">Privacy Policy</a>
+        </footer>
+    </main>
+
+    <script src="assets/site.js"></script>
+</body>
+</html>
