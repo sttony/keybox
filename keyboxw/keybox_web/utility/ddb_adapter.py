@@ -5,6 +5,8 @@ from dataclasses import fields, asdict
 from typing import Optional
 
 import boto3
+from botocore.exceptions import ClientError
+from boto3.dynamodb.conditions import Attr
 
 from utility.user_entity import User
 
@@ -33,6 +35,43 @@ class DDBAdapter:
         if response['ResponseMetadata']['HTTPStatusCode'] != 200:
             logging.error(f'Put {user.email} to db failed with {response}')
             raise Exception(f'Put {user.email} to db failed with {response}')
+
+    def set_delete_challenge(self, email: str, challenge: dict):
+        response = self.user_table.update_item(
+            Key={"email": email},
+            UpdateExpression="SET delete_challenge = :challenge",
+            ExpressionAttributeValues={":challenge": challenge},
+            ReturnValues="NONE",
+        )
+        if response['ResponseMetadata']['HTTPStatusCode'] != 200:
+            logging.error(f'Set delete challenge for {email} failed with {response}')
+            raise Exception(f'Set delete challenge for {email} failed with {response}')
+
+    def consume_delete_challenge(self, email: str, challenge: dict) -> bool:
+        try:
+            self.user_table.update_item(
+                Key={"email": email},
+                UpdateExpression="REMOVE delete_challenge",
+                ConditionExpression=(
+                    Attr("delete_challenge.account_id").eq(challenge["account_id"]) &
+                    Attr("delete_challenge.client_id").eq(challenge["client_id"]) &
+                    Attr("delete_challenge.operation").eq(challenge["operation"]) &
+                    Attr("delete_challenge.nonce").eq(challenge["nonce"]) &
+                    Attr("delete_challenge.expiration").eq(challenge["expiration"])
+                ),
+                ReturnValues="NONE",
+            )
+            return True
+        except ClientError as error:
+            if error.response.get("Error", {}).get("Code") == "ConditionalCheckFailedException":
+                return False
+            raise
+
+    def delete_user(self, email: str):
+        response = self.user_table.delete_item(Key={"email": email})
+        if response['ResponseMetadata']['HTTPStatusCode'] != 200:
+            logging.error(f'Delete {email} from db failed with {response}')
+            raise Exception(f'Delete {email} from db failed with {response}')
 
 
 if __name__ == "__main__":

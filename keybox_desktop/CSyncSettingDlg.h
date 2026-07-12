@@ -21,6 +21,7 @@ public:
 private slots:
     void onSave();
     void onNewClient();
+    void onDeleteAccount();
 
 signals:
     void saveSignal(); // connect to main window save
@@ -33,6 +34,7 @@ private:
     QLineEdit * m_syncUrlBox = nullptr;
     QPushButton* m_registerBtn = nullptr;
     QPushButton* m_setNewClientBtn = nullptr;
+    QPushButton* m_deleteAccountBtn = nullptr;
     QPushButton* m_cancelBtn = nullptr;
 
 };

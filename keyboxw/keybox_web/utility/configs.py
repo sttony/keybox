@@ -1,7 +1,7 @@
 import datetime
 
 BASE_URLS = {
-    "beta" : "https://3ehnw4a7d3.execute-api.us-west-2.amazonaws.com/Prod",
+    "beta" : "https://yva0cen04i.execute-api.us-west-2.amazonaws.com/Prod",
     "prod" : "https://api.k3ybox.us"
 }
 

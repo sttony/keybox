@@ -77,6 +77,10 @@ public:
     uint32_t SetupNewClient(std::vector<unsigned char>& outUrl, std::string& outMessage);
     // Backward-compatible wrapper.
     uint32_t SetupNewClient(std::vector<unsigned char>& outUrl);
+    // Delete the remote account after signing a short-lived server challenge.
+    uint32_t DeleteRemoteAccount(std::string& outMessage);
+    // Backward-compatible wrapper.
+    uint32_t DeleteRemoteAccount();
 
 private:
     CKBFileHeader m_header;

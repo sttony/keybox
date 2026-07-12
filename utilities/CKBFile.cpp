@@ -706,3 +706,118 @@ uint32_t CKBFile::SetupNewClient(vector<unsigned char>& outEncryptedUrl) {
     std::string ignored;
     return SetupNewClient(outEncryptedUrl, ignored);
 }
+
+uint32_t CKBFile::DeleteRemoteAccount(std::string& outMessage) {
+    outMessage.clear();
+    if (m_pAsymmetric_key_pair == nullptr) {
+        return ERROR_INVALID_PARAMETER;
+    }
+
+    CRequest challengeRequest(m_header.GetSyncUrl() + "/" + "account_deletion/challenge", CRequest::POST);
+    boost::property_tree::ptree challengePayload;
+    challengePayload.put("email", m_header.GetSyncEmail());
+    challengePayload.put("client_id", to_string(m_client_uuid));
+    std::ostringstream challengeOss;
+    boost::property_tree::write_json(challengeOss, challengePayload);
+    uint32_t result = challengeRequest.SetPayload(challengeOss.str());
+    if (result != 0) {
+        outMessage = "Failed to set account deletion challenge payload. Curl detail: " +
+                     challengeRequest.GetLastError();
+        return result;
+    }
+
+    result = challengeRequest.Send();
+    if (result != 0) {
+        outMessage = "Failed to request account deletion challenge. Curl code " +
+                     std::to_string(result & 0xff) + ": " + challengeRequest.GetLastError();
+        return result;
+    }
+
+    std::string challengeResponseText(
+            reinterpret_cast<const char *>(challengeRequest.GetResponsePayload().data()),
+            reinterpret_cast<const char *>(challengeRequest.GetResponsePayload().data()) + challengeRequest.GetResponsePayload().size()
+    );
+
+    boost::property_tree::ptree challengeResponse;
+    try {
+        std::istringstream iss(challengeResponseText);
+        boost::property_tree::read_json(iss, challengeResponse);
+        auto msgOpt = challengeResponse.get_optional<std::string>("message");
+        if (msgOpt) outMessage = *msgOpt;
+    }
+    catch (exception &e) {
+        outMessage = "Invalid JSON from account deletion challenge. HTTP " +
+                     std::to_string(challengeRequest.GetResponseCode());
+        return ERROR_INVALID_JSON;
+    }
+
+    if (challengeRequest.GetResponseCode() != 200) {
+        return ERROR_HTTP_ERROR_PREFIX | challengeRequest.GetResponseCode();
+    }
+
+    auto challengeDataOpt = challengeResponse.get_optional<std::string>("challenge_data");
+    auto challengeOpt = challengeResponse.get_child_optional("challenge");
+    if (!challengeDataOpt || challengeDataOpt->empty() || !challengeOpt) {
+        outMessage = "account deletion challenge response did not contain challenge data";
+        return ERROR_INVALID_JSON;
+    }
+
+    std::vector<unsigned char> challengeData(challengeDataOpt->begin(), challengeDataOpt->end());
+    std::vector<unsigned char> signature;
+    result = m_pAsymmetric_key_pair->Sign(challengeData, signature);
+    if (result != 0) {
+        return result;
+    }
+
+    Base64Coder base64Coder;
+    std::string signatureString;
+    base64Coder.Encode(signature.data(), signature.size(), signatureString);
+
+    CRequest deleteRequest(m_header.GetSyncUrl() + "/" + "account_deletion/delete", CRequest::POST);
+    boost::property_tree::ptree deletePayload;
+    deletePayload.add_child("challenge", *challengeOpt);
+    deletePayload.put("signature", signatureString);
+    std::ostringstream deleteOss;
+    boost::property_tree::write_json(deleteOss, deletePayload);
+    result = deleteRequest.SetPayload(deleteOss.str());
+    if (result != 0) {
+        outMessage = "Failed to set account deletion payload. Curl detail: " +
+                     deleteRequest.GetLastError();
+        return result;
+    }
+
+    result = deleteRequest.Send();
+    if (result != 0) {
+        outMessage = "Failed to delete account. Curl code " +
+                     std::to_string(result & 0xff) + ": " + deleteRequest.GetLastError();
+        return result;
+    }
+
+    std::string deleteResponseText(
+            reinterpret_cast<const char *>(deleteRequest.GetResponsePayload().data()),
+            reinterpret_cast<const char *>(deleteRequest.GetResponsePayload().data()) + deleteRequest.GetResponsePayload().size()
+    );
+
+    try {
+        std::istringstream iss(deleteResponseText);
+        boost::property_tree::ptree deleteResponse;
+        boost::property_tree::read_json(iss, deleteResponse);
+        auto msgOpt = deleteResponse.get_optional<std::string>("message");
+        if (msgOpt) outMessage = *msgOpt;
+    }
+    catch (exception &e) {
+        outMessage = "Invalid JSON from account deletion. HTTP " +
+                     std::to_string(deleteRequest.GetResponseCode());
+        return ERROR_INVALID_JSON;
+    }
+
+    if (deleteRequest.GetResponseCode() == 200) {
+        return 0;
+    }
+    return ERROR_HTTP_ERROR_PREFIX | deleteRequest.GetResponseCode();
+}
+
+uint32_t CKBFile::DeleteRemoteAccount() {
+    std::string ignored;
+    return DeleteRemoteAccount(ignored);
+}

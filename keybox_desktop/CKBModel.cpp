@@ -312,6 +312,15 @@ uint32_t CKBModel::SetupNewClient(vector<unsigned char>& outUrl) {
     return SetupNewClient(outUrl, ignored);
 }
 
+uint32_t CKBModel::DeleteRemoteAccount(std::string& outMessage) {
+    return m_kbfile.DeleteRemoteAccount(outMessage);
+}
+
+uint32_t CKBModel::DeleteRemoteAccount() {
+    std::string ignored;
+    return DeleteRemoteAccount(ignored);
+}
+
 uint32_t CKBModel::ChangePassword(CMaskedBlob newPassword) {
     uint32_t result = m_kbfile.RetrieveFromRemote();
     m_kbfile.SetMasterKey(newPassword);

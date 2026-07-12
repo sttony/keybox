@@ -34,15 +34,20 @@ CSyncSettingDlg::CSyncSettingDlg(CKBModel* pModel, QWidget *parent) : QDialog(pa
     m_registerBtn = new QPushButton("Register new email");
     m_cancelBtn = new QPushButton("Cancel");
     m_setNewClientBtn = new QPushButton("Set new client");
+    m_deleteAccountBtn = new QPushButton("Delete account");
     btnLine2->addWidget(m_registerBtn);
     btnLine2->addWidget(m_setNewClientBtn);
+    btnLine2->addWidget(m_deleteAccountBtn);
     btnLine2->addWidget(m_cancelBtn);
     rootLayout->addLayout(btnLine2);
     setLayout(rootLayout);
 
     connect(m_registerBtn, &QPushButton::clicked, this, &CSyncSettingDlg::onSave);
     connect(m_setNewClientBtn, &QPushButton::clicked, this, &CSyncSettingDlg::onNewClient);
+    connect(m_deleteAccountBtn, &QPushButton::clicked, this, &CSyncSettingDlg::onDeleteAccount);
     QObject::connect(m_cancelBtn, &QPushButton::clicked, this, &QDialog::reject);
+
+    m_deleteAccountBtn->setEnabled(m_kbModel != nullptr);
 }
 
 CSyncSettingDlg::~CSyncSettingDlg() {
@@ -141,4 +146,64 @@ void CSyncSettingDlg::onNewClient() {
     }
 
     QDialog::accept();
+}
+
+void CSyncSettingDlg::onDeleteAccount() {
+    if (m_kbModel == nullptr) {
+        QMessageBox::information(this, "Alert", "Open and unlock a local keybox file before deleting the account.");
+        return;
+    }
+
+    m_kbModel->SetSyncUrl(m_syncUrlBox->text().toStdString());
+    m_kbModel->SetEmail(m_emailBox->text().toStdString());
+
+    const QString email = m_emailBox->text().trimmed();
+    if (email.isEmpty()) {
+        QMessageBox::information(this, "Alert", "Email is required.");
+        return;
+    }
+
+    QString msg = QString(
+            "Delete the cloud account for %1?\n\n"
+            "This removes the account record and encrypted remote keybox data. "
+            "Local keybox files on this device are not deleted."
+    ).arg(email);
+    auto confirm = QMessageBox::warning(
+            this,
+            "Delete Account",
+            msg,
+            QMessageBox::Yes | QMessageBox::No,
+            QMessageBox::No
+    );
+    if (confirm != QMessageBox::Yes) {
+        return;
+    }
+
+    QString finalMsg = QString("This action cannot be undone. Delete %1?").arg(email);
+    auto finalConfirm = QMessageBox::warning(
+            this,
+            "Confirm Account Deletion",
+            finalMsg,
+            QMessageBox::Yes | QMessageBox::No,
+            QMessageBox::No
+    );
+    if (finalConfirm != QMessageBox::Yes) {
+        return;
+    }
+
+    string outMessage;
+    uint32_t result = m_kbModel->DeleteRemoteAccount(outMessage);
+    if (result == 0) {
+        QMessageBox::information(this, "Alert", "Account deleted.");
+        QDialog::accept();
+        return;
+    }
+
+    QString alertMsg = "Account deletion failed";
+    if (!outMessage.empty()) {
+        alertMsg += ": " + QString::fromStdString(outMessage);
+    } else {
+        alertMsg += ", error code: " + QString::number(result);
+    }
+    QMessageBox::information(this, "Alert", alertMsg);
 }

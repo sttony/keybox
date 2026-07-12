@@ -78,6 +78,8 @@ public:
     uint32_t PushToRemote();
     uint32_t SetupNewClient(std::vector<unsigned char>& outUrl, std::string& outMessage);
     uint32_t SetupNewClient(std::vector<unsigned char>& outUrl);
+    uint32_t DeleteRemoteAccount(std::string& outMessage);
+    uint32_t DeleteRemoteAccount();
     uint32_t ChangePassword(CMaskedBlob);
 
 private:

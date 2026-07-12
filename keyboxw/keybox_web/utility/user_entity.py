@@ -11,3 +11,4 @@ class User:
     expiring_date: Optional[int]
     public_key: Optional[str]
     file_path: Optional[str]  # keybox file on S3
+    delete_challenge: Optional[dict] = None

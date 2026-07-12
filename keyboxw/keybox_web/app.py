@@ -13,6 +13,8 @@ from retrieve import handler as retrieve_handler
 from upload import handler as upload_handler
 from setup_new_client import handler as setup_new_client_handler
 from get_public_key import handler as get_public_key_handler
+from account_deletion_challenge import handler as account_deletion_challenge_handler
+from account_deletion_delete import handler as account_deletion_delete_handler
 
 app = APIGatewayRestResolver()
 tracer = Tracer()
@@ -69,6 +71,16 @@ def upload():
 @tracer.capture_method
 def get_public_key():
     return get_public_key_handler.lambda_handler(app.current_event, app.context)
+
+@app.post('/account_deletion/challenge')
+@tracer.capture_method
+def account_deletion_challenge():
+    return account_deletion_challenge_handler.lambda_handler(app.current_event, app.context)
+
+@app.post('/account_deletion/delete')
+@tracer.capture_method
+def account_deletion_delete():
+    return account_deletion_delete_handler.lambda_handler(app.current_event, app.context)
 
 # Enrich logging with contextual information from Lambda
 @logger.inject_lambda_context(correlation_id_path=correlation_paths.API_GATEWAY_REST)
