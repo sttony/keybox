@@ -2,14 +2,44 @@ plugins {
     id 'com.android.application'
 }
 
+import java.util.Properties
+
+Properties localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withInputStream { localProperties.load(it) }
+}
+
+def releaseSetting = { String name ->
+    def value = System.getenv(name)
+    if (value == null || value.toString().isBlank()) {
+        value = project.findProperty(name)
+    }
+    if (value == null || value.toString().isBlank()) {
+        value = localProperties.getProperty(name)
+    }
+    return value?.toString()
+}
+
+def releaseStoreFile = releaseSetting('KEYBOX_UPLOAD_STORE_FILE')
+def releaseKeyAlias = releaseSetting('KEYBOX_UPLOAD_KEY_ALIAS')
+def releaseStorePassword = releaseSetting('KEYBOX_UPLOAD_STORE_PASSWORD')
+def releaseKeyPassword = releaseSetting('KEYBOX_UPLOAD_KEY_PASSWORD')
+def hasReleaseSigning = [
+        releaseStoreFile,
+        releaseKeyAlias,
+        releaseStorePassword,
+        releaseKeyPassword
+].every { it != null && !it.isBlank() }
+
 android {
     namespace = 'com.keybox'
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.keybox"
+        applicationId = "us.k3ybox.app"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -22,10 +52,29 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            if (hasReleaseSigning) {
+                storeFile = file(releaseStoreFile)
+                storePassword = releaseStorePassword
+                keyAlias = releaseKeyAlias
+                keyPassword = releaseKeyPassword
+            }
+        }
+    }
+
     buildTypes {
         release {
+            if (hasReleaseSigning) {
+                signingConfig = signingConfigs.release
+            }
             minifyEnabled = false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            externalNativeBuild {
+                cmake {
+                    arguments '-DKEYBOX_ALLOW_ANDROID_STUB_NATIVE=OFF'
+                }
+            }
         }
     }
     compileOptions {
@@ -40,6 +89,27 @@ android {
     }
     buildFeatures {
         viewBinding = true
+    }
+}
+
+tasks.register('checkReleaseSigning') {
+    doLast {
+        if (!hasReleaseSigning) {
+            throw new GradleException(
+                    'Release signing is not configured. Set KEYBOX_UPLOAD_STORE_FILE, ' +
+                            'KEYBOX_UPLOAD_KEY_ALIAS, KEYBOX_UPLOAD_STORE_PASSWORD, and ' +
+                            'KEYBOX_UPLOAD_KEY_PASSWORD as environment variables or in local.properties.'
+            )
+        }
+        if (!file(releaseStoreFile).exists()) {
+            throw new GradleException("Release keystore does not exist: ${releaseStoreFile}")
+        }
+    }
+}
+
+tasks.configureEach { task ->
+    if (task.name in ['bundleRelease', 'assembleRelease']) {
+        task.dependsOn('checkReleaseSigning')
     }
 }
 
