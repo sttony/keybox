@@ -35,6 +35,7 @@ class KBFile(private val bridge: NativeBridge = NativeBridge()) {
     fun pushToRemote(): NativeOperationResult = bridge.pushToRemote(handle)
     fun register(): NativeOperationResult = bridge.register(handle)
     fun setupNewClient(): SetupNewClientResult = bridge.setupNewClient(handle)
+    fun deleteRemoteAccount(): NativeOperationResult = bridge.deleteRemoteAccount(handle)
     fun changePassword(password: String): Int = bridge.changePassword(handle, password)
 
     fun getSyncUrl(): String? = bridge.getSyncUrl(handle)

@@ -119,6 +119,11 @@ Java_com_keybox_NativeBridge_register(JNIEnv *env, jobject, jlong) {
     return native_operation_result(env, 1, "Sync backend is not configured in this Android build.");
 }
 
+extern "C" JNIEXPORT jobject JNICALL
+Java_com_keybox_NativeBridge_deleteRemoteAccount(JNIEnv *env, jobject, jlong) {
+    return native_operation_result(env, 1, "Sync backend is not configured in this Android build.");
+}
+
 extern "C" JNIEXPORT jstring JNICALL
 Java_com_keybox_NativeBridge_getSyncUrl(JNIEnv *env, jobject, jlong) {
     return to_jstring(env, g_sync_url);

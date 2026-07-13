@@ -451,6 +451,15 @@ Java_com_keybox_NativeBridge_setupNewClient(JNIEnv *env, jobject thiz, jlong han
 }
 
 extern "C"
+JNIEXPORT jobject JNICALL
+Java_com_keybox_NativeBridge_deleteRemoteAccount(JNIEnv *env, jobject thiz, jlong handle) {
+    auto *file = reinterpret_cast<CKBFile *>(handle);
+    std::string message;
+    uint32_t result = file->DeleteRemoteAccount(message);
+    return createNativeOperationResult(env, result, message);
+}
+
+extern "C"
 JNIEXPORT jint JNICALL
 Java_com_keybox_NativeBridge_changePassword(JNIEnv *env, jobject thiz, jlong handle, jstring password) {
     auto *file = reinterpret_cast<CKBFile *>(handle);

@@ -56,9 +56,12 @@
     <string name="delete_entry_failed">Failed to delete entry. Error code: %1$d</string>
     <string name="untitled_entry">(no title)</string>
     <string name="email">Email</string>
+    <string name="email_required">Email is required.</string>
     <string name="sync_server_url">Sync Server URL</string>
+    <string name="sync_url_required">Sync server URL is required.</string>
     <string name="register_new_email">Register New Email</string>
     <string name="setup_new_client">Setup New Client</string>
+    <string name="delete_account">Delete Account</string>
     <string name="save">Save</string>
     <string name="success">Success</string>
     <string name="registering">Registering...</string>
@@ -68,6 +71,12 @@
     <string name="setup_new_client_not_implemented">Setup new client feature is not yet implemented</string>
     <string name="error">Error</string>
     <string name="setting_up">Setting Up...</string>
+    <string name="deleting_account">Deleting Account...</string>
+    <string name="confirm_account_deletion">Confirm Account Deletion</string>
+    <string name="delete_account_confirmation">Delete the cloud account for %1$s?\n\nThis removes the account record and encrypted remote keybox data. Local keybox files on this device are not deleted.</string>
+    <string name="delete_account_final_confirmation">This action cannot be undone. Delete %1$s?</string>
+    <string name="delete_account_success">Account deleted.</string>
+    <string name="delete_account_failed_with_detail">Account deletion failed: %1$s</string>
     <string name="setup_new_client_request_failed">Failed to start new client setup.</string>
     <string name="setup_new_client_request_failed_with_detail">Failed to start new client setup: %1$s</string>
     <string name="error_code">Error code: %1$d</string>

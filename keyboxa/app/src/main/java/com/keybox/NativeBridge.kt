@@ -29,6 +29,7 @@ class NativeBridge {
     external fun pushToRemote(handle: Long): NativeOperationResult
     external fun register(handle: Long): NativeOperationResult
     external fun setupNewClient(handle: Long): SetupNewClientResult
+    external fun deleteRemoteAccount(handle: Long): NativeOperationResult
     external fun changePassword(handle: Long, password: String): Int
     external fun getSyncUrl(handle: Long): String?
     external fun setSyncUrl(handle: Long, url: String): Int
