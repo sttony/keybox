@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Keybox lock app icon</title>
+  <desc id="desc">A rounded blue app icon with a white lock and keyhole.</desc>
+  <defs>
+    <linearGradient id="background" x1="76" y1="56" x2="436" y2="456" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2BD4C8"/>
+      <stop offset="0.48" stop-color="#1467B8"/>
+      <stop offset="1" stop-color="#08335E"/>
+    </linearGradient>
+    <linearGradient id="lockFace" x1="145" y1="168" x2="367" y2="398" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#DCEBFF"/>
+    </linearGradient>
+    <filter id="shadow" x="78" y="76" width="356" height="376" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#04213D" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#background)"/>
+  <path d="M86 344C147 352 214 332 255 288C300 240 363 220 426 238V400C426 414 414 426 400 426H112C98 426 86 414 86 400V344Z" fill="#072A4D" opacity="0.18"/>
+  <circle cx="394" cy="118" r="54" fill="#FFFFFF" opacity="0.13"/>
+  <circle cx="126" cy="386" r="34" fill="#FFFFFF" opacity="0.12"/>
+
+  <g filter="url(#shadow)">
+    <path d="M174 221V186C174 139 210 104 256 104C302 104 338 139 338 186V221H308V186C308 156 286 132 256 132C226 132 204 156 204 186V221H174Z" fill="#EAF4FF"/>
+    <rect x="139" y="207" width="234" height="191" rx="43" fill="url(#lockFace)"/>
+    <path d="M139 251C187 269 315 269 373 246V250V355C373 379 354 398 330 398H182C158 398 139 379 139 355V251Z" fill="#BFD8F5" opacity="0.38"/>
+    <path d="M256 275C273 275 287 289 287 306C287 317 281 327 271 333V354C271 362 264 369 256 369C248 369 241 362 241 354V333C231 327 225 317 225 306C225 289 239 275 256 275Z" fill="#0D4F8B"/>
+    <path d="M187 231H325" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round" opacity="0.55"/>
+  </g>
+</svg>
