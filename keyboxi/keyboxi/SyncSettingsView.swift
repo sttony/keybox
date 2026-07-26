@@ -6,20 +6,33 @@
 import SwiftUI
 
 struct SyncSettingsView: View {
+    private enum ActiveAlert: Identifiable {
+        case message(title: String, message: String)
+        case confirmDelete
+        case confirmDeleteFinal
+
+        var id: String {
+            switch self {
+            case .message:
+                return "message"
+            case .confirmDelete:
+                return "confirmDelete"
+            case .confirmDeleteFinal:
+                return "confirmDeleteFinal"
+            }
+        }
+    }
+
     @EnvironmentObject var appState: AppState
     @Environment(\.dismiss) var dismiss
 
     @State private var email: String = ""
     @State private var syncUrl: String = ""
     @State private var errorMessage: String?
-    @State private var showingAlert = false
-    @State private var alertTitle = ""
-    @State private var alertMessage = ""
+    @State private var activeAlert: ActiveAlert?
     @State private var isRegistering: Bool = false
     @State private var isSettingUp: Bool = false
     @State private var isDeleting: Bool = false
-    @State private var showingDeleteConfirmation: Bool = false
-    @State private var showingFinalDeleteConfirmation: Bool = false
     @State private var showingSetupSheet: Bool = false
     @State private var encryptedUrlData: Data?
 
@@ -80,7 +93,7 @@ struct SyncSettingsView: View {
                     .disabled(!settingsAreValid || operationInProgress)
 
                     Button(role: .destructive) {
-                        showingDeleteConfirmation = true
+                        activeAlert = .confirmDelete
                     } label: {
                         if isDeleting {
                             HStack {
@@ -106,24 +119,33 @@ struct SyncSettingsView: View {
                 }
                 .disabled(email.isEmpty && syncUrl.isEmpty)
             )
-            .alert(alertTitle, isPresented: $showingAlert) {
-                Button("OK", role: .cancel) { }
-            } message: {
-                Text(alertMessage)
-            }
-            .alert("Delete Account", isPresented: $showingDeleteConfirmation) {
-                Button("Cancel", role: .cancel) { }
-                Button("Delete", role: .destructive) {
-                    showingFinalDeleteConfirmation = true
+            .alert(item: $activeAlert) { alert in
+                switch alert {
+                case .message(let title, let message):
+                    return Alert(
+                        title: Text(title),
+                        message: Text(message),
+                        dismissButton: .cancel(Text("OK"))
+                    )
+                case .confirmDelete:
+                    return Alert(
+                        title: Text("Delete Account"),
+                        message: Text("Delete the cloud account for \(email.trimmingCharacters(in: .whitespacesAndNewlines))?\n\nThis removes the account record and encrypted remote keybox data. Local keybox files on this device are not deleted."),
+                        primaryButton: .cancel(Text("Cancel")),
+                        secondaryButton: .destructive(Text("Continue")) {
+                            DispatchQueue.main.async {
+                                activeAlert = .confirmDeleteFinal
+                            }
+                        }
+                    )
+                case .confirmDeleteFinal:
+                    return Alert(
+                        title: Text("Final Confirmation"),
+                        message: Text("This action cannot be undone. Permanently delete the cloud account for \(email.trimmingCharacters(in: .whitespacesAndNewlines))?"),
+                        primaryButton: .cancel(Text("Cancel")),
+                        secondaryButton: .destructive(Text("Delete Account"), action: deleteAccount)
+                    )
                 }
-            } message: {
-                Text("Delete the cloud account for \(email.trimmingCharacters(in: .whitespacesAndNewlines))?\n\nThis removes the account record and encrypted remote keybox data. Local keybox files on this device are not deleted.")
-            }
-            .alert("Confirm Account Deletion", isPresented: $showingFinalDeleteConfirmation) {
-                Button("Cancel", role: .cancel) { }
-                Button("Delete", role: .destructive, action: deleteAccount)
-            } message: {
-                Text("This action cannot be undone. Delete \(email.trimmingCharacters(in: .whitespacesAndNewlines))?")
             }
         }
         .sheet(isPresented: $showingSetupSheet) {
@@ -242,9 +264,7 @@ struct SyncSettingsView: View {
     }
 
     private func showAlert(title: String, message: String) {
-        alertTitle = title
-        alertMessage = message
-        showingAlert = true
+        activeAlert = .message(title: title, message: message)
     }
 
     private func deleteAccount() {
