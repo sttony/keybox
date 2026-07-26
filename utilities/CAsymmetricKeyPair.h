@@ -1,10 +1,9 @@
 
-
 #ifndef KEYBOX_CASYMMETRICKEYPAIR_H
 #define KEYBOX_CASYMMETRICKEYPAIR_H
 
 #include <vector>
-#include <openssl/ossl_typ.h>
+#include <openssl/evp.h>
 #include "CMaskedBlob.h"
 
 class CAsymmetricKeyPair {
@@ -31,6 +30,5 @@ public:
 private:
     EVP_PKEY* m_pkey = nullptr;
 };
-
 
 #endif //KEYBOX_CASYMMETRICKEYPAIR_H

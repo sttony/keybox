@@ -83,6 +83,15 @@ uint32_t CRequest::Send() {
             return ERROR_CURL_ERROR_PREFIX | res;
         }
     }
+#if defined(__APPLE__)
+    // The iOS curl triplets enable Apple SecTrust. Ask curl's OpenSSL backend
+    // to validate the peer against the native Apple trusted-root store.
+    res = curl_easy_setopt(m_curl, CURLOPT_SSL_OPTIONS, CURLSSLOPT_NATIVE_CA);
+    if (res != CURLE_OK) {
+        m_last_error = curl_easy_strerror(res);
+        return ERROR_CURL_ERROR_PREFIX | res;
+    }
+#endif
     res = curl_easy_perform(m_curl);
     if (res != CURLE_OK) {
         if (m_error_buffer[0] != '\0') {
@@ -129,5 +138,4 @@ std::string CRequest::GetResponseHeader(std::string &&key_name) {
 uint32_t CRequest::EnableFollowRedirect() {
     return curl_easy_setopt(m_curl, CURLOPT_FOLLOWLOCATION, 1L);
 }
-
 

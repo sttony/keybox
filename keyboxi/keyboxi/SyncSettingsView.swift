@@ -15,9 +15,22 @@ struct SyncSettingsView: View {
     @State private var showingAlert = false
     @State private var alertTitle = ""
     @State private var alertMessage = ""
+    @State private var isRegistering: Bool = false
     @State private var isSettingUp: Bool = false
+    @State private var isDeleting: Bool = false
+    @State private var showingDeleteConfirmation: Bool = false
+    @State private var showingFinalDeleteConfirmation: Bool = false
     @State private var showingSetupSheet: Bool = false
     @State private var encryptedUrlData: Data?
+
+    private var operationInProgress: Bool {
+        isRegistering || isSettingUp || isDeleting
+    }
+
+    private var settingsAreValid: Bool {
+        !email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+        !syncUrl.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
 
     var body: some View {
         NavigationView {
@@ -41,10 +54,17 @@ struct SyncSettingsView: View {
                 }
 
                 Section {
-                    Button("Register New Email") {
-                        registerEmail()
+                    Button(action: registerEmail) {
+                        if isRegistering {
+                            HStack {
+                                ProgressView()
+                                Text("Registering...")
+                            }
+                        } else {
+                            Text("Register New Email")
+                        }
                     }
-                    .disabled(email.isEmpty || syncUrl.isEmpty)
+                    .disabled(!settingsAreValid || operationInProgress)
 
                     Button(action: setupNewClient) {
                         if isSettingUp {
@@ -57,7 +77,21 @@ struct SyncSettingsView: View {
                             Text("Setup New Client")
                         }
                     }
-                    .disabled(email.isEmpty || syncUrl.isEmpty || isSettingUp)
+                    .disabled(!settingsAreValid || operationInProgress)
+
+                    Button(role: .destructive) {
+                        showingDeleteConfirmation = true
+                    } label: {
+                        if isDeleting {
+                            HStack {
+                                ProgressView()
+                                Text("Deleting Account...")
+                            }
+                        } else {
+                            Text("Delete Account")
+                        }
+                    }
+                    .disabled(!settingsAreValid || operationInProgress)
                 }
                 
                 // Security section moved out to the main SlideDrawer menu
@@ -76,6 +110,20 @@ struct SyncSettingsView: View {
                 Button("OK", role: .cancel) { }
             } message: {
                 Text(alertMessage)
+            }
+            .alert("Delete Account", isPresented: $showingDeleteConfirmation) {
+                Button("Cancel", role: .cancel) { }
+                Button("Delete", role: .destructive) {
+                    showingFinalDeleteConfirmation = true
+                }
+            } message: {
+                Text("Delete the cloud account for \(email.trimmingCharacters(in: .whitespacesAndNewlines))?\n\nThis removes the account record and encrypted remote keybox data. Local keybox files on this device are not deleted.")
+            }
+            .alert("Confirm Account Deletion", isPresented: $showingFinalDeleteConfirmation) {
+                Button("Cancel", role: .cancel) { }
+                Button("Delete", role: .destructive, action: deleteAccount)
+            } message: {
+                Text("This action cannot be undone. Delete \(email.trimmingCharacters(in: .whitespacesAndNewlines))?")
             }
         }
         .sheet(isPresented: $showingSetupSheet) {
@@ -126,19 +174,27 @@ struct SyncSettingsView: View {
             return
         }
 
-        do {
-            try kbFile.setSyncUrl(syncUrl)
-            try kbFile.setEmail(email)
+        isRegistering = true
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                try kbFile.setSyncUrl(syncUrl)
+                try kbFile.setEmail(email)
 
-            var message: NSString?
-            try kbFile.register(withMessage: &message)
+                var message: NSString?
+                try kbFile.register(withMessage: &message)
+                let successMsg = message as String? ?? "Register success, please check your email to activate"
 
-            let successMsg = message as String? ?? "Register success, please check your email to activate"
-            showAlert(title: "Success", message: successMsg)
-            appState.saveFile()
-            dismiss()
-        } catch {
-            showAlert(title: "Error", message: "Failed to register: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    isRegistering = false
+                    appState.saveFile()
+                    showAlert(title: "Success", message: successMsg)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    isRegistering = false
+                    showAlert(title: "Error", message: "Failed to register: \(error.localizedDescription)")
+                }
+            }
         }
     }
 
@@ -189,6 +245,51 @@ struct SyncSettingsView: View {
         alertTitle = title
         alertMessage = message
         showingAlert = true
+    }
+
+    private func deleteAccount() {
+        guard let kbFile = appState.kbFile else {
+            showAlert(title: "Error", message: "No keybox file loaded")
+            return
+        }
+
+        let trimmedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedUrl = syncUrl.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedEmail.isEmpty else {
+            showAlert(title: "Error", message: "Email is required.")
+            return
+        }
+        guard !trimmedUrl.isEmpty else {
+            showAlert(title: "Error", message: "Sync server URL is required.")
+            return
+        }
+
+        isDeleting = true
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                try kbFile.setSyncUrl(trimmedUrl)
+                try kbFile.setEmail(trimmedEmail)
+
+                var message: NSString?
+                try kbFile.deleteRemoteAccount(withMessage: &message)
+
+                DispatchQueue.main.async {
+                    isDeleting = false
+                    showAlert(
+                        title: "Success",
+                        message: message as String? ?? "Account deleted."
+                    )
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    isDeleting = false
+                    showAlert(
+                        title: "Error",
+                        message: "Account deletion failed: \(error.localizedDescription)"
+                    )
+                }
+            }
+        }
     }
 }
 

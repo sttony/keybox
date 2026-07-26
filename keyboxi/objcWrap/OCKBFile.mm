@@ -645,6 +645,29 @@ typedef NS_ENUM(NSInteger, OCKBFileErrorCode) {
     return YES;
 }
 
+- (BOOL)deleteRemoteAccountWithMessage:(NSString **)outMessage error:(NSError **)error {
+    std::string message;
+    uint32_t result = _cppFile->DeleteRemoteAccount(message);
+
+    if (outMessage) {
+        *outMessage = [NSString stringWithUTF8String:message.c_str()];
+    }
+
+    if (result != 0) {
+        if (error) {
+            NSString *description = message.empty()
+                ? @"Account deletion failed"
+                : [NSString stringWithUTF8String:message.c_str()];
+            *error = [NSError errorWithDomain:OCKBFileErrorDomain
+                                        code:OCKBFileErrorRemoteSyncFailed
+                                    userInfo:@{NSLocalizedDescriptionKey: description}];
+        }
+        return NO;
+    }
+
+    return YES;
+}
+
 - (NSString *)getSyncUrl {
     std::string syncUrl = _cppFile->GetHeader().GetSyncUrl();
     return [NSString stringWithUTF8String:syncUrl.c_str()];

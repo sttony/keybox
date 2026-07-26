@@ -1,6 +1,6 @@
 VCPKG_ROOT = $(SRCROOT)/../vcpkg
-VCPKG_TRIPLET[sdk=iphoneos*] = arm64-ios
-VCPKG_TRIPLET[sdk=iphonesimulator*] = arm64-ios-simulator
+VCPKG_TRIPLET[sdk=iphoneos*] = arm64-keybox-ios
+VCPKG_TRIPLET[sdk=iphonesimulator*] = arm64-keybox-ios-simulator
 VCPKG_INCLUDE_DIR = $(VCPKG_ROOT)/installed/$(VCPKG_TRIPLET)/include
 VCPKG_LIBRARY_DIR = $(VCPKG_ROOT)/installed/$(VCPKG_TRIPLET)/lib
 

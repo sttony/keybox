@@ -79,10 +79,13 @@ class EmailAdapter:
             "fromAddress": "admin@k3ybox.us",
             "toAddress": f"{user.email}",
             "subject": "Someone try to install a new client for this email",
-            "content": f"""
-                Please fill the following code into your client:
-                {formatted_code}
-                """,
+            "content": (
+                "Please fill the following code into your client:\n\n"
+                f"{formatted_code}\n"
+            ),
+            # Zoho defaults to HTML, which collapses ordinary newline
+            # characters and displays the entire setup code on one line.
+            "mailFormat": "plaintext",
             "askReceipt": "no"
         }
         # Define the headers

@@ -34,8 +34,10 @@ Keypass is good, except it is a little bit complex for me, and it doesn't have t
     - `./bootstrap-vcpkg.sh`
     - Install vcpkg dependencies for device and simulator builds:
       ```bash
-      ./vcpkg install openssl curl --triplet arm64-ios
-      ./vcpkg install openssl curl --triplet arm64-ios-simulator
+      ./vcpkg install openssl curl zlib --triplet arm64-keybox-ios \
+        --overlay-triplets=/path/to/keybox/vcpkg-triplets
+      ./vcpkg install openssl curl zlib --triplet arm64-keybox-ios-simulator \
+        --overlay-triplets=/path/to/keybox/vcpkg-triplets
       ```
     - Use CMake to generate the Xcode project for `utilities`:
       ```bash

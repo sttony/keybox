@@ -221,6 +221,15 @@
 - (BOOL)setupNewClientWithUrl:(NSData **)outUrl error:(NSError **)error;
 
 /**
+ * Delete the account and encrypted keybox data from the remote server.
+ * Local keybox data is not removed.
+ * @param outMessage Pointer to NSString for server response message
+ * @param error Pointer to NSError for error information
+ * @return YES if deletion succeeded, NO otherwise
+ */
+- (BOOL)deleteRemoteAccountWithMessage:(NSString **)outMessage error:(NSError **)error;
+
+/**
  * Get sync URL from file header
  * @return NSString containing the sync URL
  */
