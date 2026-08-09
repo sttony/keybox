@@ -2,6 +2,10 @@
 // Created by tongl on 3/26/2024.
 //
 
+#include <QClipboard>
+#include <QGuiApplication>
+#include <QHBoxLayout>
+#include <QMessageBox>
 #include <QVBoxLayout>
 
 #include "CPwdGeneratorDlg.h"
@@ -58,12 +62,17 @@ CPwdGeneratorDlg::CPwdGeneratorDlg(QWidget *parent)
 
     rootLayout->addWidget(m_textPwd);
 
+    QHBoxLayout *buttonLayout = new QHBoxLayout;
     m_buttonRegenerate = new QPushButton("Re-generate");
-    rootLayout->addWidget(m_buttonRegenerate);
+    m_buttonCopy = new QPushButton("Copy");
+    buttonLayout->addWidget(m_buttonRegenerate);
+    buttonLayout->addWidget(m_buttonCopy);
+    rootLayout->addLayout(buttonLayout);
 
     this->setLayout(rootLayout);
 
     QObject::connect(m_buttonRegenerate, &QPushButton::clicked, this, &CPwdGeneratorDlg::onRegenerate);
+    QObject::connect(m_buttonCopy, &QPushButton::clicked, this, &CPwdGeneratorDlg::onCopy);
 
     //Check boxes
     QObject::connect(m_chkboxUpper, &QCheckBox::stateChanged, this, &CPwdGeneratorDlg::onUpperCheck);
@@ -94,6 +103,11 @@ void CPwdGeneratorDlg::RefreshPwd() {
 void CPwdGeneratorDlg::onRegenerate() {
     this->RefreshUI();
     this->RefreshPwd();
+}
+
+void CPwdGeneratorDlg::onCopy() {
+    QGuiApplication::clipboard()->setText(m_textPwd->GetPassword().Show().c_str());
+    QMessageBox::information(this, "Copy", "Password copied.");
 }
 
 void CPwdGeneratorDlg::RefreshUI() {

@@ -45,9 +45,11 @@ CSyncSettingDlg::CSyncSettingDlg(CKBModel* pModel, QWidget *parent) : QDialog(pa
     connect(m_registerBtn, &QPushButton::clicked, this, &CSyncSettingDlg::onSave);
     connect(m_setNewClientBtn, &QPushButton::clicked, this, &CSyncSettingDlg::onNewClient);
     connect(m_deleteAccountBtn, &QPushButton::clicked, this, &CSyncSettingDlg::onDeleteAccount);
+    connect(m_emailBox, &QLineEdit::textChanged, this, &CSyncSettingDlg::UpdateButtonStates);
+    connect(m_syncUrlBox, &QLineEdit::textChanged, this, &CSyncSettingDlg::UpdateButtonStates);
     QObject::connect(m_cancelBtn, &QPushButton::clicked, this, &QDialog::reject);
 
-    m_deleteAccountBtn->setEnabled(m_kbModel != nullptr);
+    UpdateButtonStates();
 }
 
 CSyncSettingDlg::~CSyncSettingDlg() {
@@ -59,6 +61,13 @@ CSyncSettingDlg::~CSyncSettingDlg() {
 CKBModel* CSyncSettingDlg::GetModel() {
     m_ownsModel = false;
     return m_kbModel;
+}
+
+void CSyncSettingDlg::UpdateButtonStates() {
+    const bool canDelete = m_kbModel != nullptr
+            && !m_emailBox->text().trimmed().isEmpty()
+            && !m_syncUrlBox->text().trimmed().isEmpty();
+    m_deleteAccountBtn->setEnabled(canDelete);
 }
 
 void CSyncSettingDlg::onSave() {
@@ -158,8 +167,13 @@ void CSyncSettingDlg::onDeleteAccount() {
     m_kbModel->SetEmail(m_emailBox->text().toStdString());
 
     const QString email = m_emailBox->text().trimmed();
+    const QString syncUrl = m_syncUrlBox->text().trimmed();
     if (email.isEmpty()) {
         QMessageBox::information(this, "Alert", "Email is required.");
+        return;
+    }
+    if (syncUrl.isEmpty()) {
+        QMessageBox::information(this, "Alert", "Sync server is required.");
         return;
     }
 

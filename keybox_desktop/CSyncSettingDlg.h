@@ -27,6 +27,8 @@ signals:
     void saveSignal(); // connect to main window save
 
 private:
+    void UpdateButtonStates();
+
     CKBModel* m_kbModel = nullptr;
     bool m_ownsModel = false;
 

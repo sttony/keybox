@@ -27,6 +27,17 @@
         p {
             color: #5f6368;
         }
+        .footer-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: #5f6368;
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+        .footer-link:hover {
+            color: #1a73e8;
+            text-decoration: underline;
+        }
         .search-container {
             margin-top: 2rem;
             display: flex;
@@ -84,6 +95,8 @@
             <button onclick="searchPublicKey()">Search Public Key</button>
             <div id="result"></div>
         </div>
+
+        <a class="footer-link" href="/privacy.html">Privacy Policy</a>
     </div>
 
     <script>

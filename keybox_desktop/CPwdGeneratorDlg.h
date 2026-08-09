@@ -21,6 +21,7 @@ public:
 
 private slots:
     void onRegenerate();
+    void onCopy();
     void onUpperCheck(int);
     void onLowerCheck(int);
     void onDigitsCheck(int);
@@ -54,6 +55,7 @@ private:
 
     CPasswordBox* m_textPwd;
     QPushButton* m_buttonRegenerate;
+    QPushButton* m_buttonCopy;
 
     void RefreshPwd();
 };
