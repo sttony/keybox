@@ -8,14 +8,11 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
 qt5_wrap_cpp(MOC_SOURCES MainWindow.h)
-include_directories(${Qt5Widgets_INCLUDE_DIRS})
 
 set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost REQUIRED unit_test_framework filesystem)
-include_directories(${Boost_INCLUDE_DIRS})
 
 find_package(OpenSSL REQUIRED)
-include_directories(${OPENSSL_INCLUDE_DIR})
 
 
 add_executable(keyboxd main.cpp
@@ -54,6 +51,5 @@ target_link_libraries(
         Qt5::Core
         Qt5::Widgets
         utilities
-        ${Boost_LIBRARIES}
-        ${OPENSSL_LIBRARIES}
+        Boost::filesystem
 )

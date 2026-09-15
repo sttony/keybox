@@ -24,5 +24,4 @@ ELSEIF (LINUX)
 ENDIF (WIN32)
 
 add_executable(keepassdump ${SOURCE_FILES})
-target_link_libraries(keepassdump utilities)
-target_link_libraries(keepassdump ${Boost_LIBRARIES} ${ZLIB_LIBRARIES} pugixml)
+target_link_libraries(keepassdump utilities pugixml)

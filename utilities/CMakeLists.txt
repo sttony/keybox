@@ -33,10 +33,6 @@ endif()
 find_package(OpenSSL REQUIRED)
 find_package(CURL REQUIRED)
 
-include_directories(${Boost_INCLUDE_DIRS})
-include_directories(${OPENSSL_INCLUDE_DIR})
-include_directories(${ZLIB_INCLUDE_DIRS})
-include_directories(${CURL_INCLUDE_DIRS})
 
 set(HEADER_FILES
         win32_handler.h
@@ -99,17 +95,16 @@ add_library(utilities STATIC ${SOURCE_FILES} ${HEADER_FILES})
 target_include_directories(utilities
         PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
-        ${Boost_INCLUDE_DIRS}
-        ${OPENSSL_INCLUDE_DIR}
-        PRIVATE
-        ${ZLIB_INCLUDE_DIRS}
-        ${CURL_INCLUDE_DIRS}
+        ${CMAKE_CURRENT_SOURCE_DIR}/..
 )
 
-target_link_libraries(utilities PRIVATE ${OPENSSL_LIBRARIES})
+target_link_libraries(utilities PUBLIC ZLIB::ZLIB OpenSSL::Crypto OpenSSL::SSL CURL::libcurl)
 
-target_link_libraries(utilities PRIVATE ${ZLIB_LIBRARIES})
-target_link_libraries(utilities PRIVATE ${CURL_LIBRARIES})
+if(ANDROID)
+    target_include_directories(utilities PUBLIC ${Boost_INCLUDE_DIRS})
+else()
+    target_link_libraries(utilities PUBLIC Boost::headers)
+endif()
 
 IF (WIN32)
     target_link_libraries(utilities
