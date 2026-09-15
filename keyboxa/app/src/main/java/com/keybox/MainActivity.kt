@@ -427,7 +427,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSyncInProgress(true)
 
         Thread {
-            val result = runCatching { kbFile.pushToRemote() }
+            val result = runCatching {
+                val retrieveResult = kbFile.retrieveFromRemote()
+                if (!retrieveResult.isSuccess) {
+                    retrieveResult
+                } else {
+                    kbFile.pushToRemote()
+                }
+            }
             runOnUiThread {
                 setSyncInProgress(false)
                 result.onSuccess { syncResult ->
@@ -443,6 +450,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         return@onSuccess
                     }
 
+                    refreshEntriesFromFile()
                     saveKeyboxFile()
                     AlertDialog.Builder(this)
                         .setTitle(R.string.sync_complete)
