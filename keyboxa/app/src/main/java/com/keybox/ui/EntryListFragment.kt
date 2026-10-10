@@ -1,9 +1,13 @@
 package com.keybox.ui
 
 import android.os.Bundle
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -41,7 +45,9 @@ class EntryListFragment : Fragment() {
 
         adapter = EntryAdapter(
             onEntryClick = ::openEntryEditor,
-            onEntryLongClick = ::confirmDeleteEntry
+            onEntryLongClick = ::copyPassword,
+            onDeleteEntry = ::confirmDeleteEntry,
+            onCopyPassword = ::copyPassword
         )
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
@@ -77,6 +83,12 @@ class EntryListFragment : Fragment() {
             .replace(R.id.nav_host_fragment, EntryEditorFragment.newInstance(entry))
             .addToBackStack(null)
             .commit()
+    }
+
+    private fun copyPassword(entry: Entry) {
+        val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        clipboard.setPrimaryClip(ClipData.newPlainText(entry.title, entry.password))
+        Toast.makeText(requireContext(), R.string.password_copied, Toast.LENGTH_SHORT).show()
     }
 
     private fun deleteEntry(entry: Entry) {
